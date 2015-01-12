@@ -1,15 +1,15 @@
 #include <string>
-#include "llvm/IR/LLVMContext.h"
+#include "llvm/ADT/ArrayRef.h"
+#include "llvm/ADT/StringRef.h"
+#include "llvm/ADT/Twine.h"
+#include "llvm/IR/Constants.h"
+#include "llvm/IR/DataLayout.h"
 #include "llvm/IR/DerivedTypes.h"
 #include "llvm/IR/Instruction.h"
-#include "llvm/IR/Type.h"
-#include "llvm/IR/Constants.h"
-#include "llvm/ADT/Twine.h"
+#include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/Module.h"
-#include "llvm/ADT/StringRef.h"
-#include "llvm/IR/DataLayout.h"
+#include "llvm/IR/Type.h"
 #include "llvm/IR/Value.h"
-#include "llvm/ADT/ArrayRef.h"
 
 struct llvm_ArrayRef_llvm_Type_ptr {
     ::llvm::Type* const* data;

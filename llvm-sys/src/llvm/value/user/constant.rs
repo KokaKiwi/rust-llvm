@@ -1,46 +1,3 @@
-pub type ConstantInner = ::ffi::llvm_Constant;
-
-pub trait ConstantExt: ::llvm::value::user::UserExt {
-
-    fn inner(&self) -> *mut ConstantInner;
-}
-
-pub struct Constant {
-    inner: *mut ConstantInner,
-}
-impl ::llvm::value::ValueExt for Constant {
-    fn inner(&self) -> *mut ::ffi::llvm_Value {
-        unsafe {
-            ::std::mem::transmute(self.inner)
-        }
-    }
-}
-impl ::llvm::value::user::UserExt for Constant {
-    fn inner(&self) -> *mut ::ffi::llvm_User {
-        unsafe {
-            ::std::mem::transmute(self.inner)
-        }
-    }
-}
-impl ConstantExt for Constant {
-    fn inner(&self) -> *mut ConstantInner {
-        self.inner
-    }
-}
-impl Constant {
-    pub unsafe fn from_inner(inner: *mut ConstantInner) -> Constant {
-        Constant {
-            inner: inner,
-        }
-    }
-}
-impl Drop for Constant {
-    fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
-        }
-    }
-}
 pub type BlockAddressInner = ::ffi::llvm_BlockAddress;
 
 pub trait BlockAddressExt: ::llvm::value::user::constant::ConstantExt {
@@ -85,6 +42,49 @@ impl BlockAddress {
     }
 }
 impl Drop for BlockAddress {
+    fn drop(&mut self) {
+        unsafe {
+            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+        }
+    }
+}
+pub type ConstantInner = ::ffi::llvm_Constant;
+
+pub trait ConstantExt: ::llvm::value::user::UserExt {
+
+    fn inner(&self) -> *mut ConstantInner;
+}
+
+pub struct Constant {
+    inner: *mut ConstantInner,
+}
+impl ::llvm::value::ValueExt for Constant {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ::llvm::value::user::UserExt for Constant {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ConstantExt for Constant {
+    fn inner(&self) -> *mut ConstantInner {
+        self.inner
+    }
+}
+impl Constant {
+    pub unsafe fn from_inner(inner: *mut ConstantInner) -> Constant {
+        Constant {
+            inner: inner,
+        }
+    }
+}
+impl Drop for Constant {
     fn drop(&mut self) {
         unsafe {
             ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
@@ -191,6 +191,63 @@ impl Drop for ConstantArray {
         }
     }
 }
+pub type ConstantDataArrayInner = ::ffi::llvm_ConstantDataArray;
+
+pub trait ConstantDataArrayExt: ::llvm::value::user::constant::ConstantDataSequentialExt {
+
+    fn inner(&self) -> *mut ConstantDataArrayInner;
+}
+
+pub struct ConstantDataArray {
+    inner: *mut ConstantDataArrayInner,
+}
+impl ::llvm::value::ValueExt for ConstantDataArray {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ::llvm::value::user::UserExt for ConstantDataArray {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ::llvm::value::user::constant::ConstantExt for ConstantDataArray {
+    fn inner(&self) -> *mut ::ffi::llvm_Constant {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ::llvm::value::user::constant::ConstantDataSequentialExt for ConstantDataArray {
+    fn inner(&self) -> *mut ::ffi::llvm_ConstantDataSequential {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ConstantDataArrayExt for ConstantDataArray {
+    fn inner(&self) -> *mut ConstantDataArrayInner {
+        self.inner
+    }
+}
+impl ConstantDataArray {
+    pub unsafe fn from_inner(inner: *mut ConstantDataArrayInner) -> ConstantDataArray {
+        ConstantDataArray {
+            inner: inner,
+        }
+    }
+}
+impl Drop for ConstantDataArray {
+    fn drop(&mut self) {
+        unsafe {
+            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+        }
+    }
+}
 pub type ConstantDataSequentialInner = ::ffi::llvm_ConstantDataSequential;
 
 pub trait ConstantDataSequentialExt: ::llvm::value::user::constant::ConstantExt {
@@ -235,6 +292,63 @@ impl ConstantDataSequential {
     }
 }
 impl Drop for ConstantDataSequential {
+    fn drop(&mut self) {
+        unsafe {
+            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+        }
+    }
+}
+pub type ConstantDataVectorInner = ::ffi::llvm_ConstantDataVector;
+
+pub trait ConstantDataVectorExt: ::llvm::value::user::constant::ConstantDataSequentialExt {
+
+    fn inner(&self) -> *mut ConstantDataVectorInner;
+}
+
+pub struct ConstantDataVector {
+    inner: *mut ConstantDataVectorInner,
+}
+impl ::llvm::value::ValueExt for ConstantDataVector {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ::llvm::value::user::UserExt for ConstantDataVector {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ::llvm::value::user::constant::ConstantExt for ConstantDataVector {
+    fn inner(&self) -> *mut ::ffi::llvm_Constant {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ::llvm::value::user::constant::ConstantDataSequentialExt for ConstantDataVector {
+    fn inner(&self) -> *mut ::ffi::llvm_ConstantDataSequential {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ConstantDataVectorExt for ConstantDataVector {
+    fn inner(&self) -> *mut ConstantDataVectorInner {
+        self.inner
+    }
+}
+impl ConstantDataVector {
+    pub unsafe fn from_inner(inner: *mut ConstantDataVectorInner) -> ConstantDataVector {
+        ConstantDataVector {
+            inner: inner,
+        }
+    }
+}
+impl Drop for ConstantDataVector {
     fn drop(&mut self) {
         unsafe {
             ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
@@ -635,120 +749,6 @@ impl UndefValue {
     }
 }
 impl Drop for UndefValue {
-    fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
-        }
-    }
-}
-pub type ConstantDataArrayInner = ::ffi::llvm_ConstantDataArray;
-
-pub trait ConstantDataArrayExt: ::llvm::value::user::constant::ConstantDataSequentialExt {
-
-    fn inner(&self) -> *mut ConstantDataArrayInner;
-}
-
-pub struct ConstantDataArray {
-    inner: *mut ConstantDataArrayInner,
-}
-impl ::llvm::value::ValueExt for ConstantDataArray {
-    fn inner(&self) -> *mut ::ffi::llvm_Value {
-        unsafe {
-            ::std::mem::transmute(self.inner)
-        }
-    }
-}
-impl ::llvm::value::user::UserExt for ConstantDataArray {
-    fn inner(&self) -> *mut ::ffi::llvm_User {
-        unsafe {
-            ::std::mem::transmute(self.inner)
-        }
-    }
-}
-impl ::llvm::value::user::constant::ConstantExt for ConstantDataArray {
-    fn inner(&self) -> *mut ::ffi::llvm_Constant {
-        unsafe {
-            ::std::mem::transmute(self.inner)
-        }
-    }
-}
-impl ::llvm::value::user::constant::ConstantDataSequentialExt for ConstantDataArray {
-    fn inner(&self) -> *mut ::ffi::llvm_ConstantDataSequential {
-        unsafe {
-            ::std::mem::transmute(self.inner)
-        }
-    }
-}
-impl ConstantDataArrayExt for ConstantDataArray {
-    fn inner(&self) -> *mut ConstantDataArrayInner {
-        self.inner
-    }
-}
-impl ConstantDataArray {
-    pub unsafe fn from_inner(inner: *mut ConstantDataArrayInner) -> ConstantDataArray {
-        ConstantDataArray {
-            inner: inner,
-        }
-    }
-}
-impl Drop for ConstantDataArray {
-    fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
-        }
-    }
-}
-pub type ConstantDataVectorInner = ::ffi::llvm_ConstantDataVector;
-
-pub trait ConstantDataVectorExt: ::llvm::value::user::constant::ConstantDataSequentialExt {
-
-    fn inner(&self) -> *mut ConstantDataVectorInner;
-}
-
-pub struct ConstantDataVector {
-    inner: *mut ConstantDataVectorInner,
-}
-impl ::llvm::value::ValueExt for ConstantDataVector {
-    fn inner(&self) -> *mut ::ffi::llvm_Value {
-        unsafe {
-            ::std::mem::transmute(self.inner)
-        }
-    }
-}
-impl ::llvm::value::user::UserExt for ConstantDataVector {
-    fn inner(&self) -> *mut ::ffi::llvm_User {
-        unsafe {
-            ::std::mem::transmute(self.inner)
-        }
-    }
-}
-impl ::llvm::value::user::constant::ConstantExt for ConstantDataVector {
-    fn inner(&self) -> *mut ::ffi::llvm_Constant {
-        unsafe {
-            ::std::mem::transmute(self.inner)
-        }
-    }
-}
-impl ::llvm::value::user::constant::ConstantDataSequentialExt for ConstantDataVector {
-    fn inner(&self) -> *mut ::ffi::llvm_ConstantDataSequential {
-        unsafe {
-            ::std::mem::transmute(self.inner)
-        }
-    }
-}
-impl ConstantDataVectorExt for ConstantDataVector {
-    fn inner(&self) -> *mut ConstantDataVectorInner {
-        self.inner
-    }
-}
-impl ConstantDataVector {
-    pub unsafe fn from_inner(inner: *mut ConstantDataVectorInner) -> ConstantDataVector {
-        ConstantDataVector {
-            inner: inner,
-        }
-    }
-}
-impl Drop for ConstantDataVector {
     fn drop(&mut self) {
         unsafe {
             ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
