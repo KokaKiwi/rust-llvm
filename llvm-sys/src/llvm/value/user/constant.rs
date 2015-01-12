@@ -844,6 +844,487 @@ impl Drop for ConstantVector {
         }
     }
 }
+pub type FunctionInner = ::ffi::llvm_Function;
+
+pub trait FunctionExt: ::llvm::value::user::constant::GlobalObjectExt {
+
+    fn inner_llvm_Function(&self) -> *mut FunctionInner;
+    fn inner(&self) -> *mut FunctionInner {
+        self.inner_llvm_Function()
+    }
+
+    fn add_fn_attr(&mut self, kind: &str) {
+        unsafe {
+            let c_kind = ::ffi::llvm_StringRef {
+                data: kind.as_ptr() as *const ::libc::c_char,
+                length: kind.len() as ::libc::size_t,
+            };
+            ::ffi::llvm::Function_addFnAttr(self.inner_llvm_Function(), c_kind);
+        }
+    }
+
+    fn add_fn_attr_with_value(&mut self, kind: &str, val: &str) {
+        unsafe {
+            let c_kind = ::ffi::llvm_StringRef {
+                data: kind.as_ptr() as *const ::libc::c_char,
+                length: kind.len() as ::libc::size_t,
+            };
+            let c_val = ::ffi::llvm_StringRef {
+                data: val.as_ptr() as *const ::libc::c_char,
+                length: val.len() as ::libc::size_t,
+            };
+            ::ffi::llvm::Function_addFnAttrWithValue(self.inner_llvm_Function(), c_kind, c_val);
+        }
+    }
+
+    fn cannot_duplicate(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::Function_cannotDuplicate(self.inner_llvm_Function() as *const ::ffi::llvm_Function)
+        }
+    }
+
+    fn clear_gc(&mut self) {
+        unsafe {
+            ::ffi::llvm::Function_clearGC(self.inner_llvm_Function());
+        }
+    }
+
+    fn copy_attributes_from(&mut self, src: &::llvm::value::user::constant::GlobalValueExt) {
+        unsafe {
+            ::ffi::llvm::Function_copyAttributesFrom(self.inner_llvm_Function(), src.inner_llvm_GlobalValue());
+        }
+    }
+
+    fn delete_body(&mut self) {
+        unsafe {
+            ::ffi::llvm::Function_deleteBody(self.inner_llvm_Function());
+        }
+    }
+
+    fn does_not_access_memory(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::Function_doesNotAccessMemory(self.inner_llvm_Function() as *const ::ffi::llvm_Function)
+        }
+    }
+
+    fn does_not_access_memory_param(&self, n: u32) -> bool {
+        unsafe {
+            ::ffi::llvm::Function_doesNotAccessMemoryParam(self.inner_llvm_Function() as *const ::ffi::llvm_Function, n as ::libc::c_uint)
+        }
+    }
+
+    fn does_not_alias(&self, n: u32) -> bool {
+        unsafe {
+            ::ffi::llvm::Function_doesNotAlias(self.inner_llvm_Function() as *const ::ffi::llvm_Function, n as ::libc::c_uint)
+        }
+    }
+
+    fn does_not_capture(&self, n: u32) -> bool {
+        unsafe {
+            ::ffi::llvm::Function_doesNotCapture(self.inner_llvm_Function() as *const ::ffi::llvm_Function, n as ::libc::c_uint)
+        }
+    }
+
+    fn does_not_return(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::Function_doesNotReturn(self.inner_llvm_Function() as *const ::ffi::llvm_Function)
+        }
+    }
+
+    fn does_not_throw(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::Function_doesNotThrow(self.inner_llvm_Function() as *const ::ffi::llvm_Function)
+        }
+    }
+
+    fn erase_from_parent(&mut self) {
+        unsafe {
+            ::ffi::llvm::Function_eraseFromParent(self.inner_llvm_Function());
+        }
+    }
+
+    fn get_calling_conv(&self) -> ::ffi::llvm_CallingConv_ID {
+        unsafe {
+            ::ffi::llvm::Function_getCallingConv(self.inner_llvm_Function() as *const ::ffi::llvm_Function)
+        }
+    }
+
+    fn get_context(&self) -> ::llvm::LLVMContext {
+        unsafe {
+            ::llvm::LLVMContext::from_inner(::ffi::llvm::Function_getContext(self.inner_llvm_Function() as *const ::ffi::llvm_Function))
+        }
+    }
+
+    fn get_dereferenceable_bytes(&self, idx: u32) -> u64 {
+        unsafe {
+            ::ffi::llvm::Function_getDereferenceableBytes(self.inner_llvm_Function() as *const ::ffi::llvm_Function, idx as ::libc::c_uint) as u64
+        }
+    }
+
+    fn get_function_type(&self) -> ::llvm::ty::FunctionType {
+        unsafe {
+            ::llvm::ty::FunctionType::from_inner(::ffi::llvm::Function_getFunctionType(self.inner_llvm_Function() as *const ::ffi::llvm_Function))
+        }
+    }
+
+    fn get_intrinsic_id(&self) -> u32 {
+        unsafe {
+            ::ffi::llvm::Function_getIntrinsicID(self.inner_llvm_Function() as *const ::ffi::llvm_Function) as u32
+        }
+    }
+
+    fn get_param_alignment(&self, idx: u32) -> u32 {
+        unsafe {
+            ::ffi::llvm::Function_getParamAlignment(self.inner_llvm_Function() as *const ::ffi::llvm_Function, idx as ::libc::c_uint) as u32
+        }
+    }
+
+    fn get_return_type(&self) -> ::llvm::ty::Type {
+        unsafe {
+            ::llvm::ty::Type::from_inner(::ffi::llvm::Function_getReturnType(self.inner_llvm_Function() as *const ::ffi::llvm_Function))
+        }
+    }
+
+    fn has_fn_attr(&self, kind: &str) -> bool {
+        unsafe {
+            let c_kind = ::ffi::llvm_StringRef {
+                data: kind.as_ptr() as *const ::libc::c_char,
+                length: kind.len() as ::libc::size_t,
+            };
+            ::ffi::llvm::Function_hasFnAttr(self.inner_llvm_Function() as *const ::ffi::llvm_Function, c_kind)
+        }
+    }
+
+    fn has_gc(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::Function_hasGC(self.inner_llvm_Function() as *const ::ffi::llvm_Function)
+        }
+    }
+
+    fn has_struct_ret_attr(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::Function_hasStructRetAttr(self.inner_llvm_Function() as *const ::ffi::llvm_Function)
+        }
+    }
+
+    fn has_uw_table(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::Function_hasUWTable(self.inner_llvm_Function() as *const ::ffi::llvm_Function)
+        }
+    }
+
+    fn is_intrinsic(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::Function_isIntrinsic(self.inner_llvm_Function() as *const ::ffi::llvm_Function)
+        }
+    }
+
+    fn is_var_arg(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::Function_isVarArg(self.inner_llvm_Function() as *const ::ffi::llvm_Function)
+        }
+    }
+
+    fn needs_unwind_table_entry(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::Function_needsUnwindTableEntry(self.inner_llvm_Function() as *const ::ffi::llvm_Function)
+        }
+    }
+
+    fn only_reads_memory(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::Function_onlyReadsMemory(self.inner_llvm_Function() as *const ::ffi::llvm_Function)
+        }
+    }
+
+    fn only_reads_memory_param(&self, n: u32) -> bool {
+        unsafe {
+            ::ffi::llvm::Function_onlyReadsMemoryParam(self.inner_llvm_Function() as *const ::ffi::llvm_Function, n as ::libc::c_uint)
+        }
+    }
+
+    fn remove_from_parent(&mut self) {
+        unsafe {
+            ::ffi::llvm::Function_removeFromParent(self.inner_llvm_Function());
+        }
+    }
+
+    fn set_calling_conv(&mut self, cc: ::ffi::llvm_CallingConv_ID) {
+        unsafe {
+            ::ffi::llvm::Function_setCallingConv(self.inner_llvm_Function(), cc);
+        }
+    }
+
+    fn set_cannot_duplicate(&mut self) {
+        unsafe {
+            ::ffi::llvm::Function_setCannotDuplicate(self.inner_llvm_Function());
+        }
+    }
+
+    fn set_does_not_access_memory(&mut self) {
+        unsafe {
+            ::ffi::llvm::Function_setDoesNotAccessMemory(self.inner_llvm_Function());
+        }
+    }
+
+    fn set_does_not_access_memory_param(&mut self, n: u32) {
+        unsafe {
+            ::ffi::llvm::Function_setDoesNotAccessMemoryParam(self.inner_llvm_Function(), n as ::libc::c_uint);
+        }
+    }
+
+    fn set_does_not_alias(&mut self, n: u32) {
+        unsafe {
+            ::ffi::llvm::Function_setDoesNotAlias(self.inner_llvm_Function(), n as ::libc::c_uint);
+        }
+    }
+
+    fn set_does_not_capture(&mut self, n: u32) {
+        unsafe {
+            ::ffi::llvm::Function_setDoesNotCapture(self.inner_llvm_Function(), n as ::libc::c_uint);
+        }
+    }
+
+    fn set_does_not_return(&mut self) {
+        unsafe {
+            ::ffi::llvm::Function_setDoesNotReturn(self.inner_llvm_Function());
+        }
+    }
+
+    fn set_does_not_throw(&mut self) {
+        unsafe {
+            ::ffi::llvm::Function_setDoesNotThrow(self.inner_llvm_Function());
+        }
+    }
+
+    fn set_has_uw_table(&mut self) {
+        unsafe {
+            ::ffi::llvm::Function_setHasUWTable(self.inner_llvm_Function());
+        }
+    }
+
+    fn set_only_reads_memory(&mut self) {
+        unsafe {
+            ::ffi::llvm::Function_setOnlyReadsMemory(self.inner_llvm_Function());
+        }
+    }
+
+    fn set_only_reads_memory_param(&mut self, n: u32) {
+        unsafe {
+            ::ffi::llvm::Function_setOnlyReadsMemoryParam(self.inner_llvm_Function(), n as ::libc::c_uint);
+        }
+    }
+}
+
+pub struct Function {
+    inner: *mut FunctionInner,
+}
+impl ::llvm::value::ValueExt for Function {
+    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ::llvm::value::user::UserExt for Function {
+    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ::llvm::value::user::constant::ConstantExt for Function {
+    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ::llvm::value::user::constant::GlobalValueExt for Function {
+    fn inner_llvm_GlobalValue(&self) -> *mut ::ffi::llvm_GlobalValue {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ::llvm::value::user::constant::GlobalObjectExt for Function {
+    fn inner_llvm_GlobalObject(&self) -> *mut ::ffi::llvm_GlobalObject {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl FunctionExt for Function {
+    fn inner_llvm_Function(&self) -> *mut FunctionInner {
+        self.inner
+    }
+}
+impl Function {
+    pub unsafe fn from_inner(inner: *mut FunctionInner) -> Function {
+        Function {
+            inner: inner,
+        }
+    }
+
+    pub fn create(ty: &::llvm::ty::FunctionTypeExt, linkage: ::ffi::llvm_GlobalValue_LinkageTypes) -> ::llvm::value::user::constant::Function {
+        unsafe {
+            ::llvm::value::user::constant::Function::from_inner(::ffi::llvm::Function_Create(ty.inner_llvm_FunctionType(), linkage))
+        }
+    }
+
+    pub fn create_with_name(ty: &::llvm::ty::FunctionTypeExt, linkage: ::ffi::llvm_GlobalValue_LinkageTypes, name: &str) -> ::llvm::value::user::constant::Function {
+        unsafe {
+            let c_name = ::ffi::llvm_StringRef {
+                data: name.as_ptr() as *const ::libc::c_char,
+                length: name.len() as ::libc::size_t,
+            };
+            ::llvm::value::user::constant::Function::from_inner(::ffi::llvm::Function_CreateWithName(ty.inner_llvm_FunctionType(), linkage, c_name))
+        }
+    }
+
+    pub fn classof(val: &::llvm::value::ValueExt) -> bool {
+        unsafe {
+            ::ffi::llvm::Function_classof(val.inner_llvm_Value())
+        }
+    }
+}
+impl Drop for Function {
+    fn drop(&mut self) {
+        unsafe {
+            ::ffi::llvm::Function_delete(::llvm::value::user::constant::FunctionExt::inner_llvm_Function(self));
+        }
+    }
+}
+pub type GlobalAliasInner = ::ffi::llvm_GlobalAlias;
+
+pub trait GlobalAliasExt: ::llvm::value::user::constant::GlobalValueExt {
+
+    fn inner_llvm_GlobalAlias(&self) -> *mut GlobalAliasInner;
+    fn inner(&self) -> *mut GlobalAliasInner {
+        self.inner_llvm_GlobalAlias()
+    }
+}
+
+pub struct GlobalAlias {
+    inner: *mut GlobalAliasInner,
+}
+impl ::llvm::value::ValueExt for GlobalAlias {
+    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ::llvm::value::user::UserExt for GlobalAlias {
+    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ::llvm::value::user::constant::ConstantExt for GlobalAlias {
+    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ::llvm::value::user::constant::GlobalValueExt for GlobalAlias {
+    fn inner_llvm_GlobalValue(&self) -> *mut ::ffi::llvm_GlobalValue {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl GlobalAliasExt for GlobalAlias {
+    fn inner_llvm_GlobalAlias(&self) -> *mut GlobalAliasInner {
+        self.inner
+    }
+}
+impl GlobalAlias {
+    pub unsafe fn from_inner(inner: *mut GlobalAliasInner) -> GlobalAlias {
+        GlobalAlias {
+            inner: inner,
+        }
+    }
+}
+impl Drop for GlobalAlias {
+    fn drop(&mut self) {
+        unsafe {
+            ::ffi::llvm::GlobalValue_delete(::llvm::value::user::constant::GlobalValueExt::inner_llvm_GlobalValue(self));
+        }
+    }
+}
+pub type GlobalObjectInner = ::ffi::llvm_GlobalObject;
+
+pub trait GlobalObjectExt: ::llvm::value::user::constant::GlobalValueExt {
+
+    fn inner_llvm_GlobalObject(&self) -> *mut GlobalObjectInner;
+    fn inner(&self) -> *mut GlobalObjectInner {
+        self.inner_llvm_GlobalObject()
+    }
+
+    fn set_section(&mut self, s: &str) {
+        unsafe {
+            let c_s = ::ffi::llvm_StringRef {
+                data: s.as_ptr() as *const ::libc::c_char,
+                length: s.len() as ::libc::size_t,
+            };
+            ::ffi::llvm::GlobalObject_setSection(self.inner_llvm_GlobalObject(), c_s);
+        }
+    }
+}
+
+pub struct GlobalObject {
+    inner: *mut GlobalObjectInner,
+}
+impl ::llvm::value::ValueExt for GlobalObject {
+    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ::llvm::value::user::UserExt for GlobalObject {
+    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ::llvm::value::user::constant::ConstantExt for GlobalObject {
+    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ::llvm::value::user::constant::GlobalValueExt for GlobalObject {
+    fn inner_llvm_GlobalValue(&self) -> *mut ::ffi::llvm_GlobalValue {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl GlobalObjectExt for GlobalObject {
+    fn inner_llvm_GlobalObject(&self) -> *mut GlobalObjectInner {
+        self.inner
+    }
+}
+impl GlobalObject {
+    pub unsafe fn from_inner(inner: *mut GlobalObjectInner) -> GlobalObject {
+        GlobalObject {
+            inner: inner,
+        }
+    }
+}
+impl Drop for GlobalObject {
+    fn drop(&mut self) {
+        unsafe {
+            ::ffi::llvm::GlobalValue_delete(::llvm::value::user::constant::GlobalValueExt::inner_llvm_GlobalValue(self));
+        }
+    }
+}
 pub type GlobalValueInner = ::ffi::llvm_GlobalValue;
 
 pub trait GlobalValueExt: ::llvm::value::user::constant::ConstantExt {
@@ -851,6 +1332,216 @@ pub trait GlobalValueExt: ::llvm::value::user::constant::ConstantExt {
     fn inner_llvm_GlobalValue(&self) -> *mut GlobalValueInner;
     fn inner(&self) -> *mut GlobalValueInner {
         self.inner_llvm_GlobalValue()
+    }
+
+    fn copy_attributes_from(&mut self, src: &::llvm::value::user::constant::GlobalValueExt) {
+        unsafe {
+            ::ffi::llvm::GlobalValue_copyAttributesFrom(self.inner_llvm_GlobalValue(), src.inner_llvm_GlobalValue());
+        }
+    }
+
+    fn destroy_constant(&mut self) {
+        unsafe {
+            ::ffi::llvm::GlobalValue_destroyConstant(self.inner_llvm_GlobalValue());
+        }
+    }
+
+    fn erase_from_parent(&mut self) {
+        unsafe {
+            ::ffi::llvm::GlobalValue_eraseFromParent(self.inner_llvm_GlobalValue());
+        }
+    }
+
+    fn get_alignment(&self) -> u32 {
+        unsafe {
+            ::ffi::llvm::GlobalValue_getAlignment(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue) as u32
+        }
+    }
+
+    fn get_data_layout(&self) -> ::llvm::DataLayout {
+        unsafe {
+            ::llvm::DataLayout::from_inner(::ffi::llvm::GlobalValue_getDataLayout(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue) as *mut ::ffi::llvm_DataLayout)
+        }
+    }
+
+    fn get_parent(&self) -> ::llvm::Module {
+        unsafe {
+            ::llvm::Module::from_inner(::ffi::llvm::GlobalValue_getParent(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue) as *mut ::ffi::llvm_Module)
+        }
+    }
+
+    fn get_parent_mut(&mut self) -> ::llvm::Module {
+        unsafe {
+            ::llvm::Module::from_inner(::ffi::llvm::GlobalValue_getParentMut(self.inner_llvm_GlobalValue()))
+        }
+    }
+
+    fn get_type(&self) -> ::llvm::ty::seq::PointerType {
+        unsafe {
+            ::llvm::ty::seq::PointerType::from_inner(::ffi::llvm::GlobalValue_getType(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue))
+        }
+    }
+
+    fn has_appending_linkage(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_hasAppendingLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn has_available_externally_linkage(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_hasAvailableExternallyLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn has_common_linkage(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_hasCommonLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn has_dll_export_storage_class(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_hasDLLExportStorageClass(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn has_dll_import_storage_class(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_hasDLLImportStorageClass(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn has_default_visibility(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_hasDefaultVisibility(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn has_external_linkage(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_hasExternalLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn has_external_weak_linkage(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_hasExternalWeakLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn has_hidden_visibility(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_hasHiddenVisibility(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn has_internal_linkage(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_hasInternalLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn has_link_once_linkage(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_hasLinkOnceLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn has_local_linkage(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_hasLocalLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn has_private_linkage(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_hasPrivateLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn has_protected_visibility(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_hasProtectedVisibility(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn has_section(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_hasSection(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn has_unnamed_addr(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_hasUnnamedAddr(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn has_weak_any_linkage(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_hasWeakAnyLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn has_weak_linkage(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_hasWeakLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn has_weak_odr_linkage(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_hasWeakODRLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn is_declaration(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_isDeclaration(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn is_discardable_if_unused(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_isDiscardableIfUnused(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn is_thread_local(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_isThreadLocal(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn is_weak_for_linker(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_isWeakForLinker(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn may_be_overridden(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalValue_mayBeOverridden(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue)
+        }
+    }
+
+    fn remove_from_parent(&mut self) {
+        unsafe {
+            ::ffi::llvm::GlobalValue_removeFromParent(self.inner_llvm_GlobalValue());
+        }
+    }
+
+    fn set_thread_local(&mut self, val: bool) {
+        unsafe {
+            ::ffi::llvm::GlobalValue_setThreadLocal(self.inner_llvm_GlobalValue(), val);
+        }
+    }
+
+    fn set_unnamed_addr(&mut self, val: bool) {
+        unsafe {
+            ::ffi::llvm::GlobalValue_setUnnamedAddr(self.inner_llvm_GlobalValue(), val);
+        }
     }
 }
 
@@ -893,7 +1584,164 @@ impl GlobalValue {
 impl Drop for GlobalValue {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            ::ffi::llvm::GlobalValue_delete(::llvm::value::user::constant::GlobalValueExt::inner_llvm_GlobalValue(self));
+        }
+    }
+}
+pub type GlobalVariableInner = ::ffi::llvm_GlobalVariable;
+
+pub trait GlobalVariableExt: ::llvm::value::user::constant::GlobalObjectExt {
+
+    fn inner_llvm_GlobalVariable(&self) -> *mut GlobalVariableInner;
+    fn inner(&self) -> *mut GlobalVariableInner {
+        self.inner_llvm_GlobalVariable()
+    }
+
+    fn copy_attributes_from(&mut self, src: &::llvm::value::user::constant::GlobalValueExt) {
+        unsafe {
+            ::ffi::llvm::GlobalVariable_copyAttributesFrom(self.inner_llvm_GlobalVariable(), src.inner_llvm_GlobalValue());
+        }
+    }
+
+    fn erase_from_parent(&mut self) {
+        unsafe {
+            ::ffi::llvm::GlobalVariable_eraseFromParent(self.inner_llvm_GlobalVariable());
+        }
+    }
+
+    fn get_initializer(&self) -> ::llvm::value::user::constant::Constant {
+        unsafe {
+            ::llvm::value::user::constant::Constant::from_inner(::ffi::llvm::GlobalVariable_getInitializer(self.inner_llvm_GlobalVariable() as *const ::ffi::llvm_GlobalVariable) as *mut ::ffi::llvm_Constant)
+        }
+    }
+
+    fn get_initializer_mut(&mut self) -> ::llvm::value::user::constant::Constant {
+        unsafe {
+            ::llvm::value::user::constant::Constant::from_inner(::ffi::llvm::GlobalVariable_getInitializerMut(self.inner_llvm_GlobalVariable()))
+        }
+    }
+
+    fn has_definitive_initializer(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalVariable_hasDefinitiveInitializer(self.inner_llvm_GlobalVariable() as *const ::ffi::llvm_GlobalVariable)
+        }
+    }
+
+    fn has_initializer(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalVariable_hasInitializer(self.inner_llvm_GlobalVariable() as *const ::ffi::llvm_GlobalVariable)
+        }
+    }
+
+    fn has_unique_initializer(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalVariable_hasUniqueInitializer(self.inner_llvm_GlobalVariable() as *const ::ffi::llvm_GlobalVariable)
+        }
+    }
+
+    fn is_constant(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalVariable_isConstant(self.inner_llvm_GlobalVariable() as *const ::ffi::llvm_GlobalVariable)
+        }
+    }
+
+    fn is_externally_initialized(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::GlobalVariable_isExternallyInitialized(self.inner_llvm_GlobalVariable() as *const ::ffi::llvm_GlobalVariable)
+        }
+    }
+
+    fn remove_from_parent(&mut self) {
+        unsafe {
+            ::ffi::llvm::GlobalVariable_removeFromParent(self.inner_llvm_GlobalVariable());
+        }
+    }
+
+    fn set_constant(&mut self, val: bool) {
+        unsafe {
+            ::ffi::llvm::GlobalVariable_setConstant(self.inner_llvm_GlobalVariable(), val);
+        }
+    }
+
+    fn set_externally_initialized(&mut self, val: bool) {
+        unsafe {
+            ::ffi::llvm::GlobalVariable_setExternallyInitialized(self.inner_llvm_GlobalVariable(), val);
+        }
+    }
+
+    fn set_initializer(&mut self, init_val: &::llvm::value::user::constant::ConstantExt) {
+        unsafe {
+            ::ffi::llvm::GlobalVariable_setInitializer(self.inner_llvm_GlobalVariable(), init_val.inner_llvm_Constant());
+        }
+    }
+}
+
+pub struct GlobalVariable {
+    inner: *mut GlobalVariableInner,
+}
+impl ::llvm::value::ValueExt for GlobalVariable {
+    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ::llvm::value::user::UserExt for GlobalVariable {
+    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ::llvm::value::user::constant::ConstantExt for GlobalVariable {
+    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ::llvm::value::user::constant::GlobalValueExt for GlobalVariable {
+    fn inner_llvm_GlobalValue(&self) -> *mut ::ffi::llvm_GlobalValue {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl ::llvm::value::user::constant::GlobalObjectExt for GlobalVariable {
+    fn inner_llvm_GlobalObject(&self) -> *mut ::ffi::llvm_GlobalObject {
+        unsafe {
+            ::std::mem::transmute(self.inner)
+        }
+    }
+}
+impl GlobalVariableExt for GlobalVariable {
+    fn inner_llvm_GlobalVariable(&self) -> *mut GlobalVariableInner {
+        self.inner
+    }
+}
+impl GlobalVariable {
+    pub unsafe fn from_inner(inner: *mut GlobalVariableInner) -> GlobalVariable {
+        GlobalVariable {
+            inner: inner,
+        }
+    }
+
+    pub fn new(ty: &::llvm::ty::TypeExt, is_constant: bool, linkage: ::ffi::llvm_GlobalValue_LinkageTypes) -> ::llvm::value::user::constant::GlobalVariable {
+        unsafe {
+            ::llvm::value::user::constant::GlobalVariable::from_inner(::ffi::llvm::GlobalVariable_new(ty.inner_llvm_Type(), is_constant, linkage))
+        }
+    }
+
+    pub fn new_with_module(module: &::llvm::ModuleExt, ty: &::llvm::ty::TypeExt, is_constant: bool, linkage: ::ffi::llvm_GlobalValue_LinkageTypes, initializer: &::llvm::value::user::constant::ConstantExt) -> ::llvm::value::user::constant::GlobalVariable {
+        unsafe {
+            ::llvm::value::user::constant::GlobalVariable::from_inner(::ffi::llvm::GlobalVariable_newWithModule(module.inner_llvm_Module(), ty.inner_llvm_Type(), is_constant, linkage, initializer.inner_llvm_Constant()))
+        }
+    }
+}
+impl Drop for GlobalVariable {
+    fn drop(&mut self) {
+        unsafe {
+            ::ffi::llvm::GlobalVariable_delete(::llvm::value::user::constant::GlobalVariableExt::inner_llvm_GlobalVariable(self));
         }
     }
 }

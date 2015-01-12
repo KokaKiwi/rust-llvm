@@ -81,6 +81,27 @@ pub struct llvm_ConstantStruct;
 pub struct llvm_ConstantVector;
 #[repr(C)]
 #[derive(Copy)]
+pub enum llvm_GlobalValue_LinkageTypes {
+    ExternalLinkage,
+    AvailableExternallyLinkage,
+    LinkOnceAnyLinkage,
+    LinkOnceODRLinkage,
+    WeakAnyLinkage,
+    WeakODRLinkage,
+    AppendingLinkage,
+    InternalLinkage,
+    PrivateLinkage,
+    ExternalWeakLinkage,
+    CommonLinkage,
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct llvm_StringRef {
+    pub data: *const ::libc::c_char,
+    pub length: ::libc::size_t,
+}
+#[repr(C)]
+#[derive(Copy)]
 pub struct llvm_DataLayout;
 #[repr(C)]
 #[derive(Copy)]
@@ -99,13 +120,25 @@ pub struct llvm_FPToSIInst;
 pub struct llvm_FenceInst;
 #[repr(C)]
 #[derive(Copy)]
+pub struct llvm_Function;
+#[repr(C)]
+#[derive(Copy)]
 pub struct llvm_FunctionType;
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_GetElementPtrInst;
 #[repr(C)]
 #[derive(Copy)]
+pub struct llvm_GlobalAlias;
+#[repr(C)]
+#[derive(Copy)]
+pub struct llvm_GlobalObject;
+#[repr(C)]
+#[derive(Copy)]
 pub struct llvm_GlobalValue;
+#[repr(C)]
+#[derive(Copy)]
+pub struct llvm_GlobalVariable;
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_IndirectBrInst;
@@ -204,12 +237,6 @@ pub struct llvm_Value;
 pub struct llvm_VectorType;
 #[repr(C)]
 #[derive(Copy)]
-pub struct llvm_StringRef {
-    pub data: *const ::libc::c_char,
-    pub length: ::libc::size_t,
-}
-#[repr(C)]
-#[derive(Copy)]
 pub struct llvm_ArrayRef_llvm_Type_ptr {
     pub data: *const *mut llvm_Type,
     pub length: ::libc::size_t,
@@ -219,6 +246,33 @@ pub struct llvm_ArrayRef_llvm_Type_ptr {
 pub struct llvm_ArrayRef_llvm_Constant_ptr {
     pub data: *const *mut llvm_Constant,
     pub length: ::libc::size_t,
+}
+#[repr(C)]
+#[derive(Copy)]
+pub enum llvm_CallingConv_ID {
+    C = 0,
+    Fast = 8,
+    Cold = 9,
+    GHC = 10,
+    HiPE = 11,
+    WebKit_JS = 12,
+    AnyReg = 13,
+    PreserveMost = 14,
+    PreserveAll = 15,
+    X86_StdCall = 64,
+    X86_FastCall = 65,
+    ARM_APCS = 66,
+    ARM_AAPCS = 67,
+    ARM_AAPCS_VFP = 68,
+    MSP430_INTR = 69,
+    X86_ThisCall = 70,
+    PTX_Kernel = 71,
+    PTX_Device = 72,
+    SPIR_FUNC = 75,
+    SPIR_KERNEL = 76,
+    Intel_OCL_BI = 77,
+    X86_64_SysV = 78,
+    X86_64_Win64 = 79,
 }
 #[repr(C)]
 #[derive(Copy)]
@@ -261,12 +315,18 @@ pub struct llvm_ArrayRef__libc_uint64_t {
 
 mod raw {
     extern "C" {
+        pub fn llvm_Function_Create(Ty: *mut super::llvm_FunctionType, Linkage: super::llvm_GlobalValue_LinkageTypes) -> *mut super::llvm_Function;
+        pub fn llvm_Function_CreateWithName(Ty: *mut super::llvm_FunctionType, Linkage: super::llvm_GlobalValue_LinkageTypes, Name: super::llvm_StringRef) -> *mut super::llvm_Function;
+        pub fn llvm_Function_addFnAttr(inst: *mut super::llvm_Function, Kind: super::llvm_StringRef) -> ::libc::c_void;
+        pub fn llvm_Function_addFnAttrWithValue(inst: *mut super::llvm_Function, Kind: super::llvm_StringRef, Val: super::llvm_StringRef) -> ::libc::c_void;
         pub fn llvm_Module_appendModuleInlineAsm(inst: *mut super::llvm_Module, Asm: super::llvm_StringRef) -> ::libc::c_void;
         pub fn llvm_Constant_canTrap(inst: *const super::llvm_Constant) -> ::libc::c_int;
+        pub fn llvm_Function_cannotDuplicate(inst: *const super::llvm_Function) -> ::libc::c_int;
         pub fn llvm_ArrayType_classof(ty: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_CompositeType_classof(ty: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Constant_classof(V: *const super::llvm_Value) -> ::libc::c_int;
         pub fn llvm_ConstantArray_classof(V: *const super::llvm_Value) -> ::libc::c_int;
+        pub fn llvm_Function_classof(Val: *const super::llvm_Value) -> ::libc::c_int;
         pub fn llvm_FunctionType_classof(ty: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_IntegerType_classof(ty: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_PointerType_classof(ty: *const super::llvm_Type) -> ::libc::c_int;
@@ -274,16 +334,34 @@ mod raw {
         pub fn llvm_StructType_classof(ty: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_User_classof(V: *mut super::llvm_Value) -> ::libc::c_int;
         pub fn llvm_VectorType_classof(ty: *const super::llvm_Type) -> ::libc::c_int;
+        pub fn llvm_Function_clearGC(inst: *mut super::llvm_Function) -> ::libc::c_void;
+        pub fn llvm_Function_copyAttributesFrom(inst: *mut super::llvm_Function, Src: *mut super::llvm_GlobalValue) -> ::libc::c_void;
+        pub fn llvm_GlobalValue_copyAttributesFrom(inst: *mut super::llvm_GlobalValue, Src: *mut super::llvm_GlobalValue) -> ::libc::c_void;
+        pub fn llvm_GlobalVariable_copyAttributesFrom(inst: *mut super::llvm_GlobalVariable, Src: *mut super::llvm_GlobalValue) -> ::libc::c_void;
         pub fn llvm_StructType_create(ctx: *mut super::llvm_LLVMContext, Elements: super::llvm_ArrayRef_llvm_Type_ptr, Name: super::llvm_StringRef) -> *mut super::llvm_StructType;
         pub fn llvm_StructType_createPacked(ctx: *mut super::llvm_LLVMContext, Elements: super::llvm_ArrayRef_llvm_Type_ptr, Name: super::llvm_StringRef, isPacked: ::libc::c_int) -> *mut super::llvm_StructType;
+        pub fn llvm_Function_delete(inst: *mut super::llvm_Function) -> ::libc::c_void;
+        pub fn llvm_GlobalValue_delete(inst: *mut super::llvm_GlobalValue) -> ::libc::c_void;
+        pub fn llvm_GlobalVariable_delete(inst: *mut super::llvm_GlobalVariable) -> ::libc::c_void;
         pub fn llvm_Module_delete(inst: *mut super::llvm_Module) -> ::libc::c_void;
         pub fn llvm_User_delete(inst: *mut super::llvm_User) -> ::libc::c_void;
         pub fn llvm_Value_delete(inst: *mut super::llvm_Value) -> ::libc::c_void;
+        pub fn llvm_Function_deleteBody(inst: *mut super::llvm_Function) -> ::libc::c_void;
         pub fn llvm_Constant_destroyConstant(inst: *mut super::llvm_Constant) -> ::libc::c_void;
+        pub fn llvm_GlobalValue_destroyConstant(inst: *mut super::llvm_GlobalValue) -> ::libc::c_void;
+        pub fn llvm_Function_doesNotAccessMemory(inst: *const super::llvm_Function) -> ::libc::c_int;
+        pub fn llvm_Function_doesNotAccessMemoryParam(inst: *const super::llvm_Function, n: ::libc::c_uint) -> ::libc::c_int;
+        pub fn llvm_Function_doesNotAlias(inst: *const super::llvm_Function, n: ::libc::c_uint) -> ::libc::c_int;
+        pub fn llvm_Function_doesNotCapture(inst: *const super::llvm_Function, n: ::libc::c_uint) -> ::libc::c_int;
+        pub fn llvm_Function_doesNotReturn(inst: *const super::llvm_Function) -> ::libc::c_int;
+        pub fn llvm_Function_doesNotThrow(inst: *const super::llvm_Function) -> ::libc::c_int;
         pub fn llvm_User_dropAllReferences(inst: *mut super::llvm_User) -> ::libc::c_void;
         pub fn llvm_Module_dump(inst: *const super::llvm_Module) -> ::libc::c_void;
         pub fn llvm_Type_dump(inst: *const super::llvm_Type) -> ::libc::c_void;
         pub fn llvm_Value_dump(inst: *const super::llvm_Value) -> ::libc::c_void;
+        pub fn llvm_Function_eraseFromParent(inst: *mut super::llvm_Function) -> ::libc::c_void;
+        pub fn llvm_GlobalValue_eraseFromParent(inst: *mut super::llvm_GlobalValue) -> ::libc::c_void;
+        pub fn llvm_GlobalVariable_eraseFromParent(inst: *mut super::llvm_GlobalVariable) -> ::libc::c_void;
         pub fn llvm_ArrayType_get(ElementType: *mut super::llvm_Type, NumElements: ::libc::uint64_t) -> *mut super::llvm_ArrayType;
         pub fn llvm_ConstantArray_get(Ty: *mut super::llvm_ArrayType, Values: super::llvm_ArrayRef_llvm_Constant_ptr) -> *mut super::llvm_Constant;
         pub fn llvm_FunctionType_get(Result: *mut super::llvm_Type, Params: super::llvm_ArrayRef_llvm_Type_ptr, isVarArg: ::libc::c_int) -> *mut super::llvm_FunctionType;
@@ -293,16 +371,21 @@ mod raw {
         pub fn llvm_PointerType_getAddressSpace(inst: *const super::llvm_PointerType) -> ::libc::c_uint;
         pub fn llvm_Constant_getAggregateElement(inst: *const super::llvm_Constant, Elt: ::libc::c_uint) -> *mut super::llvm_Constant;
         pub fn llvm_Constant_getAggregateElementConstant(inst: *const super::llvm_Constant, Elt: *mut super::llvm_Constant) -> *mut super::llvm_Constant;
+        pub fn llvm_GlobalValue_getAlignment(inst: *const super::llvm_GlobalValue) -> ::libc::c_uint;
         pub fn llvm_Constant_getAllOnesValue(Ty: *mut super::llvm_Type) -> *mut super::llvm_Constant;
         pub fn llvm_IntegerType_getBitMask(inst: *const super::llvm_IntegerType) -> ::libc::uint64_t;
         pub fn llvm_IntegerType_getBitWidth(inst: *const super::llvm_IntegerType) -> ::libc::c_uint;
         pub fn llvm_VectorType_getBitWidth(inst: *const super::llvm_VectorType) -> ::libc::c_uint;
+        pub fn llvm_Function_getCallingConv(inst: *const super::llvm_Function) -> super::llvm_CallingConv_ID;
         pub fn llvm_Type_getContainedType(inst: *const super::llvm_Type, idx: ::libc::c_uint) -> *mut super::llvm_Type;
+        pub fn llvm_Function_getContext(inst: *const super::llvm_Function) -> *mut super::llvm_LLVMContext;
         pub fn llvm_Module_getContext(inst: *const super::llvm_Module) -> *mut super::llvm_LLVMContext;
         pub fn llvm_Type_getContext(inst: *const super::llvm_Type) -> *mut super::llvm_LLVMContext;
         pub fn llvm_Value_getContext(inst: *const super::llvm_Value) -> *mut super::llvm_LLVMContext;
+        pub fn llvm_GlobalValue_getDataLayout(inst: *const super::llvm_GlobalValue) -> *const super::llvm_DataLayout;
         pub fn llvm_Module_getDataLayout(inst: *const super::llvm_Module) -> *const super::llvm_DataLayout;
         pub fn llvm_Module_getDataLayoutStr(inst: *const super::llvm_Module) -> super::std_string_const;
+        pub fn llvm_Function_getDereferenceableBytes(inst: *const super::llvm_Function, idx: ::libc::c_uint) -> ::libc::uint64_t;
         pub fn llvm_VectorType_getDoubleElementsVectorType(ty: *mut super::llvm_VectorType) -> *mut super::llvm_VectorType;
         pub fn llvm_Type_getDoublePtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
         pub fn llvm_Type_getDoubleTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
@@ -315,10 +398,13 @@ mod raw {
         pub fn llvm_Type_getFloatTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
         pub fn llvm_Type_getFunctionNumParams(inst: *const super::llvm_Type) -> ::libc::c_uint;
         pub fn llvm_Type_getFunctionParamType(inst: *const super::llvm_Type, idx: ::libc::c_uint) -> *mut super::llvm_Type;
+        pub fn llvm_Function_getFunctionType(inst: *const super::llvm_Function) -> *mut super::llvm_FunctionType;
         pub fn llvm_getGlobalContext() -> *mut super::llvm_LLVMContext;
         pub fn llvm_VectorType_getHalfElementsVectorType(ty: *mut super::llvm_VectorType) -> *mut super::llvm_VectorType;
         pub fn llvm_Type_getHalfPtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
         pub fn llvm_Type_getHalfTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
+        pub fn llvm_GlobalVariable_getInitializer(inst: *const super::llvm_GlobalVariable) -> *const super::llvm_Constant;
+        pub fn llvm_GlobalVariable_getInitializerMut(inst: *mut super::llvm_GlobalVariable) -> *mut super::llvm_Constant;
         pub fn llvm_Type_getInt16PtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
         pub fn llvm_Type_getInt16Ty(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_IntegerType;
         pub fn llvm_Type_getInt1PtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
@@ -333,6 +419,7 @@ mod raw {
         pub fn llvm_Type_getIntNTy(ctx: *mut super::llvm_LLVMContext, size: ::libc::c_uint) -> *mut super::llvm_IntegerType;
         pub fn llvm_VectorType_getInteger(ty: *mut super::llvm_VectorType) -> *mut super::llvm_VectorType;
         pub fn llvm_Constant_getIntegerValue(Ty: *mut super::llvm_Type, Value: super::llvm_APInt) -> *mut super::llvm_Constant;
+        pub fn llvm_Function_getIntrinsicID(inst: *const super::llvm_Function) -> ::libc::c_uint;
         pub fn llvm_Type_getLabelTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
         pub fn llvm_Module_getMDKindID(inst: *const super::llvm_Module, Name: super::llvm_StringRef) -> ::libc::c_uint;
         pub fn llvm_Type_getMetadataTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
@@ -353,10 +440,14 @@ mod raw {
         pub fn llvm_Module_getOrInsertFunction(inst: *mut super::llvm_Module, Name: super::llvm_StringRef, ty: *mut super::llvm_FunctionType) -> *mut super::llvm_Constant;
         pub fn llvm_Type_getPPC_FP128PtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
         pub fn llvm_Type_getPPC_FP128Ty(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
+        pub fn llvm_Function_getParamAlignment(inst: *const super::llvm_Function, idx: ::libc::c_uint) -> ::libc::c_uint;
         pub fn llvm_FunctionType_getParamType(inst: *const super::llvm_FunctionType, idx: ::libc::c_uint) -> *mut super::llvm_Type;
+        pub fn llvm_GlobalValue_getParent(inst: *const super::llvm_GlobalValue) -> *const super::llvm_Module;
+        pub fn llvm_GlobalValue_getParentMut(inst: *mut super::llvm_GlobalValue) -> *mut super::llvm_Module;
         pub fn llvm_Type_getPointerAddressSpace(inst: *const super::llvm_Type) -> ::libc::c_uint;
         pub fn llvm_Type_getPointerElementType(inst: *const super::llvm_Type) -> *mut super::llvm_Type;
         pub fn llvm_Type_getPointerTo(inst: *mut super::llvm_Type, idx: ::libc::c_uint) -> *mut super::llvm_PointerType;
+        pub fn llvm_Function_getReturnType(inst: *const super::llvm_Function) -> *mut super::llvm_Type;
         pub fn llvm_FunctionType_getReturnType(inst: *const super::llvm_FunctionType) -> *mut super::llvm_Type;
         pub fn llvm_Type_getSequentialElementType(inst: *const super::llvm_Type) -> *mut super::llvm_Type;
         pub fn llvm_IntegerType_getSignBit(inst: *const super::llvm_IntegerType) -> ::libc::uint64_t;
@@ -367,6 +458,7 @@ mod raw {
         pub fn llvm_Module_getTargetTriple(inst: *const super::llvm_Module) -> super::std_string_const;
         pub fn llvm_VectorType_getTruncatedElementVectorType(ty: *mut super::llvm_VectorType) -> *mut super::llvm_VectorType;
         pub fn llvm_ConstantArray_getType(inst: *const super::llvm_ConstantArray) -> *mut super::llvm_Type;
+        pub fn llvm_GlobalValue_getType(inst: *const super::llvm_GlobalValue) -> *mut super::llvm_PointerType;
         pub fn llvm_Value_getType(inst: *const super::llvm_Value) -> *mut super::llvm_Type;
         pub fn llvm_CompositeType_getTypeAtIndex(inst: *mut super::llvm_CompositeType, idx: ::libc::c_uint) -> *mut super::llvm_Type;
         pub fn llvm_Module_getTypeByName(inst: *const super::llvm_Module, Name: super::llvm_StringRef) -> *mut super::llvm_StructType;
@@ -378,19 +470,49 @@ mod raw {
         pub fn llvm_Type_getX86_FP80Ty(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
         pub fn llvm_Type_getX86_MMXPtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
         pub fn llvm_Type_getX86_MMXTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
+        pub fn llvm_GlobalValue_hasAppendingLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_hasAvailableExternallyLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_hasCommonLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_hasDLLExportStorageClass(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_hasDLLImportStorageClass(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_hasDefaultVisibility(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_GlobalVariable_hasDefinitiveInitializer(inst: *const super::llvm_GlobalVariable) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_hasExternalLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_hasExternalWeakLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_Function_hasFnAttr(inst: *const super::llvm_Function, Kind: super::llvm_StringRef) -> ::libc::c_int;
+        pub fn llvm_Function_hasGC(inst: *const super::llvm_Function) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_hasHiddenVisibility(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_GlobalVariable_hasInitializer(inst: *const super::llvm_GlobalVariable) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_hasInternalLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_hasLinkOnceLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_hasLocalLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
         pub fn llvm_Value_hasNUses(inst: *const super::llvm_Value, N: ::libc::c_uint) -> ::libc::c_int;
         pub fn llvm_Value_hasNUsesOrMore(inst: *const super::llvm_Value, N: ::libc::c_uint) -> ::libc::c_int;
         pub fn llvm_StructType_hasName(inst: *const super::llvm_StructType) -> ::libc::c_int;
         pub fn llvm_Value_hasName(inst: *const super::llvm_Value) -> ::libc::c_int;
         pub fn llvm_Value_hasOneUse(inst: *const super::llvm_Value) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_hasPrivateLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_hasProtectedVisibility(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_hasSection(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_Function_hasStructRetAttr(inst: *const super::llvm_Function) -> ::libc::c_int;
+        pub fn llvm_Function_hasUWTable(inst: *const super::llvm_Function) -> ::libc::c_int;
+        pub fn llvm_GlobalVariable_hasUniqueInitializer(inst: *const super::llvm_GlobalVariable) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_hasUnnamedAddr(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_hasWeakAnyLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_hasWeakLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_hasWeakODRLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
         pub fn llvm_CompositeType_indexValid(inst: *const super::llvm_CompositeType, idx: ::libc::c_uint) -> ::libc::c_int;
         pub fn llvm_Type_isAggregateType(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Constant_isAllOnesValue(inst: *const super::llvm_Constant) -> ::libc::c_int;
         pub fn llvm_Type_isArrayTy(inst: *const super::llvm_Type) -> ::libc::c_int;
+        pub fn llvm_GlobalVariable_isConstant(inst: *const super::llvm_GlobalVariable) -> ::libc::c_int;
         pub fn llvm_Constant_isConstantUsed(inst: *const super::llvm_Constant) -> ::libc::c_int;
         pub fn llvm_Constant_isDLLImportDependent(inst: *const super::llvm_Constant) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_isDeclaration(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_isDiscardableIfUnused(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
         pub fn llvm_Type_isDoubleTy(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Type_isEmptyTy(inst: *const super::llvm_Type) -> ::libc::c_int;
+        pub fn llvm_GlobalVariable_isExternallyInitialized(inst: *const super::llvm_GlobalVariable) -> ::libc::c_int;
         pub fn llvm_Type_isFP128Ty(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Type_isFPOrFPVectorTy(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Type_isFirstClassType(inst: *const super::llvm_Type) -> ::libc::c_int;
@@ -401,6 +523,7 @@ mod raw {
         pub fn llvm_Type_isHalfTy(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Type_isIntOrIntVectorTy(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Type_isIntegerTy(inst: *const super::llvm_Type) -> ::libc::c_int;
+        pub fn llvm_Function_isIntrinsic(inst: *const super::llvm_Function) -> ::libc::c_int;
         pub fn llvm_Type_isLabelTy(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_StructType_isLayoutIdentical(inst: *const super::llvm_StructType, Other: *mut super::llvm_StructType) -> ::libc::c_int;
         pub fn llvm_StructType_isLiteral(inst: *const super::llvm_StructType) -> ::libc::c_int;
@@ -419,6 +542,7 @@ mod raw {
         pub fn llvm_Type_isSized(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Type_isStructTy(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Constant_isThreadDependent(inst: *const super::llvm_Constant) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_isThreadLocal(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
         pub fn llvm_Value_isUsedInBasicBlock(inst: *const super::llvm_Value, BB: *const super::llvm_BasicBlock) -> ::libc::c_int;
         pub fn llvm_FunctionType_isValidArgumentType(ty: *mut super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_ArrayType_isValidElementType(ty: *mut super::llvm_Type) -> ::libc::c_int;
@@ -426,27 +550,55 @@ mod raw {
         pub fn llvm_StructType_isValidElementType(ty: *mut super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_VectorType_isValidElementType(ty: *mut super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_FunctionType_isValidReturnType(ty: *mut super::llvm_Type) -> ::libc::c_int;
+        pub fn llvm_Function_isVarArg(inst: *const super::llvm_Function) -> ::libc::c_int;
         pub fn llvm_FunctionType_isVarArg(inst: *const super::llvm_FunctionType) -> ::libc::c_int;
         pub fn llvm_Type_isVectorTy(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Type_isVoidTy(inst: *const super::llvm_Type) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_isWeakForLinker(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
         pub fn llvm_Type_isX86_FP80Ty(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Type_isX86_MMXTy(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Constant_isZeroValue(inst: *const super::llvm_Constant) -> ::libc::c_int;
+        pub fn llvm_GlobalValue_mayBeOverridden(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
         pub fn llvm_Value_mutateType(inst: *mut super::llvm_Value, ty: *mut super::llvm_Type) -> ::libc::c_void;
+        pub fn llvm_Function_needsUnwindTableEntry(inst: *const super::llvm_Function) -> ::libc::c_int;
+        pub fn llvm_GlobalVariable_new(Ty: *mut super::llvm_Type, isConstant: ::libc::c_int, Linkage: super::llvm_GlobalValue_LinkageTypes) -> *mut super::llvm_GlobalVariable;
         pub fn llvm_Module_new(ModuleID: super::llvm_StringRef, Context: *mut super::llvm_LLVMContext) -> *mut super::llvm_Module;
+        pub fn llvm_GlobalVariable_newWithModule(Module: *mut super::llvm_Module, Ty: *mut super::llvm_Type, isConstant: ::libc::c_int, Linkage: super::llvm_GlobalValue_LinkageTypes, Initializer: *mut super::llvm_Constant) -> *mut super::llvm_GlobalVariable;
+        pub fn llvm_Function_onlyReadsMemory(inst: *const super::llvm_Function) -> ::libc::c_int;
+        pub fn llvm_Function_onlyReadsMemoryParam(inst: *const super::llvm_Function, n: ::libc::c_uint) -> ::libc::c_int;
         pub fn llvm_Constant_removeDeadConstantUsers(inst: *const super::llvm_Constant) -> ::libc::c_void;
+        pub fn llvm_Function_removeFromParent(inst: *mut super::llvm_Function) -> ::libc::c_void;
+        pub fn llvm_GlobalValue_removeFromParent(inst: *mut super::llvm_GlobalValue) -> ::libc::c_void;
+        pub fn llvm_GlobalVariable_removeFromParent(inst: *mut super::llvm_GlobalVariable) -> ::libc::c_void;
         pub fn llvm_Value_replaceAllUsesWith(inst: *mut super::llvm_Value, Value: *mut super::llvm_Value) -> ::libc::c_void;
         pub fn llvm_User_replaceUsesOfWith(inst: *mut super::llvm_User, From: *mut super::llvm_Value, To: *mut super::llvm_Value) -> ::libc::c_void;
         pub fn llvm_StructType_setBody(inst: *mut super::llvm_StructType, Elements: super::llvm_ArrayRef_llvm_Type_ptr) -> ::libc::c_void;
         pub fn llvm_StructType_setBodyPacked(inst: *mut super::llvm_StructType, Elements: super::llvm_ArrayRef_llvm_Type_ptr, isPacked: ::libc::c_int) -> ::libc::c_void;
+        pub fn llvm_Function_setCallingConv(inst: *mut super::llvm_Function, CC: super::llvm_CallingConv_ID) -> ::libc::c_void;
+        pub fn llvm_Function_setCannotDuplicate(inst: *mut super::llvm_Function) -> ::libc::c_void;
+        pub fn llvm_GlobalVariable_setConstant(inst: *mut super::llvm_GlobalVariable, Val: ::libc::c_int) -> ::libc::c_void;
         pub fn llvm_Module_setDataLayout(inst: *mut super::llvm_Module, Other: *const super::llvm_DataLayout) -> ::libc::c_void;
         pub fn llvm_Module_setDataLayoutStr(inst: *mut super::llvm_Module, Desc: super::llvm_StringRef) -> ::libc::c_void;
+        pub fn llvm_Function_setDoesNotAccessMemory(inst: *mut super::llvm_Function) -> ::libc::c_void;
+        pub fn llvm_Function_setDoesNotAccessMemoryParam(inst: *mut super::llvm_Function, n: ::libc::c_uint) -> ::libc::c_void;
+        pub fn llvm_Function_setDoesNotAlias(inst: *mut super::llvm_Function, n: ::libc::c_uint) -> ::libc::c_void;
+        pub fn llvm_Function_setDoesNotCapture(inst: *mut super::llvm_Function, n: ::libc::c_uint) -> ::libc::c_void;
+        pub fn llvm_Function_setDoesNotReturn(inst: *mut super::llvm_Function) -> ::libc::c_void;
+        pub fn llvm_Function_setDoesNotThrow(inst: *mut super::llvm_Function) -> ::libc::c_void;
+        pub fn llvm_GlobalVariable_setExternallyInitialized(inst: *mut super::llvm_GlobalVariable, Val: ::libc::c_int) -> ::libc::c_void;
+        pub fn llvm_Function_setHasUWTable(inst: *mut super::llvm_Function) -> ::libc::c_void;
+        pub fn llvm_GlobalVariable_setInitializer(inst: *mut super::llvm_GlobalVariable, InitVal: *mut super::llvm_Constant) -> ::libc::c_void;
         pub fn llvm_Module_setModuleIdentifier(inst: *mut super::llvm_Module, ID: super::llvm_StringRef) -> ::libc::c_void;
         pub fn llvm_Module_setModuleInlineAsm(inst: *mut super::llvm_Module, Asm: super::llvm_StringRef) -> ::libc::c_void;
         pub fn llvm_StructType_setName(inst: *mut super::llvm_StructType, Name: super::llvm_StringRef) -> ::libc::c_void;
         pub fn llvm_Value_setName(inst: *mut super::llvm_Value, Name: super::llvm_StringRef) -> ::libc::c_void;
+        pub fn llvm_Function_setOnlyReadsMemory(inst: *mut super::llvm_Function) -> ::libc::c_void;
+        pub fn llvm_Function_setOnlyReadsMemoryParam(inst: *mut super::llvm_Function, n: ::libc::c_uint) -> ::libc::c_void;
         pub fn llvm_User_setOperand(inst: *mut super::llvm_User, idx: ::libc::c_uint, Val: *mut super::llvm_Value) -> ::libc::c_void;
+        pub fn llvm_GlobalObject_setSection(inst: *mut super::llvm_GlobalObject, S: super::llvm_StringRef) -> ::libc::c_void;
         pub fn llvm_Module_setTargetTriple(inst: *mut super::llvm_Module, Triple: super::llvm_StringRef) -> ::libc::c_void;
+        pub fn llvm_GlobalValue_setThreadLocal(inst: *mut super::llvm_GlobalValue, Val: ::libc::c_int) -> ::libc::c_void;
+        pub fn llvm_GlobalValue_setUnnamedAddr(inst: *mut super::llvm_GlobalValue, Val: ::libc::c_int) -> ::libc::c_void;
         pub fn llvm_Constant_stripPointerCasts(inst: *const super::llvm_Constant) -> *const super::llvm_Constant;
         pub fn llvm_Constant_stripPointerCastsMut(inst: *mut super::llvm_Constant) -> *mut super::llvm_Constant;
         pub fn llvm_Value_takeName(inst: *mut super::llvm_Value, Value: *mut super::llvm_Value) -> ::libc::c_void;
@@ -454,7 +606,7 @@ mod raw {
 }
 
 pub mod llvm {
-    use super::raw;
+    pub use super::raw;
 
     // ::llvm::ArrayType::classof
     #[inline(always)]
@@ -478,6 +630,10 @@ pub mod llvm {
     #[inline(always)]
     pub unsafe fn ArrayType_isValidElementType(ty: *mut super::llvm_Type) -> bool {
         raw::llvm_ArrayType_isValidElementType(ty) != 0
+    }
+
+    pub mod CallingConv {
+        pub use super::raw;
     }
 
     // ::llvm::CompositeType::classof
@@ -636,6 +792,276 @@ pub mod llvm {
         raw::llvm_ConstantArray_getType(inst)
     }
 
+    // ::llvm::Function::Create
+    #[inline(always)]
+    pub unsafe fn Function_Create(Ty: *mut super::llvm_FunctionType, Linkage: super::llvm_GlobalValue_LinkageTypes) -> *mut super::llvm_Function {
+        raw::llvm_Function_Create(Ty, Linkage)
+    }
+
+    // ::llvm::Function::CreateWithName
+    #[inline(always)]
+    pub unsafe fn Function_CreateWithName(Ty: *mut super::llvm_FunctionType, Linkage: super::llvm_GlobalValue_LinkageTypes, Name: super::llvm_StringRef) -> *mut super::llvm_Function {
+        raw::llvm_Function_CreateWithName(Ty, Linkage, Name)
+    }
+
+    // ::llvm::Function::addFnAttr
+    #[inline(always)]
+    pub unsafe fn Function_addFnAttr(inst: *mut super::llvm_Function, Kind: super::llvm_StringRef) -> ::libc::c_void {
+        raw::llvm_Function_addFnAttr(inst, Kind)
+    }
+
+    // ::llvm::Function::addFnAttrWithValue
+    #[inline(always)]
+    pub unsafe fn Function_addFnAttrWithValue(inst: *mut super::llvm_Function, Kind: super::llvm_StringRef, Val: super::llvm_StringRef) -> ::libc::c_void {
+        raw::llvm_Function_addFnAttrWithValue(inst, Kind, Val)
+    }
+
+    // ::llvm::Function::cannotDuplicate
+    #[inline(always)]
+    pub unsafe fn Function_cannotDuplicate(inst: *const super::llvm_Function) -> bool {
+        raw::llvm_Function_cannotDuplicate(inst) != 0
+    }
+
+    // ::llvm::Function::classof
+    #[inline(always)]
+    pub unsafe fn Function_classof(Val: *const super::llvm_Value) -> bool {
+        raw::llvm_Function_classof(Val) != 0
+    }
+
+    // ::llvm::Function::clearGC
+    #[inline(always)]
+    pub unsafe fn Function_clearGC(inst: *mut super::llvm_Function) -> ::libc::c_void {
+        raw::llvm_Function_clearGC(inst)
+    }
+
+    // ::llvm::Function::copyAttributesFrom
+    #[inline(always)]
+    pub unsafe fn Function_copyAttributesFrom(inst: *mut super::llvm_Function, Src: *mut super::llvm_GlobalValue) -> ::libc::c_void {
+        raw::llvm_Function_copyAttributesFrom(inst, Src)
+    }
+
+    // ::llvm::Function::delete
+    #[inline(always)]
+    pub unsafe fn Function_delete(inst: *mut super::llvm_Function) -> ::libc::c_void {
+        raw::llvm_Function_delete(inst)
+    }
+
+    // ::llvm::Function::deleteBody
+    #[inline(always)]
+    pub unsafe fn Function_deleteBody(inst: *mut super::llvm_Function) -> ::libc::c_void {
+        raw::llvm_Function_deleteBody(inst)
+    }
+
+    // ::llvm::Function::doesNotAccessMemory
+    #[inline(always)]
+    pub unsafe fn Function_doesNotAccessMemory(inst: *const super::llvm_Function) -> bool {
+        raw::llvm_Function_doesNotAccessMemory(inst) != 0
+    }
+
+    // ::llvm::Function::doesNotAccessMemoryParam
+    #[inline(always)]
+    pub unsafe fn Function_doesNotAccessMemoryParam(inst: *const super::llvm_Function, n: ::libc::c_uint) -> bool {
+        raw::llvm_Function_doesNotAccessMemoryParam(inst, n) != 0
+    }
+
+    // ::llvm::Function::doesNotAlias
+    #[inline(always)]
+    pub unsafe fn Function_doesNotAlias(inst: *const super::llvm_Function, n: ::libc::c_uint) -> bool {
+        raw::llvm_Function_doesNotAlias(inst, n) != 0
+    }
+
+    // ::llvm::Function::doesNotCapture
+    #[inline(always)]
+    pub unsafe fn Function_doesNotCapture(inst: *const super::llvm_Function, n: ::libc::c_uint) -> bool {
+        raw::llvm_Function_doesNotCapture(inst, n) != 0
+    }
+
+    // ::llvm::Function::doesNotReturn
+    #[inline(always)]
+    pub unsafe fn Function_doesNotReturn(inst: *const super::llvm_Function) -> bool {
+        raw::llvm_Function_doesNotReturn(inst) != 0
+    }
+
+    // ::llvm::Function::doesNotThrow
+    #[inline(always)]
+    pub unsafe fn Function_doesNotThrow(inst: *const super::llvm_Function) -> bool {
+        raw::llvm_Function_doesNotThrow(inst) != 0
+    }
+
+    // ::llvm::Function::eraseFromParent
+    #[inline(always)]
+    pub unsafe fn Function_eraseFromParent(inst: *mut super::llvm_Function) -> ::libc::c_void {
+        raw::llvm_Function_eraseFromParent(inst)
+    }
+
+    // ::llvm::Function::getCallingConv
+    #[inline(always)]
+    pub unsafe fn Function_getCallingConv(inst: *const super::llvm_Function) -> super::llvm_CallingConv_ID {
+        raw::llvm_Function_getCallingConv(inst)
+    }
+
+    // ::llvm::Function::getContext
+    #[inline(always)]
+    pub unsafe fn Function_getContext(inst: *const super::llvm_Function) -> *mut super::llvm_LLVMContext {
+        raw::llvm_Function_getContext(inst)
+    }
+
+    // ::llvm::Function::getDereferenceableBytes
+    #[inline(always)]
+    pub unsafe fn Function_getDereferenceableBytes(inst: *const super::llvm_Function, idx: ::libc::c_uint) -> ::libc::uint64_t {
+        raw::llvm_Function_getDereferenceableBytes(inst, idx)
+    }
+
+    // ::llvm::Function::getFunctionType
+    #[inline(always)]
+    pub unsafe fn Function_getFunctionType(inst: *const super::llvm_Function) -> *mut super::llvm_FunctionType {
+        raw::llvm_Function_getFunctionType(inst)
+    }
+
+    // ::llvm::Function::getIntrinsicID
+    #[inline(always)]
+    pub unsafe fn Function_getIntrinsicID(inst: *const super::llvm_Function) -> ::libc::c_uint {
+        raw::llvm_Function_getIntrinsicID(inst)
+    }
+
+    // ::llvm::Function::getParamAlignment
+    #[inline(always)]
+    pub unsafe fn Function_getParamAlignment(inst: *const super::llvm_Function, idx: ::libc::c_uint) -> ::libc::c_uint {
+        raw::llvm_Function_getParamAlignment(inst, idx)
+    }
+
+    // ::llvm::Function::getReturnType
+    #[inline(always)]
+    pub unsafe fn Function_getReturnType(inst: *const super::llvm_Function) -> *mut super::llvm_Type {
+        raw::llvm_Function_getReturnType(inst)
+    }
+
+    // ::llvm::Function::hasFnAttr
+    #[inline(always)]
+    pub unsafe fn Function_hasFnAttr(inst: *const super::llvm_Function, Kind: super::llvm_StringRef) -> bool {
+        raw::llvm_Function_hasFnAttr(inst, Kind) != 0
+    }
+
+    // ::llvm::Function::hasGC
+    #[inline(always)]
+    pub unsafe fn Function_hasGC(inst: *const super::llvm_Function) -> bool {
+        raw::llvm_Function_hasGC(inst) != 0
+    }
+
+    // ::llvm::Function::hasStructRetAttr
+    #[inline(always)]
+    pub unsafe fn Function_hasStructRetAttr(inst: *const super::llvm_Function) -> bool {
+        raw::llvm_Function_hasStructRetAttr(inst) != 0
+    }
+
+    // ::llvm::Function::hasUWTable
+    #[inline(always)]
+    pub unsafe fn Function_hasUWTable(inst: *const super::llvm_Function) -> bool {
+        raw::llvm_Function_hasUWTable(inst) != 0
+    }
+
+    // ::llvm::Function::isIntrinsic
+    #[inline(always)]
+    pub unsafe fn Function_isIntrinsic(inst: *const super::llvm_Function) -> bool {
+        raw::llvm_Function_isIntrinsic(inst) != 0
+    }
+
+    // ::llvm::Function::isVarArg
+    #[inline(always)]
+    pub unsafe fn Function_isVarArg(inst: *const super::llvm_Function) -> bool {
+        raw::llvm_Function_isVarArg(inst) != 0
+    }
+
+    // ::llvm::Function::needsUnwindTableEntry
+    #[inline(always)]
+    pub unsafe fn Function_needsUnwindTableEntry(inst: *const super::llvm_Function) -> bool {
+        raw::llvm_Function_needsUnwindTableEntry(inst) != 0
+    }
+
+    // ::llvm::Function::onlyReadsMemory
+    #[inline(always)]
+    pub unsafe fn Function_onlyReadsMemory(inst: *const super::llvm_Function) -> bool {
+        raw::llvm_Function_onlyReadsMemory(inst) != 0
+    }
+
+    // ::llvm::Function::onlyReadsMemoryParam
+    #[inline(always)]
+    pub unsafe fn Function_onlyReadsMemoryParam(inst: *const super::llvm_Function, n: ::libc::c_uint) -> bool {
+        raw::llvm_Function_onlyReadsMemoryParam(inst, n) != 0
+    }
+
+    // ::llvm::Function::removeFromParent
+    #[inline(always)]
+    pub unsafe fn Function_removeFromParent(inst: *mut super::llvm_Function) -> ::libc::c_void {
+        raw::llvm_Function_removeFromParent(inst)
+    }
+
+    // ::llvm::Function::setCallingConv
+    #[inline(always)]
+    pub unsafe fn Function_setCallingConv(inst: *mut super::llvm_Function, CC: super::llvm_CallingConv_ID) -> ::libc::c_void {
+        raw::llvm_Function_setCallingConv(inst, CC)
+    }
+
+    // ::llvm::Function::setCannotDuplicate
+    #[inline(always)]
+    pub unsafe fn Function_setCannotDuplicate(inst: *mut super::llvm_Function) -> ::libc::c_void {
+        raw::llvm_Function_setCannotDuplicate(inst)
+    }
+
+    // ::llvm::Function::setDoesNotAccessMemory
+    #[inline(always)]
+    pub unsafe fn Function_setDoesNotAccessMemory(inst: *mut super::llvm_Function) -> ::libc::c_void {
+        raw::llvm_Function_setDoesNotAccessMemory(inst)
+    }
+
+    // ::llvm::Function::setDoesNotAccessMemoryParam
+    #[inline(always)]
+    pub unsafe fn Function_setDoesNotAccessMemoryParam(inst: *mut super::llvm_Function, n: ::libc::c_uint) -> ::libc::c_void {
+        raw::llvm_Function_setDoesNotAccessMemoryParam(inst, n)
+    }
+
+    // ::llvm::Function::setDoesNotAlias
+    #[inline(always)]
+    pub unsafe fn Function_setDoesNotAlias(inst: *mut super::llvm_Function, n: ::libc::c_uint) -> ::libc::c_void {
+        raw::llvm_Function_setDoesNotAlias(inst, n)
+    }
+
+    // ::llvm::Function::setDoesNotCapture
+    #[inline(always)]
+    pub unsafe fn Function_setDoesNotCapture(inst: *mut super::llvm_Function, n: ::libc::c_uint) -> ::libc::c_void {
+        raw::llvm_Function_setDoesNotCapture(inst, n)
+    }
+
+    // ::llvm::Function::setDoesNotReturn
+    #[inline(always)]
+    pub unsafe fn Function_setDoesNotReturn(inst: *mut super::llvm_Function) -> ::libc::c_void {
+        raw::llvm_Function_setDoesNotReturn(inst)
+    }
+
+    // ::llvm::Function::setDoesNotThrow
+    #[inline(always)]
+    pub unsafe fn Function_setDoesNotThrow(inst: *mut super::llvm_Function) -> ::libc::c_void {
+        raw::llvm_Function_setDoesNotThrow(inst)
+    }
+
+    // ::llvm::Function::setHasUWTable
+    #[inline(always)]
+    pub unsafe fn Function_setHasUWTable(inst: *mut super::llvm_Function) -> ::libc::c_void {
+        raw::llvm_Function_setHasUWTable(inst)
+    }
+
+    // ::llvm::Function::setOnlyReadsMemory
+    #[inline(always)]
+    pub unsafe fn Function_setOnlyReadsMemory(inst: *mut super::llvm_Function) -> ::libc::c_void {
+        raw::llvm_Function_setOnlyReadsMemory(inst)
+    }
+
+    // ::llvm::Function::setOnlyReadsMemoryParam
+    #[inline(always)]
+    pub unsafe fn Function_setOnlyReadsMemoryParam(inst: *mut super::llvm_Function, n: ::libc::c_uint) -> ::libc::c_void {
+        raw::llvm_Function_setOnlyReadsMemoryParam(inst, n)
+    }
+
     // ::llvm::FunctionType::classof
     #[inline(always)]
     pub unsafe fn FunctionType_classof(ty: *const super::llvm_Type) -> bool {
@@ -682,6 +1108,324 @@ pub mod llvm {
     #[inline(always)]
     pub unsafe fn FunctionType_isVarArg(inst: *const super::llvm_FunctionType) -> bool {
         raw::llvm_FunctionType_isVarArg(inst) != 0
+    }
+
+    // ::llvm::GlobalObject::setSection
+    #[inline(always)]
+    pub unsafe fn GlobalObject_setSection(inst: *mut super::llvm_GlobalObject, S: super::llvm_StringRef) -> ::libc::c_void {
+        raw::llvm_GlobalObject_setSection(inst, S)
+    }
+
+    // ::llvm::GlobalValue::copyAttributesFrom
+    #[inline(always)]
+    pub unsafe fn GlobalValue_copyAttributesFrom(inst: *mut super::llvm_GlobalValue, Src: *mut super::llvm_GlobalValue) -> ::libc::c_void {
+        raw::llvm_GlobalValue_copyAttributesFrom(inst, Src)
+    }
+
+    // ::llvm::GlobalValue::delete
+    #[inline(always)]
+    pub unsafe fn GlobalValue_delete(inst: *mut super::llvm_GlobalValue) -> ::libc::c_void {
+        raw::llvm_GlobalValue_delete(inst)
+    }
+
+    // ::llvm::GlobalValue::destroyConstant
+    #[inline(always)]
+    pub unsafe fn GlobalValue_destroyConstant(inst: *mut super::llvm_GlobalValue) -> ::libc::c_void {
+        raw::llvm_GlobalValue_destroyConstant(inst)
+    }
+
+    // ::llvm::GlobalValue::eraseFromParent
+    #[inline(always)]
+    pub unsafe fn GlobalValue_eraseFromParent(inst: *mut super::llvm_GlobalValue) -> ::libc::c_void {
+        raw::llvm_GlobalValue_eraseFromParent(inst)
+    }
+
+    // ::llvm::GlobalValue::getAlignment
+    #[inline(always)]
+    pub unsafe fn GlobalValue_getAlignment(inst: *const super::llvm_GlobalValue) -> ::libc::c_uint {
+        raw::llvm_GlobalValue_getAlignment(inst)
+    }
+
+    // ::llvm::GlobalValue::getDataLayout
+    #[inline(always)]
+    pub unsafe fn GlobalValue_getDataLayout(inst: *const super::llvm_GlobalValue) -> *const super::llvm_DataLayout {
+        raw::llvm_GlobalValue_getDataLayout(inst)
+    }
+
+    // ::llvm::GlobalValue::getParent
+    #[inline(always)]
+    pub unsafe fn GlobalValue_getParent(inst: *const super::llvm_GlobalValue) -> *const super::llvm_Module {
+        raw::llvm_GlobalValue_getParent(inst)
+    }
+
+    // ::llvm::GlobalValue::getParentMut
+    #[inline(always)]
+    pub unsafe fn GlobalValue_getParentMut(inst: *mut super::llvm_GlobalValue) -> *mut super::llvm_Module {
+        raw::llvm_GlobalValue_getParentMut(inst)
+    }
+
+    // ::llvm::GlobalValue::getType
+    #[inline(always)]
+    pub unsafe fn GlobalValue_getType(inst: *const super::llvm_GlobalValue) -> *mut super::llvm_PointerType {
+        raw::llvm_GlobalValue_getType(inst)
+    }
+
+    // ::llvm::GlobalValue::hasAppendingLinkage
+    #[inline(always)]
+    pub unsafe fn GlobalValue_hasAppendingLinkage(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_hasAppendingLinkage(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::hasAvailableExternallyLinkage
+    #[inline(always)]
+    pub unsafe fn GlobalValue_hasAvailableExternallyLinkage(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_hasAvailableExternallyLinkage(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::hasCommonLinkage
+    #[inline(always)]
+    pub unsafe fn GlobalValue_hasCommonLinkage(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_hasCommonLinkage(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::hasDLLExportStorageClass
+    #[inline(always)]
+    pub unsafe fn GlobalValue_hasDLLExportStorageClass(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_hasDLLExportStorageClass(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::hasDLLImportStorageClass
+    #[inline(always)]
+    pub unsafe fn GlobalValue_hasDLLImportStorageClass(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_hasDLLImportStorageClass(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::hasDefaultVisibility
+    #[inline(always)]
+    pub unsafe fn GlobalValue_hasDefaultVisibility(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_hasDefaultVisibility(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::hasExternalLinkage
+    #[inline(always)]
+    pub unsafe fn GlobalValue_hasExternalLinkage(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_hasExternalLinkage(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::hasExternalWeakLinkage
+    #[inline(always)]
+    pub unsafe fn GlobalValue_hasExternalWeakLinkage(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_hasExternalWeakLinkage(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::hasHiddenVisibility
+    #[inline(always)]
+    pub unsafe fn GlobalValue_hasHiddenVisibility(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_hasHiddenVisibility(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::hasInternalLinkage
+    #[inline(always)]
+    pub unsafe fn GlobalValue_hasInternalLinkage(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_hasInternalLinkage(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::hasLinkOnceLinkage
+    #[inline(always)]
+    pub unsafe fn GlobalValue_hasLinkOnceLinkage(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_hasLinkOnceLinkage(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::hasLocalLinkage
+    #[inline(always)]
+    pub unsafe fn GlobalValue_hasLocalLinkage(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_hasLocalLinkage(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::hasPrivateLinkage
+    #[inline(always)]
+    pub unsafe fn GlobalValue_hasPrivateLinkage(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_hasPrivateLinkage(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::hasProtectedVisibility
+    #[inline(always)]
+    pub unsafe fn GlobalValue_hasProtectedVisibility(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_hasProtectedVisibility(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::hasSection
+    #[inline(always)]
+    pub unsafe fn GlobalValue_hasSection(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_hasSection(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::hasUnnamedAddr
+    #[inline(always)]
+    pub unsafe fn GlobalValue_hasUnnamedAddr(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_hasUnnamedAddr(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::hasWeakAnyLinkage
+    #[inline(always)]
+    pub unsafe fn GlobalValue_hasWeakAnyLinkage(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_hasWeakAnyLinkage(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::hasWeakLinkage
+    #[inline(always)]
+    pub unsafe fn GlobalValue_hasWeakLinkage(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_hasWeakLinkage(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::hasWeakODRLinkage
+    #[inline(always)]
+    pub unsafe fn GlobalValue_hasWeakODRLinkage(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_hasWeakODRLinkage(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::isDeclaration
+    #[inline(always)]
+    pub unsafe fn GlobalValue_isDeclaration(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_isDeclaration(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::isDiscardableIfUnused
+    #[inline(always)]
+    pub unsafe fn GlobalValue_isDiscardableIfUnused(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_isDiscardableIfUnused(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::isThreadLocal
+    #[inline(always)]
+    pub unsafe fn GlobalValue_isThreadLocal(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_isThreadLocal(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::isWeakForLinker
+    #[inline(always)]
+    pub unsafe fn GlobalValue_isWeakForLinker(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_isWeakForLinker(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::mayBeOverridden
+    #[inline(always)]
+    pub unsafe fn GlobalValue_mayBeOverridden(inst: *const super::llvm_GlobalValue) -> bool {
+        raw::llvm_GlobalValue_mayBeOverridden(inst) != 0
+    }
+
+    // ::llvm::GlobalValue::removeFromParent
+    #[inline(always)]
+    pub unsafe fn GlobalValue_removeFromParent(inst: *mut super::llvm_GlobalValue) -> ::libc::c_void {
+        raw::llvm_GlobalValue_removeFromParent(inst)
+    }
+
+    // ::llvm::GlobalValue::setThreadLocal
+    #[inline(always)]
+    pub unsafe fn GlobalValue_setThreadLocal(inst: *mut super::llvm_GlobalValue, Val: bool) -> ::libc::c_void {
+        raw::llvm_GlobalValue_setThreadLocal(inst, if Val { 1 } else { 0 })
+    }
+
+    // ::llvm::GlobalValue::setUnnamedAddr
+    #[inline(always)]
+    pub unsafe fn GlobalValue_setUnnamedAddr(inst: *mut super::llvm_GlobalValue, Val: bool) -> ::libc::c_void {
+        raw::llvm_GlobalValue_setUnnamedAddr(inst, if Val { 1 } else { 0 })
+    }
+
+    // ::llvm::GlobalVariable::copyAttributesFrom
+    #[inline(always)]
+    pub unsafe fn GlobalVariable_copyAttributesFrom(inst: *mut super::llvm_GlobalVariable, Src: *mut super::llvm_GlobalValue) -> ::libc::c_void {
+        raw::llvm_GlobalVariable_copyAttributesFrom(inst, Src)
+    }
+
+    // ::llvm::GlobalVariable::delete
+    #[inline(always)]
+    pub unsafe fn GlobalVariable_delete(inst: *mut super::llvm_GlobalVariable) -> ::libc::c_void {
+        raw::llvm_GlobalVariable_delete(inst)
+    }
+
+    // ::llvm::GlobalVariable::eraseFromParent
+    #[inline(always)]
+    pub unsafe fn GlobalVariable_eraseFromParent(inst: *mut super::llvm_GlobalVariable) -> ::libc::c_void {
+        raw::llvm_GlobalVariable_eraseFromParent(inst)
+    }
+
+    // ::llvm::GlobalVariable::getInitializer
+    #[inline(always)]
+    pub unsafe fn GlobalVariable_getInitializer(inst: *const super::llvm_GlobalVariable) -> *const super::llvm_Constant {
+        raw::llvm_GlobalVariable_getInitializer(inst)
+    }
+
+    // ::llvm::GlobalVariable::getInitializerMut
+    #[inline(always)]
+    pub unsafe fn GlobalVariable_getInitializerMut(inst: *mut super::llvm_GlobalVariable) -> *mut super::llvm_Constant {
+        raw::llvm_GlobalVariable_getInitializerMut(inst)
+    }
+
+    // ::llvm::GlobalVariable::hasDefinitiveInitializer
+    #[inline(always)]
+    pub unsafe fn GlobalVariable_hasDefinitiveInitializer(inst: *const super::llvm_GlobalVariable) -> bool {
+        raw::llvm_GlobalVariable_hasDefinitiveInitializer(inst) != 0
+    }
+
+    // ::llvm::GlobalVariable::hasInitializer
+    #[inline(always)]
+    pub unsafe fn GlobalVariable_hasInitializer(inst: *const super::llvm_GlobalVariable) -> bool {
+        raw::llvm_GlobalVariable_hasInitializer(inst) != 0
+    }
+
+    // ::llvm::GlobalVariable::hasUniqueInitializer
+    #[inline(always)]
+    pub unsafe fn GlobalVariable_hasUniqueInitializer(inst: *const super::llvm_GlobalVariable) -> bool {
+        raw::llvm_GlobalVariable_hasUniqueInitializer(inst) != 0
+    }
+
+    // ::llvm::GlobalVariable::isConstant
+    #[inline(always)]
+    pub unsafe fn GlobalVariable_isConstant(inst: *const super::llvm_GlobalVariable) -> bool {
+        raw::llvm_GlobalVariable_isConstant(inst) != 0
+    }
+
+    // ::llvm::GlobalVariable::isExternallyInitialized
+    #[inline(always)]
+    pub unsafe fn GlobalVariable_isExternallyInitialized(inst: *const super::llvm_GlobalVariable) -> bool {
+        raw::llvm_GlobalVariable_isExternallyInitialized(inst) != 0
+    }
+
+    // ::llvm::GlobalVariable::new
+    #[inline(always)]
+    pub unsafe fn GlobalVariable_new(Ty: *mut super::llvm_Type, isConstant: bool, Linkage: super::llvm_GlobalValue_LinkageTypes) -> *mut super::llvm_GlobalVariable {
+        raw::llvm_GlobalVariable_new(Ty, if isConstant { 1 } else { 0 }, Linkage)
+    }
+
+    // ::llvm::GlobalVariable::newWithModule
+    #[inline(always)]
+    pub unsafe fn GlobalVariable_newWithModule(Module: *mut super::llvm_Module, Ty: *mut super::llvm_Type, isConstant: bool, Linkage: super::llvm_GlobalValue_LinkageTypes, Initializer: *mut super::llvm_Constant) -> *mut super::llvm_GlobalVariable {
+        raw::llvm_GlobalVariable_newWithModule(Module, Ty, if isConstant { 1 } else { 0 }, Linkage, Initializer)
+    }
+
+    // ::llvm::GlobalVariable::removeFromParent
+    #[inline(always)]
+    pub unsafe fn GlobalVariable_removeFromParent(inst: *mut super::llvm_GlobalVariable) -> ::libc::c_void {
+        raw::llvm_GlobalVariable_removeFromParent(inst)
+    }
+
+    // ::llvm::GlobalVariable::setConstant
+    #[inline(always)]
+    pub unsafe fn GlobalVariable_setConstant(inst: *mut super::llvm_GlobalVariable, Val: bool) -> ::libc::c_void {
+        raw::llvm_GlobalVariable_setConstant(inst, if Val { 1 } else { 0 })
+    }
+
+    // ::llvm::GlobalVariable::setExternallyInitialized
+    #[inline(always)]
+    pub unsafe fn GlobalVariable_setExternallyInitialized(inst: *mut super::llvm_GlobalVariable, Val: bool) -> ::libc::c_void {
+        raw::llvm_GlobalVariable_setExternallyInitialized(inst, if Val { 1 } else { 0 })
+    }
+
+    // ::llvm::GlobalVariable::setInitializer
+    #[inline(always)]
+    pub unsafe fn GlobalVariable_setInitializer(inst: *mut super::llvm_GlobalVariable, InitVal: *mut super::llvm_Constant) -> ::libc::c_void {
+        raw::llvm_GlobalVariable_setInitializer(inst, InitVal)
     }
 
     // ::llvm::IntegerType::classof

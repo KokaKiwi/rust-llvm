@@ -3,7 +3,8 @@ from bindgen.ast.utils import submodpath
 from .ns import llvm
 from .ADT.APInt import APInt
 from .ADT.ArrayRef import ArrayRef
-from .Type import Type, ArrayType
+from .ADT.StringRef import StringRef
+from .Type import Type, ArrayType, PointerType
 from .User import User
 from .Value import Value
 
@@ -29,6 +30,11 @@ UndefValue = llvm.Class('UndefValue', Constant)
 
 ConstantDataArray = llvm.Class('ConstantDataArray', ConstantDataSequential)
 ConstantDataVector = llvm.Class('ConstantDataVector', ConstantDataSequential)
+
+GlobalAlias = llvm.Class('GlobalAlias', GlobalValue)
+GlobalObject = llvm.Class('GlobalObject', GlobalValue)
+
+GlobalVariable = llvm.Class('GlobalVariable', GlobalObject)
 
 @Constant.body
 class Constant:
@@ -70,3 +76,87 @@ class ConstantArray:
     get = StaticMethod(ptr(Constant), (ptr(ArrayType), 'Ty'), (ArrayRef(ptr(Constant)), 'Values'))
 
     classof = StaticMethod(Bool, (ptr(Value, const=True), 'V'))
+
+@GlobalValue.body
+class GlobalValue:
+    LinkageTypes = Enum(values=[
+        'ExternalLinkage', 'AvailableExternallyLinkage', 'LinkOnceAnyLinkage',
+        'LinkOnceODRLinkage', 'WeakAnyLinkage', 'WeakODRLinkage',
+        'AppendingLinkage', 'InternalLinkage', 'PrivateLinkage',
+        'ExternalWeakLinkage', 'CommonLinkage',
+    ])
+
+    delete = Destructor()
+
+    getAlignment = Method(UnsignedInt, const=True)
+
+    hasUnnamedAddr = Method(Bool, const=True)
+    setUnnamedAddr = Method(Void, (Bool, 'Val'))
+
+    hasDefaultVisibility = Method(Bool, const=True)
+    hasHiddenVisibility = Method(Bool, const=True)
+    hasProtectedVisibility = Method(Bool, const=True)
+
+    isThreadLocal = Method(Bool, const=True)
+    setThreadLocal = Method(Void, (Bool, 'Val'))
+
+    hasDLLImportStorageClass = Method(Bool, const=True)
+    hasDLLExportStorageClass = Method(Bool, const=True)
+
+    hasSection = Method(Bool, const=True)
+
+    getType = Method(ptr(PointerType), const=True)
+
+    hasExternalLinkage = Method(Bool, const=True)
+    hasAvailableExternallyLinkage = Method(Bool, const=True)
+    hasLinkOnceLinkage = Method(Bool, const=True)
+    hasWeakLinkage = Method(Bool, const=True)
+    hasWeakAnyLinkage = Method(Bool, const=True)
+    hasWeakODRLinkage = Method(Bool, const=True)
+    hasAppendingLinkage = Method(Bool, const=True)
+    hasInternalLinkage = Method(Bool, const=True)
+    hasPrivateLinkage = Method(Bool, const=True)
+    hasLocalLinkage = Method(Bool, const=True)
+    hasExternalWeakLinkage = Method(Bool, const=True)
+    hasCommonLinkage = Method(Bool, const=True)
+
+    isDiscardableIfUnused = Method(Bool, const=True)
+    mayBeOverridden = Method(Bool, const=True)
+    isWeakForLinker = Method(Bool, const=True)
+
+    copyAttributesFrom = Method(Void, (ptr(GlobalValue), 'Src'))
+    destroyConstant = Method()
+
+    isDeclaration = Method(Bool, const=True)
+
+    removeFromParent = Method()
+    eraseFromParent = Method()
+
+@GlobalObject.body
+class GlobalObject:
+    setSection = Method(Void, (StringRef, 'S'))
+
+@GlobalVariable.body
+class GlobalVariable:
+    delete = Destructor()
+
+    new = Constructor((ptr(Type), 'Ty'), (Bool, 'isConstant'), (GlobalValue.LinkageTypes, 'Linkage'))
+
+    hasInitializer = Method(Bool, const=True)
+    hasDefinitiveInitializer = Method(Bool, const=True)
+    hasUniqueInitializer = Method(Bool, const=True)
+
+    getInitializer = Method(ptr(Constant, const=True), const=True)
+    getInitializerMut = Method(ptr(Constant)).with_call_name('getInitializer')
+    setInitializer = Method(Void, (ptr(Constant), 'InitVal'))
+
+    isConstant = Method(Bool, const=True)
+    setConstant = Method(Void, (Bool, 'Val'))
+
+    isExternallyInitialized = Method(Bool, const=True)
+    setExternallyInitialized = Method(Void, (Bool, 'Val'))
+
+    copyAttributesFrom = Method(Void, (ptr(GlobalValue), 'Src'))
+
+    removeFromParent = Method()
+    eraseFromParent = Method()

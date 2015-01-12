@@ -24,12 +24,12 @@ struct llvm_ArrayRef_llvm_Constant_ptr {
     ::llvm::Constant* const* data;
     size_t length;
 };
-struct llvm_ArrayRef_llvm_Type_ptr {
-    ::llvm::Type* const* data;
-    size_t length;
-};
 struct llvm_StringRef {
     char const* data;
+    size_t length;
+};
+struct llvm_ArrayRef_llvm_Type_ptr {
+    ::llvm::Type* const* data;
     size_t length;
 };
 struct std_string_const {
@@ -249,6 +249,326 @@ extern "C"
     return inst->getType();
 }
 
+// ::llvm::Function::Create
+extern "C"
+::llvm::Function* llvm_Function_Create(::llvm::FunctionType* Ty, ::llvm::GlobalValue::LinkageTypes Linkage)
+{
+    return ::llvm::Function::Create(Ty, Linkage);
+}
+
+// ::llvm::Function::CreateWithName
+extern "C"
+::llvm::Function* llvm_Function_CreateWithName(::llvm::FunctionType* Ty, ::llvm::GlobalValue::LinkageTypes Linkage, llvm_StringRef _Name)
+{
+    auto Name = ::llvm::StringRef(_Name.data, _Name.length);
+    return ::llvm::Function::Create(Ty, Linkage, Name);
+}
+
+// ::llvm::Function::addFnAttr
+extern "C"
+void llvm_Function_addFnAttr(::llvm::Function* inst, llvm_StringRef _Kind)
+{
+    auto Kind = ::llvm::StringRef(_Kind.data, _Kind.length);
+    return inst->addFnAttr(Kind);
+}
+
+// ::llvm::Function::addFnAttrWithValue
+extern "C"
+void llvm_Function_addFnAttrWithValue(::llvm::Function* inst, llvm_StringRef _Kind, llvm_StringRef _Val)
+{
+    auto Kind = ::llvm::StringRef(_Kind.data, _Kind.length);
+    auto Val = ::llvm::StringRef(_Val.data, _Val.length);
+    return inst->addFnAttr(Kind, Val);
+}
+
+// ::llvm::Function::cannotDuplicate
+extern "C"
+int llvm_Function_cannotDuplicate(::llvm::Function const* inst)
+{
+    return (inst->cannotDuplicate() == true ? 1 : 0);
+}
+
+// ::llvm::Function::classof
+extern "C"
+int llvm_Function_classof(::llvm::Value const* Val)
+{
+    return (::llvm::Function::classof(Val) == true ? 1 : 0);
+}
+
+// ::llvm::Function::clearGC
+extern "C"
+void llvm_Function_clearGC(::llvm::Function* inst)
+{
+    return inst->clearGC();
+}
+
+// ::llvm::Function::copyAttributesFrom
+extern "C"
+void llvm_Function_copyAttributesFrom(::llvm::Function* inst, ::llvm::GlobalValue* Src)
+{
+    return inst->copyAttributesFrom(Src);
+}
+
+// ::llvm::Function::delete
+extern "C"
+void llvm_Function_delete(::llvm::Function* inst)
+{
+    delete inst;
+}
+
+// ::llvm::Function::deleteBody
+extern "C"
+void llvm_Function_deleteBody(::llvm::Function* inst)
+{
+    return inst->deleteBody();
+}
+
+// ::llvm::Function::doesNotAccessMemory
+extern "C"
+int llvm_Function_doesNotAccessMemory(::llvm::Function const* inst)
+{
+    return (inst->doesNotAccessMemory() == true ? 1 : 0);
+}
+
+// ::llvm::Function::doesNotAccessMemoryParam
+extern "C"
+int llvm_Function_doesNotAccessMemoryParam(::llvm::Function const* inst, unsigned int n)
+{
+    return (inst->doesNotAccessMemory(n) == true ? 1 : 0);
+}
+
+// ::llvm::Function::doesNotAlias
+extern "C"
+int llvm_Function_doesNotAlias(::llvm::Function const* inst, unsigned int n)
+{
+    return (inst->doesNotAlias(n) == true ? 1 : 0);
+}
+
+// ::llvm::Function::doesNotCapture
+extern "C"
+int llvm_Function_doesNotCapture(::llvm::Function const* inst, unsigned int n)
+{
+    return (inst->doesNotCapture(n) == true ? 1 : 0);
+}
+
+// ::llvm::Function::doesNotReturn
+extern "C"
+int llvm_Function_doesNotReturn(::llvm::Function const* inst)
+{
+    return (inst->doesNotReturn() == true ? 1 : 0);
+}
+
+// ::llvm::Function::doesNotThrow
+extern "C"
+int llvm_Function_doesNotThrow(::llvm::Function const* inst)
+{
+    return (inst->doesNotThrow() == true ? 1 : 0);
+}
+
+// ::llvm::Function::eraseFromParent
+extern "C"
+void llvm_Function_eraseFromParent(::llvm::Function* inst)
+{
+    return inst->eraseFromParent();
+}
+
+// ::llvm::Function::getCallingConv
+extern "C"
+::llvm::CallingConv::ID llvm_Function_getCallingConv(::llvm::Function const* inst)
+{
+    return inst->getCallingConv();
+}
+
+// ::llvm::Function::getContext
+extern "C"
+::llvm::LLVMContext* llvm_Function_getContext(::llvm::Function const* inst)
+{
+    return &(inst->getContext());
+}
+
+// ::llvm::Function::getDereferenceableBytes
+extern "C"
+uint64_t llvm_Function_getDereferenceableBytes(::llvm::Function const* inst, unsigned int idx)
+{
+    return inst->getDereferenceableBytes(idx);
+}
+
+// ::llvm::Function::getFunctionType
+extern "C"
+::llvm::FunctionType* llvm_Function_getFunctionType(::llvm::Function const* inst)
+{
+    return inst->getFunctionType();
+}
+
+// ::llvm::Function::getIntrinsicID
+extern "C"
+unsigned int llvm_Function_getIntrinsicID(::llvm::Function const* inst)
+{
+    return inst->getIntrinsicID();
+}
+
+// ::llvm::Function::getParamAlignment
+extern "C"
+unsigned int llvm_Function_getParamAlignment(::llvm::Function const* inst, unsigned int idx)
+{
+    return inst->getParamAlignment(idx);
+}
+
+// ::llvm::Function::getReturnType
+extern "C"
+::llvm::Type* llvm_Function_getReturnType(::llvm::Function const* inst)
+{
+    return inst->getReturnType();
+}
+
+// ::llvm::Function::hasFnAttr
+extern "C"
+int llvm_Function_hasFnAttr(::llvm::Function const* inst, llvm_StringRef _Kind)
+{
+    auto Kind = ::llvm::StringRef(_Kind.data, _Kind.length);
+    return (inst->hasFnAttribute(Kind) == true ? 1 : 0);
+}
+
+// ::llvm::Function::hasGC
+extern "C"
+int llvm_Function_hasGC(::llvm::Function const* inst)
+{
+    return (inst->hasGC() == true ? 1 : 0);
+}
+
+// ::llvm::Function::hasStructRetAttr
+extern "C"
+int llvm_Function_hasStructRetAttr(::llvm::Function const* inst)
+{
+    return (inst->hasStructRetAttr() == true ? 1 : 0);
+}
+
+// ::llvm::Function::hasUWTable
+extern "C"
+int llvm_Function_hasUWTable(::llvm::Function const* inst)
+{
+    return (inst->hasUWTable() == true ? 1 : 0);
+}
+
+// ::llvm::Function::isIntrinsic
+extern "C"
+int llvm_Function_isIntrinsic(::llvm::Function const* inst)
+{
+    return (inst->isIntrinsic() == true ? 1 : 0);
+}
+
+// ::llvm::Function::isVarArg
+extern "C"
+int llvm_Function_isVarArg(::llvm::Function const* inst)
+{
+    return (inst->isVarArg() == true ? 1 : 0);
+}
+
+// ::llvm::Function::needsUnwindTableEntry
+extern "C"
+int llvm_Function_needsUnwindTableEntry(::llvm::Function const* inst)
+{
+    return (inst->needsUnwindTableEntry() == true ? 1 : 0);
+}
+
+// ::llvm::Function::onlyReadsMemory
+extern "C"
+int llvm_Function_onlyReadsMemory(::llvm::Function const* inst)
+{
+    return (inst->onlyReadsMemory() == true ? 1 : 0);
+}
+
+// ::llvm::Function::onlyReadsMemoryParam
+extern "C"
+int llvm_Function_onlyReadsMemoryParam(::llvm::Function const* inst, unsigned int n)
+{
+    return (inst->onlyReadsMemory(n) == true ? 1 : 0);
+}
+
+// ::llvm::Function::removeFromParent
+extern "C"
+void llvm_Function_removeFromParent(::llvm::Function* inst)
+{
+    return inst->removeFromParent();
+}
+
+// ::llvm::Function::setCallingConv
+extern "C"
+void llvm_Function_setCallingConv(::llvm::Function* inst, ::llvm::CallingConv::ID CC)
+{
+    return inst->setCallingConv(CC);
+}
+
+// ::llvm::Function::setCannotDuplicate
+extern "C"
+void llvm_Function_setCannotDuplicate(::llvm::Function* inst)
+{
+    return inst->setCannotDuplicate();
+}
+
+// ::llvm::Function::setDoesNotAccessMemory
+extern "C"
+void llvm_Function_setDoesNotAccessMemory(::llvm::Function* inst)
+{
+    return inst->setDoesNotAccessMemory();
+}
+
+// ::llvm::Function::setDoesNotAccessMemoryParam
+extern "C"
+void llvm_Function_setDoesNotAccessMemoryParam(::llvm::Function* inst, unsigned int n)
+{
+    return inst->setDoesNotAccessMemory(n);
+}
+
+// ::llvm::Function::setDoesNotAlias
+extern "C"
+void llvm_Function_setDoesNotAlias(::llvm::Function* inst, unsigned int n)
+{
+    return inst->setDoesNotAlias(n);
+}
+
+// ::llvm::Function::setDoesNotCapture
+extern "C"
+void llvm_Function_setDoesNotCapture(::llvm::Function* inst, unsigned int n)
+{
+    return inst->setDoesNotCapture(n);
+}
+
+// ::llvm::Function::setDoesNotReturn
+extern "C"
+void llvm_Function_setDoesNotReturn(::llvm::Function* inst)
+{
+    return inst->setDoesNotReturn();
+}
+
+// ::llvm::Function::setDoesNotThrow
+extern "C"
+void llvm_Function_setDoesNotThrow(::llvm::Function* inst)
+{
+    return inst->setDoesNotThrow();
+}
+
+// ::llvm::Function::setHasUWTable
+extern "C"
+void llvm_Function_setHasUWTable(::llvm::Function* inst)
+{
+    return inst->setHasUWTable();
+}
+
+// ::llvm::Function::setOnlyReadsMemory
+extern "C"
+void llvm_Function_setOnlyReadsMemory(::llvm::Function* inst)
+{
+    return inst->setOnlyReadsMemory();
+}
+
+// ::llvm::Function::setOnlyReadsMemoryParam
+extern "C"
+void llvm_Function_setOnlyReadsMemoryParam(::llvm::Function* inst, unsigned int n)
+{
+    return inst->setOnlyReadsMemory(n);
+}
+
 // ::llvm::FunctionType::classof
 extern "C"
 int llvm_FunctionType_classof(::llvm::Type const* ty)
@@ -304,6 +624,378 @@ extern "C"
 int llvm_FunctionType_isVarArg(::llvm::FunctionType const* inst)
 {
     return (inst->isVarArg() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalObject::setSection
+extern "C"
+void llvm_GlobalObject_setSection(::llvm::GlobalObject* inst, llvm_StringRef _S)
+{
+    auto S = ::llvm::StringRef(_S.data, _S.length);
+    return inst->setSection(S);
+}
+
+// ::llvm::GlobalValue::copyAttributesFrom
+extern "C"
+void llvm_GlobalValue_copyAttributesFrom(::llvm::GlobalValue* inst, ::llvm::GlobalValue* Src)
+{
+    return inst->copyAttributesFrom(Src);
+}
+
+// ::llvm::GlobalValue::delete
+extern "C"
+void llvm_GlobalValue_delete(::llvm::GlobalValue* inst)
+{
+    delete inst;
+}
+
+// ::llvm::GlobalValue::destroyConstant
+extern "C"
+void llvm_GlobalValue_destroyConstant(::llvm::GlobalValue* inst)
+{
+    return inst->destroyConstant();
+}
+
+// ::llvm::GlobalValue::eraseFromParent
+extern "C"
+void llvm_GlobalValue_eraseFromParent(::llvm::GlobalValue* inst)
+{
+    return inst->eraseFromParent();
+}
+
+// ::llvm::GlobalValue::getAlignment
+extern "C"
+unsigned int llvm_GlobalValue_getAlignment(::llvm::GlobalValue const* inst)
+{
+    return inst->getAlignment();
+}
+
+// ::llvm::GlobalValue::getDataLayout
+extern "C"
+::llvm::DataLayout const* llvm_GlobalValue_getDataLayout(::llvm::GlobalValue const* inst)
+{
+    return inst->getDataLayout();
+}
+
+// ::llvm::GlobalValue::getParent
+extern "C"
+::llvm::Module const* llvm_GlobalValue_getParent(::llvm::GlobalValue const* inst)
+{
+    return inst->getParent();
+}
+
+// ::llvm::GlobalValue::getParentMut
+extern "C"
+::llvm::Module* llvm_GlobalValue_getParentMut(::llvm::GlobalValue* inst)
+{
+    return inst->getParent();
+}
+
+// ::llvm::GlobalValue::getType
+extern "C"
+::llvm::PointerType* llvm_GlobalValue_getType(::llvm::GlobalValue const* inst)
+{
+    return inst->getType();
+}
+
+// ::llvm::GlobalValue::hasAppendingLinkage
+extern "C"
+int llvm_GlobalValue_hasAppendingLinkage(::llvm::GlobalValue const* inst)
+{
+    return (inst->hasAppendingLinkage() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::hasAvailableExternallyLinkage
+extern "C"
+int llvm_GlobalValue_hasAvailableExternallyLinkage(::llvm::GlobalValue const* inst)
+{
+    return (inst->hasAvailableExternallyLinkage() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::hasCommonLinkage
+extern "C"
+int llvm_GlobalValue_hasCommonLinkage(::llvm::GlobalValue const* inst)
+{
+    return (inst->hasCommonLinkage() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::hasDLLExportStorageClass
+extern "C"
+int llvm_GlobalValue_hasDLLExportStorageClass(::llvm::GlobalValue const* inst)
+{
+    return (inst->hasDLLExportStorageClass() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::hasDLLImportStorageClass
+extern "C"
+int llvm_GlobalValue_hasDLLImportStorageClass(::llvm::GlobalValue const* inst)
+{
+    return (inst->hasDLLImportStorageClass() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::hasDefaultVisibility
+extern "C"
+int llvm_GlobalValue_hasDefaultVisibility(::llvm::GlobalValue const* inst)
+{
+    return (inst->hasDefaultVisibility() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::hasExternalLinkage
+extern "C"
+int llvm_GlobalValue_hasExternalLinkage(::llvm::GlobalValue const* inst)
+{
+    return (inst->hasExternalLinkage() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::hasExternalWeakLinkage
+extern "C"
+int llvm_GlobalValue_hasExternalWeakLinkage(::llvm::GlobalValue const* inst)
+{
+    return (inst->hasExternalWeakLinkage() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::hasHiddenVisibility
+extern "C"
+int llvm_GlobalValue_hasHiddenVisibility(::llvm::GlobalValue const* inst)
+{
+    return (inst->hasHiddenVisibility() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::hasInternalLinkage
+extern "C"
+int llvm_GlobalValue_hasInternalLinkage(::llvm::GlobalValue const* inst)
+{
+    return (inst->hasInternalLinkage() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::hasLinkOnceLinkage
+extern "C"
+int llvm_GlobalValue_hasLinkOnceLinkage(::llvm::GlobalValue const* inst)
+{
+    return (inst->hasLinkOnceLinkage() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::hasLocalLinkage
+extern "C"
+int llvm_GlobalValue_hasLocalLinkage(::llvm::GlobalValue const* inst)
+{
+    return (inst->hasLocalLinkage() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::hasPrivateLinkage
+extern "C"
+int llvm_GlobalValue_hasPrivateLinkage(::llvm::GlobalValue const* inst)
+{
+    return (inst->hasPrivateLinkage() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::hasProtectedVisibility
+extern "C"
+int llvm_GlobalValue_hasProtectedVisibility(::llvm::GlobalValue const* inst)
+{
+    return (inst->hasProtectedVisibility() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::hasSection
+extern "C"
+int llvm_GlobalValue_hasSection(::llvm::GlobalValue const* inst)
+{
+    return (inst->hasSection() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::hasUnnamedAddr
+extern "C"
+int llvm_GlobalValue_hasUnnamedAddr(::llvm::GlobalValue const* inst)
+{
+    return (inst->hasUnnamedAddr() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::hasWeakAnyLinkage
+extern "C"
+int llvm_GlobalValue_hasWeakAnyLinkage(::llvm::GlobalValue const* inst)
+{
+    return (inst->hasWeakAnyLinkage() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::hasWeakLinkage
+extern "C"
+int llvm_GlobalValue_hasWeakLinkage(::llvm::GlobalValue const* inst)
+{
+    return (inst->hasWeakLinkage() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::hasWeakODRLinkage
+extern "C"
+int llvm_GlobalValue_hasWeakODRLinkage(::llvm::GlobalValue const* inst)
+{
+    return (inst->hasWeakODRLinkage() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::isDeclaration
+extern "C"
+int llvm_GlobalValue_isDeclaration(::llvm::GlobalValue const* inst)
+{
+    return (inst->isDeclaration() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::isDiscardableIfUnused
+extern "C"
+int llvm_GlobalValue_isDiscardableIfUnused(::llvm::GlobalValue const* inst)
+{
+    return (inst->isDiscardableIfUnused() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::isThreadLocal
+extern "C"
+int llvm_GlobalValue_isThreadLocal(::llvm::GlobalValue const* inst)
+{
+    return (inst->isThreadLocal() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::isWeakForLinker
+extern "C"
+int llvm_GlobalValue_isWeakForLinker(::llvm::GlobalValue const* inst)
+{
+    return (inst->isWeakForLinker() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::mayBeOverridden
+extern "C"
+int llvm_GlobalValue_mayBeOverridden(::llvm::GlobalValue const* inst)
+{
+    return (inst->mayBeOverridden() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalValue::removeFromParent
+extern "C"
+void llvm_GlobalValue_removeFromParent(::llvm::GlobalValue* inst)
+{
+    return inst->removeFromParent();
+}
+
+// ::llvm::GlobalValue::setThreadLocal
+extern "C"
+void llvm_GlobalValue_setThreadLocal(::llvm::GlobalValue* inst, int Val)
+{
+    return inst->setThreadLocal((Val == 1 ? true : false));
+}
+
+// ::llvm::GlobalValue::setUnnamedAddr
+extern "C"
+void llvm_GlobalValue_setUnnamedAddr(::llvm::GlobalValue* inst, int Val)
+{
+    return inst->setUnnamedAddr((Val == 1 ? true : false));
+}
+
+// ::llvm::GlobalVariable::copyAttributesFrom
+extern "C"
+void llvm_GlobalVariable_copyAttributesFrom(::llvm::GlobalVariable* inst, ::llvm::GlobalValue* Src)
+{
+    return inst->copyAttributesFrom(Src);
+}
+
+// ::llvm::GlobalVariable::delete
+extern "C"
+void llvm_GlobalVariable_delete(::llvm::GlobalVariable* inst)
+{
+    delete inst;
+}
+
+// ::llvm::GlobalVariable::eraseFromParent
+extern "C"
+void llvm_GlobalVariable_eraseFromParent(::llvm::GlobalVariable* inst)
+{
+    return inst->eraseFromParent();
+}
+
+// ::llvm::GlobalVariable::getInitializer
+extern "C"
+::llvm::Constant const* llvm_GlobalVariable_getInitializer(::llvm::GlobalVariable const* inst)
+{
+    return inst->getInitializer();
+}
+
+// ::llvm::GlobalVariable::getInitializerMut
+extern "C"
+::llvm::Constant* llvm_GlobalVariable_getInitializerMut(::llvm::GlobalVariable* inst)
+{
+    return inst->getInitializer();
+}
+
+// ::llvm::GlobalVariable::hasDefinitiveInitializer
+extern "C"
+int llvm_GlobalVariable_hasDefinitiveInitializer(::llvm::GlobalVariable const* inst)
+{
+    return (inst->hasDefinitiveInitializer() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalVariable::hasInitializer
+extern "C"
+int llvm_GlobalVariable_hasInitializer(::llvm::GlobalVariable const* inst)
+{
+    return (inst->hasInitializer() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalVariable::hasUniqueInitializer
+extern "C"
+int llvm_GlobalVariable_hasUniqueInitializer(::llvm::GlobalVariable const* inst)
+{
+    return (inst->hasUniqueInitializer() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalVariable::isConstant
+extern "C"
+int llvm_GlobalVariable_isConstant(::llvm::GlobalVariable const* inst)
+{
+    return (inst->isConstant() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalVariable::isExternallyInitialized
+extern "C"
+int llvm_GlobalVariable_isExternallyInitialized(::llvm::GlobalVariable const* inst)
+{
+    return (inst->isExternallyInitialized() == true ? 1 : 0);
+}
+
+// ::llvm::GlobalVariable::new
+extern "C"
+::llvm::GlobalVariable* llvm_GlobalVariable_new(::llvm::Type* Ty, int isConstant, ::llvm::GlobalValue::LinkageTypes Linkage)
+{
+    return new ::llvm::GlobalVariable(Ty, (isConstant == 1 ? true : false), Linkage);
+}
+
+// ::llvm::GlobalVariable::newWithModule
+extern "C"
+::llvm::GlobalVariable* llvm_GlobalVariable_newWithModule(::llvm::Module* Module, ::llvm::Type* Ty, int isConstant, ::llvm::GlobalValue::LinkageTypes Linkage, ::llvm::Constant* Initializer)
+{
+    return new ::llvm::GlobalVariable(*Module, Ty, (isConstant == 1 ? true : false), Linkage, Initializer);
+}
+
+// ::llvm::GlobalVariable::removeFromParent
+extern "C"
+void llvm_GlobalVariable_removeFromParent(::llvm::GlobalVariable* inst)
+{
+    return inst->removeFromParent();
+}
+
+// ::llvm::GlobalVariable::setConstant
+extern "C"
+void llvm_GlobalVariable_setConstant(::llvm::GlobalVariable* inst, int Val)
+{
+    return inst->setConstant((Val == 1 ? true : false));
+}
+
+// ::llvm::GlobalVariable::setExternallyInitialized
+extern "C"
+void llvm_GlobalVariable_setExternallyInitialized(::llvm::GlobalVariable* inst, int Val)
+{
+    return inst->setExternallyInitialized((Val == 1 ? true : false));
+}
+
+// ::llvm::GlobalVariable::setInitializer
+extern "C"
+void llvm_GlobalVariable_setInitializer(::llvm::GlobalVariable* inst, ::llvm::Constant* InitVal)
+{
+    return inst->setInitializer(InitVal);
 }
 
 // ::llvm::IntegerType::classof
