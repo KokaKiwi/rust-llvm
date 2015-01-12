@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `llvm` mod in crate `llvm-sys`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, llvm">
+
+    <title>llvm-sys::ffi::llvm - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>llvm-sys</a>::<wbr><a href='../index.html'>ffi</a></p><div class='block mod'><h2>Modules</h2><a class='mod current' href='../llvm/index.html'>llvm</a></div><div class='block struct'><h2>Structs</h2><a class='struct ' href='../struct.llvm_AddrSpaceCastInst.html'>llvm_AddrSpaceCastInst</a><a class='struct ' href='../struct.llvm_AllocaInst.html'>llvm_AllocaInst</a><a class='struct ' href='../struct.llvm_Argument.html'>llvm_Argument</a><a class='struct ' href='../struct.llvm_ArrayRef_llvm_Type_ptr.html'>llvm_ArrayRef_llvm_Type_ptr</a><a class='struct ' href='../struct.llvm_ArrayType.html'>llvm_ArrayType</a><a class='struct ' href='../struct.llvm_AtomicCmpXchgInst.html'>llvm_AtomicCmpXchgInst</a><a class='struct ' href='../struct.llvm_AtomicRMWInst.html'>llvm_AtomicRMWInst</a><a class='struct ' href='../struct.llvm_BasicBlock.html'>llvm_BasicBlock</a><a class='struct ' href='../struct.llvm_BinaryOperator.html'>llvm_BinaryOperator</a><a class='struct ' href='../struct.llvm_BitCastInst.html'>llvm_BitCastInst</a><a class='struct ' href='../struct.llvm_BlockAddress.html'>llvm_BlockAddress</a><a class='struct ' href='../struct.llvm_BranchInst.html'>llvm_BranchInst</a><a class='struct ' href='../struct.llvm_CallInst.html'>llvm_CallInst</a><a class='struct ' href='../struct.llvm_CastInst.html'>llvm_CastInst</a><a class='struct ' href='../struct.llvm_CmpInst.html'>llvm_CmpInst</a><a class='struct ' href='../struct.llvm_CompositeType.html'>llvm_CompositeType</a><a class='struct ' href='../struct.llvm_Constant.html'>llvm_Constant</a><a class='struct ' href='../struct.llvm_ConstantAggregateZero.html'>llvm_ConstantAggregateZero</a><a class='struct ' href='../struct.llvm_ConstantArray.html'>llvm_ConstantArray</a><a class='struct ' href='../struct.llvm_ConstantDataArray.html'>llvm_ConstantDataArray</a><a class='struct ' href='../struct.llvm_ConstantDataSequential.html'>llvm_ConstantDataSequential</a><a class='struct ' href='../struct.llvm_ConstantDataVector.html'>llvm_ConstantDataVector</a><a class='struct ' href='../struct.llvm_ConstantExpr.html'>llvm_ConstantExpr</a><a class='struct ' href='../struct.llvm_ConstantFP.html'>llvm_ConstantFP</a><a class='struct ' href='../struct.llvm_ConstantInt.html'>llvm_ConstantInt</a><a class='struct ' href='../struct.llvm_ConstantPointerNull.html'>llvm_ConstantPointerNull</a><a class='struct ' href='../struct.llvm_ConstantStruct.html'>llvm_ConstantStruct</a><a class='struct ' href='../struct.llvm_ConstantVector.html'>llvm_ConstantVector</a><a class='struct ' href='../struct.llvm_DataLayout.html'>llvm_DataLayout</a><a class='struct ' href='../struct.llvm_ExtractElementInst.html'>llvm_ExtractElementInst</a><a class='struct ' href='../struct.llvm_ExtractValueInst.html'>llvm_ExtractValueInst</a><a class='struct ' href='../struct.llvm_FPExtInst.html'>llvm_FPExtInst</a><a class='struct ' href='../struct.llvm_FPToSIInst.html'>llvm_FPToSIInst</a><a class='struct ' href='../struct.llvm_FenceInst.html'>llvm_FenceInst</a><a class='struct ' href='../struct.llvm_FunctionType.html'>llvm_FunctionType</a><a class='struct ' href='../struct.llvm_GetElementPtrInst.html'>llvm_GetElementPtrInst</a><a class='struct ' href='../struct.llvm_GlobalValue.html'>llvm_GlobalValue</a><a class='struct ' href='../struct.llvm_IndirectBrInst.html'>llvm_IndirectBrInst</a><a class='struct ' href='../struct.llvm_InlineAsm.html'>llvm_InlineAsm</a><a class='struct ' href='../struct.llvm_InsertElementInst.html'>llvm_InsertElementInst</a><a class='struct ' href='../struct.llvm_InsertValueInst.html'>llvm_InsertValueInst</a><a class='struct ' href='../struct.llvm_Instruction.html'>llvm_Instruction</a><a class='struct ' href='../struct.llvm_IntegerType.html'>llvm_IntegerType</a><a class='struct ' href='../struct.llvm_InvokeInst.html'>llvm_InvokeInst</a><a class='struct ' href='../struct.llvm_LLVMContext.html'>llvm_LLVMContext</a><a class='struct ' href='../struct.llvm_LandingPadInst.html'>llvm_LandingPadInst</a><a class='struct ' href='../struct.llvm_LoadInst.html'>llvm_LoadInst</a><a class='struct ' href='../struct.llvm_MetadataAsValue.html'>llvm_MetadataAsValue</a><a class='struct ' href='../struct.llvm_Module.html'>llvm_Module</a><a class='struct ' href='../struct.llvm_Operator.html'>llvm_Operator</a><a class='struct ' href='../struct.llvm_PHINode.html'>llvm_PHINode</a><a class='struct ' href='../struct.llvm_PointerType.html'>llvm_PointerType</a><a class='struct ' href='../struct.llvm_ResumeInst.html'>llvm_ResumeInst</a><a class='struct ' href='../struct.llvm_ReturnInst.html'>llvm_ReturnInst</a><a class='struct ' href='../struct.llvm_SelectInst.html'>llvm_SelectInst</a><a class='struct ' href='../struct.llvm_SequentialType.html'>llvm_SequentialType</a><a class='struct ' href='../struct.llvm_ShuffleVectorInst.html'>llvm_ShuffleVectorInst</a><a class='struct ' href='../struct.llvm_StoreInst.html'>llvm_StoreInst</a><a class='struct ' href='../struct.llvm_StringRef.html'>llvm_StringRef</a><a class='struct ' href='../struct.llvm_StructType.html'>llvm_StructType</a><a class='struct ' href='../struct.llvm_SwitchInst.html'>llvm_SwitchInst</a><a class='struct ' href='../struct.llvm_TerminatorInst.html'>llvm_TerminatorInst</a><a class='struct ' href='../struct.llvm_Type.html'>llvm_Type</a><a class='struct ' href='../struct.llvm_UnaryInstruction.html'>llvm_UnaryInstruction</a><a class='struct ' href='../struct.llvm_UndefValue.html'>llvm_UndefValue</a><a class='struct ' href='../struct.llvm_UnreachableInst.html'>llvm_UnreachableInst</a><a class='struct ' href='../struct.llvm_User.html'>llvm_User</a><a class='struct ' href='../struct.llvm_VAArgInst.html'>llvm_VAArgInst</a><a class='struct ' href='../struct.llvm_Value.html'>llvm_Value</a><a class='struct ' href='../struct.llvm_VectorType.html'>llvm_VectorType</a><a class='struct ' href='../struct.std_string_const.html'>std_string_const</a></div><div class='block enum'><h2>Enums</h2><a class='enum ' href='../enum.llvm_Type_TypeID.html'>llvm_Type_TypeID</a></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>llvm-sys</a>::<wbr><a href='../index.html'>ffi</a>::<wbr><a class='mod' href=''>llvm</a><wbr><a class='stability Experimental' title=''>Experimental</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]
+            </a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-2283' href='../../../src/llvm-sys/ffi.rs.html#407-1357'>[src]</a></span></h1>
+<h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.ArrayType_classof.html'
+                               title='llvm-sys::ffi::llvm::ArrayType_classof'>ArrayType_classof</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.ArrayType_get.html'
+                               title='llvm-sys::ffi::llvm::ArrayType_get'>ArrayType_get</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.ArrayType_getNumElements.html'
+                               title='llvm-sys::ffi::llvm::ArrayType_getNumElements'>ArrayType_getNumElements</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.ArrayType_isValidElementType.html'
+                               title='llvm-sys::ffi::llvm::ArrayType_isValidElementType'>ArrayType_isValidElementType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.CompositeType_classof.html'
+                               title='llvm-sys::ffi::llvm::CompositeType_classof'>CompositeType_classof</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.CompositeType_getTypeAtIndex.html'
+                               title='llvm-sys::ffi::llvm::CompositeType_getTypeAtIndex'>CompositeType_getTypeAtIndex</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.CompositeType_indexValid.html'
+                               title='llvm-sys::ffi::llvm::CompositeType_indexValid'>CompositeType_indexValid</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.FunctionType_classof.html'
+                               title='llvm-sys::ffi::llvm::FunctionType_classof'>FunctionType_classof</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.FunctionType_get.html'
+                               title='llvm-sys::ffi::llvm::FunctionType_get'>FunctionType_get</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.FunctionType_getNumParams.html'
+                               title='llvm-sys::ffi::llvm::FunctionType_getNumParams'>FunctionType_getNumParams</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.FunctionType_getParamType.html'
+                               title='llvm-sys::ffi::llvm::FunctionType_getParamType'>FunctionType_getParamType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.FunctionType_getReturnType.html'
+                               title='llvm-sys::ffi::llvm::FunctionType_getReturnType'>FunctionType_getReturnType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.FunctionType_isValidArgumentType.html'
+                               title='llvm-sys::ffi::llvm::FunctionType_isValidArgumentType'>FunctionType_isValidArgumentType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.FunctionType_isValidReturnType.html'
+                               title='llvm-sys::ffi::llvm::FunctionType_isValidReturnType'>FunctionType_isValidReturnType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.FunctionType_isVarArg.html'
+                               title='llvm-sys::ffi::llvm::FunctionType_isVarArg'>FunctionType_isVarArg</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.IntegerType_classof.html'
+                               title='llvm-sys::ffi::llvm::IntegerType_classof'>IntegerType_classof</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.IntegerType_get.html'
+                               title='llvm-sys::ffi::llvm::IntegerType_get'>IntegerType_get</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.IntegerType_getBitMask.html'
+                               title='llvm-sys::ffi::llvm::IntegerType_getBitMask'>IntegerType_getBitMask</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.IntegerType_getBitWidth.html'
+                               title='llvm-sys::ffi::llvm::IntegerType_getBitWidth'>IntegerType_getBitWidth</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.IntegerType_getSignBit.html'
+                               title='llvm-sys::ffi::llvm::IntegerType_getSignBit'>IntegerType_getSignBit</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.IntegerType_isPowerOf2ByteWidth.html'
+                               title='llvm-sys::ffi::llvm::IntegerType_isPowerOf2ByteWidth'>IntegerType_isPowerOf2ByteWidth</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Module_appendModuleInlineAsm.html'
+                               title='llvm-sys::ffi::llvm::Module_appendModuleInlineAsm'>Module_appendModuleInlineAsm</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Module_delete.html'
+                               title='llvm-sys::ffi::llvm::Module_delete'>Module_delete</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Module_dump.html'
+                               title='llvm-sys::ffi::llvm::Module_dump'>Module_dump</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Module_getContext.html'
+                               title='llvm-sys::ffi::llvm::Module_getContext'>Module_getContext</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Module_getDataLayout.html'
+                               title='llvm-sys::ffi::llvm::Module_getDataLayout'>Module_getDataLayout</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Module_getDataLayoutStr.html'
+                               title='llvm-sys::ffi::llvm::Module_getDataLayoutStr'>Module_getDataLayoutStr</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Module_getMDKindID.html'
+                               title='llvm-sys::ffi::llvm::Module_getMDKindID'>Module_getMDKindID</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Module_getModuleIdentifier.html'
+                               title='llvm-sys::ffi::llvm::Module_getModuleIdentifier'>Module_getModuleIdentifier</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Module_getModuleInlineAsm.html'
+                               title='llvm-sys::ffi::llvm::Module_getModuleInlineAsm'>Module_getModuleInlineAsm</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Module_getNamedValue.html'
+                               title='llvm-sys::ffi::llvm::Module_getNamedValue'>Module_getNamedValue</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Module_getOrInsertFunction.html'
+                               title='llvm-sys::ffi::llvm::Module_getOrInsertFunction'>Module_getOrInsertFunction</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Module_getTargetTriple.html'
+                               title='llvm-sys::ffi::llvm::Module_getTargetTriple'>Module_getTargetTriple</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Module_getTypeByName.html'
+                               title='llvm-sys::ffi::llvm::Module_getTypeByName'>Module_getTypeByName</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Module_new.html'
+                               title='llvm-sys::ffi::llvm::Module_new'>Module_new</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Module_setDataLayout.html'
+                               title='llvm-sys::ffi::llvm::Module_setDataLayout'>Module_setDataLayout</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Module_setDataLayoutStr.html'
+                               title='llvm-sys::ffi::llvm::Module_setDataLayoutStr'>Module_setDataLayoutStr</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Module_setModuleIdentifier.html'
+                               title='llvm-sys::ffi::llvm::Module_setModuleIdentifier'>Module_setModuleIdentifier</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Module_setModuleInlineAsm.html'
+                               title='llvm-sys::ffi::llvm::Module_setModuleInlineAsm'>Module_setModuleInlineAsm</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Module_setTargetTriple.html'
+                               title='llvm-sys::ffi::llvm::Module_setTargetTriple'>Module_setTargetTriple</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.PointerType_classof.html'
+                               title='llvm-sys::ffi::llvm::PointerType_classof'>PointerType_classof</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.PointerType_get.html'
+                               title='llvm-sys::ffi::llvm::PointerType_get'>PointerType_get</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.PointerType_getAddressSpace.html'
+                               title='llvm-sys::ffi::llvm::PointerType_getAddressSpace'>PointerType_getAddressSpace</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.PointerType_getUnqual.html'
+                               title='llvm-sys::ffi::llvm::PointerType_getUnqual'>PointerType_getUnqual</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.PointerType_isValidElementType.html'
+                               title='llvm-sys::ffi::llvm::PointerType_isValidElementType'>PointerType_isValidElementType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.SequentialType_classof.html'
+                               title='llvm-sys::ffi::llvm::SequentialType_classof'>SequentialType_classof</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.SequentialType_getElementType.html'
+                               title='llvm-sys::ffi::llvm::SequentialType_getElementType'>SequentialType_getElementType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.StructType_classof.html'
+                               title='llvm-sys::ffi::llvm::StructType_classof'>StructType_classof</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.StructType_create.html'
+                               title='llvm-sys::ffi::llvm::StructType_create'>StructType_create</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.StructType_createPacked.html'
+                               title='llvm-sys::ffi::llvm::StructType_createPacked'>StructType_createPacked</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.StructType_getElementType.html'
+                               title='llvm-sys::ffi::llvm::StructType_getElementType'>StructType_getElementType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.StructType_getName.html'
+                               title='llvm-sys::ffi::llvm::StructType_getName'>StructType_getName</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.StructType_getNumElements.html'
+                               title='llvm-sys::ffi::llvm::StructType_getNumElements'>StructType_getNumElements</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.StructType_hasName.html'
+                               title='llvm-sys::ffi::llvm::StructType_hasName'>StructType_hasName</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.StructType_isLayoutIdentical.html'
+                               title='llvm-sys::ffi::llvm::StructType_isLayoutIdentical'>StructType_isLayoutIdentical</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.StructType_isLiteral.html'
+                               title='llvm-sys::ffi::llvm::StructType_isLiteral'>StructType_isLiteral</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.StructType_isOpaque.html'
+                               title='llvm-sys::ffi::llvm::StructType_isOpaque'>StructType_isOpaque</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.StructType_isPacked.html'
+                               title='llvm-sys::ffi::llvm::StructType_isPacked'>StructType_isPacked</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.StructType_isSized.html'
+                               title='llvm-sys::ffi::llvm::StructType_isSized'>StructType_isSized</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.StructType_isValidElementType.html'
+                               title='llvm-sys::ffi::llvm::StructType_isValidElementType'>StructType_isValidElementType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.StructType_setBody.html'
+                               title='llvm-sys::ffi::llvm::StructType_setBody'>StructType_setBody</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.StructType_setBodyPacked.html'
+                               title='llvm-sys::ffi::llvm::StructType_setBodyPacked'>StructType_setBodyPacked</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.StructType_setName.html'
+                               title='llvm-sys::ffi::llvm::StructType_setName'>StructType_setName</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_dump.html'
+                               title='llvm-sys::ffi::llvm::Type_dump'>Type_dump</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getContainedType.html'
+                               title='llvm-sys::ffi::llvm::Type_getContainedType'>Type_getContainedType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getContext.html'
+                               title='llvm-sys::ffi::llvm::Type_getContext'>Type_getContext</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getDoublePtrTy.html'
+                               title='llvm-sys::ffi::llvm::Type_getDoublePtrTy'>Type_getDoublePtrTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getDoubleTy.html'
+                               title='llvm-sys::ffi::llvm::Type_getDoubleTy'>Type_getDoubleTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getFP128PtrTy.html'
+                               title='llvm-sys::ffi::llvm::Type_getFP128PtrTy'>Type_getFP128PtrTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getFP128Ty.html'
+                               title='llvm-sys::ffi::llvm::Type_getFP128Ty'>Type_getFP128Ty</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getFloatPtrTy.html'
+                               title='llvm-sys::ffi::llvm::Type_getFloatPtrTy'>Type_getFloatPtrTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getFloatTy.html'
+                               title='llvm-sys::ffi::llvm::Type_getFloatTy'>Type_getFloatTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getFunctionNumParams.html'
+                               title='llvm-sys::ffi::llvm::Type_getFunctionNumParams'>Type_getFunctionNumParams</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getFunctionParamType.html'
+                               title='llvm-sys::ffi::llvm::Type_getFunctionParamType'>Type_getFunctionParamType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getHalfPtrTy.html'
+                               title='llvm-sys::ffi::llvm::Type_getHalfPtrTy'>Type_getHalfPtrTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getHalfTy.html'
+                               title='llvm-sys::ffi::llvm::Type_getHalfTy'>Type_getHalfTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getInt16PtrTy.html'
+                               title='llvm-sys::ffi::llvm::Type_getInt16PtrTy'>Type_getInt16PtrTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getInt16Ty.html'
+                               title='llvm-sys::ffi::llvm::Type_getInt16Ty'>Type_getInt16Ty</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getInt1PtrTy.html'
+                               title='llvm-sys::ffi::llvm::Type_getInt1PtrTy'>Type_getInt1PtrTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getInt1Ty.html'
+                               title='llvm-sys::ffi::llvm::Type_getInt1Ty'>Type_getInt1Ty</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getInt32PtrTy.html'
+                               title='llvm-sys::ffi::llvm::Type_getInt32PtrTy'>Type_getInt32PtrTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getInt32Ty.html'
+                               title='llvm-sys::ffi::llvm::Type_getInt32Ty'>Type_getInt32Ty</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getInt64PtrTy.html'
+                               title='llvm-sys::ffi::llvm::Type_getInt64PtrTy'>Type_getInt64PtrTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getInt64Ty.html'
+                               title='llvm-sys::ffi::llvm::Type_getInt64Ty'>Type_getInt64Ty</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getInt8PtrTy.html'
+                               title='llvm-sys::ffi::llvm::Type_getInt8PtrTy'>Type_getInt8PtrTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getInt8Ty.html'
+                               title='llvm-sys::ffi::llvm::Type_getInt8Ty'>Type_getInt8Ty</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getIntNPtrTy.html'
+                               title='llvm-sys::ffi::llvm::Type_getIntNPtrTy'>Type_getIntNPtrTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getIntNTy.html'
+                               title='llvm-sys::ffi::llvm::Type_getIntNTy'>Type_getIntNTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getLabelTy.html'
+                               title='llvm-sys::ffi::llvm::Type_getLabelTy'>Type_getLabelTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getMetadataTy.html'
+                               title='llvm-sys::ffi::llvm::Type_getMetadataTy'>Type_getMetadataTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getNumContainedTypes.html'
+                               title='llvm-sys::ffi::llvm::Type_getNumContainedTypes'>Type_getNumContainedTypes</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getPPC_FP128PtrTy.html'
+                               title='llvm-sys::ffi::llvm::Type_getPPC_FP128PtrTy'>Type_getPPC_FP128PtrTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getPPC_FP128Ty.html'
+                               title='llvm-sys::ffi::llvm::Type_getPPC_FP128Ty'>Type_getPPC_FP128Ty</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getPointerAddressSpace.html'
+                               title='llvm-sys::ffi::llvm::Type_getPointerAddressSpace'>Type_getPointerAddressSpace</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getPointerElementType.html'
+                               title='llvm-sys::ffi::llvm::Type_getPointerElementType'>Type_getPointerElementType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getPointerTo.html'
+                               title='llvm-sys::ffi::llvm::Type_getPointerTo'>Type_getPointerTo</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getSequentialElementType.html'
+                               title='llvm-sys::ffi::llvm::Type_getSequentialElementType'>Type_getSequentialElementType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getStructElementType.html'
+                               title='llvm-sys::ffi::llvm::Type_getStructElementType'>Type_getStructElementType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getStructName.html'
+                               title='llvm-sys::ffi::llvm::Type_getStructName'>Type_getStructName</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getStructNumElements.html'
+                               title='llvm-sys::ffi::llvm::Type_getStructNumElements'>Type_getStructNumElements</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getTypeID.html'
+                               title='llvm-sys::ffi::llvm::Type_getTypeID'>Type_getTypeID</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getVoidTy.html'
+                               title='llvm-sys::ffi::llvm::Type_getVoidTy'>Type_getVoidTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getX86_FP80PtrTy.html'
+                               title='llvm-sys::ffi::llvm::Type_getX86_FP80PtrTy'>Type_getX86_FP80PtrTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getX86_FP80Ty.html'
+                               title='llvm-sys::ffi::llvm::Type_getX86_FP80Ty'>Type_getX86_FP80Ty</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getX86_MMXPtrTy.html'
+                               title='llvm-sys::ffi::llvm::Type_getX86_MMXPtrTy'>Type_getX86_MMXPtrTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_getX86_MMXTy.html'
+                               title='llvm-sys::ffi::llvm::Type_getX86_MMXTy'>Type_getX86_MMXTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isAggregateType.html'
+                               title='llvm-sys::ffi::llvm::Type_isAggregateType'>Type_isAggregateType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isArrayTy.html'
+                               title='llvm-sys::ffi::llvm::Type_isArrayTy'>Type_isArrayTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isDoubleTy.html'
+                               title='llvm-sys::ffi::llvm::Type_isDoubleTy'>Type_isDoubleTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isEmptyTy.html'
+                               title='llvm-sys::ffi::llvm::Type_isEmptyTy'>Type_isEmptyTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isFP128Ty.html'
+                               title='llvm-sys::ffi::llvm::Type_isFP128Ty'>Type_isFP128Ty</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isFPOrFPVectorTy.html'
+                               title='llvm-sys::ffi::llvm::Type_isFPOrFPVectorTy'>Type_isFPOrFPVectorTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isFirstClassType.html'
+                               title='llvm-sys::ffi::llvm::Type_isFirstClassType'>Type_isFirstClassType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isFloatTy.html'
+                               title='llvm-sys::ffi::llvm::Type_isFloatTy'>Type_isFloatTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isFloatingPointTy.html'
+                               title='llvm-sys::ffi::llvm::Type_isFloatingPointTy'>Type_isFloatingPointTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isFunctionTy.html'
+                               title='llvm-sys::ffi::llvm::Type_isFunctionTy'>Type_isFunctionTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isFunctionVarArg.html'
+                               title='llvm-sys::ffi::llvm::Type_isFunctionVarArg'>Type_isFunctionVarArg</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isHalfTy.html'
+                               title='llvm-sys::ffi::llvm::Type_isHalfTy'>Type_isHalfTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isIntOrIntVectorTy.html'
+                               title='llvm-sys::ffi::llvm::Type_isIntOrIntVectorTy'>Type_isIntOrIntVectorTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isIntegerTy.html'
+                               title='llvm-sys::ffi::llvm::Type_isIntegerTy'>Type_isIntegerTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isLabelTy.html'
+                               title='llvm-sys::ffi::llvm::Type_isLabelTy'>Type_isLabelTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isMetadataTy.html'
+                               title='llvm-sys::ffi::llvm::Type_isMetadataTy'>Type_isMetadataTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isPPC_FP128Ty.html'
+                               title='llvm-sys::ffi::llvm::Type_isPPC_FP128Ty'>Type_isPPC_FP128Ty</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isPointerTy.html'
+                               title='llvm-sys::ffi::llvm::Type_isPointerTy'>Type_isPointerTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isPtrOrPtrVectorTy.html'
+                               title='llvm-sys::ffi::llvm::Type_isPtrOrPtrVectorTy'>Type_isPtrOrPtrVectorTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isSingleValueType.html'
+                               title='llvm-sys::ffi::llvm::Type_isSingleValueType'>Type_isSingleValueType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isSized.html'
+                               title='llvm-sys::ffi::llvm::Type_isSized'>Type_isSized</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isStructTy.html'
+                               title='llvm-sys::ffi::llvm::Type_isStructTy'>Type_isStructTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isVectorTy.html'
+                               title='llvm-sys::ffi::llvm::Type_isVectorTy'>Type_isVectorTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isVoidTy.html'
+                               title='llvm-sys::ffi::llvm::Type_isVoidTy'>Type_isVoidTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isX86_FP80Ty.html'
+                               title='llvm-sys::ffi::llvm::Type_isX86_FP80Ty'>Type_isX86_FP80Ty</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Type_isX86_MMXTy.html'
+                               title='llvm-sys::ffi::llvm::Type_isX86_MMXTy'>Type_isX86_MMXTy</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Value_delete.html'
+                               title='llvm-sys::ffi::llvm::Value_delete'>Value_delete</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Value_dump.html'
+                               title='llvm-sys::ffi::llvm::Value_dump'>Value_dump</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Value_getContext.html'
+                               title='llvm-sys::ffi::llvm::Value_getContext'>Value_getContext</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Value_getName.html'
+                               title='llvm-sys::ffi::llvm::Value_getName'>Value_getName</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Value_getNumUses.html'
+                               title='llvm-sys::ffi::llvm::Value_getNumUses'>Value_getNumUses</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Value_getType.html'
+                               title='llvm-sys::ffi::llvm::Value_getType'>Value_getType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Value_getValueID.html'
+                               title='llvm-sys::ffi::llvm::Value_getValueID'>Value_getValueID</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Value_hasNUses.html'
+                               title='llvm-sys::ffi::llvm::Value_hasNUses'>Value_hasNUses</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Value_hasNUsesOrMore.html'
+                               title='llvm-sys::ffi::llvm::Value_hasNUsesOrMore'>Value_hasNUsesOrMore</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Value_hasName.html'
+                               title='llvm-sys::ffi::llvm::Value_hasName'>Value_hasName</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Value_hasOneUse.html'
+                               title='llvm-sys::ffi::llvm::Value_hasOneUse'>Value_hasOneUse</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Value_isUsedInBasicBlock.html'
+                               title='llvm-sys::ffi::llvm::Value_isUsedInBasicBlock'>Value_isUsedInBasicBlock</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Value_replaceAllUsesWith.html'
+                               title='llvm-sys::ffi::llvm::Value_replaceAllUsesWith'>Value_replaceAllUsesWith</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Value_setName.html'
+                               title='llvm-sys::ffi::llvm::Value_setName'>Value_setName</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.Value_takeName.html'
+                               title='llvm-sys::ffi::llvm::Value_takeName'>Value_takeName</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.VectorType_classof.html'
+                               title='llvm-sys::ffi::llvm::VectorType_classof'>VectorType_classof</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.VectorType_get.html'
+                               title='llvm-sys::ffi::llvm::VectorType_get'>VectorType_get</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.VectorType_getBitWidth.html'
+                               title='llvm-sys::ffi::llvm::VectorType_getBitWidth'>VectorType_getBitWidth</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.VectorType_getDoubleElementsVectorType.html'
+                               title='llvm-sys::ffi::llvm::VectorType_getDoubleElementsVectorType'>VectorType_getDoubleElementsVectorType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.VectorType_getExtendedElementVectorType.html'
+                               title='llvm-sys::ffi::llvm::VectorType_getExtendedElementVectorType'>VectorType_getExtendedElementVectorType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.VectorType_getHalfElementsVectorType.html'
+                               title='llvm-sys::ffi::llvm::VectorType_getHalfElementsVectorType'>VectorType_getHalfElementsVectorType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.VectorType_getInteger.html'
+                               title='llvm-sys::ffi::llvm::VectorType_getInteger'>VectorType_getInteger</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.VectorType_getNumElements.html'
+                               title='llvm-sys::ffi::llvm::VectorType_getNumElements'>VectorType_getNumElements</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.VectorType_getTruncatedElementVectorType.html'
+                               title='llvm-sys::ffi::llvm::VectorType_getTruncatedElementVectorType'>VectorType_getTruncatedElementVectorType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.VectorType_isValidElementType.html'
+                               title='llvm-sys::ffi::llvm::VectorType_isValidElementType'>VectorType_isValidElementType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.getGlobalContext.html'
+                               title='llvm-sys::ffi::llvm::getGlobalContext'>getGlobalContext</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "llvm-sys";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `user` mod in crate `llvm-sys`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, user">
+
+    <title>llvm-sys::llvm::value::user - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../../index.html'>llvm-sys</a>::<wbr><a href='../../index.html'>llvm</a>::<wbr><a href='../index.html'>value</a></p><div class='block mod'><h2>Modules</h2><a class='mod current' href='../user/index.html'>user</a></div><div class='block struct'><h2>Structs</h2><a class='struct ' href='../struct.Argument.html'>Argument</a><a class='struct ' href='../struct.BasicBlock.html'>BasicBlock</a><a class='struct ' href='../struct.InlineAsm.html'>InlineAsm</a><a class='struct ' href='../struct.MetadataAsValue.html'>MetadataAsValue</a><a class='struct ' href='../struct.Value.html'>Value</a></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='../trait.ArgumentExt.html'>ArgumentExt</a><a class='trait ' href='../trait.BasicBlockExt.html'>BasicBlockExt</a><a class='trait ' href='../trait.InlineAsmExt.html'>InlineAsmExt</a><a class='trait ' href='../trait.MetadataAsValueExt.html'>MetadataAsValueExt</a><a class='trait ' href='../trait.ValueExt.html'>ValueExt</a></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../../../index.html'>llvm-sys</a>::<wbr><a href='../../index.html'>llvm</a>::<wbr><a href='../index.html'>value</a>::<wbr><a class='mod' href=''>user</a><wbr><a class='stability Experimental' title=''>Experimental</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]
+            </a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-8483' href='../../../../src/llvm-sys/llvm/value/user/mod.rs.html#1-1913'>[src]</a></span></h1>
+<h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='mod' href='constant/index.html'
+                               title='llvm-sys::llvm::value::user::constant'>constant</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.AddrSpaceCastInst.html'
+                               title='llvm-sys::llvm::value::user::AddrSpaceCastInst'>AddrSpaceCastInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.AllocaInst.html'
+                               title='llvm-sys::llvm::value::user::AllocaInst'>AllocaInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.AtomicCmpXchgInst.html'
+                               title='llvm-sys::llvm::value::user::AtomicCmpXchgInst'>AtomicCmpXchgInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.AtomicRMWInst.html'
+                               title='llvm-sys::llvm::value::user::AtomicRMWInst'>AtomicRMWInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.BinaryOperator.html'
+                               title='llvm-sys::llvm::value::user::BinaryOperator'>BinaryOperator</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.BitCastInst.html'
+                               title='llvm-sys::llvm::value::user::BitCastInst'>BitCastInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.BranchInst.html'
+                               title='llvm-sys::llvm::value::user::BranchInst'>BranchInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.CallInst.html'
+                               title='llvm-sys::llvm::value::user::CallInst'>CallInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.CastInst.html'
+                               title='llvm-sys::llvm::value::user::CastInst'>CastInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.CmpInst.html'
+                               title='llvm-sys::llvm::value::user::CmpInst'>CmpInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.ExtractElementInst.html'
+                               title='llvm-sys::llvm::value::user::ExtractElementInst'>ExtractElementInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.ExtractValueInst.html'
+                               title='llvm-sys::llvm::value::user::ExtractValueInst'>ExtractValueInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.FPExtInst.html'
+                               title='llvm-sys::llvm::value::user::FPExtInst'>FPExtInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.FPToSIInst.html'
+                               title='llvm-sys::llvm::value::user::FPToSIInst'>FPToSIInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.FenceInst.html'
+                               title='llvm-sys::llvm::value::user::FenceInst'>FenceInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.GetElementPtrInst.html'
+                               title='llvm-sys::llvm::value::user::GetElementPtrInst'>GetElementPtrInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.IndirectBrInst.html'
+                               title='llvm-sys::llvm::value::user::IndirectBrInst'>IndirectBrInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.InsertElementInst.html'
+                               title='llvm-sys::llvm::value::user::InsertElementInst'>InsertElementInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.InsertValueInst.html'
+                               title='llvm-sys::llvm::value::user::InsertValueInst'>InsertValueInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.Instruction.html'
+                               title='llvm-sys::llvm::value::user::Instruction'>Instruction</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.InvokeInst.html'
+                               title='llvm-sys::llvm::value::user::InvokeInst'>InvokeInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.LandingPadInst.html'
+                               title='llvm-sys::llvm::value::user::LandingPadInst'>LandingPadInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.LoadInst.html'
+                               title='llvm-sys::llvm::value::user::LoadInst'>LoadInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.Operator.html'
+                               title='llvm-sys::llvm::value::user::Operator'>Operator</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.PHINode.html'
+                               title='llvm-sys::llvm::value::user::PHINode'>PHINode</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.ResumeInst.html'
+                               title='llvm-sys::llvm::value::user::ResumeInst'>ResumeInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.ReturnInst.html'
+                               title='llvm-sys::llvm::value::user::ReturnInst'>ReturnInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.SelectInst.html'
+                               title='llvm-sys::llvm::value::user::SelectInst'>SelectInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.ShuffleVectorInst.html'
+                               title='llvm-sys::llvm::value::user::ShuffleVectorInst'>ShuffleVectorInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.StoreInst.html'
+                               title='llvm-sys::llvm::value::user::StoreInst'>StoreInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.SwitchInst.html'
+                               title='llvm-sys::llvm::value::user::SwitchInst'>SwitchInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.TerminatorInst.html'
+                               title='llvm-sys::llvm::value::user::TerminatorInst'>TerminatorInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.UnaryInstruction.html'
+                               title='llvm-sys::llvm::value::user::UnaryInstruction'>UnaryInstruction</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.UnreachableInst.html'
+                               title='llvm-sys::llvm::value::user::UnreachableInst'>UnreachableInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.User.html'
+                               title='llvm-sys::llvm::value::user::User'>User</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.VAArgInst.html'
+                               title='llvm-sys::llvm::value::user::VAArgInst'>VAArgInst</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.AddrSpaceCastInstExt.html'
+                               title='llvm-sys::llvm::value::user::AddrSpaceCastInstExt'>AddrSpaceCastInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.AllocaInstExt.html'
+                               title='llvm-sys::llvm::value::user::AllocaInstExt'>AllocaInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.AtomicCmpXchgInstExt.html'
+                               title='llvm-sys::llvm::value::user::AtomicCmpXchgInstExt'>AtomicCmpXchgInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.AtomicRMWInstExt.html'
+                               title='llvm-sys::llvm::value::user::AtomicRMWInstExt'>AtomicRMWInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.BinaryOperatorExt.html'
+                               title='llvm-sys::llvm::value::user::BinaryOperatorExt'>BinaryOperatorExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.BitCastInstExt.html'
+                               title='llvm-sys::llvm::value::user::BitCastInstExt'>BitCastInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.BranchInstExt.html'
+                               title='llvm-sys::llvm::value::user::BranchInstExt'>BranchInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.CallInstExt.html'
+                               title='llvm-sys::llvm::value::user::CallInstExt'>CallInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.CastInstExt.html'
+                               title='llvm-sys::llvm::value::user::CastInstExt'>CastInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.CmpInstExt.html'
+                               title='llvm-sys::llvm::value::user::CmpInstExt'>CmpInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ExtractElementInstExt.html'
+                               title='llvm-sys::llvm::value::user::ExtractElementInstExt'>ExtractElementInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ExtractValueInstExt.html'
+                               title='llvm-sys::llvm::value::user::ExtractValueInstExt'>ExtractValueInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.FPExtInstExt.html'
+                               title='llvm-sys::llvm::value::user::FPExtInstExt'>FPExtInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.FPToSIInstExt.html'
+                               title='llvm-sys::llvm::value::user::FPToSIInstExt'>FPToSIInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.FenceInstExt.html'
+                               title='llvm-sys::llvm::value::user::FenceInstExt'>FenceInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.GetElementPtrInstExt.html'
+                               title='llvm-sys::llvm::value::user::GetElementPtrInstExt'>GetElementPtrInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.IndirectBrInstExt.html'
+                               title='llvm-sys::llvm::value::user::IndirectBrInstExt'>IndirectBrInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.InsertElementInstExt.html'
+                               title='llvm-sys::llvm::value::user::InsertElementInstExt'>InsertElementInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.InsertValueInstExt.html'
+                               title='llvm-sys::llvm::value::user::InsertValueInstExt'>InsertValueInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.InstructionExt.html'
+                               title='llvm-sys::llvm::value::user::InstructionExt'>InstructionExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.InvokeInstExt.html'
+                               title='llvm-sys::llvm::value::user::InvokeInstExt'>InvokeInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.LandingPadInstExt.html'
+                               title='llvm-sys::llvm::value::user::LandingPadInstExt'>LandingPadInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.LoadInstExt.html'
+                               title='llvm-sys::llvm::value::user::LoadInstExt'>LoadInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.OperatorExt.html'
+                               title='llvm-sys::llvm::value::user::OperatorExt'>OperatorExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.PHINodeExt.html'
+                               title='llvm-sys::llvm::value::user::PHINodeExt'>PHINodeExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ResumeInstExt.html'
+                               title='llvm-sys::llvm::value::user::ResumeInstExt'>ResumeInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ReturnInstExt.html'
+                               title='llvm-sys::llvm::value::user::ReturnInstExt'>ReturnInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.SelectInstExt.html'
+                               title='llvm-sys::llvm::value::user::SelectInstExt'>SelectInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ShuffleVectorInstExt.html'
+                               title='llvm-sys::llvm::value::user::ShuffleVectorInstExt'>ShuffleVectorInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.StoreInstExt.html'
+                               title='llvm-sys::llvm::value::user::StoreInstExt'>StoreInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.SwitchInstExt.html'
+                               title='llvm-sys::llvm::value::user::SwitchInstExt'>SwitchInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.TerminatorInstExt.html'
+                               title='llvm-sys::llvm::value::user::TerminatorInstExt'>TerminatorInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.UnaryInstructionExt.html'
+                               title='llvm-sys::llvm::value::user::UnaryInstructionExt'>UnaryInstructionExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.UnreachableInstExt.html'
+                               title='llvm-sys::llvm::value::user::UnreachableInstExt'>UnreachableInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.UserExt.html'
+                               title='llvm-sys::llvm::value::user::UserExt'>UserExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.VAArgInstExt.html'
+                               title='llvm-sys::llvm::value::user::VAArgInstExt'>VAArgInstExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.AddrSpaceCastInstInner.html'
+                               title='llvm-sys::llvm::value::user::AddrSpaceCastInstInner'>AddrSpaceCastInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.AllocaInstInner.html'
+                               title='llvm-sys::llvm::value::user::AllocaInstInner'>AllocaInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.AtomicCmpXchgInstInner.html'
+                               title='llvm-sys::llvm::value::user::AtomicCmpXchgInstInner'>AtomicCmpXchgInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.AtomicRMWInstInner.html'
+                               title='llvm-sys::llvm::value::user::AtomicRMWInstInner'>AtomicRMWInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.BinaryOperatorInner.html'
+                               title='llvm-sys::llvm::value::user::BinaryOperatorInner'>BinaryOperatorInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.BitCastInstInner.html'
+                               title='llvm-sys::llvm::value::user::BitCastInstInner'>BitCastInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.BranchInstInner.html'
+                               title='llvm-sys::llvm::value::user::BranchInstInner'>BranchInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.CallInstInner.html'
+                               title='llvm-sys::llvm::value::user::CallInstInner'>CallInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.CastInstInner.html'
+                               title='llvm-sys::llvm::value::user::CastInstInner'>CastInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.CmpInstInner.html'
+                               title='llvm-sys::llvm::value::user::CmpInstInner'>CmpInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.ExtractElementInstInner.html'
+                               title='llvm-sys::llvm::value::user::ExtractElementInstInner'>ExtractElementInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.ExtractValueInstInner.html'
+                               title='llvm-sys::llvm::value::user::ExtractValueInstInner'>ExtractValueInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.FPExtInstInner.html'
+                               title='llvm-sys::llvm::value::user::FPExtInstInner'>FPExtInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.FPToSIInstInner.html'
+                               title='llvm-sys::llvm::value::user::FPToSIInstInner'>FPToSIInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.FenceInstInner.html'
+                               title='llvm-sys::llvm::value::user::FenceInstInner'>FenceInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.GetElementPtrInstInner.html'
+                               title='llvm-sys::llvm::value::user::GetElementPtrInstInner'>GetElementPtrInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.IndirectBrInstInner.html'
+                               title='llvm-sys::llvm::value::user::IndirectBrInstInner'>IndirectBrInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.InsertElementInstInner.html'
+                               title='llvm-sys::llvm::value::user::InsertElementInstInner'>InsertElementInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.InsertValueInstInner.html'
+                               title='llvm-sys::llvm::value::user::InsertValueInstInner'>InsertValueInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.InstructionInner.html'
+                               title='llvm-sys::llvm::value::user::InstructionInner'>InstructionInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.InvokeInstInner.html'
+                               title='llvm-sys::llvm::value::user::InvokeInstInner'>InvokeInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.LandingPadInstInner.html'
+                               title='llvm-sys::llvm::value::user::LandingPadInstInner'>LandingPadInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.LoadInstInner.html'
+                               title='llvm-sys::llvm::value::user::LoadInstInner'>LoadInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.OperatorInner.html'
+                               title='llvm-sys::llvm::value::user::OperatorInner'>OperatorInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.PHINodeInner.html'
+                               title='llvm-sys::llvm::value::user::PHINodeInner'>PHINodeInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.ResumeInstInner.html'
+                               title='llvm-sys::llvm::value::user::ResumeInstInner'>ResumeInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.ReturnInstInner.html'
+                               title='llvm-sys::llvm::value::user::ReturnInstInner'>ReturnInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.SelectInstInner.html'
+                               title='llvm-sys::llvm::value::user::SelectInstInner'>SelectInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.ShuffleVectorInstInner.html'
+                               title='llvm-sys::llvm::value::user::ShuffleVectorInstInner'>ShuffleVectorInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.StoreInstInner.html'
+                               title='llvm-sys::llvm::value::user::StoreInstInner'>StoreInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.SwitchInstInner.html'
+                               title='llvm-sys::llvm::value::user::SwitchInstInner'>SwitchInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.TerminatorInstInner.html'
+                               title='llvm-sys::llvm::value::user::TerminatorInstInner'>TerminatorInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.UnaryInstructionInner.html'
+                               title='llvm-sys::llvm::value::user::UnaryInstructionInner'>UnaryInstructionInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.UnreachableInstInner.html'
+                               title='llvm-sys::llvm::value::user::UnreachableInstInner'>UnreachableInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.UserInner.html'
+                               title='llvm-sys::llvm::value::user::UserInner'>UserInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.VAArgInstInner.html'
+                               title='llvm-sys::llvm::value::user::VAArgInstInner'>VAArgInstInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../../";
+        window.currentCrate = "llvm-sys";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../../jquery.js"></script>
+    <script src="../../../../main.js"></script>
+    
+    <script async src="../../../../search-index.js"></script>
+</body>
+</html>

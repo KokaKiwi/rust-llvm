@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ModuleExt` trait in crate `llvm-sys`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ModuleExt">
+
+    <title>llvm-sys::llvm::ModuleExt - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>llvm-sys</a>::<wbr><a href='index.html'>llvm</a></p><div class='block mod'><h2>Modules</h2><a class='mod ' href='ty/index.html'>ty</a><a class='mod ' href='value/index.html'>value</a></div><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.DataLayout.html'>DataLayout</a><a class='struct ' href='struct.LLVMContext.html'>LLVMContext</a><a class='struct ' href='struct.Module.html'>Module</a></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='trait.DataLayoutExt.html'>DataLayoutExt</a><a class='trait ' href='trait.LLVMContextExt.html'>LLVMContextExt</a><a class='trait current' href='trait.ModuleExt.html'>ModuleExt</a></div><div class='block fn'><h2>Functions</h2><a class='fn ' href='fn.get_global_context.html'>get_global_context</a></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>llvm-sys</a>::<wbr><a href='index.html'>llvm</a>::<wbr><a class='trait' href=''>ModuleExt</a><wbr><a class='stability Experimental' title=''>Experimental</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]
+            </a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-16532' href='../../src/llvm-sys/llvm/mod.rs.html#59-204'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait ModuleExt {
+    fn <a href='#tymethod.inner' class='fnname'>inner</a>(&amp;self) -&gt; *mut <a class='type' href='../../llvm-sys/llvm/type.ModuleInner.html' title='llvm-sys::llvm::ModuleInner'>ModuleInner</a>;
+
+    fn <a href='#method.set_target_triple' class='fnname'>set_target_triple</a>(&amp;mut self, triple: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) { ... }
+    fn <a href='#method.get_md_kind_id' class='fnname'>get_md_kind_id</a>(&amp;self, name: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a> { ... }
+    fn <a href='#method.get_or_insert_function' class='fnname'>get_or_insert_function</a>&lt;A2: <a class='trait' href='../../llvm-sys/llvm/ty/trait.FunctionTypeExt.html' title='llvm-sys::llvm::ty::FunctionTypeExt'>FunctionTypeExt</a>&gt;(&amp;mut self, name: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, ty: A2) -&gt; <a class='struct' href='../../llvm-sys/llvm/value/user/constant/struct.Constant.html' title='llvm-sys::llvm::value::user::constant::Constant'>Constant</a> { ... }
+    fn <a href='#method.set_data_layout' class='fnname'>set_data_layout</a>&lt;A1: <a class='trait' href='../../llvm-sys/llvm/trait.DataLayoutExt.html' title='llvm-sys::llvm::DataLayoutExt'>DataLayoutExt</a>&gt;(&amp;mut self, other: A1) { ... }
+    fn <a href='#method.get_target_triple' class='fnname'>get_target_triple</a>(&amp;self) -&gt; &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a> { ... }
+    fn <a href='#method.get_module_identifier' class='fnname'>get_module_identifier</a>(&amp;self) -&gt; &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a> { ... }
+    fn <a href='#method.set_module_identifier' class='fnname'>set_module_identifier</a>(&amp;mut self, id: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) { ... }
+    fn <a href='#method.set_module_inline_asm' class='fnname'>set_module_inline_asm</a>(&amp;mut self, asm: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) { ... }
+    fn <a href='#method.set_data_layout_str' class='fnname'>set_data_layout_str</a>(&amp;mut self, desc: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) { ... }
+    fn <a href='#method.get_data_layout_str' class='fnname'>get_data_layout_str</a>(&amp;self) -&gt; &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a> { ... }
+    fn <a href='#method.get_named_value' class='fnname'>get_named_value</a>(&amp;self, name: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='../../llvm-sys/llvm/value/user/constant/struct.GlobalValue.html' title='llvm-sys::llvm::value::user::constant::GlobalValue'>GlobalValue</a> { ... }
+    fn <a href='#method.append_module_inline_asm' class='fnname'>append_module_inline_asm</a>(&amp;mut self, asm: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) { ... }
+    fn <a href='#method.dump' class='fnname'>dump</a>(&amp;self) { ... }
+    fn <a href='#method.get_type_by_name' class='fnname'>get_type_by_name</a>(&amp;self, name: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='../../llvm-sys/llvm/ty/struct.StructType.html' title='llvm-sys::llvm::ty::StructType'>StructType</a> { ... }
+    fn <a href='#method.get_context' class='fnname'>get_context</a>(&amp;self) -&gt; <a class='struct' href='../../llvm-sys/llvm/struct.LLVMContext.html' title='llvm-sys::llvm::LLVMContext'>LLVMContext</a> { ... }
+    fn <a href='#method.get_module_inline_asm' class='fnname'>get_module_inline_asm</a>(&amp;self) -&gt; &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a> { ... }
+    fn <a href='#method.get_data_layout' class='fnname'>get_data_layout</a>(&amp;self) -&gt; <a class='struct' href='../../llvm-sys/llvm/struct.DataLayout.html' title='llvm-sys::llvm::DataLayout'>DataLayout</a> { ... }
+}</pre>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.inner' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.inner' class='fnname'>inner</a>(&amp;self) -&gt; *mut <a class='type' href='../../llvm-sys/llvm/type.ModuleInner.html' title='llvm-sys::llvm::ModuleInner'>ModuleInner</a></code></h3></div>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='method.set_target_triple' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.set_target_triple' class='fnname'>set_target_triple</a>(&amp;mut self, triple: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>)</code></h3><h3 id='method.get_md_kind_id' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.get_md_kind_id' class='fnname'>get_md_kind_id</a>(&amp;self, name: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h3><h3 id='method.get_or_insert_function' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.get_or_insert_function' class='fnname'>get_or_insert_function</a>&lt;A2: <a class='trait' href='../../llvm-sys/llvm/ty/trait.FunctionTypeExt.html' title='llvm-sys::llvm::ty::FunctionTypeExt'>FunctionTypeExt</a>&gt;(&amp;mut self, name: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, ty: A2) -&gt; <a class='struct' href='../../llvm-sys/llvm/value/user/constant/struct.Constant.html' title='llvm-sys::llvm::value::user::constant::Constant'>Constant</a></code></h3><h3 id='method.set_data_layout' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.set_data_layout' class='fnname'>set_data_layout</a>&lt;A1: <a class='trait' href='../../llvm-sys/llvm/trait.DataLayoutExt.html' title='llvm-sys::llvm::DataLayoutExt'>DataLayoutExt</a>&gt;(&amp;mut self, other: A1)</code></h3><h3 id='method.get_target_triple' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.get_target_triple' class='fnname'>get_target_triple</a>(&amp;self) -&gt; &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a></code></h3><h3 id='method.get_module_identifier' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.get_module_identifier' class='fnname'>get_module_identifier</a>(&amp;self) -&gt; &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a></code></h3><h3 id='method.set_module_identifier' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.set_module_identifier' class='fnname'>set_module_identifier</a>(&amp;mut self, id: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>)</code></h3><h3 id='method.set_module_inline_asm' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.set_module_inline_asm' class='fnname'>set_module_inline_asm</a>(&amp;mut self, asm: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>)</code></h3><h3 id='method.set_data_layout_str' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.set_data_layout_str' class='fnname'>set_data_layout_str</a>(&amp;mut self, desc: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>)</code></h3><h3 id='method.get_data_layout_str' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.get_data_layout_str' class='fnname'>get_data_layout_str</a>(&amp;self) -&gt; &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a></code></h3><h3 id='method.get_named_value' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.get_named_value' class='fnname'>get_named_value</a>(&amp;self, name: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='../../llvm-sys/llvm/value/user/constant/struct.GlobalValue.html' title='llvm-sys::llvm::value::user::constant::GlobalValue'>GlobalValue</a></code></h3><h3 id='method.append_module_inline_asm' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.append_module_inline_asm' class='fnname'>append_module_inline_asm</a>(&amp;mut self, asm: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>)</code></h3><h3 id='method.dump' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.dump' class='fnname'>dump</a>(&amp;self)</code></h3><h3 id='method.get_type_by_name' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.get_type_by_name' class='fnname'>get_type_by_name</a>(&amp;self, name: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='../../llvm-sys/llvm/ty/struct.StructType.html' title='llvm-sys::llvm::ty::StructType'>StructType</a></code></h3><h3 id='method.get_context' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.get_context' class='fnname'>get_context</a>(&amp;self) -&gt; <a class='struct' href='../../llvm-sys/llvm/struct.LLVMContext.html' title='llvm-sys::llvm::LLVMContext'>LLVMContext</a></code></h3><h3 id='method.get_module_inline_asm' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.get_module_inline_asm' class='fnname'>get_module_inline_asm</a>(&amp;self) -&gt; &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a></code></h3><h3 id='method.get_data_layout' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.get_data_layout' class='fnname'>get_data_layout</a>(&amp;self) -&gt; <a class='struct' href='../../llvm-sys/llvm/struct.DataLayout.html' title='llvm-sys::llvm::DataLayout'>DataLayout</a></code></h3></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../llvm-sys/llvm/trait.ModuleExt.html' title='llvm-sys::llvm::ModuleExt'>ModuleExt</a> for <a class='struct' href='../../llvm-sys/llvm/struct.Module.html' title='llvm-sys::llvm::Module'>Module</a></code></li>
+</ul><script type="text/javascript" async
+                              src="../../implementors/llvm-sys/llvm/trait.ModuleExt.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "llvm-sys";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

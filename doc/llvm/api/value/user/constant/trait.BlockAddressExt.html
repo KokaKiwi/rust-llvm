@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `BlockAddressExt` trait in crate `llvm`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, BlockAddressExt">
+
+    <title>llvm::api::value::user::constant::BlockAddressExt - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../../../index.html'>llvm</a>::<wbr><a href='../../../index.html'>api</a>::<wbr><a href='../../index.html'>value</a>::<wbr><a href='../index.html'>user</a>::<wbr><a href='index.html'>constant</a></p><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.BlockAddress.html'>BlockAddress</a><a class='struct ' href='struct.Constant.html'>Constant</a><a class='struct ' href='struct.ConstantAggregateZero.html'>ConstantAggregateZero</a><a class='struct ' href='struct.ConstantArray.html'>ConstantArray</a><a class='struct ' href='struct.ConstantDataArray.html'>ConstantDataArray</a><a class='struct ' href='struct.ConstantDataSequential.html'>ConstantDataSequential</a><a class='struct ' href='struct.ConstantDataVector.html'>ConstantDataVector</a><a class='struct ' href='struct.ConstantExpr.html'>ConstantExpr</a><a class='struct ' href='struct.ConstantFP.html'>ConstantFP</a><a class='struct ' href='struct.ConstantInt.html'>ConstantInt</a><a class='struct ' href='struct.ConstantPointerNull.html'>ConstantPointerNull</a><a class='struct ' href='struct.ConstantStruct.html'>ConstantStruct</a><a class='struct ' href='struct.ConstantVector.html'>ConstantVector</a><a class='struct ' href='struct.GlobalValue.html'>GlobalValue</a><a class='struct ' href='struct.UndefValue.html'>UndefValue</a></div><div class='block trait'><h2>Traits</h2><a class='trait current' href='trait.BlockAddressExt.html'>BlockAddressExt</a><a class='trait ' href='trait.ConstantAggregateZeroExt.html'>ConstantAggregateZeroExt</a><a class='trait ' href='trait.ConstantArrayExt.html'>ConstantArrayExt</a><a class='trait ' href='trait.ConstantDataArrayExt.html'>ConstantDataArrayExt</a><a class='trait ' href='trait.ConstantDataSequentialExt.html'>ConstantDataSequentialExt</a><a class='trait ' href='trait.ConstantDataVectorExt.html'>ConstantDataVectorExt</a><a class='trait ' href='trait.ConstantExprExt.html'>ConstantExprExt</a><a class='trait ' href='trait.ConstantExt.html'>ConstantExt</a><a class='trait ' href='trait.ConstantFPExt.html'>ConstantFPExt</a><a class='trait ' href='trait.ConstantIntExt.html'>ConstantIntExt</a><a class='trait ' href='trait.ConstantPointerNullExt.html'>ConstantPointerNullExt</a><a class='trait ' href='trait.ConstantStructExt.html'>ConstantStructExt</a><a class='trait ' href='trait.ConstantVectorExt.html'>ConstantVectorExt</a><a class='trait ' href='trait.GlobalValueExt.html'>GlobalValueExt</a><a class='trait ' href='trait.UndefValueExt.html'>UndefValueExt</a></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../../../../index.html'>llvm</a>::<wbr><a href='../../../index.html'>api</a>::<wbr><a href='../../index.html'>value</a>::<wbr><a href='../index.html'>user</a>::<wbr><a href='index.html'>constant</a>::<wbr><a class='trait' href=''>BlockAddressExt</a><wbr><a class='stability Experimental' title=''>Experimental</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]
+            </a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-8604' href='../../../../../llvm-sys/llvm/value/user/constant/trait.BlockAddressExt.html?gotosrc=8604'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait BlockAddressExt: <a class='trait' href='../../../../../llvm/api/value/user/constant/trait.ConstantExt.html' title='llvm::api::value::user::constant::ConstantExt'>ConstantExt</a> {
+    fn <a href='#tymethod.inner' class='fnname'>inner</a>(&amp;self) -&gt; *mut <a class='struct' href='../../../../../llvm-sys/ffi/struct.llvm_BlockAddress.html' title='llvm-sys::ffi::llvm_BlockAddress'>llvm_BlockAddress</a>;
+}</pre>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.inner' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.inner' class='fnname'>inner</a>(&amp;self) -&gt; *mut <a class='struct' href='../../../../../llvm-sys/ffi/struct.llvm_BlockAddress.html' title='llvm-sys::ffi::llvm_BlockAddress'>llvm_BlockAddress</a></code></h3></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../../llvm/api/value/user/constant/trait.BlockAddressExt.html' title='llvm::api::value::user::constant::BlockAddressExt'>BlockAddressExt</a> for <a class='struct' href='../../../../../llvm/api/value/user/constant/struct.BlockAddress.html' title='llvm::api::value::user::constant::BlockAddress'>BlockAddress</a></code></li>
+</ul><script type="text/javascript" async
+                              src="../../../../../implementors/llvm-sys/llvm/value/user/constant/trait.BlockAddressExt.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../../../";
+        window.currentCrate = "llvm";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../../../jquery.js"></script>
+    <script src="../../../../../main.js"></script>
+    
+    <script async src="../../../../../search-index.js"></script>
+</body>
+</html>

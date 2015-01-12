@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `constant` mod in crate `llvm`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, constant">
+
+    <title>llvm::api::value::user::constant - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../../../index.html'>llvm</a>::<wbr><a href='../../../index.html'>api</a>::<wbr><a href='../../index.html'>value</a>::<wbr><a href='../index.html'>user</a></p><div class='block mod'><h2>Modules</h2><a class='mod current' href='../constant/index.html'>constant</a></div><div class='block struct'><h2>Structs</h2><a class='struct ' href='../struct.AddrSpaceCastInst.html'>AddrSpaceCastInst</a><a class='struct ' href='../struct.AllocaInst.html'>AllocaInst</a><a class='struct ' href='../struct.AtomicCmpXchgInst.html'>AtomicCmpXchgInst</a><a class='struct ' href='../struct.AtomicRMWInst.html'>AtomicRMWInst</a><a class='struct ' href='../struct.BinaryOperator.html'>BinaryOperator</a><a class='struct ' href='../struct.BitCastInst.html'>BitCastInst</a><a class='struct ' href='../struct.BranchInst.html'>BranchInst</a><a class='struct ' href='../struct.CallInst.html'>CallInst</a><a class='struct ' href='../struct.CastInst.html'>CastInst</a><a class='struct ' href='../struct.CmpInst.html'>CmpInst</a><a class='struct ' href='../struct.ExtractElementInst.html'>ExtractElementInst</a><a class='struct ' href='../struct.ExtractValueInst.html'>ExtractValueInst</a><a class='struct ' href='../struct.FPExtInst.html'>FPExtInst</a><a class='struct ' href='../struct.FPToSIInst.html'>FPToSIInst</a><a class='struct ' href='../struct.FenceInst.html'>FenceInst</a><a class='struct ' href='../struct.GetElementPtrInst.html'>GetElementPtrInst</a><a class='struct ' href='../struct.IndirectBrInst.html'>IndirectBrInst</a><a class='struct ' href='../struct.InsertElementInst.html'>InsertElementInst</a><a class='struct ' href='../struct.InsertValueInst.html'>InsertValueInst</a><a class='struct ' href='../struct.Instruction.html'>Instruction</a><a class='struct ' href='../struct.InvokeInst.html'>InvokeInst</a><a class='struct ' href='../struct.LandingPadInst.html'>LandingPadInst</a><a class='struct ' href='../struct.LoadInst.html'>LoadInst</a><a class='struct ' href='../struct.Operator.html'>Operator</a><a class='struct ' href='../struct.PHINode.html'>PHINode</a><a class='struct ' href='../struct.ResumeInst.html'>ResumeInst</a><a class='struct ' href='../struct.ReturnInst.html'>ReturnInst</a><a class='struct ' href='../struct.SelectInst.html'>SelectInst</a><a class='struct ' href='../struct.ShuffleVectorInst.html'>ShuffleVectorInst</a><a class='struct ' href='../struct.StoreInst.html'>StoreInst</a><a class='struct ' href='../struct.SwitchInst.html'>SwitchInst</a><a class='struct ' href='../struct.TerminatorInst.html'>TerminatorInst</a><a class='struct ' href='../struct.UnaryInstruction.html'>UnaryInstruction</a><a class='struct ' href='../struct.UnreachableInst.html'>UnreachableInst</a><a class='struct ' href='../struct.User.html'>User</a><a class='struct ' href='../struct.VAArgInst.html'>VAArgInst</a></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='../trait.AddrSpaceCastInstExt.html'>AddrSpaceCastInstExt</a><a class='trait ' href='../trait.AllocaInstExt.html'>AllocaInstExt</a><a class='trait ' href='../trait.AtomicCmpXchgInstExt.html'>AtomicCmpXchgInstExt</a><a class='trait ' href='../trait.AtomicRMWInstExt.html'>AtomicRMWInstExt</a><a class='trait ' href='../trait.BinaryOperatorExt.html'>BinaryOperatorExt</a><a class='trait ' href='../trait.BitCastInstExt.html'>BitCastInstExt</a><a class='trait ' href='../trait.BranchInstExt.html'>BranchInstExt</a><a class='trait ' href='../trait.CallInstExt.html'>CallInstExt</a><a class='trait ' href='../trait.CastInstExt.html'>CastInstExt</a><a class='trait ' href='../trait.CmpInstExt.html'>CmpInstExt</a><a class='trait ' href='../trait.ExtractElementInstExt.html'>ExtractElementInstExt</a><a class='trait ' href='../trait.ExtractValueInstExt.html'>ExtractValueInstExt</a><a class='trait ' href='../trait.FPExtInstExt.html'>FPExtInstExt</a><a class='trait ' href='../trait.FPToSIInstExt.html'>FPToSIInstExt</a><a class='trait ' href='../trait.FenceInstExt.html'>FenceInstExt</a><a class='trait ' href='../trait.GetElementPtrInstExt.html'>GetElementPtrInstExt</a><a class='trait ' href='../trait.IndirectBrInstExt.html'>IndirectBrInstExt</a><a class='trait ' href='../trait.InsertElementInstExt.html'>InsertElementInstExt</a><a class='trait ' href='../trait.InsertValueInstExt.html'>InsertValueInstExt</a><a class='trait ' href='../trait.InstructionExt.html'>InstructionExt</a><a class='trait ' href='../trait.InvokeInstExt.html'>InvokeInstExt</a><a class='trait ' href='../trait.LandingPadInstExt.html'>LandingPadInstExt</a><a class='trait ' href='../trait.LoadInstExt.html'>LoadInstExt</a><a class='trait ' href='../trait.OperatorExt.html'>OperatorExt</a><a class='trait ' href='../trait.PHINodeExt.html'>PHINodeExt</a><a class='trait ' href='../trait.ResumeInstExt.html'>ResumeInstExt</a><a class='trait ' href='../trait.ReturnInstExt.html'>ReturnInstExt</a><a class='trait ' href='../trait.SelectInstExt.html'>SelectInstExt</a><a class='trait ' href='../trait.ShuffleVectorInstExt.html'>ShuffleVectorInstExt</a><a class='trait ' href='../trait.StoreInstExt.html'>StoreInstExt</a><a class='trait ' href='../trait.SwitchInstExt.html'>SwitchInstExt</a><a class='trait ' href='../trait.TerminatorInstExt.html'>TerminatorInstExt</a><a class='trait ' href='../trait.UnaryInstructionExt.html'>UnaryInstructionExt</a><a class='trait ' href='../trait.UnreachableInstExt.html'>UnreachableInstExt</a><a class='trait ' href='../trait.UserExt.html'>UserExt</a><a class='trait ' href='../trait.VAArgInstExt.html'>VAArgInstExt</a></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../../../../index.html'>llvm</a>::<wbr><a href='../../../index.html'>api</a>::<wbr><a href='../../index.html'>value</a>::<wbr><a href='../index.html'>user</a>::<wbr><a class='mod' href=''>constant</a><wbr><a class='stability Experimental' title=''>Experimental</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]
+            </a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-8485' href='../../../../../llvm-sys/llvm/value/user/constant/index.html?gotosrc=8485'>[src]</a></span></h1>
+<h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.BlockAddress.html'
+                               title='llvm::api::value::user::constant::BlockAddress'>BlockAddress</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.Constant.html'
+                               title='llvm::api::value::user::constant::Constant'>Constant</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.ConstantAggregateZero.html'
+                               title='llvm::api::value::user::constant::ConstantAggregateZero'>ConstantAggregateZero</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.ConstantArray.html'
+                               title='llvm::api::value::user::constant::ConstantArray'>ConstantArray</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.ConstantDataArray.html'
+                               title='llvm::api::value::user::constant::ConstantDataArray'>ConstantDataArray</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.ConstantDataSequential.html'
+                               title='llvm::api::value::user::constant::ConstantDataSequential'>ConstantDataSequential</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.ConstantDataVector.html'
+                               title='llvm::api::value::user::constant::ConstantDataVector'>ConstantDataVector</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.ConstantExpr.html'
+                               title='llvm::api::value::user::constant::ConstantExpr'>ConstantExpr</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.ConstantFP.html'
+                               title='llvm::api::value::user::constant::ConstantFP'>ConstantFP</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.ConstantInt.html'
+                               title='llvm::api::value::user::constant::ConstantInt'>ConstantInt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.ConstantPointerNull.html'
+                               title='llvm::api::value::user::constant::ConstantPointerNull'>ConstantPointerNull</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.ConstantStruct.html'
+                               title='llvm::api::value::user::constant::ConstantStruct'>ConstantStruct</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.ConstantVector.html'
+                               title='llvm::api::value::user::constant::ConstantVector'>ConstantVector</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.GlobalValue.html'
+                               title='llvm::api::value::user::constant::GlobalValue'>GlobalValue</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.UndefValue.html'
+                               title='llvm::api::value::user::constant::UndefValue'>UndefValue</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.BlockAddressExt.html'
+                               title='llvm::api::value::user::constant::BlockAddressExt'>BlockAddressExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantAggregateZeroExt.html'
+                               title='llvm::api::value::user::constant::ConstantAggregateZeroExt'>ConstantAggregateZeroExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantArrayExt.html'
+                               title='llvm::api::value::user::constant::ConstantArrayExt'>ConstantArrayExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantDataArrayExt.html'
+                               title='llvm::api::value::user::constant::ConstantDataArrayExt'>ConstantDataArrayExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantDataSequentialExt.html'
+                               title='llvm::api::value::user::constant::ConstantDataSequentialExt'>ConstantDataSequentialExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantDataVectorExt.html'
+                               title='llvm::api::value::user::constant::ConstantDataVectorExt'>ConstantDataVectorExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantExprExt.html'
+                               title='llvm::api::value::user::constant::ConstantExprExt'>ConstantExprExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantExt.html'
+                               title='llvm::api::value::user::constant::ConstantExt'>ConstantExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantFPExt.html'
+                               title='llvm::api::value::user::constant::ConstantFPExt'>ConstantFPExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantIntExt.html'
+                               title='llvm::api::value::user::constant::ConstantIntExt'>ConstantIntExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantPointerNullExt.html'
+                               title='llvm::api::value::user::constant::ConstantPointerNullExt'>ConstantPointerNullExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantStructExt.html'
+                               title='llvm::api::value::user::constant::ConstantStructExt'>ConstantStructExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantVectorExt.html'
+                               title='llvm::api::value::user::constant::ConstantVectorExt'>ConstantVectorExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.GlobalValueExt.html'
+                               title='llvm::api::value::user::constant::GlobalValueExt'>GlobalValueExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.UndefValueExt.html'
+                               title='llvm::api::value::user::constant::UndefValueExt'>UndefValueExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.BlockAddressInner.html'
+                               title='llvm::api::value::user::constant::BlockAddressInner'>BlockAddressInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.ConstantAggregateZeroInner.html'
+                               title='llvm::api::value::user::constant::ConstantAggregateZeroInner'>ConstantAggregateZeroInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.ConstantArrayInner.html'
+                               title='llvm::api::value::user::constant::ConstantArrayInner'>ConstantArrayInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.ConstantDataArrayInner.html'
+                               title='llvm::api::value::user::constant::ConstantDataArrayInner'>ConstantDataArrayInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.ConstantDataSequentialInner.html'
+                               title='llvm::api::value::user::constant::ConstantDataSequentialInner'>ConstantDataSequentialInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.ConstantDataVectorInner.html'
+                               title='llvm::api::value::user::constant::ConstantDataVectorInner'>ConstantDataVectorInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.ConstantExprInner.html'
+                               title='llvm::api::value::user::constant::ConstantExprInner'>ConstantExprInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.ConstantFPInner.html'
+                               title='llvm::api::value::user::constant::ConstantFPInner'>ConstantFPInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.ConstantInner.html'
+                               title='llvm::api::value::user::constant::ConstantInner'>ConstantInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.ConstantIntInner.html'
+                               title='llvm::api::value::user::constant::ConstantIntInner'>ConstantIntInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.ConstantPointerNullInner.html'
+                               title='llvm::api::value::user::constant::ConstantPointerNullInner'>ConstantPointerNullInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.ConstantStructInner.html'
+                               title='llvm::api::value::user::constant::ConstantStructInner'>ConstantStructInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.ConstantVectorInner.html'
+                               title='llvm::api::value::user::constant::ConstantVectorInner'>ConstantVectorInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.GlobalValueInner.html'
+                               title='llvm::api::value::user::constant::GlobalValueInner'>GlobalValueInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.UndefValueInner.html'
+                               title='llvm::api::value::user::constant::UndefValueInner'>UndefValueInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../../../";
+        window.currentCrate = "llvm";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../../../jquery.js"></script>
+    <script src="../../../../../main.js"></script>
+    
+    <script async src="../../../../../search-index.js"></script>
+</body>
+</html>

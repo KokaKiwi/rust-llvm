@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Module_new` fn in crate `llvm-sys`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Module_new">
+
+    <title>llvm-sys::ffi::llvm::Module_new - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>llvm-sys</a>::<wbr><a href='../index.html'>ffi</a>::<wbr><a href='index.html'>llvm</a></p><div class='block fn'><h2>Functions</h2><a class='fn ' href='fn.ArrayType_classof.html'>ArrayType_classof</a><a class='fn ' href='fn.ArrayType_get.html'>ArrayType_get</a><a class='fn ' href='fn.ArrayType_getNumElements.html'>ArrayType_getNumElements</a><a class='fn ' href='fn.ArrayType_isValidElementType.html'>ArrayType_isValidElementType</a><a class='fn ' href='fn.CompositeType_classof.html'>CompositeType_classof</a><a class='fn ' href='fn.CompositeType_getTypeAtIndex.html'>CompositeType_getTypeAtIndex</a><a class='fn ' href='fn.CompositeType_indexValid.html'>CompositeType_indexValid</a><a class='fn ' href='fn.FunctionType_classof.html'>FunctionType_classof</a><a class='fn ' href='fn.FunctionType_get.html'>FunctionType_get</a><a class='fn ' href='fn.FunctionType_getNumParams.html'>FunctionType_getNumParams</a><a class='fn ' href='fn.FunctionType_getParamType.html'>FunctionType_getParamType</a><a class='fn ' href='fn.FunctionType_getReturnType.html'>FunctionType_getReturnType</a><a class='fn ' href='fn.FunctionType_isValidArgumentType.html'>FunctionType_isValidArgumentType</a><a class='fn ' href='fn.FunctionType_isValidReturnType.html'>FunctionType_isValidReturnType</a><a class='fn ' href='fn.FunctionType_isVarArg.html'>FunctionType_isVarArg</a><a class='fn ' href='fn.IntegerType_classof.html'>IntegerType_classof</a><a class='fn ' href='fn.IntegerType_get.html'>IntegerType_get</a><a class='fn ' href='fn.IntegerType_getBitMask.html'>IntegerType_getBitMask</a><a class='fn ' href='fn.IntegerType_getBitWidth.html'>IntegerType_getBitWidth</a><a class='fn ' href='fn.IntegerType_getSignBit.html'>IntegerType_getSignBit</a><a class='fn ' href='fn.IntegerType_isPowerOf2ByteWidth.html'>IntegerType_isPowerOf2ByteWidth</a><a class='fn ' href='fn.Module_appendModuleInlineAsm.html'>Module_appendModuleInlineAsm</a><a class='fn ' href='fn.Module_delete.html'>Module_delete</a><a class='fn ' href='fn.Module_dump.html'>Module_dump</a><a class='fn ' href='fn.Module_getContext.html'>Module_getContext</a><a class='fn ' href='fn.Module_getDataLayout.html'>Module_getDataLayout</a><a class='fn ' href='fn.Module_getDataLayoutStr.html'>Module_getDataLayoutStr</a><a class='fn ' href='fn.Module_getMDKindID.html'>Module_getMDKindID</a><a class='fn ' href='fn.Module_getModuleIdentifier.html'>Module_getModuleIdentifier</a><a class='fn ' href='fn.Module_getModuleInlineAsm.html'>Module_getModuleInlineAsm</a><a class='fn ' href='fn.Module_getNamedValue.html'>Module_getNamedValue</a><a class='fn ' href='fn.Module_getOrInsertFunction.html'>Module_getOrInsertFunction</a><a class='fn ' href='fn.Module_getTargetTriple.html'>Module_getTargetTriple</a><a class='fn ' href='fn.Module_getTypeByName.html'>Module_getTypeByName</a><a class='fn current' href='fn.Module_new.html'>Module_new</a><a class='fn ' href='fn.Module_setDataLayout.html'>Module_setDataLayout</a><a class='fn ' href='fn.Module_setDataLayoutStr.html'>Module_setDataLayoutStr</a><a class='fn ' href='fn.Module_setModuleIdentifier.html'>Module_setModuleIdentifier</a><a class='fn ' href='fn.Module_setModuleInlineAsm.html'>Module_setModuleInlineAsm</a><a class='fn ' href='fn.Module_setTargetTriple.html'>Module_setTargetTriple</a><a class='fn ' href='fn.PointerType_classof.html'>PointerType_classof</a><a class='fn ' href='fn.PointerType_get.html'>PointerType_get</a><a class='fn ' href='fn.PointerType_getAddressSpace.html'>PointerType_getAddressSpace</a><a class='fn ' href='fn.PointerType_getUnqual.html'>PointerType_getUnqual</a><a class='fn ' href='fn.PointerType_isValidElementType.html'>PointerType_isValidElementType</a><a class='fn ' href='fn.SequentialType_classof.html'>SequentialType_classof</a><a class='fn ' href='fn.SequentialType_getElementType.html'>SequentialType_getElementType</a><a class='fn ' href='fn.StructType_classof.html'>StructType_classof</a><a class='fn ' href='fn.StructType_create.html'>StructType_create</a><a class='fn ' href='fn.StructType_createPacked.html'>StructType_createPacked</a><a class='fn ' href='fn.StructType_getElementType.html'>StructType_getElementType</a><a class='fn ' href='fn.StructType_getName.html'>StructType_getName</a><a class='fn ' href='fn.StructType_getNumElements.html'>StructType_getNumElements</a><a class='fn ' href='fn.StructType_hasName.html'>StructType_hasName</a><a class='fn ' href='fn.StructType_isLayoutIdentical.html'>StructType_isLayoutIdentical</a><a class='fn ' href='fn.StructType_isLiteral.html'>StructType_isLiteral</a><a class='fn ' href='fn.StructType_isOpaque.html'>StructType_isOpaque</a><a class='fn ' href='fn.StructType_isPacked.html'>StructType_isPacked</a><a class='fn ' href='fn.StructType_isSized.html'>StructType_isSized</a><a class='fn ' href='fn.StructType_isValidElementType.html'>StructType_isValidElementType</a><a class='fn ' href='fn.StructType_setBody.html'>StructType_setBody</a><a class='fn ' href='fn.StructType_setBodyPacked.html'>StructType_setBodyPacked</a><a class='fn ' href='fn.StructType_setName.html'>StructType_setName</a><a class='fn ' href='fn.Type_dump.html'>Type_dump</a><a class='fn ' href='fn.Type_getContainedType.html'>Type_getContainedType</a><a class='fn ' href='fn.Type_getContext.html'>Type_getContext</a><a class='fn ' href='fn.Type_getDoublePtrTy.html'>Type_getDoublePtrTy</a><a class='fn ' href='fn.Type_getDoubleTy.html'>Type_getDoubleTy</a><a class='fn ' href='fn.Type_getFP128PtrTy.html'>Type_getFP128PtrTy</a><a class='fn ' href='fn.Type_getFP128Ty.html'>Type_getFP128Ty</a><a class='fn ' href='fn.Type_getFloatPtrTy.html'>Type_getFloatPtrTy</a><a class='fn ' href='fn.Type_getFloatTy.html'>Type_getFloatTy</a><a class='fn ' href='fn.Type_getFunctionNumParams.html'>Type_getFunctionNumParams</a><a class='fn ' href='fn.Type_getFunctionParamType.html'>Type_getFunctionParamType</a><a class='fn ' href='fn.Type_getHalfPtrTy.html'>Type_getHalfPtrTy</a><a class='fn ' href='fn.Type_getHalfTy.html'>Type_getHalfTy</a><a class='fn ' href='fn.Type_getInt16PtrTy.html'>Type_getInt16PtrTy</a><a class='fn ' href='fn.Type_getInt16Ty.html'>Type_getInt16Ty</a><a class='fn ' href='fn.Type_getInt1PtrTy.html'>Type_getInt1PtrTy</a><a class='fn ' href='fn.Type_getInt1Ty.html'>Type_getInt1Ty</a><a class='fn ' href='fn.Type_getInt32PtrTy.html'>Type_getInt32PtrTy</a><a class='fn ' href='fn.Type_getInt32Ty.html'>Type_getInt32Ty</a><a class='fn ' href='fn.Type_getInt64PtrTy.html'>Type_getInt64PtrTy</a><a class='fn ' href='fn.Type_getInt64Ty.html'>Type_getInt64Ty</a><a class='fn ' href='fn.Type_getInt8PtrTy.html'>Type_getInt8PtrTy</a><a class='fn ' href='fn.Type_getInt8Ty.html'>Type_getInt8Ty</a><a class='fn ' href='fn.Type_getIntNPtrTy.html'>Type_getIntNPtrTy</a><a class='fn ' href='fn.Type_getIntNTy.html'>Type_getIntNTy</a><a class='fn ' href='fn.Type_getLabelTy.html'>Type_getLabelTy</a><a class='fn ' href='fn.Type_getMetadataTy.html'>Type_getMetadataTy</a><a class='fn ' href='fn.Type_getNumContainedTypes.html'>Type_getNumContainedTypes</a><a class='fn ' href='fn.Type_getPPC_FP128PtrTy.html'>Type_getPPC_FP128PtrTy</a><a class='fn ' href='fn.Type_getPPC_FP128Ty.html'>Type_getPPC_FP128Ty</a><a class='fn ' href='fn.Type_getPointerAddressSpace.html'>Type_getPointerAddressSpace</a><a class='fn ' href='fn.Type_getPointerElementType.html'>Type_getPointerElementType</a><a class='fn ' href='fn.Type_getPointerTo.html'>Type_getPointerTo</a><a class='fn ' href='fn.Type_getSequentialElementType.html'>Type_getSequentialElementType</a><a class='fn ' href='fn.Type_getStructElementType.html'>Type_getStructElementType</a><a class='fn ' href='fn.Type_getStructName.html'>Type_getStructName</a><a class='fn ' href='fn.Type_getStructNumElements.html'>Type_getStructNumElements</a><a class='fn ' href='fn.Type_getTypeID.html'>Type_getTypeID</a><a class='fn ' href='fn.Type_getVoidTy.html'>Type_getVoidTy</a><a class='fn ' href='fn.Type_getX86_FP80PtrTy.html'>Type_getX86_FP80PtrTy</a><a class='fn ' href='fn.Type_getX86_FP80Ty.html'>Type_getX86_FP80Ty</a><a class='fn ' href='fn.Type_getX86_MMXPtrTy.html'>Type_getX86_MMXPtrTy</a><a class='fn ' href='fn.Type_getX86_MMXTy.html'>Type_getX86_MMXTy</a><a class='fn ' href='fn.Type_isAggregateType.html'>Type_isAggregateType</a><a class='fn ' href='fn.Type_isArrayTy.html'>Type_isArrayTy</a><a class='fn ' href='fn.Type_isDoubleTy.html'>Type_isDoubleTy</a><a class='fn ' href='fn.Type_isEmptyTy.html'>Type_isEmptyTy</a><a class='fn ' href='fn.Type_isFP128Ty.html'>Type_isFP128Ty</a><a class='fn ' href='fn.Type_isFPOrFPVectorTy.html'>Type_isFPOrFPVectorTy</a><a class='fn ' href='fn.Type_isFirstClassType.html'>Type_isFirstClassType</a><a class='fn ' href='fn.Type_isFloatTy.html'>Type_isFloatTy</a><a class='fn ' href='fn.Type_isFloatingPointTy.html'>Type_isFloatingPointTy</a><a class='fn ' href='fn.Type_isFunctionTy.html'>Type_isFunctionTy</a><a class='fn ' href='fn.Type_isFunctionVarArg.html'>Type_isFunctionVarArg</a><a class='fn ' href='fn.Type_isHalfTy.html'>Type_isHalfTy</a><a class='fn ' href='fn.Type_isIntOrIntVectorTy.html'>Type_isIntOrIntVectorTy</a><a class='fn ' href='fn.Type_isIntegerTy.html'>Type_isIntegerTy</a><a class='fn ' href='fn.Type_isLabelTy.html'>Type_isLabelTy</a><a class='fn ' href='fn.Type_isMetadataTy.html'>Type_isMetadataTy</a><a class='fn ' href='fn.Type_isPPC_FP128Ty.html'>Type_isPPC_FP128Ty</a><a class='fn ' href='fn.Type_isPointerTy.html'>Type_isPointerTy</a><a class='fn ' href='fn.Type_isPtrOrPtrVectorTy.html'>Type_isPtrOrPtrVectorTy</a><a class='fn ' href='fn.Type_isSingleValueType.html'>Type_isSingleValueType</a><a class='fn ' href='fn.Type_isSized.html'>Type_isSized</a><a class='fn ' href='fn.Type_isStructTy.html'>Type_isStructTy</a><a class='fn ' href='fn.Type_isVectorTy.html'>Type_isVectorTy</a><a class='fn ' href='fn.Type_isVoidTy.html'>Type_isVoidTy</a><a class='fn ' href='fn.Type_isX86_FP80Ty.html'>Type_isX86_FP80Ty</a><a class='fn ' href='fn.Type_isX86_MMXTy.html'>Type_isX86_MMXTy</a><a class='fn ' href='fn.Value_delete.html'>Value_delete</a><a class='fn ' href='fn.Value_dump.html'>Value_dump</a><a class='fn ' href='fn.Value_getContext.html'>Value_getContext</a><a class='fn ' href='fn.Value_getName.html'>Value_getName</a><a class='fn ' href='fn.Value_getNumUses.html'>Value_getNumUses</a><a class='fn ' href='fn.Value_getType.html'>Value_getType</a><a class='fn ' href='fn.Value_getValueID.html'>Value_getValueID</a><a class='fn ' href='fn.Value_hasNUses.html'>Value_hasNUses</a><a class='fn ' href='fn.Value_hasNUsesOrMore.html'>Value_hasNUsesOrMore</a><a class='fn ' href='fn.Value_hasName.html'>Value_hasName</a><a class='fn ' href='fn.Value_hasOneUse.html'>Value_hasOneUse</a><a class='fn ' href='fn.Value_isUsedInBasicBlock.html'>Value_isUsedInBasicBlock</a><a class='fn ' href='fn.Value_replaceAllUsesWith.html'>Value_replaceAllUsesWith</a><a class='fn ' href='fn.Value_setName.html'>Value_setName</a><a class='fn ' href='fn.Value_takeName.html'>Value_takeName</a><a class='fn ' href='fn.VectorType_classof.html'>VectorType_classof</a><a class='fn ' href='fn.VectorType_get.html'>VectorType_get</a><a class='fn ' href='fn.VectorType_getBitWidth.html'>VectorType_getBitWidth</a><a class='fn ' href='fn.VectorType_getDoubleElementsVectorType.html'>VectorType_getDoubleElementsVectorType</a><a class='fn ' href='fn.VectorType_getExtendedElementVectorType.html'>VectorType_getExtendedElementVectorType</a><a class='fn ' href='fn.VectorType_getHalfElementsVectorType.html'>VectorType_getHalfElementsVectorType</a><a class='fn ' href='fn.VectorType_getInteger.html'>VectorType_getInteger</a><a class='fn ' href='fn.VectorType_getNumElements.html'>VectorType_getNumElements</a><a class='fn ' href='fn.VectorType_getTruncatedElementVectorType.html'>VectorType_getTruncatedElementVectorType</a><a class='fn ' href='fn.VectorType_isValidElementType.html'>VectorType_isValidElementType</a><a class='fn ' href='fn.getGlobalContext.html'>getGlobalContext</a></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content fn">
+<h1 class='fqn'><span class='in-band'>Function <a href='../../index.html'>llvm-sys</a>::<wbr><a href='../index.html'>ffi</a>::<wbr><a href='index.html'>llvm</a>::<wbr><a class='fn' href=''>Module_new</a><wbr><a class='stability Experimental' title=''>Experimental</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]
+            </a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-4689' href='../../../src/llvm-sys/ffi.rs.html#1336-1338'>[src]</a></span></h1>
+<pre class='rust fn'>pub unsafe fn Module_new(ModuleID: <a class='struct' href='../../../llvm-sys/ffi/struct.llvm_StringRef.html' title='llvm-sys::ffi::llvm_StringRef'>llvm_StringRef</a>, Context: *mut <a class='struct' href='../../../llvm-sys/ffi/struct.llvm_LLVMContext.html' title='llvm-sys::ffi::llvm_LLVMContext'>llvm_LLVMContext</a>) -&gt; *mut <a class='struct' href='../../../llvm-sys/ffi/struct.llvm_Module.html' title='llvm-sys::ffi::llvm_Module'>llvm_Module</a></pre></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "llvm-sys";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>
