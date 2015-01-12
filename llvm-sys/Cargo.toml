@@ -1,0 +1,14 @@
+[package]
+
+name = "llvm-sys"
+version = "0.0.1"
+authors = [
+    "KokaKiwi <kokakiwi@kokakiwi.net>",
+]
+build = "build.rs"
+
+[build-dependencies.gxx]
+path = "../gxx"
+
+[build-dependencies.llvm-config]
+path = "../llvm-config"

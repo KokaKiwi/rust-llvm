@@ -1,0 +1,10 @@
+[package]
+
+name = "llvm"
+version = "0.1.0"
+authors = [
+    "KokaKiwi <kokakiwi@kokakiwi.net>",
+]
+
+[dependencies.llvm-sys]
+path = "llvm-sys"

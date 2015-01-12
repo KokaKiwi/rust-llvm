@@ -1,0 +1,9 @@
+# Build files
+/target
+/Cargo.lock
+__pycache__
+*.pyc
+
+# Misc files
+.*
+!.gitignore
