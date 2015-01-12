@@ -6,7 +6,9 @@ use std::default::Default;
 use std::os;
 
 fn main() {
-    let static_link: bool = os::getenv("STATIC_LINK").unwrap_or("false".to_string()).parse().unwrap();
+    let static_link: bool = os::getenv("LLVM_STATIC_LINK")
+                            .and_then(|value| value.parse())
+                            .unwrap_or(false);
 
     // Build library
     let mut config: gxx::Config = Default::default();
