@@ -1955,122 +1955,121 @@
 <span id="1913">1913</span>
 </pre><pre class='rust '>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>constant</span>;
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>UserInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span>;
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>AddrSpaceCastInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_AddrSpaceCastInst</span>;
 
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>UserExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> {
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>AddrSpaceCastInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CastInstExt</span> {
 
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>UserInner</span>;
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AddrSpaceCastInstInner</span>;
 }
 
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>User</span> {
-    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>UserInner</span>,
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>AddrSpaceCastInst</span> {
+    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AddrSpaceCastInstInner</span>,
 }
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>User</span> {
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>AddrSpaceCastInst</span> {
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
         <span class='kw'>unsafe</span> {
             ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
         }
     }
 }
-<span class='kw'>impl</span> <span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>User</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>UserInner</span> {
-        <span class='self'>self</span>.<span class='ident'>inner</span>
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>User</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>UserInner</span>) <span class='op'>-&gt;</span> <span class='ident'>User</span> {
-        <span class='ident'>User</span> {
-            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>User</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
-        }
-    }
-}
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>OperatorInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Operator</span>;
-
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>OperatorExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> {
-
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>OperatorInner</span>;
-}
-
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Operator</span> {
-    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>OperatorInner</span>,
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>Operator</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>Operator</span> {
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>AddrSpaceCastInst</span> {
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
         <span class='kw'>unsafe</span> {
             ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
         }
     }
 }
-<span class='kw'>impl</span> <span class='ident'>OperatorExt</span> <span class='kw'>for</span> <span class='ident'>Operator</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>OperatorInner</span> {
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>AddrSpaceCastInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> <span class='kw'>for</span> <span class='ident'>AddrSpaceCastInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_UnaryInstruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CastInstExt</span> <span class='kw'>for</span> <span class='ident'>AddrSpaceCastInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_CastInst</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>AddrSpaceCastInstExt</span> <span class='kw'>for</span> <span class='ident'>AddrSpaceCastInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AddrSpaceCastInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner</span>
     }
 }
-<span class='kw'>impl</span> <span class='ident'>Operator</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>OperatorInner</span>) <span class='op'>-&gt;</span> <span class='ident'>Operator</span> {
-        <span class='ident'>Operator</span> {
+<span class='kw'>impl</span> <span class='ident'>AddrSpaceCastInst</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AddrSpaceCastInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>AddrSpaceCastInst</span> {
+        <span class='ident'>AddrSpaceCastInst</span> {
             <span class='ident'>inner</span>: <span class='ident'>inner</span>,
         }
     }
 }
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>Operator</span> {
+<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>AddrSpaceCastInst</span> {
     <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
         <span class='kw'>unsafe</span> {
             ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
         }
     }
 }
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>InstructionInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span>;
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>AllocaInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_AllocaInst</span>;
 
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>InstructionExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> {
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>AllocaInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> {
 
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InstructionInner</span>;
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AllocaInstInner</span>;
 }
 
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Instruction</span> {
-    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InstructionInner</span>,
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>AllocaInst</span> {
+    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AllocaInstInner</span>,
 }
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>Instruction</span> {
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>AllocaInst</span> {
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
         <span class='kw'>unsafe</span> {
             ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
         }
     }
 }
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>Instruction</span> {
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>AllocaInst</span> {
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
         <span class='kw'>unsafe</span> {
             ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
         }
     }
 }
-<span class='kw'>impl</span> <span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>Instruction</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InstructionInner</span> {
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>AllocaInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> <span class='kw'>for</span> <span class='ident'>AllocaInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_UnaryInstruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>AllocaInstExt</span> <span class='kw'>for</span> <span class='ident'>AllocaInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AllocaInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner</span>
     }
 }
-<span class='kw'>impl</span> <span class='ident'>Instruction</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InstructionInner</span>) <span class='op'>-&gt;</span> <span class='ident'>Instruction</span> {
-        <span class='ident'>Instruction</span> {
+<span class='kw'>impl</span> <span class='ident'>AllocaInst</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AllocaInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>AllocaInst</span> {
+        <span class='ident'>AllocaInst</span> {
             <span class='ident'>inner</span>: <span class='ident'>inner</span>,
         }
     }
 }
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>Instruction</span> {
+<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>AllocaInst</span> {
     <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
         <span class='kw'>unsafe</span> {
             ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
@@ -2227,6 +2226,127 @@
         }
     }
 }
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>BitCastInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_BitCastInst</span>;
+
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>BitCastInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CastInstExt</span> {
+
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BitCastInstInner</span>;
+}
+
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>BitCastInst</span> {
+    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BitCastInstInner</span>,
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>BitCastInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>BitCastInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>BitCastInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> <span class='kw'>for</span> <span class='ident'>BitCastInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_UnaryInstruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CastInstExt</span> <span class='kw'>for</span> <span class='ident'>BitCastInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_CastInst</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>BitCastInstExt</span> <span class='kw'>for</span> <span class='ident'>BitCastInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BitCastInstInner</span> {
+        <span class='self'>self</span>.<span class='ident'>inner</span>
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>BitCastInst</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BitCastInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>BitCastInst</span> {
+        <span class='ident'>BitCastInst</span> {
+            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>BitCastInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
+        }
+    }
+}
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>BranchInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_BranchInst</span>;
+
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>BranchInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> {
+
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BranchInstInner</span>;
+}
+
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>BranchInst</span> {
+    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BranchInstInner</span>,
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>BranchInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>BranchInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>BranchInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> <span class='kw'>for</span> <span class='ident'>BranchInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_TerminatorInst</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>BranchInstExt</span> <span class='kw'>for</span> <span class='ident'>BranchInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BranchInstInner</span> {
+        <span class='self'>self</span>.<span class='ident'>inner</span>
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>BranchInst</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BranchInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>BranchInst</span> {
+        <span class='ident'>BranchInst</span> {
+            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>BranchInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
+        }
+    }
+}
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>CallInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_CallInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>CallInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
@@ -2271,6 +2391,63 @@
     }
 }
 <span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>CallInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
+        }
+    }
+}
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>CastInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_CastInst</span>;
+
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>CastInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> {
+
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CastInstInner</span>;
+}
+
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>CastInst</span> {
+    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CastInstInner</span>,
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>CastInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>CastInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>CastInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> <span class='kw'>for</span> <span class='ident'>CastInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_UnaryInstruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>CastInstExt</span> <span class='kw'>for</span> <span class='ident'>CastInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CastInstInner</span> {
+        <span class='self'>self</span>.<span class='ident'>inner</span>
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>CastInst</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CastInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>CastInst</span> {
+        <span class='ident'>CastInst</span> {
+            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>CastInst</span> {
     <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
         <span class='kw'>unsafe</span> {
             ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
@@ -2377,6 +2554,191 @@
         }
     }
 }
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>ExtractValueInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_ExtractValueInst</span>;
+
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ExtractValueInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> {
+
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ExtractValueInstInner</span>;
+}
+
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ExtractValueInst</span> {
+    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ExtractValueInstInner</span>,
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>ExtractValueInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>ExtractValueInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>ExtractValueInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> <span class='kw'>for</span> <span class='ident'>ExtractValueInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_UnaryInstruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>ExtractValueInstExt</span> <span class='kw'>for</span> <span class='ident'>ExtractValueInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ExtractValueInstInner</span> {
+        <span class='self'>self</span>.<span class='ident'>inner</span>
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>ExtractValueInst</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ExtractValueInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>ExtractValueInst</span> {
+        <span class='ident'>ExtractValueInst</span> {
+            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>ExtractValueInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
+        }
+    }
+}
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>FPExtInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_FPExtInst</span>;
+
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>FPExtInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CastInstExt</span> {
+
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FPExtInstInner</span>;
+}
+
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>FPExtInst</span> {
+    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FPExtInstInner</span>,
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>FPExtInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>FPExtInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>FPExtInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> <span class='kw'>for</span> <span class='ident'>FPExtInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_UnaryInstruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CastInstExt</span> <span class='kw'>for</span> <span class='ident'>FPExtInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_CastInst</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>FPExtInstExt</span> <span class='kw'>for</span> <span class='ident'>FPExtInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FPExtInstInner</span> {
+        <span class='self'>self</span>.<span class='ident'>inner</span>
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>FPExtInst</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FPExtInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>FPExtInst</span> {
+        <span class='ident'>FPExtInst</span> {
+            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>FPExtInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
+        }
+    }
+}
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>FPToSIInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_FPToSIInst</span>;
+
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>FPToSIInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CastInstExt</span> {
+
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FPToSIInstInner</span>;
+}
+
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>FPToSIInst</span> {
+    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FPToSIInstInner</span>,
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>FPToSIInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>FPToSIInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>FPToSIInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> <span class='kw'>for</span> <span class='ident'>FPToSIInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_UnaryInstruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CastInstExt</span> <span class='kw'>for</span> <span class='ident'>FPToSIInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_CastInst</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>FPToSIInstExt</span> <span class='kw'>for</span> <span class='ident'>FPToSIInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FPToSIInstInner</span> {
+        <span class='self'>self</span>.<span class='ident'>inner</span>
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>FPToSIInst</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FPToSIInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>FPToSIInst</span> {
+        <span class='ident'>FPToSIInst</span> {
+            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>FPToSIInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
+        }
+    }
+}
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>FenceInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_FenceInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>FenceInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
@@ -2471,6 +2833,63 @@
     }
 }
 <span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>GetElementPtrInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
+        }
+    }
+}
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>IndirectBrInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_IndirectBrInst</span>;
+
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>IndirectBrInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> {
+
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>IndirectBrInstInner</span>;
+}
+
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>IndirectBrInst</span> {
+    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>IndirectBrInstInner</span>,
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>IndirectBrInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>IndirectBrInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>IndirectBrInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> <span class='kw'>for</span> <span class='ident'>IndirectBrInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_TerminatorInst</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>IndirectBrInstExt</span> <span class='kw'>for</span> <span class='ident'>IndirectBrInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>IndirectBrInstInner</span> {
+        <span class='self'>self</span>.<span class='ident'>inner</span>
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>IndirectBrInst</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>IndirectBrInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>IndirectBrInst</span> {
+        <span class='ident'>IndirectBrInst</span> {
+            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>IndirectBrInst</span> {
     <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
         <span class='kw'>unsafe</span> {
             ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
@@ -2577,6 +2996,106 @@
         }
     }
 }
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>InstructionInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span>;
+
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>InstructionExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> {
+
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InstructionInner</span>;
+}
+
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Instruction</span> {
+    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InstructionInner</span>,
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>Instruction</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>Instruction</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>Instruction</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InstructionInner</span> {
+        <span class='self'>self</span>.<span class='ident'>inner</span>
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>Instruction</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InstructionInner</span>) <span class='op'>-&gt;</span> <span class='ident'>Instruction</span> {
+        <span class='ident'>Instruction</span> {
+            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>Instruction</span> {
+    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
+        }
+    }
+}
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>InvokeInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_InvokeInst</span>;
+
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>InvokeInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> {
+
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InvokeInstInner</span>;
+}
+
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>InvokeInst</span> {
+    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InvokeInstInner</span>,
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>InvokeInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>InvokeInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>InvokeInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> <span class='kw'>for</span> <span class='ident'>InvokeInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_TerminatorInst</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>InvokeInstExt</span> <span class='kw'>for</span> <span class='ident'>InvokeInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InvokeInstInner</span> {
+        <span class='self'>self</span>.<span class='ident'>inner</span>
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>InvokeInst</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InvokeInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>InvokeInst</span> {
+        <span class='ident'>InvokeInst</span> {
+            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>InvokeInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
+        }
+    }
+}
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>LandingPadInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_LandingPadInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>LandingPadInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
@@ -2627,6 +3146,106 @@
         }
     }
 }
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>LoadInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_LoadInst</span>;
+
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>LoadInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> {
+
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>LoadInstInner</span>;
+}
+
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>LoadInst</span> {
+    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>LoadInstInner</span>,
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>LoadInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>LoadInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>LoadInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> <span class='kw'>for</span> <span class='ident'>LoadInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_UnaryInstruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>LoadInstExt</span> <span class='kw'>for</span> <span class='ident'>LoadInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>LoadInstInner</span> {
+        <span class='self'>self</span>.<span class='ident'>inner</span>
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>LoadInst</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>LoadInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>LoadInst</span> {
+        <span class='ident'>LoadInst</span> {
+            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>LoadInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
+        }
+    }
+}
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>OperatorInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Operator</span>;
+
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>OperatorExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> {
+
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>OperatorInner</span>;
+}
+
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Operator</span> {
+    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>OperatorInner</span>,
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>Operator</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>Operator</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>OperatorExt</span> <span class='kw'>for</span> <span class='ident'>Operator</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>OperatorInner</span> {
+        <span class='self'>self</span>.<span class='ident'>inner</span>
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>Operator</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>OperatorInner</span>) <span class='op'>-&gt;</span> <span class='ident'>Operator</span> {
+        <span class='ident'>Operator</span> {
+            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>Operator</span> {
+    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
+        }
+    }
+}
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>PHINodeInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_PHINode</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>PHINodeExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
@@ -2671,6 +3290,120 @@
     }
 }
 <span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>PHINode</span> {
+    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
+        }
+    }
+}
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>ResumeInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_ResumeInst</span>;
+
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ResumeInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> {
+
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ResumeInstInner</span>;
+}
+
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ResumeInst</span> {
+    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ResumeInstInner</span>,
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>ResumeInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>ResumeInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>ResumeInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> <span class='kw'>for</span> <span class='ident'>ResumeInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_TerminatorInst</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>ResumeInstExt</span> <span class='kw'>for</span> <span class='ident'>ResumeInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ResumeInstInner</span> {
+        <span class='self'>self</span>.<span class='ident'>inner</span>
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>ResumeInst</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ResumeInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>ResumeInst</span> {
+        <span class='ident'>ResumeInst</span> {
+            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>ResumeInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
+        }
+    }
+}
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>ReturnInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_ReturnInst</span>;
+
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ReturnInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> {
+
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ReturnInstInner</span>;
+}
+
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ReturnInst</span> {
+    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ReturnInstInner</span>,
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>ReturnInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>ReturnInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>ReturnInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> <span class='kw'>for</span> <span class='ident'>ReturnInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_TerminatorInst</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>ReturnInstExt</span> <span class='kw'>for</span> <span class='ident'>ReturnInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ReturnInstInner</span> {
+        <span class='self'>self</span>.<span class='ident'>inner</span>
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>ReturnInst</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ReturnInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>ReturnInst</span> {
+        <span class='ident'>ReturnInst</span> {
+            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>ReturnInst</span> {
     <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
         <span class='kw'>unsafe</span> {
             ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
@@ -2827,6 +3560,63 @@
         }
     }
 }
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>SwitchInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_SwitchInst</span>;
+
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>SwitchInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> {
+
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>SwitchInstInner</span>;
+}
+
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>SwitchInst</span> {
+    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>SwitchInstInner</span>,
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>SwitchInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>SwitchInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>SwitchInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> <span class='kw'>for</span> <span class='ident'>SwitchInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_TerminatorInst</span> {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>SwitchInstExt</span> <span class='kw'>for</span> <span class='ident'>SwitchInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>SwitchInstInner</span> {
+        <span class='self'>self</span>.<span class='ident'>inner</span>
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>SwitchInst</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>SwitchInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>SwitchInst</span> {
+        <span class='ident'>SwitchInst</span> {
+            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
+        }
+    }
+}
+<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>SwitchInst</span> {
+    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
+        <span class='kw'>unsafe</span> {
+            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
+        }
+    }
+}
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>TerminatorInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_TerminatorInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>TerminatorInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
@@ -2927,348 +3717,6 @@
         }
     }
 }
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>BranchInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_BranchInst</span>;
-
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>BranchInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> {
-
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BranchInstInner</span>;
-}
-
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>BranchInst</span> {
-    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BranchInstInner</span>,
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>BranchInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>BranchInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>BranchInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> <span class='kw'>for</span> <span class='ident'>BranchInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_TerminatorInst</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>BranchInstExt</span> <span class='kw'>for</span> <span class='ident'>BranchInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BranchInstInner</span> {
-        <span class='self'>self</span>.<span class='ident'>inner</span>
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>BranchInst</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BranchInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>BranchInst</span> {
-        <span class='ident'>BranchInst</span> {
-            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>BranchInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
-        }
-    }
-}
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>IndirectBrInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_IndirectBrInst</span>;
-
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>IndirectBrInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> {
-
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>IndirectBrInstInner</span>;
-}
-
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>IndirectBrInst</span> {
-    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>IndirectBrInstInner</span>,
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>IndirectBrInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>IndirectBrInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>IndirectBrInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> <span class='kw'>for</span> <span class='ident'>IndirectBrInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_TerminatorInst</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>IndirectBrInstExt</span> <span class='kw'>for</span> <span class='ident'>IndirectBrInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>IndirectBrInstInner</span> {
-        <span class='self'>self</span>.<span class='ident'>inner</span>
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>IndirectBrInst</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>IndirectBrInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>IndirectBrInst</span> {
-        <span class='ident'>IndirectBrInst</span> {
-            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>IndirectBrInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
-        }
-    }
-}
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>InvokeInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_InvokeInst</span>;
-
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>InvokeInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> {
-
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InvokeInstInner</span>;
-}
-
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>InvokeInst</span> {
-    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InvokeInstInner</span>,
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>InvokeInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>InvokeInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>InvokeInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> <span class='kw'>for</span> <span class='ident'>InvokeInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_TerminatorInst</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>InvokeInstExt</span> <span class='kw'>for</span> <span class='ident'>InvokeInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InvokeInstInner</span> {
-        <span class='self'>self</span>.<span class='ident'>inner</span>
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>InvokeInst</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InvokeInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>InvokeInst</span> {
-        <span class='ident'>InvokeInst</span> {
-            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>InvokeInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
-        }
-    }
-}
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>ResumeInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_ResumeInst</span>;
-
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ResumeInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> {
-
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ResumeInstInner</span>;
-}
-
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ResumeInst</span> {
-    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ResumeInstInner</span>,
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>ResumeInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>ResumeInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>ResumeInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> <span class='kw'>for</span> <span class='ident'>ResumeInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_TerminatorInst</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>ResumeInstExt</span> <span class='kw'>for</span> <span class='ident'>ResumeInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ResumeInstInner</span> {
-        <span class='self'>self</span>.<span class='ident'>inner</span>
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>ResumeInst</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ResumeInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>ResumeInst</span> {
-        <span class='ident'>ResumeInst</span> {
-            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>ResumeInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
-        }
-    }
-}
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>ReturnInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_ReturnInst</span>;
-
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ReturnInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> {
-
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ReturnInstInner</span>;
-}
-
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ReturnInst</span> {
-    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ReturnInstInner</span>,
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>ReturnInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>ReturnInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>ReturnInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> <span class='kw'>for</span> <span class='ident'>ReturnInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_TerminatorInst</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>ReturnInstExt</span> <span class='kw'>for</span> <span class='ident'>ReturnInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ReturnInstInner</span> {
-        <span class='self'>self</span>.<span class='ident'>inner</span>
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>ReturnInst</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ReturnInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>ReturnInst</span> {
-        <span class='ident'>ReturnInst</span> {
-            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>ReturnInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
-        }
-    }
-}
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>SwitchInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_SwitchInst</span>;
-
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>SwitchInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> {
-
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>SwitchInstInner</span>;
-}
-
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>SwitchInst</span> {
-    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>SwitchInstInner</span>,
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>SwitchInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>SwitchInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>SwitchInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> <span class='kw'>for</span> <span class='ident'>SwitchInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_TerminatorInst</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>SwitchInstExt</span> <span class='kw'>for</span> <span class='ident'>SwitchInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>SwitchInstInner</span> {
-        <span class='self'>self</span>.<span class='ident'>inner</span>
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>SwitchInst</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>SwitchInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>SwitchInst</span> {
-        <span class='ident'>SwitchInst</span> {
-            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>SwitchInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
-        }
-    }
-}
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>UnreachableInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_UnreachableInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>UnreachableInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> {
@@ -3326,228 +3774,36 @@
         }
     }
 }
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>AllocaInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_AllocaInst</span>;
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>UserInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span>;
 
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>AllocaInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> {
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>UserExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> {
 
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AllocaInstInner</span>;
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>UserInner</span>;
 }
 
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>AllocaInst</span> {
-    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AllocaInstInner</span>,
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>User</span> {
+    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>UserInner</span>,
 }
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>AllocaInst</span> {
+<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>User</span> {
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
         <span class='kw'>unsafe</span> {
             ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
         }
     }
 }
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>AllocaInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>AllocaInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> <span class='kw'>for</span> <span class='ident'>AllocaInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_UnaryInstruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>AllocaInstExt</span> <span class='kw'>for</span> <span class='ident'>AllocaInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AllocaInstInner</span> {
+<span class='kw'>impl</span> <span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>User</span> {
+    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>UserInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner</span>
     }
 }
-<span class='kw'>impl</span> <span class='ident'>AllocaInst</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AllocaInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>AllocaInst</span> {
-        <span class='ident'>AllocaInst</span> {
+<span class='kw'>impl</span> <span class='ident'>User</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>UserInner</span>) <span class='op'>-&gt;</span> <span class='ident'>User</span> {
+        <span class='ident'>User</span> {
             <span class='ident'>inner</span>: <span class='ident'>inner</span>,
         }
     }
 }
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>AllocaInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
-        }
-    }
-}
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>CastInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_CastInst</span>;
-
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>CastInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> {
-
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CastInstInner</span>;
-}
-
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>CastInst</span> {
-    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CastInstInner</span>,
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>CastInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>CastInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>CastInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> <span class='kw'>for</span> <span class='ident'>CastInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_UnaryInstruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>CastInstExt</span> <span class='kw'>for</span> <span class='ident'>CastInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CastInstInner</span> {
-        <span class='self'>self</span>.<span class='ident'>inner</span>
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>CastInst</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CastInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>CastInst</span> {
-        <span class='ident'>CastInst</span> {
-            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>CastInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
-        }
-    }
-}
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>ExtractValueInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_ExtractValueInst</span>;
-
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ExtractValueInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> {
-
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ExtractValueInstInner</span>;
-}
-
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ExtractValueInst</span> {
-    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ExtractValueInstInner</span>,
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>ExtractValueInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>ExtractValueInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>ExtractValueInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> <span class='kw'>for</span> <span class='ident'>ExtractValueInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_UnaryInstruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>ExtractValueInstExt</span> <span class='kw'>for</span> <span class='ident'>ExtractValueInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ExtractValueInstInner</span> {
-        <span class='self'>self</span>.<span class='ident'>inner</span>
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>ExtractValueInst</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ExtractValueInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>ExtractValueInst</span> {
-        <span class='ident'>ExtractValueInst</span> {
-            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>ExtractValueInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
-        }
-    }
-}
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>LoadInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_LoadInst</span>;
-
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>LoadInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> {
-
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>LoadInstInner</span>;
-}
-
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>LoadInst</span> {
-    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>LoadInstInner</span>,
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>LoadInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>LoadInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>LoadInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> <span class='kw'>for</span> <span class='ident'>LoadInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_UnaryInstruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>LoadInstExt</span> <span class='kw'>for</span> <span class='ident'>LoadInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>LoadInstInner</span> {
-        <span class='self'>self</span>.<span class='ident'>inner</span>
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>LoadInst</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>LoadInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>LoadInst</span> {
-        <span class='ident'>LoadInst</span> {
-            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>LoadInst</span> {
+<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>User</span> {
     <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
         <span class='kw'>unsafe</span> {
             ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
@@ -3605,262 +3861,6 @@
     }
 }
 <span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>VAArgInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
-        }
-    }
-}
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>AddrSpaceCastInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_AddrSpaceCastInst</span>;
-
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>AddrSpaceCastInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CastInstExt</span> {
-
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AddrSpaceCastInstInner</span>;
-}
-
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>AddrSpaceCastInst</span> {
-    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AddrSpaceCastInstInner</span>,
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>AddrSpaceCastInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>AddrSpaceCastInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>AddrSpaceCastInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> <span class='kw'>for</span> <span class='ident'>AddrSpaceCastInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_UnaryInstruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CastInstExt</span> <span class='kw'>for</span> <span class='ident'>AddrSpaceCastInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_CastInst</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>AddrSpaceCastInstExt</span> <span class='kw'>for</span> <span class='ident'>AddrSpaceCastInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AddrSpaceCastInstInner</span> {
-        <span class='self'>self</span>.<span class='ident'>inner</span>
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>AddrSpaceCastInst</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AddrSpaceCastInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>AddrSpaceCastInst</span> {
-        <span class='ident'>AddrSpaceCastInst</span> {
-            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>AddrSpaceCastInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
-        }
-    }
-}
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>BitCastInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_BitCastInst</span>;
-
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>BitCastInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CastInstExt</span> {
-
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BitCastInstInner</span>;
-}
-
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>BitCastInst</span> {
-    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BitCastInstInner</span>,
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>BitCastInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>BitCastInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>BitCastInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> <span class='kw'>for</span> <span class='ident'>BitCastInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_UnaryInstruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CastInstExt</span> <span class='kw'>for</span> <span class='ident'>BitCastInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_CastInst</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>BitCastInstExt</span> <span class='kw'>for</span> <span class='ident'>BitCastInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BitCastInstInner</span> {
-        <span class='self'>self</span>.<span class='ident'>inner</span>
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>BitCastInst</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BitCastInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>BitCastInst</span> {
-        <span class='ident'>BitCastInst</span> {
-            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>BitCastInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
-        }
-    }
-}
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>FPExtInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_FPExtInst</span>;
-
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>FPExtInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CastInstExt</span> {
-
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FPExtInstInner</span>;
-}
-
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>FPExtInst</span> {
-    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FPExtInstInner</span>,
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>FPExtInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>FPExtInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>FPExtInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> <span class='kw'>for</span> <span class='ident'>FPExtInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_UnaryInstruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CastInstExt</span> <span class='kw'>for</span> <span class='ident'>FPExtInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_CastInst</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>FPExtInstExt</span> <span class='kw'>for</span> <span class='ident'>FPExtInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FPExtInstInner</span> {
-        <span class='self'>self</span>.<span class='ident'>inner</span>
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>FPExtInst</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FPExtInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>FPExtInst</span> {
-        <span class='ident'>FPExtInst</span> {
-            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>FPExtInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
-        }
-    }
-}
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>FPToSIInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_FPToSIInst</span>;
-
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>FPToSIInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CastInstExt</span> {
-
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FPToSIInstInner</span>;
-}
-
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>FPToSIInst</span> {
-    <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FPToSIInstInner</span>,
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>FPToSIInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> <span class='kw'>for</span> <span class='ident'>FPToSIInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> <span class='kw'>for</span> <span class='ident'>FPToSIInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> <span class='kw'>for</span> <span class='ident'>FPToSIInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_UnaryInstruction</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CastInstExt</span> <span class='kw'>for</span> <span class='ident'>FPToSIInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_CastInst</span> {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>.<span class='ident'>inner</span>)
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>FPToSIInstExt</span> <span class='kw'>for</span> <span class='ident'>FPToSIInst</span> {
-    <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FPToSIInstInner</span> {
-        <span class='self'>self</span>.<span class='ident'>inner</span>
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>FPToSIInst</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FPToSIInstInner</span>) <span class='op'>-&gt;</span> <span class='ident'>FPToSIInst</span> {
-        <span class='ident'>FPToSIInst</span> {
-            <span class='ident'>inner</span>: <span class='ident'>inner</span>,
-        }
-    }
-}
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>FPToSIInst</span> {
     <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
         <span class='kw'>unsafe</span> {
             ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner</span>(<span class='self'>self</span>));
