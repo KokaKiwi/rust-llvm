@@ -65,6 +65,8 @@ pub fn compile_library(name: &str, config: &Config, sources: &[&str]) {
 }
 
 fn run(cmd: &Command) -> (String, String, ProcessExit) {
+    println!("running: {}", cmd);
+
     let mut process = cmd.spawn().unwrap();
 
     let status = process.wait().unwrap();
@@ -76,6 +78,8 @@ fn run(cmd: &Command) -> (String, String, ProcessExit) {
     if !status.success() {
         panic!("nonzero exit status: {}\n{}", status, stderr);
     }
+
+    println!("result:\n{}", stdout);
 
     (stdout, stderr, status)
 }
