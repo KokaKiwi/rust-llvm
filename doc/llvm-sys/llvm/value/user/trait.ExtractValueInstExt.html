@@ -44,13 +44,18 @@
 <h1 class='fqn'><span class='in-band'>Trait <a href='../../../index.html'>llvm-sys</a>::<wbr><a href='../../index.html'>llvm</a>::<wbr><a href='../index.html'>value</a>::<wbr><a href='index.html'>user</a>::<wbr><a class='trait' href=''>ExtractValueInstExt</a><wbr><a class='stability Experimental' title=''>Experimental</a></span><span class='out-of-band'><span id='render-detail'>
             <a id="collapse-all" href="#">[-]
             </a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-13322' href='../../../../src/llvm-sys/llvm/value/user/mod.rs.html#603-606'>[src]</a></span></h1>
+        </span><a id='src-13631' href='../../../../src/llvm-sys/llvm/value/user/mod.rs.html#636-642'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait ExtractValueInstExt: <a class='trait' href='../../../../llvm-sys/llvm/value/user/trait.UnaryInstructionExt.html' title='llvm-sys::llvm::value::user::UnaryInstructionExt'>UnaryInstructionExt</a> {
-    fn <a href='#tymethod.inner' class='fnname'>inner</a>(&amp;self) -&gt; *mut <a class='type' href='../../../../llvm-sys/llvm/value/user/type.ExtractValueInstInner.html' title='llvm-sys::llvm::value::user::ExtractValueInstInner'>ExtractValueInstInner</a>;
+    fn <a href='#tymethod.inner_llvm_ExtractValueInst' class='fnname'>inner_llvm_ExtractValueInst</a>(&amp;self) -&gt; *mut <a class='type' href='../../../../llvm-sys/llvm/value/user/type.ExtractValueInstInner.html' title='llvm-sys::llvm::value::user::ExtractValueInstInner'>ExtractValueInstInner</a>;
+
+    fn <a href='#method.inner' class='fnname'>inner</a>(&amp;self) -&gt; *mut <a class='type' href='../../../../llvm-sys/llvm/value/user/type.ExtractValueInstInner.html' title='llvm-sys::llvm::value::user::ExtractValueInstInner'>ExtractValueInstInner</a> { ... }
 }</pre>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.inner' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.inner' class='fnname'>inner</a>(&amp;self) -&gt; *mut <a class='type' href='../../../../llvm-sys/llvm/value/user/type.ExtractValueInstInner.html' title='llvm-sys::llvm::value::user::ExtractValueInstInner'>ExtractValueInstInner</a></code></h3></div>
+        <h3 id='tymethod.inner_llvm_ExtractValueInst' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.inner_llvm_ExtractValueInst' class='fnname'>inner_llvm_ExtractValueInst</a>(&amp;self) -&gt; *mut <a class='type' href='../../../../llvm-sys/llvm/value/user/type.ExtractValueInstInner.html' title='llvm-sys::llvm::value::user::ExtractValueInstInner'>ExtractValueInstInner</a></code></h3></div>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='method.inner' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.inner' class='fnname'>inner</a>(&amp;self) -&gt; *mut <a class='type' href='../../../../llvm-sys/llvm/value/user/type.ExtractValueInstInner.html' title='llvm-sys::llvm::value::user::ExtractValueInstInner'>ExtractValueInstInner</a></code></h3></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
     <li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm-sys/llvm/value/user/trait.ExtractValueInstExt.html' title='llvm-sys::llvm::value::user::ExtractValueInstExt'>ExtractValueInstExt</a> for <a class='struct' href='../../../../llvm-sys/llvm/value/user/struct.ExtractValueInst.html' title='llvm-sys::llvm::value::user::ExtractValueInst'>ExtractValueInst</a></code></li>
