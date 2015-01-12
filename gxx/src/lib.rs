@@ -74,7 +74,7 @@ fn run(cmd: &Command) -> (String, String, ProcessExit) {
     let stderr = String::from_utf8(output.error).unwrap();
 
     if !status.success() {
-        panic!("nonzero exit status: {}", status);
+        panic!("nonzero exit status: {}\n{}", status, stderr);
     }
 
     (stdout, stderr, status)
