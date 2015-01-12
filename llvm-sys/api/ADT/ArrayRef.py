@@ -68,7 +68,7 @@ class ArrayRef(ConvertibleType):
                 data_name = '_tmp_%s' % (expr)
 
                 get_inner = kwargs['get_inner']
-                inner = get_inner(self.subtype, 'ty')
+                inner = get_inner(writer, self.subtype, 'ty')
 
                 data_vec = '%s.iter().map(|&ty| %s).collect()' % (data, inner)
                 writer.declare_var(data_name, 'Vec<_>', data_vec)
