@@ -216,6 +216,12 @@ pub struct llvm_ArrayRef_llvm_Type_ptr {
 }
 #[repr(C)]
 #[derive(Copy)]
+pub struct llvm_ArrayRef_llvm_Constant_ptr {
+    pub data: *const *mut llvm_Constant,
+    pub length: ::libc::size_t,
+}
+#[repr(C)]
+#[derive(Copy)]
 pub struct std_string_const {
     pub data: *const ::libc::c_char,
     pub length: ::libc::size_t,
@@ -260,6 +266,7 @@ mod raw {
         pub fn llvm_ArrayType_classof(ty: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_CompositeType_classof(ty: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Constant_classof(V: *const super::llvm_Value) -> ::libc::c_int;
+        pub fn llvm_ConstantArray_classof(V: *const super::llvm_Value) -> ::libc::c_int;
         pub fn llvm_FunctionType_classof(ty: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_IntegerType_classof(ty: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_PointerType_classof(ty: *const super::llvm_Type) -> ::libc::c_int;
@@ -278,6 +285,7 @@ mod raw {
         pub fn llvm_Type_dump(inst: *const super::llvm_Type) -> ::libc::c_void;
         pub fn llvm_Value_dump(inst: *const super::llvm_Value) -> ::libc::c_void;
         pub fn llvm_ArrayType_get(ElementType: *mut super::llvm_Type, NumElements: ::libc::uint64_t) -> *mut super::llvm_ArrayType;
+        pub fn llvm_ConstantArray_get(Ty: *mut super::llvm_ArrayType, Values: super::llvm_ArrayRef_llvm_Constant_ptr) -> *mut super::llvm_Constant;
         pub fn llvm_FunctionType_get(Result: *mut super::llvm_Type, Params: super::llvm_ArrayRef_llvm_Type_ptr, isVarArg: ::libc::c_int) -> *mut super::llvm_FunctionType;
         pub fn llvm_IntegerType_get(ctx: *mut super::llvm_LLVMContext, NumBits: ::libc::c_uint) -> *mut super::llvm_IntegerType;
         pub fn llvm_PointerType_get(ElementType: *mut super::llvm_Type, AddressSpace: ::libc::c_uint) -> *mut super::llvm_PointerType;
@@ -358,6 +366,7 @@ mod raw {
         pub fn llvm_Type_getStructNumElements(inst: *const super::llvm_Type) -> ::libc::c_uint;
         pub fn llvm_Module_getTargetTriple(inst: *const super::llvm_Module) -> super::std_string_const;
         pub fn llvm_VectorType_getTruncatedElementVectorType(ty: *mut super::llvm_VectorType) -> *mut super::llvm_VectorType;
+        pub fn llvm_ConstantArray_getType(inst: *const super::llvm_ConstantArray) -> *mut super::llvm_Type;
         pub fn llvm_Value_getType(inst: *const super::llvm_Value) -> *mut super::llvm_Type;
         pub fn llvm_CompositeType_getTypeAtIndex(inst: *mut super::llvm_CompositeType, idx: ::libc::c_uint) -> *mut super::llvm_Type;
         pub fn llvm_Module_getTypeByName(inst: *const super::llvm_Module, Name: super::llvm_StringRef) -> *mut super::llvm_StructType;
@@ -607,6 +616,24 @@ pub mod llvm {
     #[inline(always)]
     pub unsafe fn Constant_stripPointerCastsMut(inst: *mut super::llvm_Constant) -> *mut super::llvm_Constant {
         raw::llvm_Constant_stripPointerCastsMut(inst)
+    }
+
+    // ::llvm::ConstantArray::classof
+    #[inline(always)]
+    pub unsafe fn ConstantArray_classof(V: *const super::llvm_Value) -> bool {
+        raw::llvm_ConstantArray_classof(V) != 0
+    }
+
+    // ::llvm::ConstantArray::get
+    #[inline(always)]
+    pub unsafe fn ConstantArray_get(Ty: *mut super::llvm_ArrayType, Values: super::llvm_ArrayRef_llvm_Constant_ptr) -> *mut super::llvm_Constant {
+        raw::llvm_ConstantArray_get(Ty, Values)
+    }
+
+    // ::llvm::ConstantArray::getType
+    #[inline(always)]
+    pub unsafe fn ConstantArray_getType(inst: *const super::llvm_ConstantArray) -> *mut super::llvm_Type {
+        raw::llvm_ConstantArray_getType(inst)
     }
 
     // ::llvm::FunctionType::classof

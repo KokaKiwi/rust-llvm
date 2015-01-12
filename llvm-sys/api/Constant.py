@@ -2,7 +2,8 @@ from bindgen.ast.objects import *
 from bindgen.ast.utils import submodpath
 from .ns import llvm
 from .ADT.APInt import APInt
-from .Type import Type
+from .ADT.ArrayRef import ArrayRef
+from .Type import Type, ArrayType
 from .User import User
 from .Value import Value
 
@@ -61,3 +62,11 @@ class Constant:
     getNullValue = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'))
     getAllOnesValue = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'))
     getIntegerValue = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'), (APInt, 'Value'))
+
+@ConstantArray.body
+class ConstantArray:
+    getType = Method(ptr(Type), const=True)
+
+    get = StaticMethod(ptr(Constant), (ptr(ArrayType), 'Ty'), (ArrayRef(ptr(Constant)), 'Values'))
+
+    classof = StaticMethod(Bool, (ptr(Value, const=True), 'V'))

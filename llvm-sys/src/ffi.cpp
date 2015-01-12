@@ -20,6 +20,10 @@ struct llvm_APInt {
     unsigned int num_bits;
     llvm_ArrayRef__libc_uint64_t value;
 };
+struct llvm_ArrayRef_llvm_Constant_ptr {
+    ::llvm::Constant* const* data;
+    size_t length;
+};
 struct llvm_ArrayRef_llvm_Type_ptr {
     ::llvm::Type* const* data;
     size_t length;
@@ -221,6 +225,28 @@ extern "C"
 ::llvm::Constant* llvm_Constant_stripPointerCastsMut(::llvm::Constant* inst)
 {
     return inst->stripPointerCasts();
+}
+
+// ::llvm::ConstantArray::classof
+extern "C"
+int llvm_ConstantArray_classof(::llvm::Value const* V)
+{
+    return (::llvm::ConstantArray::classof(V) == true ? 1 : 0);
+}
+
+// ::llvm::ConstantArray::get
+extern "C"
+::llvm::Constant* llvm_ConstantArray_get(::llvm::ArrayType* Ty, llvm_ArrayRef_llvm_Constant_ptr _Values)
+{
+    auto Values = ::llvm::ArrayRef<::llvm::Constant*>(_Values.data, _Values.length);
+    return ::llvm::ConstantArray::get(Ty, Values);
+}
+
+// ::llvm::ConstantArray::getType
+extern "C"
+::llvm::Type* llvm_ConstantArray_getType(::llvm::ConstantArray const* inst)
+{
+    return inst->getType();
 }
 
 // ::llvm::FunctionType::classof
