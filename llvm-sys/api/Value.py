@@ -47,3 +47,5 @@ class Value:
     getNumUses = Method(UnsignedInt, const=True)
 
     getValueID = Method(UnsignedInt, const=True)
+
+    mutateType = Method(Void, (ptr(Type), 'ty'))

@@ -59,7 +59,7 @@ impl AddrSpaceCastInst {
 impl Drop for AddrSpaceCastInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -116,7 +116,7 @@ impl AllocaInst {
 impl Drop for AllocaInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -166,7 +166,7 @@ impl AtomicCmpXchgInst {
 impl Drop for AtomicCmpXchgInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -216,7 +216,7 @@ impl AtomicRMWInst {
 impl Drop for AtomicRMWInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -266,7 +266,7 @@ impl BinaryOperator {
 impl Drop for BinaryOperator {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -330,7 +330,7 @@ impl BitCastInst {
 impl Drop for BitCastInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -387,7 +387,7 @@ impl BranchInst {
 impl Drop for BranchInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -437,7 +437,7 @@ impl CallInst {
 impl Drop for CallInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -494,7 +494,7 @@ impl CastInst {
 impl Drop for CastInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -544,7 +544,7 @@ impl CmpInst {
 impl Drop for CmpInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -594,7 +594,7 @@ impl ExtractElementInst {
 impl Drop for ExtractElementInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -651,7 +651,7 @@ impl ExtractValueInst {
 impl Drop for ExtractValueInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -715,7 +715,7 @@ impl FPExtInst {
 impl Drop for FPExtInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -779,7 +779,7 @@ impl FPToSIInst {
 impl Drop for FPToSIInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -829,7 +829,7 @@ impl FenceInst {
 impl Drop for FenceInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -879,7 +879,7 @@ impl GetElementPtrInst {
 impl Drop for GetElementPtrInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -936,7 +936,7 @@ impl IndirectBrInst {
 impl Drop for IndirectBrInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -986,7 +986,7 @@ impl InsertElementInst {
 impl Drop for InsertElementInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -1036,7 +1036,7 @@ impl InsertValueInst {
 impl Drop for InsertValueInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -1079,7 +1079,7 @@ impl Instruction {
 impl Drop for Instruction {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -1136,7 +1136,7 @@ impl InvokeInst {
 impl Drop for InvokeInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -1186,7 +1186,7 @@ impl LandingPadInst {
 impl Drop for LandingPadInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -1243,7 +1243,7 @@ impl LoadInst {
 impl Drop for LoadInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -1286,7 +1286,7 @@ impl Operator {
 impl Drop for Operator {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -1336,7 +1336,7 @@ impl PHINode {
 impl Drop for PHINode {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -1393,7 +1393,7 @@ impl ResumeInst {
 impl Drop for ResumeInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -1450,7 +1450,7 @@ impl ReturnInst {
 impl Drop for ReturnInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -1500,7 +1500,7 @@ impl SelectInst {
 impl Drop for SelectInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -1550,7 +1550,7 @@ impl ShuffleVectorInst {
 impl Drop for ShuffleVectorInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -1600,7 +1600,7 @@ impl StoreInst {
 impl Drop for StoreInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -1657,7 +1657,7 @@ impl SwitchInst {
 impl Drop for SwitchInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -1707,7 +1707,7 @@ impl TerminatorInst {
 impl Drop for TerminatorInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -1757,7 +1757,7 @@ impl UnaryInstruction {
 impl Drop for UnaryInstruction {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -1814,7 +1814,7 @@ impl UnreachableInst {
 impl Drop for UnreachableInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -1823,6 +1823,36 @@ pub type UserInner = ::ffi::llvm_User;
 pub trait UserExt: ::llvm::value::ValueExt {
 
     fn inner(&self) -> *mut UserInner;
+
+    fn drop_all_references(&mut self) {
+        unsafe {
+            ::ffi::llvm::User_dropAllReferences(::llvm::value::user::UserExt::inner(self));
+        }
+    }
+
+    fn get_num_operands(&self) -> u32 {
+        unsafe {
+            ::ffi::llvm::User_getNumOperands(::llvm::value::user::UserExt::inner(self) as *const ::ffi::llvm_User) as u32
+        }
+    }
+
+    fn get_operand(&self, idx: u32) -> ::llvm::value::Value {
+        unsafe {
+            ::llvm::value::Value::from_inner(::ffi::llvm::User_getOperand(::llvm::value::user::UserExt::inner(self) as *const ::ffi::llvm_User, idx as ::libc::c_uint))
+        }
+    }
+
+    fn replace_uses_of_with<A1: ::llvm::value::ValueExt, A2: ::llvm::value::ValueExt>(&mut self, from: A1, to: A2) {
+        unsafe {
+            ::ffi::llvm::User_replaceUsesOfWith(::llvm::value::user::UserExt::inner(self), ::llvm::value::ValueExt::inner(&from), ::llvm::value::ValueExt::inner(&to));
+        }
+    }
+
+    fn set_operand<A2: ::llvm::value::ValueExt>(&mut self, idx: u32, val: A2) {
+        unsafe {
+            ::ffi::llvm::User_setOperand(::llvm::value::user::UserExt::inner(self), idx as ::libc::c_uint, ::llvm::value::ValueExt::inner(&val));
+        }
+    }
 }
 
 pub struct User {
@@ -1846,11 +1876,17 @@ impl User {
             inner: inner,
         }
     }
+
+    pub fn classof<A1: ::llvm::value::ValueExt>(v: A1) -> bool {
+        unsafe {
+            ::ffi::llvm::User_classof(::llvm::value::ValueExt::inner(&v))
+        }
+    }
 }
 impl Drop for User {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -1907,7 +1943,7 @@ impl VAArgInst {
 impl Drop for VAArgInst {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }

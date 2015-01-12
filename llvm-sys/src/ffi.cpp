@@ -1,4 +1,5 @@
 #include <string>
+#include "llvm/ADT/APInt.h"
 #include "llvm/ADT/ArrayRef.h"
 #include "llvm/ADT/StringRef.h"
 #include "llvm/ADT/Twine.h"
@@ -11,6 +12,14 @@
 #include "llvm/IR/Type.h"
 #include "llvm/IR/Value.h"
 
+struct llvm_ArrayRef__libc_uint64_t {
+    uint64_t const* data;
+    size_t length;
+};
+struct llvm_APInt {
+    unsigned int num_bits;
+    llvm_ArrayRef__libc_uint64_t value;
+};
 struct llvm_ArrayRef_llvm_Type_ptr {
     ::llvm::Type* const* data;
     size_t length;
@@ -71,6 +80,147 @@ extern "C"
 int llvm_CompositeType_indexValid(::llvm::CompositeType const* inst, unsigned int idx)
 {
     return (inst->indexValid(idx) == true ? 1 : 0);
+}
+
+// ::llvm::Constant::canTrap
+extern "C"
+int llvm_Constant_canTrap(::llvm::Constant const* inst)
+{
+    return (inst->canTrap() == true ? 1 : 0);
+}
+
+// ::llvm::Constant::classof
+extern "C"
+int llvm_Constant_classof(::llvm::Value const* V)
+{
+    return (::llvm::Constant::classof(V) == true ? 1 : 0);
+}
+
+// ::llvm::Constant::destroyConstant
+extern "C"
+void llvm_Constant_destroyConstant(::llvm::Constant* inst)
+{
+    return inst->destroyConstant();
+}
+
+// ::llvm::Constant::getAggregateElement
+extern "C"
+::llvm::Constant* llvm_Constant_getAggregateElement(::llvm::Constant const* inst, unsigned int Elt)
+{
+    return inst->getAggregateElement(Elt);
+}
+
+// ::llvm::Constant::getAggregateElementConstant
+extern "C"
+::llvm::Constant* llvm_Constant_getAggregateElementConstant(::llvm::Constant const* inst, ::llvm::Constant* Elt)
+{
+    return inst->getAggregateElement(Elt);
+}
+
+// ::llvm::Constant::getAllOnesValue
+extern "C"
+::llvm::Constant* llvm_Constant_getAllOnesValue(::llvm::Type* Ty)
+{
+    return ::llvm::Constant::getAllOnesValue(Ty);
+}
+
+// ::llvm::Constant::getIntegerValue
+extern "C"
+::llvm::Constant* llvm_Constant_getIntegerValue(::llvm::Type* Ty, llvm_APInt _Value)
+{
+    auto Value = ::llvm::APInt(_Value.num_bits, ::llvm::ArrayRef<uint64_t>(_Value.value.data, _Value.value.length));
+    return ::llvm::Constant::getIntegerValue(Ty, Value);
+}
+
+// ::llvm::Constant::getNullValue
+extern "C"
+::llvm::Constant* llvm_Constant_getNullValue(::llvm::Type* Ty)
+{
+    return ::llvm::Constant::getNullValue(Ty);
+}
+
+// ::llvm::Constant::getSplatValue
+extern "C"
+::llvm::Constant* llvm_Constant_getSplatValue(::llvm::Constant const* inst)
+{
+    return inst->getSplatValue();
+}
+
+// ::llvm::Constant::isAllOnesValue
+extern "C"
+int llvm_Constant_isAllOnesValue(::llvm::Constant const* inst)
+{
+    return (inst->isAllOnesValue() == true ? 1 : 0);
+}
+
+// ::llvm::Constant::isConstantUsed
+extern "C"
+int llvm_Constant_isConstantUsed(::llvm::Constant const* inst)
+{
+    return (inst->isConstantUsed() == true ? 1 : 0);
+}
+
+// ::llvm::Constant::isDLLImportDependent
+extern "C"
+int llvm_Constant_isDLLImportDependent(::llvm::Constant const* inst)
+{
+    return (inst->isDLLImportDependent() == true ? 1 : 0);
+}
+
+// ::llvm::Constant::isMinSignedValue
+extern "C"
+int llvm_Constant_isMinSignedValue(::llvm::Constant const* inst)
+{
+    return (inst->isMinSignedValue() == true ? 1 : 0);
+}
+
+// ::llvm::Constant::isNegativeZeroValue
+extern "C"
+int llvm_Constant_isNegativeZeroValue(::llvm::Constant const* inst)
+{
+    return (inst->isNegativeZeroValue() == true ? 1 : 0);
+}
+
+// ::llvm::Constant::isNullValue
+extern "C"
+int llvm_Constant_isNullValue(::llvm::Constant const* inst)
+{
+    return (inst->isNullValue() == true ? 1 : 0);
+}
+
+// ::llvm::Constant::isThreadDependent
+extern "C"
+int llvm_Constant_isThreadDependent(::llvm::Constant const* inst)
+{
+    return (inst->isThreadDependent() == true ? 1 : 0);
+}
+
+// ::llvm::Constant::isZeroValue
+extern "C"
+int llvm_Constant_isZeroValue(::llvm::Constant const* inst)
+{
+    return (inst->isZeroValue() == true ? 1 : 0);
+}
+
+// ::llvm::Constant::removeDeadConstantUsers
+extern "C"
+void llvm_Constant_removeDeadConstantUsers(::llvm::Constant const* inst)
+{
+    return inst->removeDeadConstantUsers();
+}
+
+// ::llvm::Constant::stripPointerCasts
+extern "C"
+::llvm::Constant const* llvm_Constant_stripPointerCasts(::llvm::Constant const* inst)
+{
+    return inst->stripPointerCasts();
+}
+
+// ::llvm::Constant::stripPointerCastsMut
+extern "C"
+::llvm::Constant* llvm_Constant_stripPointerCastsMut(::llvm::Constant* inst)
+{
+    return inst->stripPointerCasts();
 }
 
 // ::llvm::FunctionType::classof
@@ -990,6 +1140,55 @@ int llvm_Type_isX86_MMXTy(::llvm::Type const* inst)
     return (inst->isX86_MMXTy() == true ? 1 : 0);
 }
 
+// ::llvm::User::classof
+extern "C"
+int llvm_User_classof(::llvm::Value* V)
+{
+    return (::llvm::User::classof(V) == true ? 1 : 0);
+}
+
+// ::llvm::User::delete
+extern "C"
+void llvm_User_delete(::llvm::User* inst)
+{
+    delete inst;
+}
+
+// ::llvm::User::dropAllReferences
+extern "C"
+void llvm_User_dropAllReferences(::llvm::User* inst)
+{
+    return inst->dropAllReferences();
+}
+
+// ::llvm::User::getNumOperands
+extern "C"
+unsigned int llvm_User_getNumOperands(::llvm::User const* inst)
+{
+    return inst->getNumOperands();
+}
+
+// ::llvm::User::getOperand
+extern "C"
+::llvm::Value* llvm_User_getOperand(::llvm::User const* inst, unsigned int idx)
+{
+    return inst->getOperand(idx);
+}
+
+// ::llvm::User::replaceUsesOfWith
+extern "C"
+void llvm_User_replaceUsesOfWith(::llvm::User* inst, ::llvm::Value* From, ::llvm::Value* To)
+{
+    return inst->replaceUsesOfWith(From, To);
+}
+
+// ::llvm::User::setOperand
+extern "C"
+void llvm_User_setOperand(::llvm::User* inst, unsigned int idx, ::llvm::Value* Val)
+{
+    return inst->setOperand(idx, Val);
+}
+
 // ::llvm::Value::delete
 extern "C"
 void llvm_Value_delete(::llvm::Value* inst)
@@ -1076,6 +1275,13 @@ extern "C"
 int llvm_Value_isUsedInBasicBlock(::llvm::Value const* inst, ::llvm::BasicBlock const* BB)
 {
     return (inst->isUsedInBasicBlock(BB) == true ? 1 : 0);
+}
+
+// ::llvm::Value::mutateType
+extern "C"
+void llvm_Value_mutateType(::llvm::Value* inst, ::llvm::Type* ty)
+{
+    return inst->mutateType(ty);
 }
 
 // ::llvm::Value::replaceAllUsesWith

@@ -44,7 +44,7 @@ impl BlockAddress {
 impl Drop for BlockAddress {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -53,6 +53,102 @@ pub type ConstantInner = ::ffi::llvm_Constant;
 pub trait ConstantExt: ::llvm::value::user::UserExt {
 
     fn inner(&self) -> *mut ConstantInner;
+
+    fn can_trap(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::Constant_canTrap(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant)
+        }
+    }
+
+    fn destroy_constant(&mut self) {
+        unsafe {
+            ::ffi::llvm::Constant_destroyConstant(::llvm::value::user::constant::ConstantExt::inner(self));
+        }
+    }
+
+    fn get_aggregate_element(&self, elt: u32) -> ::llvm::value::user::constant::Constant {
+        unsafe {
+            ::llvm::value::user::constant::Constant::from_inner(::ffi::llvm::Constant_getAggregateElement(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant, elt as ::libc::c_uint))
+        }
+    }
+
+    fn get_aggregate_element_constant<A1: ::llvm::value::user::constant::ConstantExt>(&self, elt: A1) -> ::llvm::value::user::constant::Constant {
+        unsafe {
+            ::llvm::value::user::constant::Constant::from_inner(::ffi::llvm::Constant_getAggregateElementConstant(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant, ::llvm::value::user::constant::ConstantExt::inner(&elt)))
+        }
+    }
+
+    fn get_splat_value(&self) -> ::llvm::value::user::constant::Constant {
+        unsafe {
+            ::llvm::value::user::constant::Constant::from_inner(::ffi::llvm::Constant_getSplatValue(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant))
+        }
+    }
+
+    fn is_all_ones_value(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::Constant_isAllOnesValue(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant)
+        }
+    }
+
+    fn is_constant_used(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::Constant_isConstantUsed(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant)
+        }
+    }
+
+    fn is_dll_import_dependent(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::Constant_isDLLImportDependent(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant)
+        }
+    }
+
+    fn is_min_signed_value(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::Constant_isMinSignedValue(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant)
+        }
+    }
+
+    fn is_negative_zero_value(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::Constant_isNegativeZeroValue(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant)
+        }
+    }
+
+    fn is_null_value(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::Constant_isNullValue(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant)
+        }
+    }
+
+    fn is_thread_dependent(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::Constant_isThreadDependent(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant)
+        }
+    }
+
+    fn is_zero_value(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::Constant_isZeroValue(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant)
+        }
+    }
+
+    fn remove_dead_constant_users(&self) {
+        unsafe {
+            ::ffi::llvm::Constant_removeDeadConstantUsers(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant);
+        }
+    }
+
+    fn strip_pointer_casts(&self) -> ::llvm::value::user::constant::Constant {
+        unsafe {
+            ::llvm::value::user::constant::Constant::from_inner(::ffi::llvm::Constant_stripPointerCasts(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant) as *mut ::ffi::llvm_Constant)
+        }
+    }
+
+    fn strip_pointer_casts_mut(&mut self) -> ::llvm::value::user::constant::Constant {
+        unsafe {
+            ::llvm::value::user::constant::Constant::from_inner(::ffi::llvm::Constant_stripPointerCastsMut(::llvm::value::user::constant::ConstantExt::inner(self)))
+        }
+    }
 }
 
 pub struct Constant {
@@ -83,11 +179,42 @@ impl Constant {
             inner: inner,
         }
     }
+
+    pub fn classof<A1: ::llvm::value::ValueExt>(v: A1) -> bool {
+        unsafe {
+            ::ffi::llvm::Constant_classof(::llvm::value::ValueExt::inner(&v))
+        }
+    }
+
+    pub fn get_all_ones_value<A1: ::llvm::ty::TypeExt>(ty: A1) -> ::llvm::value::user::constant::Constant {
+        unsafe {
+            ::llvm::value::user::constant::Constant::from_inner(::ffi::llvm::Constant_getAllOnesValue(::llvm::ty::TypeExt::inner(&ty)))
+        }
+    }
+
+    pub fn get_integer_value<A1: ::llvm::ty::TypeExt>(ty: A1, value: (u32, &[u64])) -> ::llvm::value::user::constant::Constant {
+        unsafe {
+            let c_value = ::ffi::llvm_APInt {
+                num_bits: value.0 as ::libc::c_uint,
+                value: ::ffi::llvm_ArrayRef__libc_uint64_t {
+                data: value.1.as_ptr(),
+                length: value.1.len() as ::libc::size_t,
+            },
+            };
+            ::llvm::value::user::constant::Constant::from_inner(::ffi::llvm::Constant_getIntegerValue(::llvm::ty::TypeExt::inner(&ty), c_value))
+        }
+    }
+
+    pub fn get_null_value<A1: ::llvm::ty::TypeExt>(ty: A1) -> ::llvm::value::user::constant::Constant {
+        unsafe {
+            ::llvm::value::user::constant::Constant::from_inner(::ffi::llvm::Constant_getNullValue(::llvm::ty::TypeExt::inner(&ty)))
+        }
+    }
 }
 impl Drop for Constant {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -137,7 +264,7 @@ impl ConstantAggregateZero {
 impl Drop for ConstantAggregateZero {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -187,7 +314,7 @@ impl ConstantArray {
 impl Drop for ConstantArray {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -244,7 +371,7 @@ impl ConstantDataArray {
 impl Drop for ConstantDataArray {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -294,7 +421,7 @@ impl ConstantDataSequential {
 impl Drop for ConstantDataSequential {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -351,7 +478,7 @@ impl ConstantDataVector {
 impl Drop for ConstantDataVector {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -401,7 +528,7 @@ impl ConstantExpr {
 impl Drop for ConstantExpr {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -451,7 +578,7 @@ impl ConstantFP {
 impl Drop for ConstantFP {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -501,7 +628,7 @@ impl ConstantInt {
 impl Drop for ConstantInt {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -551,7 +678,7 @@ impl ConstantPointerNull {
 impl Drop for ConstantPointerNull {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -601,7 +728,7 @@ impl ConstantStruct {
 impl Drop for ConstantStruct {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -651,7 +778,7 @@ impl ConstantVector {
 impl Drop for ConstantVector {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -701,7 +828,7 @@ impl GlobalValue {
 impl Drop for GlobalValue {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }
@@ -751,7 +878,7 @@ impl UndefValue {
 impl Drop for UndefValue {
     fn drop(&mut self) {
         unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
         }
     }
 }

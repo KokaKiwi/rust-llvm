@@ -216,6 +216,12 @@ pub trait ValueExt {
         }
     }
 
+    fn mutate_type<A1: ::llvm::ty::TypeExt>(&mut self, ty: A1) {
+        unsafe {
+            ::ffi::llvm::Value_mutateType(::llvm::value::ValueExt::inner(self), ::llvm::ty::TypeExt::inner(&ty));
+        }
+    }
+
     fn replace_all_uses_with<A1: ::llvm::value::ValueExt>(&mut self, value: A1) {
         unsafe {
             ::ffi::llvm::Value_replaceAllUsesWith(::llvm::value::ValueExt::inner(self), ::llvm::value::ValueExt::inner(&value));
