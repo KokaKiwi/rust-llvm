@@ -406,6 +406,26 @@
 <span id="364">364</span>
 <span id="365">365</span>
 <span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
+<span id="374">374</span>
+<span id="375">375</span>
+<span id="376">376</span>
+<span id="377">377</span>
+<span id="378">378</span>
+<span id="379">379</span>
+<span id="380">380</span>
+<span id="381">381</span>
+<span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
 </pre><pre class='rust '>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>user</span>;
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>ArgumentInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Argument</span>;
@@ -421,6 +441,7 @@
 
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Argument</span> {
     <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ArgumentInner</span>,
+    <span class='ident'>owned</span>: <span class='ident'>bool</span>,
 }
 <span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>Argument</span> {
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_Value</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
@@ -435,16 +456,19 @@
     }
 }
 <span class='kw'>impl</span> <span class='ident'>Argument</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ArgumentInner</span>) <span class='op'>-&gt;</span> <span class='ident'>Argument</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ArgumentInner</span>, <span class='ident'>owned</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='ident'>Argument</span> {
         <span class='ident'>Argument</span> {
             <span class='ident'>inner</span>: <span class='ident'>inner</span>,
+            <span class='ident'>owned</span>: <span class='ident'>owned</span>,
         }
     }
 }
 <span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>Argument</span> {
     <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner_llvm_Value</span>(<span class='self'>self</span>));
+        <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>owned</span> {
+            <span class='kw'>unsafe</span> {
+                ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner_llvm_Value</span>(<span class='self'>self</span>));
+            }
         }
     }
 }
@@ -461,6 +485,7 @@
 
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>BasicBlock</span> {
     <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BasicBlockInner</span>,
+    <span class='ident'>owned</span>: <span class='ident'>bool</span>,
 }
 <span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>BasicBlock</span> {
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_Value</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
@@ -475,16 +500,19 @@
     }
 }
 <span class='kw'>impl</span> <span class='ident'>BasicBlock</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BasicBlockInner</span>) <span class='op'>-&gt;</span> <span class='ident'>BasicBlock</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BasicBlockInner</span>, <span class='ident'>owned</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='ident'>BasicBlock</span> {
         <span class='ident'>BasicBlock</span> {
             <span class='ident'>inner</span>: <span class='ident'>inner</span>,
+            <span class='ident'>owned</span>: <span class='ident'>owned</span>,
         }
     }
 }
 <span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>BasicBlock</span> {
     <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner_llvm_Value</span>(<span class='self'>self</span>));
+        <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>owned</span> {
+            <span class='kw'>unsafe</span> {
+                ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner_llvm_Value</span>(<span class='self'>self</span>));
+            }
         }
     }
 }
@@ -501,6 +529,7 @@
 
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>InlineAsm</span> {
     <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InlineAsmInner</span>,
+    <span class='ident'>owned</span>: <span class='ident'>bool</span>,
 }
 <span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>InlineAsm</span> {
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_Value</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
@@ -515,16 +544,19 @@
     }
 }
 <span class='kw'>impl</span> <span class='ident'>InlineAsm</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InlineAsmInner</span>) <span class='op'>-&gt;</span> <span class='ident'>InlineAsm</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InlineAsmInner</span>, <span class='ident'>owned</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='ident'>InlineAsm</span> {
         <span class='ident'>InlineAsm</span> {
             <span class='ident'>inner</span>: <span class='ident'>inner</span>,
+            <span class='ident'>owned</span>: <span class='ident'>owned</span>,
         }
     }
 }
 <span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>InlineAsm</span> {
     <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner_llvm_Value</span>(<span class='self'>self</span>));
+        <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>owned</span> {
+            <span class='kw'>unsafe</span> {
+                ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner_llvm_Value</span>(<span class='self'>self</span>));
+            }
         }
     }
 }
@@ -541,6 +573,7 @@
 
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>MetadataAsValue</span> {
     <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>MetadataAsValueInner</span>,
+    <span class='ident'>owned</span>: <span class='ident'>bool</span>,
 }
 <span class='kw'>impl</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>MetadataAsValue</span> {
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_Value</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Value</span> {
@@ -555,16 +588,19 @@
     }
 }
 <span class='kw'>impl</span> <span class='ident'>MetadataAsValue</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>MetadataAsValueInner</span>) <span class='op'>-&gt;</span> <span class='ident'>MetadataAsValue</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>MetadataAsValueInner</span>, <span class='ident'>owned</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='ident'>MetadataAsValue</span> {
         <span class='ident'>MetadataAsValue</span> {
             <span class='ident'>inner</span>: <span class='ident'>inner</span>,
+            <span class='ident'>owned</span>: <span class='ident'>owned</span>,
         }
     }
 }
 <span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>MetadataAsValue</span> {
     <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner_llvm_Value</span>(<span class='self'>self</span>));
+        <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>owned</span> {
+            <span class='kw'>unsafe</span> {
+                ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner_llvm_Value</span>(<span class='self'>self</span>));
+            }
         }
     }
 }
@@ -753,6 +789,7 @@
 
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Value</span> {
     <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ValueInner</span>,
+    <span class='ident'>owned</span>: <span class='ident'>bool</span>,
 }
 <span class='kw'>impl</span> <span class='ident'>ValueExt</span> <span class='kw'>for</span> <span class='ident'>Value</span> {
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_Value</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ValueInner</span> {
@@ -760,16 +797,19 @@
     }
 }
 <span class='kw'>impl</span> <span class='ident'>Value</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ValueInner</span>) <span class='op'>-&gt;</span> <span class='ident'>Value</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ValueInner</span>, <span class='ident'>owned</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='ident'>Value</span> {
         <span class='ident'>Value</span> {
             <span class='ident'>inner</span>: <span class='ident'>inner</span>,
+            <span class='ident'>owned</span>: <span class='ident'>owned</span>,
         }
     }
 }
 <span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>Value</span> {
     <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner_llvm_Value</span>(<span class='self'>self</span>));
+        <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>owned</span> {
+            <span class='kw'>unsafe</span> {
+                ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Value_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>::<span class='ident'>inner_llvm_Value</span>(<span class='self'>self</span>));
+            }
         }
     }
 }

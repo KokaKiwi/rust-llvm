@@ -290,6 +290,10 @@
 <span id="248">248</span>
 <span id="249">249</span>
 <span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
 </pre><pre class='rust '>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>ty</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>value</span>;
@@ -425,7 +429,7 @@
                 <span class='ident'>data</span>: <span class='ident'>name</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> ::<span class='ident'>libc</span>::<span class='ident'>c_char</span>,
                 <span class='ident'>length</span>: <span class='ident'>name</span>.<span class='ident'>len</span>() <span class='kw'>as</span> ::<span class='ident'>libc</span>::<span class='ident'>size_t</span>,
             };
-            ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>GlobalValue</span>::<span class='ident'>from_inner</span>(::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Module_getNamedValue</span>(<span class='self'>self</span>.<span class='ident'>inner_llvm_Module</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Module</span>, <span class='ident'>c_name</span>))
+            ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>GlobalValue</span>::<span class='ident'>from_inner</span>(::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Module_getNamedValue</span>(<span class='self'>self</span>.<span class='ident'>inner_llvm_Module</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Module</span>, <span class='ident'>c_name</span>), <span class='boolval'>false</span>)
         }
     }
 
@@ -435,7 +439,7 @@
                 <span class='ident'>data</span>: <span class='ident'>name</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> ::<span class='ident'>libc</span>::<span class='ident'>c_char</span>,
                 <span class='ident'>length</span>: <span class='ident'>name</span>.<span class='ident'>len</span>() <span class='kw'>as</span> ::<span class='ident'>libc</span>::<span class='ident'>size_t</span>,
             };
-            ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>Constant</span>::<span class='ident'>from_inner</span>(::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Module_getOrInsertFunction</span>(<span class='self'>self</span>.<span class='ident'>inner_llvm_Module</span>(), <span class='ident'>c_name</span>, <span class='ident'>ty</span>.<span class='ident'>inner_llvm_FunctionType</span>()))
+            ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>Constant</span>::<span class='ident'>from_inner</span>(::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Module_getOrInsertFunction</span>(<span class='self'>self</span>.<span class='ident'>inner_llvm_Module</span>(), <span class='ident'>c_name</span>, <span class='ident'>ty</span>.<span class='ident'>inner_llvm_FunctionType</span>()), <span class='boolval'>false</span>)
         }
     }
 
@@ -505,6 +509,7 @@
 
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Module</span> {
     <span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ModuleInner</span>,
+    <span class='ident'>owned</span>: <span class='ident'>bool</span>,
 }
 <span class='kw'>impl</span> <span class='ident'>ModuleExt</span> <span class='kw'>for</span> <span class='ident'>Module</span> {
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_Module</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ModuleInner</span> {
@@ -512,9 +517,10 @@
     }
 }
 <span class='kw'>impl</span> <span class='ident'>Module</span> {
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ModuleInner</span>) <span class='op'>-&gt;</span> <span class='ident'>Module</span> {
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_inner</span>(<span class='ident'>inner</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ModuleInner</span>, <span class='ident'>owned</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='ident'>Module</span> {
         <span class='ident'>Module</span> {
             <span class='ident'>inner</span>: <span class='ident'>inner</span>,
+            <span class='ident'>owned</span>: <span class='ident'>owned</span>,
         }
     }
 
@@ -524,14 +530,16 @@
                 <span class='ident'>data</span>: <span class='ident'>module_id</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> ::<span class='ident'>libc</span>::<span class='ident'>c_char</span>,
                 <span class='ident'>length</span>: <span class='ident'>module_id</span>.<span class='ident'>len</span>() <span class='kw'>as</span> ::<span class='ident'>libc</span>::<span class='ident'>size_t</span>,
             };
-            ::<span class='ident'>llvm</span>::<span class='ident'>Module</span>::<span class='ident'>from_inner</span>(::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Module_new</span>(<span class='ident'>c_module_id</span>, <span class='ident'>context</span>.<span class='ident'>inner_llvm_LLVMContext</span>()))
+            ::<span class='ident'>llvm</span>::<span class='ident'>Module</span>::<span class='ident'>from_inner</span>(::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Module_new</span>(<span class='ident'>c_module_id</span>, <span class='ident'>context</span>.<span class='ident'>inner_llvm_LLVMContext</span>()), <span class='boolval'>true</span>)
         }
     }
 }
 <span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>Module</span> {
     <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Module_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>ModuleExt</span>::<span class='ident'>inner_llvm_Module</span>(<span class='self'>self</span>));
+        <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>owned</span> {
+            <span class='kw'>unsafe</span> {
+                ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>Module_delete</span>(::<span class='ident'>llvm</span>::<span class='ident'>ModuleExt</span>::<span class='ident'>inner_llvm_Module</span>(<span class='self'>self</span>));
+            }
         }
     }
 }
