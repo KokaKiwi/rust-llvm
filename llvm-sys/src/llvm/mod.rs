@@ -132,7 +132,7 @@ pub trait ModuleExt {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            ::llvm::value::user::constant::GlobalValue::from_inner(::ffi::llvm::Module_getNamedValue(self.inner_llvm_Module() as *const ::ffi::llvm_Module, c_name))
+            ::llvm::value::user::constant::GlobalValue::from_inner(::ffi::llvm::Module_getNamedValue(self.inner_llvm_Module() as *const ::ffi::llvm_Module, c_name), false)
         }
     }
 
@@ -142,7 +142,7 @@ pub trait ModuleExt {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            ::llvm::value::user::constant::Constant::from_inner(::ffi::llvm::Module_getOrInsertFunction(self.inner_llvm_Module(), c_name, ty.inner_llvm_FunctionType()))
+            ::llvm::value::user::constant::Constant::from_inner(::ffi::llvm::Module_getOrInsertFunction(self.inner_llvm_Module(), c_name, ty.inner_llvm_FunctionType()), false)
         }
     }
 
@@ -212,6 +212,7 @@ pub trait ModuleExt {
 
 pub struct Module {
     inner: *mut ModuleInner,
+    owned: bool,
 }
 impl ModuleExt for Module {
     fn inner_llvm_Module(&self) -> *mut ModuleInner {
@@ -219,9 +220,10 @@ impl ModuleExt for Module {
     }
 }
 impl Module {
-    pub unsafe fn from_inner(inner: *mut ModuleInner) -> Module {
+    pub unsafe fn from_inner(inner: *mut ModuleInner, owned: bool) -> Module {
         Module {
             inner: inner,
+            owned: owned,
         }
     }
 
@@ -231,14 +233,16 @@ impl Module {
                 data: module_id.as_ptr() as *const ::libc::c_char,
                 length: module_id.len() as ::libc::size_t,
             };
-            ::llvm::Module::from_inner(::ffi::llvm::Module_new(c_module_id, context.inner_llvm_LLVMContext()))
+            ::llvm::Module::from_inner(::ffi::llvm::Module_new(c_module_id, context.inner_llvm_LLVMContext()), true)
         }
     }
 }
 impl Drop for Module {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::Module_delete(::llvm::ModuleExt::inner_llvm_Module(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::Module_delete(::llvm::ModuleExt::inner_llvm_Module(self));
+            }
         }
     }
 }

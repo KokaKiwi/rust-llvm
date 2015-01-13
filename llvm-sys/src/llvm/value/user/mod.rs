@@ -12,6 +12,7 @@ pub trait AddrSpaceCastInstExt: ::llvm::value::user::CastInstExt {
 
 pub struct AddrSpaceCastInst {
     inner: *mut AddrSpaceCastInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for AddrSpaceCastInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -54,16 +55,19 @@ impl AddrSpaceCastInstExt for AddrSpaceCastInst {
     }
 }
 impl AddrSpaceCastInst {
-    pub unsafe fn from_inner(inner: *mut AddrSpaceCastInstInner) -> AddrSpaceCastInst {
+    pub unsafe fn from_inner(inner: *mut AddrSpaceCastInstInner, owned: bool) -> AddrSpaceCastInst {
         AddrSpaceCastInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for AddrSpaceCastInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -80,6 +84,7 @@ pub trait AllocaInstExt: ::llvm::value::user::UnaryInstructionExt {
 
 pub struct AllocaInst {
     inner: *mut AllocaInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for AllocaInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -115,16 +120,19 @@ impl AllocaInstExt for AllocaInst {
     }
 }
 impl AllocaInst {
-    pub unsafe fn from_inner(inner: *mut AllocaInstInner) -> AllocaInst {
+    pub unsafe fn from_inner(inner: *mut AllocaInstInner, owned: bool) -> AllocaInst {
         AllocaInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for AllocaInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -141,6 +149,7 @@ pub trait AtomicCmpXchgInstExt: ::llvm::value::user::InstructionExt {
 
 pub struct AtomicCmpXchgInst {
     inner: *mut AtomicCmpXchgInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for AtomicCmpXchgInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -169,16 +178,19 @@ impl AtomicCmpXchgInstExt for AtomicCmpXchgInst {
     }
 }
 impl AtomicCmpXchgInst {
-    pub unsafe fn from_inner(inner: *mut AtomicCmpXchgInstInner) -> AtomicCmpXchgInst {
+    pub unsafe fn from_inner(inner: *mut AtomicCmpXchgInstInner, owned: bool) -> AtomicCmpXchgInst {
         AtomicCmpXchgInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for AtomicCmpXchgInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -195,6 +207,7 @@ pub trait AtomicRMWInstExt: ::llvm::value::user::InstructionExt {
 
 pub struct AtomicRMWInst {
     inner: *mut AtomicRMWInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for AtomicRMWInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -223,16 +236,19 @@ impl AtomicRMWInstExt for AtomicRMWInst {
     }
 }
 impl AtomicRMWInst {
-    pub unsafe fn from_inner(inner: *mut AtomicRMWInstInner) -> AtomicRMWInst {
+    pub unsafe fn from_inner(inner: *mut AtomicRMWInstInner, owned: bool) -> AtomicRMWInst {
         AtomicRMWInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for AtomicRMWInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -249,6 +265,7 @@ pub trait BinaryOperatorExt: ::llvm::value::user::InstructionExt {
 
 pub struct BinaryOperator {
     inner: *mut BinaryOperatorInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for BinaryOperator {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -277,16 +294,19 @@ impl BinaryOperatorExt for BinaryOperator {
     }
 }
 impl BinaryOperator {
-    pub unsafe fn from_inner(inner: *mut BinaryOperatorInner) -> BinaryOperator {
+    pub unsafe fn from_inner(inner: *mut BinaryOperatorInner, owned: bool) -> BinaryOperator {
         BinaryOperator {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for BinaryOperator {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -303,6 +323,7 @@ pub trait BitCastInstExt: ::llvm::value::user::CastInstExt {
 
 pub struct BitCastInst {
     inner: *mut BitCastInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for BitCastInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -345,16 +366,19 @@ impl BitCastInstExt for BitCastInst {
     }
 }
 impl BitCastInst {
-    pub unsafe fn from_inner(inner: *mut BitCastInstInner) -> BitCastInst {
+    pub unsafe fn from_inner(inner: *mut BitCastInstInner, owned: bool) -> BitCastInst {
         BitCastInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for BitCastInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -371,6 +395,7 @@ pub trait BranchInstExt: ::llvm::value::user::TerminatorInstExt {
 
 pub struct BranchInst {
     inner: *mut BranchInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for BranchInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -406,16 +431,19 @@ impl BranchInstExt for BranchInst {
     }
 }
 impl BranchInst {
-    pub unsafe fn from_inner(inner: *mut BranchInstInner) -> BranchInst {
+    pub unsafe fn from_inner(inner: *mut BranchInstInner, owned: bool) -> BranchInst {
         BranchInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for BranchInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -432,6 +460,7 @@ pub trait CallInstExt: ::llvm::value::user::InstructionExt {
 
 pub struct CallInst {
     inner: *mut CallInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for CallInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -460,16 +489,19 @@ impl CallInstExt for CallInst {
     }
 }
 impl CallInst {
-    pub unsafe fn from_inner(inner: *mut CallInstInner) -> CallInst {
+    pub unsafe fn from_inner(inner: *mut CallInstInner, owned: bool) -> CallInst {
         CallInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for CallInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -486,6 +518,7 @@ pub trait CastInstExt: ::llvm::value::user::UnaryInstructionExt {
 
 pub struct CastInst {
     inner: *mut CastInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for CastInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -521,16 +554,19 @@ impl CastInstExt for CastInst {
     }
 }
 impl CastInst {
-    pub unsafe fn from_inner(inner: *mut CastInstInner) -> CastInst {
+    pub unsafe fn from_inner(inner: *mut CastInstInner, owned: bool) -> CastInst {
         CastInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for CastInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -547,6 +583,7 @@ pub trait CmpInstExt: ::llvm::value::user::InstructionExt {
 
 pub struct CmpInst {
     inner: *mut CmpInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for CmpInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -575,16 +612,19 @@ impl CmpInstExt for CmpInst {
     }
 }
 impl CmpInst {
-    pub unsafe fn from_inner(inner: *mut CmpInstInner) -> CmpInst {
+    pub unsafe fn from_inner(inner: *mut CmpInstInner, owned: bool) -> CmpInst {
         CmpInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for CmpInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -601,6 +641,7 @@ pub trait ExtractElementInstExt: ::llvm::value::user::InstructionExt {
 
 pub struct ExtractElementInst {
     inner: *mut ExtractElementInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for ExtractElementInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -629,16 +670,19 @@ impl ExtractElementInstExt for ExtractElementInst {
     }
 }
 impl ExtractElementInst {
-    pub unsafe fn from_inner(inner: *mut ExtractElementInstInner) -> ExtractElementInst {
+    pub unsafe fn from_inner(inner: *mut ExtractElementInstInner, owned: bool) -> ExtractElementInst {
         ExtractElementInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for ExtractElementInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -655,6 +699,7 @@ pub trait ExtractValueInstExt: ::llvm::value::user::UnaryInstructionExt {
 
 pub struct ExtractValueInst {
     inner: *mut ExtractValueInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for ExtractValueInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -690,16 +735,19 @@ impl ExtractValueInstExt for ExtractValueInst {
     }
 }
 impl ExtractValueInst {
-    pub unsafe fn from_inner(inner: *mut ExtractValueInstInner) -> ExtractValueInst {
+    pub unsafe fn from_inner(inner: *mut ExtractValueInstInner, owned: bool) -> ExtractValueInst {
         ExtractValueInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for ExtractValueInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -716,6 +764,7 @@ pub trait FPExtInstExt: ::llvm::value::user::CastInstExt {
 
 pub struct FPExtInst {
     inner: *mut FPExtInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for FPExtInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -758,16 +807,19 @@ impl FPExtInstExt for FPExtInst {
     }
 }
 impl FPExtInst {
-    pub unsafe fn from_inner(inner: *mut FPExtInstInner) -> FPExtInst {
+    pub unsafe fn from_inner(inner: *mut FPExtInstInner, owned: bool) -> FPExtInst {
         FPExtInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for FPExtInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -784,6 +836,7 @@ pub trait FPToSIInstExt: ::llvm::value::user::CastInstExt {
 
 pub struct FPToSIInst {
     inner: *mut FPToSIInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for FPToSIInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -826,16 +879,19 @@ impl FPToSIInstExt for FPToSIInst {
     }
 }
 impl FPToSIInst {
-    pub unsafe fn from_inner(inner: *mut FPToSIInstInner) -> FPToSIInst {
+    pub unsafe fn from_inner(inner: *mut FPToSIInstInner, owned: bool) -> FPToSIInst {
         FPToSIInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for FPToSIInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -852,6 +908,7 @@ pub trait FenceInstExt: ::llvm::value::user::InstructionExt {
 
 pub struct FenceInst {
     inner: *mut FenceInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for FenceInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -880,16 +937,19 @@ impl FenceInstExt for FenceInst {
     }
 }
 impl FenceInst {
-    pub unsafe fn from_inner(inner: *mut FenceInstInner) -> FenceInst {
+    pub unsafe fn from_inner(inner: *mut FenceInstInner, owned: bool) -> FenceInst {
         FenceInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for FenceInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -906,6 +966,7 @@ pub trait GetElementPtrInstExt: ::llvm::value::user::InstructionExt {
 
 pub struct GetElementPtrInst {
     inner: *mut GetElementPtrInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for GetElementPtrInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -934,16 +995,19 @@ impl GetElementPtrInstExt for GetElementPtrInst {
     }
 }
 impl GetElementPtrInst {
-    pub unsafe fn from_inner(inner: *mut GetElementPtrInstInner) -> GetElementPtrInst {
+    pub unsafe fn from_inner(inner: *mut GetElementPtrInstInner, owned: bool) -> GetElementPtrInst {
         GetElementPtrInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for GetElementPtrInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -960,6 +1024,7 @@ pub trait IndirectBrInstExt: ::llvm::value::user::TerminatorInstExt {
 
 pub struct IndirectBrInst {
     inner: *mut IndirectBrInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for IndirectBrInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -995,16 +1060,19 @@ impl IndirectBrInstExt for IndirectBrInst {
     }
 }
 impl IndirectBrInst {
-    pub unsafe fn from_inner(inner: *mut IndirectBrInstInner) -> IndirectBrInst {
+    pub unsafe fn from_inner(inner: *mut IndirectBrInstInner, owned: bool) -> IndirectBrInst {
         IndirectBrInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for IndirectBrInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -1021,6 +1089,7 @@ pub trait InsertElementInstExt: ::llvm::value::user::InstructionExt {
 
 pub struct InsertElementInst {
     inner: *mut InsertElementInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for InsertElementInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -1049,16 +1118,19 @@ impl InsertElementInstExt for InsertElementInst {
     }
 }
 impl InsertElementInst {
-    pub unsafe fn from_inner(inner: *mut InsertElementInstInner) -> InsertElementInst {
+    pub unsafe fn from_inner(inner: *mut InsertElementInstInner, owned: bool) -> InsertElementInst {
         InsertElementInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for InsertElementInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -1075,6 +1147,7 @@ pub trait InsertValueInstExt: ::llvm::value::user::InstructionExt {
 
 pub struct InsertValueInst {
     inner: *mut InsertValueInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for InsertValueInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -1103,16 +1176,19 @@ impl InsertValueInstExt for InsertValueInst {
     }
 }
 impl InsertValueInst {
-    pub unsafe fn from_inner(inner: *mut InsertValueInstInner) -> InsertValueInst {
+    pub unsafe fn from_inner(inner: *mut InsertValueInstInner, owned: bool) -> InsertValueInst {
         InsertValueInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for InsertValueInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -1129,6 +1205,7 @@ pub trait InstructionExt: ::llvm::value::user::UserExt {
 
 pub struct Instruction {
     inner: *mut InstructionInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for Instruction {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -1150,16 +1227,19 @@ impl InstructionExt for Instruction {
     }
 }
 impl Instruction {
-    pub unsafe fn from_inner(inner: *mut InstructionInner) -> Instruction {
+    pub unsafe fn from_inner(inner: *mut InstructionInner, owned: bool) -> Instruction {
         Instruction {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for Instruction {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -1176,6 +1256,7 @@ pub trait InvokeInstExt: ::llvm::value::user::TerminatorInstExt {
 
 pub struct InvokeInst {
     inner: *mut InvokeInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for InvokeInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -1211,16 +1292,19 @@ impl InvokeInstExt for InvokeInst {
     }
 }
 impl InvokeInst {
-    pub unsafe fn from_inner(inner: *mut InvokeInstInner) -> InvokeInst {
+    pub unsafe fn from_inner(inner: *mut InvokeInstInner, owned: bool) -> InvokeInst {
         InvokeInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for InvokeInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -1237,6 +1321,7 @@ pub trait LandingPadInstExt: ::llvm::value::user::InstructionExt {
 
 pub struct LandingPadInst {
     inner: *mut LandingPadInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for LandingPadInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -1265,16 +1350,19 @@ impl LandingPadInstExt for LandingPadInst {
     }
 }
 impl LandingPadInst {
-    pub unsafe fn from_inner(inner: *mut LandingPadInstInner) -> LandingPadInst {
+    pub unsafe fn from_inner(inner: *mut LandingPadInstInner, owned: bool) -> LandingPadInst {
         LandingPadInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for LandingPadInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -1291,6 +1379,7 @@ pub trait LoadInstExt: ::llvm::value::user::UnaryInstructionExt {
 
 pub struct LoadInst {
     inner: *mut LoadInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for LoadInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -1326,16 +1415,19 @@ impl LoadInstExt for LoadInst {
     }
 }
 impl LoadInst {
-    pub unsafe fn from_inner(inner: *mut LoadInstInner) -> LoadInst {
+    pub unsafe fn from_inner(inner: *mut LoadInstInner, owned: bool) -> LoadInst {
         LoadInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for LoadInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -1352,6 +1444,7 @@ pub trait OperatorExt: ::llvm::value::user::UserExt {
 
 pub struct Operator {
     inner: *mut OperatorInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for Operator {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -1373,16 +1466,19 @@ impl OperatorExt for Operator {
     }
 }
 impl Operator {
-    pub unsafe fn from_inner(inner: *mut OperatorInner) -> Operator {
+    pub unsafe fn from_inner(inner: *mut OperatorInner, owned: bool) -> Operator {
         Operator {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for Operator {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -1399,6 +1495,7 @@ pub trait PHINodeExt: ::llvm::value::user::InstructionExt {
 
 pub struct PHINode {
     inner: *mut PHINodeInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for PHINode {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -1427,16 +1524,19 @@ impl PHINodeExt for PHINode {
     }
 }
 impl PHINode {
-    pub unsafe fn from_inner(inner: *mut PHINodeInner) -> PHINode {
+    pub unsafe fn from_inner(inner: *mut PHINodeInner, owned: bool) -> PHINode {
         PHINode {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for PHINode {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -1453,6 +1553,7 @@ pub trait ResumeInstExt: ::llvm::value::user::TerminatorInstExt {
 
 pub struct ResumeInst {
     inner: *mut ResumeInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for ResumeInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -1488,16 +1589,19 @@ impl ResumeInstExt for ResumeInst {
     }
 }
 impl ResumeInst {
-    pub unsafe fn from_inner(inner: *mut ResumeInstInner) -> ResumeInst {
+    pub unsafe fn from_inner(inner: *mut ResumeInstInner, owned: bool) -> ResumeInst {
         ResumeInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for ResumeInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -1514,6 +1618,7 @@ pub trait ReturnInstExt: ::llvm::value::user::TerminatorInstExt {
 
 pub struct ReturnInst {
     inner: *mut ReturnInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for ReturnInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -1549,16 +1654,19 @@ impl ReturnInstExt for ReturnInst {
     }
 }
 impl ReturnInst {
-    pub unsafe fn from_inner(inner: *mut ReturnInstInner) -> ReturnInst {
+    pub unsafe fn from_inner(inner: *mut ReturnInstInner, owned: bool) -> ReturnInst {
         ReturnInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for ReturnInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -1575,6 +1683,7 @@ pub trait SelectInstExt: ::llvm::value::user::InstructionExt {
 
 pub struct SelectInst {
     inner: *mut SelectInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for SelectInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -1603,16 +1712,19 @@ impl SelectInstExt for SelectInst {
     }
 }
 impl SelectInst {
-    pub unsafe fn from_inner(inner: *mut SelectInstInner) -> SelectInst {
+    pub unsafe fn from_inner(inner: *mut SelectInstInner, owned: bool) -> SelectInst {
         SelectInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for SelectInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -1629,6 +1741,7 @@ pub trait ShuffleVectorInstExt: ::llvm::value::user::InstructionExt {
 
 pub struct ShuffleVectorInst {
     inner: *mut ShuffleVectorInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for ShuffleVectorInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -1657,16 +1770,19 @@ impl ShuffleVectorInstExt for ShuffleVectorInst {
     }
 }
 impl ShuffleVectorInst {
-    pub unsafe fn from_inner(inner: *mut ShuffleVectorInstInner) -> ShuffleVectorInst {
+    pub unsafe fn from_inner(inner: *mut ShuffleVectorInstInner, owned: bool) -> ShuffleVectorInst {
         ShuffleVectorInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for ShuffleVectorInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -1683,6 +1799,7 @@ pub trait StoreInstExt: ::llvm::value::user::InstructionExt {
 
 pub struct StoreInst {
     inner: *mut StoreInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for StoreInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -1711,16 +1828,19 @@ impl StoreInstExt for StoreInst {
     }
 }
 impl StoreInst {
-    pub unsafe fn from_inner(inner: *mut StoreInstInner) -> StoreInst {
+    pub unsafe fn from_inner(inner: *mut StoreInstInner, owned: bool) -> StoreInst {
         StoreInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for StoreInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -1737,6 +1857,7 @@ pub trait SwitchInstExt: ::llvm::value::user::TerminatorInstExt {
 
 pub struct SwitchInst {
     inner: *mut SwitchInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for SwitchInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -1772,16 +1893,19 @@ impl SwitchInstExt for SwitchInst {
     }
 }
 impl SwitchInst {
-    pub unsafe fn from_inner(inner: *mut SwitchInstInner) -> SwitchInst {
+    pub unsafe fn from_inner(inner: *mut SwitchInstInner, owned: bool) -> SwitchInst {
         SwitchInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for SwitchInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -1798,6 +1922,7 @@ pub trait TerminatorInstExt: ::llvm::value::user::InstructionExt {
 
 pub struct TerminatorInst {
     inner: *mut TerminatorInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for TerminatorInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -1826,16 +1951,19 @@ impl TerminatorInstExt for TerminatorInst {
     }
 }
 impl TerminatorInst {
-    pub unsafe fn from_inner(inner: *mut TerminatorInstInner) -> TerminatorInst {
+    pub unsafe fn from_inner(inner: *mut TerminatorInstInner, owned: bool) -> TerminatorInst {
         TerminatorInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for TerminatorInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -1852,6 +1980,7 @@ pub trait UnaryInstructionExt: ::llvm::value::user::InstructionExt {
 
 pub struct UnaryInstruction {
     inner: *mut UnaryInstructionInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for UnaryInstruction {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -1880,16 +2009,19 @@ impl UnaryInstructionExt for UnaryInstruction {
     }
 }
 impl UnaryInstruction {
-    pub unsafe fn from_inner(inner: *mut UnaryInstructionInner) -> UnaryInstruction {
+    pub unsafe fn from_inner(inner: *mut UnaryInstructionInner, owned: bool) -> UnaryInstruction {
         UnaryInstruction {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for UnaryInstruction {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -1906,6 +2038,7 @@ pub trait UnreachableInstExt: ::llvm::value::user::TerminatorInstExt {
 
 pub struct UnreachableInst {
     inner: *mut UnreachableInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for UnreachableInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -1941,16 +2074,19 @@ impl UnreachableInstExt for UnreachableInst {
     }
 }
 impl UnreachableInst {
-    pub unsafe fn from_inner(inner: *mut UnreachableInstInner) -> UnreachableInst {
+    pub unsafe fn from_inner(inner: *mut UnreachableInstInner, owned: bool) -> UnreachableInst {
         UnreachableInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for UnreachableInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -1978,7 +2114,7 @@ pub trait UserExt: ::llvm::value::ValueExt {
 
     fn get_operand(&self, idx: u32) -> ::llvm::value::Value {
         unsafe {
-            ::llvm::value::Value::from_inner(::ffi::llvm::User_getOperand(self.inner_llvm_User() as *const ::ffi::llvm_User, idx as ::libc::c_uint))
+            ::llvm::value::Value::from_inner(::ffi::llvm::User_getOperand(self.inner_llvm_User() as *const ::ffi::llvm_User, idx as ::libc::c_uint), false)
         }
     }
 
@@ -1997,6 +2133,7 @@ pub trait UserExt: ::llvm::value::ValueExt {
 
 pub struct User {
     inner: *mut UserInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for User {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -2011,9 +2148,10 @@ impl UserExt for User {
     }
 }
 impl User {
-    pub unsafe fn from_inner(inner: *mut UserInner) -> User {
+    pub unsafe fn from_inner(inner: *mut UserInner, owned: bool) -> User {
         User {
             inner: inner,
+            owned: owned,
         }
     }
 
@@ -2025,8 +2163,10 @@ impl User {
 }
 impl Drop for User {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }
@@ -2043,6 +2183,7 @@ pub trait VAArgInstExt: ::llvm::value::user::UnaryInstructionExt {
 
 pub struct VAArgInst {
     inner: *mut VAArgInstInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for VAArgInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -2078,16 +2219,19 @@ impl VAArgInstExt for VAArgInst {
     }
 }
 impl VAArgInst {
-    pub unsafe fn from_inner(inner: *mut VAArgInstInner) -> VAArgInst {
+    pub unsafe fn from_inner(inner: *mut VAArgInstInner, owned: bool) -> VAArgInst {
         VAArgInst {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for VAArgInst {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+            }
         }
     }
 }

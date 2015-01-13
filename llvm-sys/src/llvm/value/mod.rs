@@ -12,6 +12,7 @@ pub trait ArgumentExt: ::llvm::value::ValueExt {
 
 pub struct Argument {
     inner: *mut ArgumentInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for Argument {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -26,16 +27,19 @@ impl ArgumentExt for Argument {
     }
 }
 impl Argument {
-    pub unsafe fn from_inner(inner: *mut ArgumentInner) -> Argument {
+    pub unsafe fn from_inner(inner: *mut ArgumentInner, owned: bool) -> Argument {
         Argument {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for Argument {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner_llvm_Value(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner_llvm_Value(self));
+            }
         }
     }
 }
@@ -52,6 +56,7 @@ pub trait BasicBlockExt: ::llvm::value::ValueExt {
 
 pub struct BasicBlock {
     inner: *mut BasicBlockInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for BasicBlock {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -66,16 +71,19 @@ impl BasicBlockExt for BasicBlock {
     }
 }
 impl BasicBlock {
-    pub unsafe fn from_inner(inner: *mut BasicBlockInner) -> BasicBlock {
+    pub unsafe fn from_inner(inner: *mut BasicBlockInner, owned: bool) -> BasicBlock {
         BasicBlock {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for BasicBlock {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner_llvm_Value(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner_llvm_Value(self));
+            }
         }
     }
 }
@@ -92,6 +100,7 @@ pub trait InlineAsmExt: ::llvm::value::ValueExt {
 
 pub struct InlineAsm {
     inner: *mut InlineAsmInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for InlineAsm {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -106,16 +115,19 @@ impl InlineAsmExt for InlineAsm {
     }
 }
 impl InlineAsm {
-    pub unsafe fn from_inner(inner: *mut InlineAsmInner) -> InlineAsm {
+    pub unsafe fn from_inner(inner: *mut InlineAsmInner, owned: bool) -> InlineAsm {
         InlineAsm {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for InlineAsm {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner_llvm_Value(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner_llvm_Value(self));
+            }
         }
     }
 }
@@ -132,6 +144,7 @@ pub trait MetadataAsValueExt: ::llvm::value::ValueExt {
 
 pub struct MetadataAsValue {
     inner: *mut MetadataAsValueInner,
+    owned: bool,
 }
 impl ::llvm::value::ValueExt for MetadataAsValue {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
@@ -146,16 +159,19 @@ impl MetadataAsValueExt for MetadataAsValue {
     }
 }
 impl MetadataAsValue {
-    pub unsafe fn from_inner(inner: *mut MetadataAsValueInner) -> MetadataAsValue {
+    pub unsafe fn from_inner(inner: *mut MetadataAsValueInner, owned: bool) -> MetadataAsValue {
         MetadataAsValue {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for MetadataAsValue {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner_llvm_Value(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner_llvm_Value(self));
+            }
         }
     }
 }
@@ -344,6 +360,7 @@ pub trait ValueExt {
 
 pub struct Value {
     inner: *mut ValueInner,
+    owned: bool,
 }
 impl ValueExt for Value {
     fn inner_llvm_Value(&self) -> *mut ValueInner {
@@ -351,16 +368,19 @@ impl ValueExt for Value {
     }
 }
 impl Value {
-    pub unsafe fn from_inner(inner: *mut ValueInner) -> Value {
+    pub unsafe fn from_inner(inner: *mut ValueInner, owned: bool) -> Value {
         Value {
             inner: inner,
+            owned: owned,
         }
     }
 }
 impl Drop for Value {
     fn drop(&mut self) {
-        unsafe {
-            ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner_llvm_Value(self));
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner_llvm_Value(self));
+            }
         }
     }
 }
