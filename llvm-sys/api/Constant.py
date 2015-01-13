@@ -216,7 +216,7 @@ class GlobalObject:
 class GlobalVariable:
     delete = Destructor()
 
-    new = Constructor((ptr(Type), 'Ty'), (Bool, 'isConstant'), (GlobalValue.LinkageTypes, 'Linkage'))
+    new = Constructor((ptr(Type), 'Ty'), (Bool, 'isConstant'), (GlobalValue.LinkageTypes, 'Linkage'), null=None)
 
     hasInitializer = Method(Bool, const=True)
     hasDefinitiveInitializer = Method(Bool, const=True)

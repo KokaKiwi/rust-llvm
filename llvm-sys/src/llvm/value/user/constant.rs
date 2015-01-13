@@ -2354,7 +2354,7 @@ impl GlobalVariable {
         unsafe {
             let ret = ::ffi::llvm::GlobalVariable_new(ty.inner_llvm_Type(), is_constant, linkage.to_ffi());
             if ret.is_null(){
-                panic!("GlobalVariable constructor returned a null pointer!");
+                panic!("::llvm::GlobalVariable::new returned a null pointer!");
             }
             ::llvm::value::user::constant::GlobalVariable::from_inner(ret, true)
         }
@@ -2364,7 +2364,7 @@ impl GlobalVariable {
         unsafe {
             let ret = ::ffi::llvm::GlobalVariable_newWithModule(module.inner_llvm_Module(), ty.inner_llvm_Type(), is_constant, linkage.to_ffi(), initializer.inner_llvm_Constant());
             if ret.is_null(){
-                panic!("GlobalVariable constructor returned a null pointer!");
+                panic!("::llvm::GlobalVariable::newWithModule returned a null pointer!");
             }
             ::llvm::value::user::constant::GlobalVariable::from_inner(ret, true)
         }

@@ -266,7 +266,7 @@ impl Module {
             };
             let ret = ::ffi::llvm::Module_new(c_module_id, context.inner_llvm_LLVMContext());
             if ret.is_null(){
-                panic!("Module constructor returned a null pointer!");
+                panic!("::llvm::Module::new returned a null pointer!");
             }
             ::llvm::Module::from_inner(ret, true)
         }

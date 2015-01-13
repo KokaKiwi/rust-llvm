@@ -41,7 +41,7 @@ class Module:
 
     getTypeByName = Method(ptr(StructType), (StringRef, 'Name'), const=True)
 
-    getOrInsertFunction = Method(ptr(Constant, nullable=False), (StringRef, 'Name'), (ptr(FunctionType), 'ty'))
+    getOrInsertFunction = Method(ptr(Constant, null=None), (StringRef, 'Name'), (ptr(FunctionType), 'ty'))
     getFunction = Method(ptr(Function), (StringRef, 'Name'), const=True)
 
 @GlobalValue.body
@@ -53,4 +53,4 @@ class GlobalValue:
 
 @GlobalVariable.body
 class GlobalVariable:
-    newWithModule = Constructor((ref(Module), 'Module'), (ptr(Type), 'Ty'), (Bool, 'isConstant'), (GlobalValue.LinkageTypes, 'Linkage'), (ptr(Constant), 'Initializer'))
+    newWithModule = Constructor((ref(Module), 'Module'), (ptr(Type), 'Ty'), (Bool, 'isConstant'), (GlobalValue.LinkageTypes, 'Linkage'), (ptr(Constant), 'Initializer'), null=None)

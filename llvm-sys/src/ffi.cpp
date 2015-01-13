@@ -1448,7 +1448,7 @@ extern "C"
 ::llvm::Module* llvm_Module_new(llvm_StringRef _ModuleID, ::llvm::LLVMContext* Context)
 {
     auto ModuleID = ::llvm::StringRef(_ModuleID.data, _ModuleID.length);
-    return new ::llvm::Module(ModuleID, *Context);
+    return new(std::nothrow) ::llvm::Module(ModuleID, *Context);
 }
 
 // ::llvm::Module::setDataLayout
