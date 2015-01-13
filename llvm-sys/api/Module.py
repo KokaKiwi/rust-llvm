@@ -3,6 +3,7 @@ from .ns import llvm
 from .ADT.StringRef import StringRef
 from .Constant import Constant, GlobalValue, GlobalVariable
 from .DataLayout import DataLayout
+from .Function import Function
 from .LLVMContext import LLVMContext
 from .Type import Type, FunctionType, StructType
 
@@ -40,7 +41,8 @@ class Module:
 
     getTypeByName = Method(ptr(StructType), (StringRef, 'Name'), const=True)
 
-    getOrInsertFunction = Method(ptr(Constant), (StringRef, 'Name'), (ptr(FunctionType), 'ty'))
+    getOrInsertFunction = Method(ptr(Constant, nullable=False), (StringRef, 'Name'), (ptr(FunctionType), 'ty'))
+    getFunction = Method(ptr(Function), (StringRef, 'Name'), const=True)
 
 @GlobalValue.body
 class GlobalValue:

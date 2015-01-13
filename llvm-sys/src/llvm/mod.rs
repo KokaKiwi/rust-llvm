@@ -13,17 +13,17 @@ pub trait DataLayoutExt {
 }
 
 pub struct DataLayout {
-    inner: *mut DataLayoutInner,
+    inner: ::core::nonzero::NonZero<*mut DataLayoutInner>,
 }
 impl DataLayoutExt for DataLayout {
     fn inner_llvm_DataLayout(&self) -> *mut DataLayoutInner {
-        self.inner
+        *self.inner
     }
 }
 impl DataLayout {
     pub unsafe fn from_inner(inner: *mut DataLayoutInner) -> DataLayout {
         DataLayout {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
         }
     }
 }
@@ -40,17 +40,17 @@ pub trait LLVMContextExt {
 }
 
 pub struct LLVMContext {
-    inner: *mut LLVMContextInner,
+    inner: ::core::nonzero::NonZero<*mut LLVMContextInner>,
 }
 impl LLVMContextExt for LLVMContext {
     fn inner_llvm_LLVMContext(&self) -> *mut LLVMContextInner {
-        self.inner
+        *self.inner
     }
 }
 impl LLVMContext {
     pub unsafe fn from_inner(inner: *mut LLVMContextInner) -> LLVMContext {
         LLVMContext {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
         }
     }
 }
@@ -83,20 +83,40 @@ pub trait ModuleExt {
 
     fn get_context(&self) -> ::llvm::LLVMContext {
         unsafe {
-            ::llvm::LLVMContext::from_inner(::ffi::llvm::Module_getContext(self.inner_llvm_Module() as *const ::ffi::llvm_Module))
+            let ret = ::ffi::llvm::Module_getContext(self.inner_llvm_Module() as *const ::ffi::llvm_Module);
+            ::llvm::LLVMContext::from_inner(ret)
         }
     }
 
-    fn get_data_layout(&self) -> ::llvm::DataLayout {
+    fn get_data_layout(&self) -> Option<::llvm::DataLayout> {
         unsafe {
-            ::llvm::DataLayout::from_inner(::ffi::llvm::Module_getDataLayout(self.inner_llvm_Module() as *const ::ffi::llvm_Module) as *mut ::ffi::llvm_DataLayout)
+            let ret = ::ffi::llvm::Module_getDataLayout(self.inner_llvm_Module() as *const ::ffi::llvm_Module);
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::DataLayout::from_inner(ret as *mut ::ffi::llvm_DataLayout))
         }
     }
 
     fn get_data_layout_str(&self) -> &str {
         unsafe {
             let ret = ::ffi::llvm::Module_getDataLayoutStr(self.inner_llvm_Module() as *const ::ffi::llvm_Module);
-            ::std::str::from_utf8_unchecked(::std::mem::transmute(::std::slice::from_raw_buf(&ret.data, ret.length as usize)))
+            let ret = ::core::str::from_utf8_unchecked(::core::mem::transmute(::core::slice::from_raw_buf(&ret.data, ret.length as usize)));
+            ret
+        }
+    }
+
+    fn get_function(&self, name: &str) -> Option<::llvm::value::user::constant::Function> {
+        unsafe {
+            let c_name = ::ffi::llvm_StringRef {
+                data: name.as_ptr() as *const ::libc::c_char,
+                length: name.len() as ::libc::size_t,
+            };
+            let ret = ::ffi::llvm::Module_getFunction(self.inner_llvm_Module() as *const ::ffi::llvm_Module, c_name);
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::user::constant::Function::from_inner(ret, false))
         }
     }
 
@@ -106,31 +126,38 @@ pub trait ModuleExt {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            ::ffi::llvm::Module_getMDKindID(self.inner_llvm_Module() as *const ::ffi::llvm_Module, c_name) as u32
+            let ret = ::ffi::llvm::Module_getMDKindID(self.inner_llvm_Module() as *const ::ffi::llvm_Module, c_name) as u32;
+            ret
         }
     }
 
     fn get_module_identifier(&self) -> &str {
         unsafe {
             let ret = ::ffi::llvm::Module_getModuleIdentifier(self.inner_llvm_Module() as *const ::ffi::llvm_Module);
-            ::std::str::from_utf8_unchecked(::std::mem::transmute(::std::slice::from_raw_buf(&ret.data, ret.length as usize)))
+            let ret = ::core::str::from_utf8_unchecked(::core::mem::transmute(::core::slice::from_raw_buf(&ret.data, ret.length as usize)));
+            ret
         }
     }
 
     fn get_module_inline_asm(&self) -> &str {
         unsafe {
             let ret = ::ffi::llvm::Module_getModuleInlineAsm(self.inner_llvm_Module() as *const ::ffi::llvm_Module);
-            ::std::str::from_utf8_unchecked(::std::mem::transmute(::std::slice::from_raw_buf(&ret.data, ret.length as usize)))
+            let ret = ::core::str::from_utf8_unchecked(::core::mem::transmute(::core::slice::from_raw_buf(&ret.data, ret.length as usize)));
+            ret
         }
     }
 
-    fn get_named_value(&self, name: &str) -> ::llvm::value::user::constant::GlobalValue {
+    fn get_named_value(&self, name: &str) -> Option<::llvm::value::user::constant::GlobalValue> {
         unsafe {
             let c_name = ::ffi::llvm_StringRef {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            ::llvm::value::user::constant::GlobalValue::from_inner(::ffi::llvm::Module_getNamedValue(self.inner_llvm_Module() as *const ::ffi::llvm_Module, c_name), false)
+            let ret = ::ffi::llvm::Module_getNamedValue(self.inner_llvm_Module() as *const ::ffi::llvm_Module, c_name);
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::user::constant::GlobalValue::from_inner(ret, false))
         }
     }
 
@@ -140,24 +167,30 @@ pub trait ModuleExt {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            ::llvm::value::user::constant::Constant::from_inner(::ffi::llvm::Module_getOrInsertFunction(self.inner_llvm_Module(), c_name, ty.inner_llvm_FunctionType()), false)
+            let ret = ::ffi::llvm::Module_getOrInsertFunction(self.inner_llvm_Module(), c_name, ty.inner_llvm_FunctionType());
+            ::llvm::value::user::constant::Constant::from_inner(ret, false)
         }
     }
 
     fn get_target_triple(&self) -> &str {
         unsafe {
             let ret = ::ffi::llvm::Module_getTargetTriple(self.inner_llvm_Module() as *const ::ffi::llvm_Module);
-            ::std::str::from_utf8_unchecked(::std::mem::transmute(::std::slice::from_raw_buf(&ret.data, ret.length as usize)))
+            let ret = ::core::str::from_utf8_unchecked(::core::mem::transmute(::core::slice::from_raw_buf(&ret.data, ret.length as usize)));
+            ret
         }
     }
 
-    fn get_type_by_name(&self, name: &str) -> ::llvm::ty::StructType {
+    fn get_type_by_name(&self, name: &str) -> Option<::llvm::ty::StructType> {
         unsafe {
             let c_name = ::ffi::llvm_StringRef {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            ::llvm::ty::StructType::from_inner(::ffi::llvm::Module_getTypeByName(self.inner_llvm_Module() as *const ::ffi::llvm_Module, c_name))
+            let ret = ::ffi::llvm::Module_getTypeByName(self.inner_llvm_Module() as *const ::ffi::llvm_Module, c_name);
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::ty::StructType::from_inner(ret))
         }
     }
 
@@ -209,18 +242,18 @@ pub trait ModuleExt {
 }
 
 pub struct Module {
-    inner: *mut ModuleInner,
+    inner: ::core::nonzero::NonZero<*mut ModuleInner>,
     owned: bool,
 }
 impl ModuleExt for Module {
     fn inner_llvm_Module(&self) -> *mut ModuleInner {
-        self.inner
+        *self.inner
     }
 }
 impl Module {
     pub unsafe fn from_inner(inner: *mut ModuleInner, owned: bool) -> Module {
         Module {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -231,7 +264,11 @@ impl Module {
                 data: module_id.as_ptr() as *const ::libc::c_char,
                 length: module_id.len() as ::libc::size_t,
             };
-            ::llvm::Module::from_inner(::ffi::llvm::Module_new(c_module_id, context.inner_llvm_LLVMContext()), true)
+            let ret = ::ffi::llvm::Module_new(c_module_id, context.inner_llvm_LLVMContext());
+            if ret.is_null(){
+                panic!("Module constructor returned a null pointer!");
+            }
+            ::llvm::Module::from_inner(ret, true)
         }
     }
 }
@@ -247,6 +284,7 @@ impl Drop for Module {
 
 pub fn get_global_context() -> ::llvm::LLVMContext {
     unsafe {
-        ::llvm::LLVMContext::from_inner(::ffi::llvm::getGlobalContext())
+        let ret = ::ffi::llvm::getGlobalContext();
+        ::llvm::LLVMContext::from_inner(ret)
     }
 }

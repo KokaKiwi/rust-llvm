@@ -1370,6 +1370,14 @@ std_string_const llvm_Module_getDataLayoutStr(::llvm::Module const* inst)
     };
 }
 
+// ::llvm::Module::getFunction
+extern "C"
+::llvm::Function* llvm_Module_getFunction(::llvm::Module const* inst, llvm_StringRef _Name)
+{
+    auto Name = ::llvm::StringRef(_Name.data, _Name.length);
+    return inst->getFunction(Name);
+}
+
 // ::llvm::Module::getMDKindID
 extern "C"
 unsigned int llvm_Module_getMDKindID(::llvm::Module const* inst, llvm_StringRef _Name)

@@ -11,53 +11,53 @@ pub trait AddrSpaceCastInstExt: ::llvm::value::user::CastInstExt {
 }
 
 pub struct AddrSpaceCastInst {
-    inner: *mut AddrSpaceCastInstInner,
+    inner: ::core::nonzero::NonZero<*mut AddrSpaceCastInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for AddrSpaceCastInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for AddrSpaceCastInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for AddrSpaceCastInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UnaryInstructionExt for AddrSpaceCastInst {
     fn inner_llvm_UnaryInstruction(&self) -> *mut ::ffi::llvm_UnaryInstruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::CastInstExt for AddrSpaceCastInst {
     fn inner_llvm_CastInst(&self) -> *mut ::ffi::llvm_CastInst {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl AddrSpaceCastInstExt for AddrSpaceCastInst {
     fn inner_llvm_AddrSpaceCastInst(&self) -> *mut AddrSpaceCastInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl AddrSpaceCastInst {
     pub unsafe fn from_inner(inner: *mut AddrSpaceCastInstInner, owned: bool) -> AddrSpaceCastInst {
         AddrSpaceCastInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -83,46 +83,46 @@ pub trait AllocaInstExt: ::llvm::value::user::UnaryInstructionExt {
 }
 
 pub struct AllocaInst {
-    inner: *mut AllocaInstInner,
+    inner: ::core::nonzero::NonZero<*mut AllocaInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for AllocaInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for AllocaInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for AllocaInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UnaryInstructionExt for AllocaInst {
     fn inner_llvm_UnaryInstruction(&self) -> *mut ::ffi::llvm_UnaryInstruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl AllocaInstExt for AllocaInst {
     fn inner_llvm_AllocaInst(&self) -> *mut AllocaInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl AllocaInst {
     pub unsafe fn from_inner(inner: *mut AllocaInstInner, owned: bool) -> AllocaInst {
         AllocaInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -148,39 +148,39 @@ pub trait AtomicCmpXchgInstExt: ::llvm::value::user::InstructionExt {
 }
 
 pub struct AtomicCmpXchgInst {
-    inner: *mut AtomicCmpXchgInstInner,
+    inner: ::core::nonzero::NonZero<*mut AtomicCmpXchgInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for AtomicCmpXchgInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for AtomicCmpXchgInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for AtomicCmpXchgInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl AtomicCmpXchgInstExt for AtomicCmpXchgInst {
     fn inner_llvm_AtomicCmpXchgInst(&self) -> *mut AtomicCmpXchgInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl AtomicCmpXchgInst {
     pub unsafe fn from_inner(inner: *mut AtomicCmpXchgInstInner, owned: bool) -> AtomicCmpXchgInst {
         AtomicCmpXchgInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -206,39 +206,39 @@ pub trait AtomicRMWInstExt: ::llvm::value::user::InstructionExt {
 }
 
 pub struct AtomicRMWInst {
-    inner: *mut AtomicRMWInstInner,
+    inner: ::core::nonzero::NonZero<*mut AtomicRMWInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for AtomicRMWInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for AtomicRMWInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for AtomicRMWInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl AtomicRMWInstExt for AtomicRMWInst {
     fn inner_llvm_AtomicRMWInst(&self) -> *mut AtomicRMWInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl AtomicRMWInst {
     pub unsafe fn from_inner(inner: *mut AtomicRMWInstInner, owned: bool) -> AtomicRMWInst {
         AtomicRMWInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -264,39 +264,39 @@ pub trait BinaryOperatorExt: ::llvm::value::user::InstructionExt {
 }
 
 pub struct BinaryOperator {
-    inner: *mut BinaryOperatorInner,
+    inner: ::core::nonzero::NonZero<*mut BinaryOperatorInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for BinaryOperator {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for BinaryOperator {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for BinaryOperator {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl BinaryOperatorExt for BinaryOperator {
     fn inner_llvm_BinaryOperator(&self) -> *mut BinaryOperatorInner {
-        self.inner
+        *self.inner
     }
 }
 impl BinaryOperator {
     pub unsafe fn from_inner(inner: *mut BinaryOperatorInner, owned: bool) -> BinaryOperator {
         BinaryOperator {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -322,53 +322,53 @@ pub trait BitCastInstExt: ::llvm::value::user::CastInstExt {
 }
 
 pub struct BitCastInst {
-    inner: *mut BitCastInstInner,
+    inner: ::core::nonzero::NonZero<*mut BitCastInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for BitCastInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for BitCastInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for BitCastInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UnaryInstructionExt for BitCastInst {
     fn inner_llvm_UnaryInstruction(&self) -> *mut ::ffi::llvm_UnaryInstruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::CastInstExt for BitCastInst {
     fn inner_llvm_CastInst(&self) -> *mut ::ffi::llvm_CastInst {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl BitCastInstExt for BitCastInst {
     fn inner_llvm_BitCastInst(&self) -> *mut BitCastInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl BitCastInst {
     pub unsafe fn from_inner(inner: *mut BitCastInstInner, owned: bool) -> BitCastInst {
         BitCastInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -394,46 +394,46 @@ pub trait BranchInstExt: ::llvm::value::user::TerminatorInstExt {
 }
 
 pub struct BranchInst {
-    inner: *mut BranchInstInner,
+    inner: ::core::nonzero::NonZero<*mut BranchInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for BranchInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for BranchInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for BranchInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::TerminatorInstExt for BranchInst {
     fn inner_llvm_TerminatorInst(&self) -> *mut ::ffi::llvm_TerminatorInst {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl BranchInstExt for BranchInst {
     fn inner_llvm_BranchInst(&self) -> *mut BranchInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl BranchInst {
     pub unsafe fn from_inner(inner: *mut BranchInstInner, owned: bool) -> BranchInst {
         BranchInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -459,39 +459,39 @@ pub trait CallInstExt: ::llvm::value::user::InstructionExt {
 }
 
 pub struct CallInst {
-    inner: *mut CallInstInner,
+    inner: ::core::nonzero::NonZero<*mut CallInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for CallInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for CallInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for CallInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl CallInstExt for CallInst {
     fn inner_llvm_CallInst(&self) -> *mut CallInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl CallInst {
     pub unsafe fn from_inner(inner: *mut CallInstInner, owned: bool) -> CallInst {
         CallInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -517,46 +517,46 @@ pub trait CastInstExt: ::llvm::value::user::UnaryInstructionExt {
 }
 
 pub struct CastInst {
-    inner: *mut CastInstInner,
+    inner: ::core::nonzero::NonZero<*mut CastInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for CastInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for CastInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for CastInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UnaryInstructionExt for CastInst {
     fn inner_llvm_UnaryInstruction(&self) -> *mut ::ffi::llvm_UnaryInstruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl CastInstExt for CastInst {
     fn inner_llvm_CastInst(&self) -> *mut CastInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl CastInst {
     pub unsafe fn from_inner(inner: *mut CastInstInner, owned: bool) -> CastInst {
         CastInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -582,39 +582,39 @@ pub trait CmpInstExt: ::llvm::value::user::InstructionExt {
 }
 
 pub struct CmpInst {
-    inner: *mut CmpInstInner,
+    inner: ::core::nonzero::NonZero<*mut CmpInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for CmpInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for CmpInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for CmpInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl CmpInstExt for CmpInst {
     fn inner_llvm_CmpInst(&self) -> *mut CmpInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl CmpInst {
     pub unsafe fn from_inner(inner: *mut CmpInstInner, owned: bool) -> CmpInst {
         CmpInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -640,39 +640,39 @@ pub trait ExtractElementInstExt: ::llvm::value::user::InstructionExt {
 }
 
 pub struct ExtractElementInst {
-    inner: *mut ExtractElementInstInner,
+    inner: ::core::nonzero::NonZero<*mut ExtractElementInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for ExtractElementInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for ExtractElementInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for ExtractElementInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ExtractElementInstExt for ExtractElementInst {
     fn inner_llvm_ExtractElementInst(&self) -> *mut ExtractElementInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl ExtractElementInst {
     pub unsafe fn from_inner(inner: *mut ExtractElementInstInner, owned: bool) -> ExtractElementInst {
         ExtractElementInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -698,46 +698,46 @@ pub trait ExtractValueInstExt: ::llvm::value::user::UnaryInstructionExt {
 }
 
 pub struct ExtractValueInst {
-    inner: *mut ExtractValueInstInner,
+    inner: ::core::nonzero::NonZero<*mut ExtractValueInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for ExtractValueInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for ExtractValueInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for ExtractValueInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UnaryInstructionExt for ExtractValueInst {
     fn inner_llvm_UnaryInstruction(&self) -> *mut ::ffi::llvm_UnaryInstruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ExtractValueInstExt for ExtractValueInst {
     fn inner_llvm_ExtractValueInst(&self) -> *mut ExtractValueInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl ExtractValueInst {
     pub unsafe fn from_inner(inner: *mut ExtractValueInstInner, owned: bool) -> ExtractValueInst {
         ExtractValueInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -763,53 +763,53 @@ pub trait FPExtInstExt: ::llvm::value::user::CastInstExt {
 }
 
 pub struct FPExtInst {
-    inner: *mut FPExtInstInner,
+    inner: ::core::nonzero::NonZero<*mut FPExtInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for FPExtInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for FPExtInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for FPExtInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UnaryInstructionExt for FPExtInst {
     fn inner_llvm_UnaryInstruction(&self) -> *mut ::ffi::llvm_UnaryInstruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::CastInstExt for FPExtInst {
     fn inner_llvm_CastInst(&self) -> *mut ::ffi::llvm_CastInst {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl FPExtInstExt for FPExtInst {
     fn inner_llvm_FPExtInst(&self) -> *mut FPExtInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl FPExtInst {
     pub unsafe fn from_inner(inner: *mut FPExtInstInner, owned: bool) -> FPExtInst {
         FPExtInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -835,53 +835,53 @@ pub trait FPToSIInstExt: ::llvm::value::user::CastInstExt {
 }
 
 pub struct FPToSIInst {
-    inner: *mut FPToSIInstInner,
+    inner: ::core::nonzero::NonZero<*mut FPToSIInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for FPToSIInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for FPToSIInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for FPToSIInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UnaryInstructionExt for FPToSIInst {
     fn inner_llvm_UnaryInstruction(&self) -> *mut ::ffi::llvm_UnaryInstruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::CastInstExt for FPToSIInst {
     fn inner_llvm_CastInst(&self) -> *mut ::ffi::llvm_CastInst {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl FPToSIInstExt for FPToSIInst {
     fn inner_llvm_FPToSIInst(&self) -> *mut FPToSIInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl FPToSIInst {
     pub unsafe fn from_inner(inner: *mut FPToSIInstInner, owned: bool) -> FPToSIInst {
         FPToSIInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -907,39 +907,39 @@ pub trait FenceInstExt: ::llvm::value::user::InstructionExt {
 }
 
 pub struct FenceInst {
-    inner: *mut FenceInstInner,
+    inner: ::core::nonzero::NonZero<*mut FenceInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for FenceInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for FenceInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for FenceInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl FenceInstExt for FenceInst {
     fn inner_llvm_FenceInst(&self) -> *mut FenceInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl FenceInst {
     pub unsafe fn from_inner(inner: *mut FenceInstInner, owned: bool) -> FenceInst {
         FenceInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -965,39 +965,39 @@ pub trait GetElementPtrInstExt: ::llvm::value::user::InstructionExt {
 }
 
 pub struct GetElementPtrInst {
-    inner: *mut GetElementPtrInstInner,
+    inner: ::core::nonzero::NonZero<*mut GetElementPtrInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for GetElementPtrInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for GetElementPtrInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for GetElementPtrInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl GetElementPtrInstExt for GetElementPtrInst {
     fn inner_llvm_GetElementPtrInst(&self) -> *mut GetElementPtrInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl GetElementPtrInst {
     pub unsafe fn from_inner(inner: *mut GetElementPtrInstInner, owned: bool) -> GetElementPtrInst {
         GetElementPtrInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -1023,46 +1023,46 @@ pub trait IndirectBrInstExt: ::llvm::value::user::TerminatorInstExt {
 }
 
 pub struct IndirectBrInst {
-    inner: *mut IndirectBrInstInner,
+    inner: ::core::nonzero::NonZero<*mut IndirectBrInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for IndirectBrInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for IndirectBrInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for IndirectBrInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::TerminatorInstExt for IndirectBrInst {
     fn inner_llvm_TerminatorInst(&self) -> *mut ::ffi::llvm_TerminatorInst {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl IndirectBrInstExt for IndirectBrInst {
     fn inner_llvm_IndirectBrInst(&self) -> *mut IndirectBrInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl IndirectBrInst {
     pub unsafe fn from_inner(inner: *mut IndirectBrInstInner, owned: bool) -> IndirectBrInst {
         IndirectBrInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -1088,39 +1088,39 @@ pub trait InsertElementInstExt: ::llvm::value::user::InstructionExt {
 }
 
 pub struct InsertElementInst {
-    inner: *mut InsertElementInstInner,
+    inner: ::core::nonzero::NonZero<*mut InsertElementInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for InsertElementInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for InsertElementInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for InsertElementInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl InsertElementInstExt for InsertElementInst {
     fn inner_llvm_InsertElementInst(&self) -> *mut InsertElementInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl InsertElementInst {
     pub unsafe fn from_inner(inner: *mut InsertElementInstInner, owned: bool) -> InsertElementInst {
         InsertElementInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -1146,39 +1146,39 @@ pub trait InsertValueInstExt: ::llvm::value::user::InstructionExt {
 }
 
 pub struct InsertValueInst {
-    inner: *mut InsertValueInstInner,
+    inner: ::core::nonzero::NonZero<*mut InsertValueInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for InsertValueInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for InsertValueInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for InsertValueInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl InsertValueInstExt for InsertValueInst {
     fn inner_llvm_InsertValueInst(&self) -> *mut InsertValueInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl InsertValueInst {
     pub unsafe fn from_inner(inner: *mut InsertValueInstInner, owned: bool) -> InsertValueInst {
         InsertValueInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -1204,32 +1204,32 @@ pub trait InstructionExt: ::llvm::value::user::UserExt {
 }
 
 pub struct Instruction {
-    inner: *mut InstructionInner,
+    inner: ::core::nonzero::NonZero<*mut InstructionInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for Instruction {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for Instruction {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl InstructionExt for Instruction {
     fn inner_llvm_Instruction(&self) -> *mut InstructionInner {
-        self.inner
+        *self.inner
     }
 }
 impl Instruction {
     pub unsafe fn from_inner(inner: *mut InstructionInner, owned: bool) -> Instruction {
         Instruction {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -1255,46 +1255,46 @@ pub trait InvokeInstExt: ::llvm::value::user::TerminatorInstExt {
 }
 
 pub struct InvokeInst {
-    inner: *mut InvokeInstInner,
+    inner: ::core::nonzero::NonZero<*mut InvokeInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for InvokeInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for InvokeInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for InvokeInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::TerminatorInstExt for InvokeInst {
     fn inner_llvm_TerminatorInst(&self) -> *mut ::ffi::llvm_TerminatorInst {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl InvokeInstExt for InvokeInst {
     fn inner_llvm_InvokeInst(&self) -> *mut InvokeInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl InvokeInst {
     pub unsafe fn from_inner(inner: *mut InvokeInstInner, owned: bool) -> InvokeInst {
         InvokeInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -1320,39 +1320,39 @@ pub trait LandingPadInstExt: ::llvm::value::user::InstructionExt {
 }
 
 pub struct LandingPadInst {
-    inner: *mut LandingPadInstInner,
+    inner: ::core::nonzero::NonZero<*mut LandingPadInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for LandingPadInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for LandingPadInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for LandingPadInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl LandingPadInstExt for LandingPadInst {
     fn inner_llvm_LandingPadInst(&self) -> *mut LandingPadInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl LandingPadInst {
     pub unsafe fn from_inner(inner: *mut LandingPadInstInner, owned: bool) -> LandingPadInst {
         LandingPadInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -1378,46 +1378,46 @@ pub trait LoadInstExt: ::llvm::value::user::UnaryInstructionExt {
 }
 
 pub struct LoadInst {
-    inner: *mut LoadInstInner,
+    inner: ::core::nonzero::NonZero<*mut LoadInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for LoadInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for LoadInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for LoadInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UnaryInstructionExt for LoadInst {
     fn inner_llvm_UnaryInstruction(&self) -> *mut ::ffi::llvm_UnaryInstruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl LoadInstExt for LoadInst {
     fn inner_llvm_LoadInst(&self) -> *mut LoadInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl LoadInst {
     pub unsafe fn from_inner(inner: *mut LoadInstInner, owned: bool) -> LoadInst {
         LoadInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -1443,32 +1443,32 @@ pub trait OperatorExt: ::llvm::value::user::UserExt {
 }
 
 pub struct Operator {
-    inner: *mut OperatorInner,
+    inner: ::core::nonzero::NonZero<*mut OperatorInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for Operator {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for Operator {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl OperatorExt for Operator {
     fn inner_llvm_Operator(&self) -> *mut OperatorInner {
-        self.inner
+        *self.inner
     }
 }
 impl Operator {
     pub unsafe fn from_inner(inner: *mut OperatorInner, owned: bool) -> Operator {
         Operator {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -1494,39 +1494,39 @@ pub trait PHINodeExt: ::llvm::value::user::InstructionExt {
 }
 
 pub struct PHINode {
-    inner: *mut PHINodeInner,
+    inner: ::core::nonzero::NonZero<*mut PHINodeInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for PHINode {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for PHINode {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for PHINode {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl PHINodeExt for PHINode {
     fn inner_llvm_PHINode(&self) -> *mut PHINodeInner {
-        self.inner
+        *self.inner
     }
 }
 impl PHINode {
     pub unsafe fn from_inner(inner: *mut PHINodeInner, owned: bool) -> PHINode {
         PHINode {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -1552,46 +1552,46 @@ pub trait ResumeInstExt: ::llvm::value::user::TerminatorInstExt {
 }
 
 pub struct ResumeInst {
-    inner: *mut ResumeInstInner,
+    inner: ::core::nonzero::NonZero<*mut ResumeInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for ResumeInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for ResumeInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for ResumeInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::TerminatorInstExt for ResumeInst {
     fn inner_llvm_TerminatorInst(&self) -> *mut ::ffi::llvm_TerminatorInst {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ResumeInstExt for ResumeInst {
     fn inner_llvm_ResumeInst(&self) -> *mut ResumeInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl ResumeInst {
     pub unsafe fn from_inner(inner: *mut ResumeInstInner, owned: bool) -> ResumeInst {
         ResumeInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -1617,46 +1617,46 @@ pub trait ReturnInstExt: ::llvm::value::user::TerminatorInstExt {
 }
 
 pub struct ReturnInst {
-    inner: *mut ReturnInstInner,
+    inner: ::core::nonzero::NonZero<*mut ReturnInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for ReturnInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for ReturnInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for ReturnInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::TerminatorInstExt for ReturnInst {
     fn inner_llvm_TerminatorInst(&self) -> *mut ::ffi::llvm_TerminatorInst {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ReturnInstExt for ReturnInst {
     fn inner_llvm_ReturnInst(&self) -> *mut ReturnInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl ReturnInst {
     pub unsafe fn from_inner(inner: *mut ReturnInstInner, owned: bool) -> ReturnInst {
         ReturnInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -1682,39 +1682,39 @@ pub trait SelectInstExt: ::llvm::value::user::InstructionExt {
 }
 
 pub struct SelectInst {
-    inner: *mut SelectInstInner,
+    inner: ::core::nonzero::NonZero<*mut SelectInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for SelectInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for SelectInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for SelectInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl SelectInstExt for SelectInst {
     fn inner_llvm_SelectInst(&self) -> *mut SelectInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl SelectInst {
     pub unsafe fn from_inner(inner: *mut SelectInstInner, owned: bool) -> SelectInst {
         SelectInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -1740,39 +1740,39 @@ pub trait ShuffleVectorInstExt: ::llvm::value::user::InstructionExt {
 }
 
 pub struct ShuffleVectorInst {
-    inner: *mut ShuffleVectorInstInner,
+    inner: ::core::nonzero::NonZero<*mut ShuffleVectorInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for ShuffleVectorInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for ShuffleVectorInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for ShuffleVectorInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ShuffleVectorInstExt for ShuffleVectorInst {
     fn inner_llvm_ShuffleVectorInst(&self) -> *mut ShuffleVectorInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl ShuffleVectorInst {
     pub unsafe fn from_inner(inner: *mut ShuffleVectorInstInner, owned: bool) -> ShuffleVectorInst {
         ShuffleVectorInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -1798,39 +1798,39 @@ pub trait StoreInstExt: ::llvm::value::user::InstructionExt {
 }
 
 pub struct StoreInst {
-    inner: *mut StoreInstInner,
+    inner: ::core::nonzero::NonZero<*mut StoreInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for StoreInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for StoreInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for StoreInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl StoreInstExt for StoreInst {
     fn inner_llvm_StoreInst(&self) -> *mut StoreInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl StoreInst {
     pub unsafe fn from_inner(inner: *mut StoreInstInner, owned: bool) -> StoreInst {
         StoreInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -1856,46 +1856,46 @@ pub trait SwitchInstExt: ::llvm::value::user::TerminatorInstExt {
 }
 
 pub struct SwitchInst {
-    inner: *mut SwitchInstInner,
+    inner: ::core::nonzero::NonZero<*mut SwitchInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for SwitchInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for SwitchInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for SwitchInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::TerminatorInstExt for SwitchInst {
     fn inner_llvm_TerminatorInst(&self) -> *mut ::ffi::llvm_TerminatorInst {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl SwitchInstExt for SwitchInst {
     fn inner_llvm_SwitchInst(&self) -> *mut SwitchInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl SwitchInst {
     pub unsafe fn from_inner(inner: *mut SwitchInstInner, owned: bool) -> SwitchInst {
         SwitchInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -1921,39 +1921,39 @@ pub trait TerminatorInstExt: ::llvm::value::user::InstructionExt {
 }
 
 pub struct TerminatorInst {
-    inner: *mut TerminatorInstInner,
+    inner: ::core::nonzero::NonZero<*mut TerminatorInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for TerminatorInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for TerminatorInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for TerminatorInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl TerminatorInstExt for TerminatorInst {
     fn inner_llvm_TerminatorInst(&self) -> *mut TerminatorInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl TerminatorInst {
     pub unsafe fn from_inner(inner: *mut TerminatorInstInner, owned: bool) -> TerminatorInst {
         TerminatorInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -1979,39 +1979,39 @@ pub trait UnaryInstructionExt: ::llvm::value::user::InstructionExt {
 }
 
 pub struct UnaryInstruction {
-    inner: *mut UnaryInstructionInner,
+    inner: ::core::nonzero::NonZero<*mut UnaryInstructionInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for UnaryInstruction {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for UnaryInstruction {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for UnaryInstruction {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl UnaryInstructionExt for UnaryInstruction {
     fn inner_llvm_UnaryInstruction(&self) -> *mut UnaryInstructionInner {
-        self.inner
+        *self.inner
     }
 }
 impl UnaryInstruction {
     pub unsafe fn from_inner(inner: *mut UnaryInstructionInner, owned: bool) -> UnaryInstruction {
         UnaryInstruction {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -2037,46 +2037,46 @@ pub trait UnreachableInstExt: ::llvm::value::user::TerminatorInstExt {
 }
 
 pub struct UnreachableInst {
-    inner: *mut UnreachableInstInner,
+    inner: ::core::nonzero::NonZero<*mut UnreachableInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for UnreachableInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for UnreachableInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for UnreachableInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::TerminatorInstExt for UnreachableInst {
     fn inner_llvm_TerminatorInst(&self) -> *mut ::ffi::llvm_TerminatorInst {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl UnreachableInstExt for UnreachableInst {
     fn inner_llvm_UnreachableInst(&self) -> *mut UnreachableInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl UnreachableInst {
     pub unsafe fn from_inner(inner: *mut UnreachableInstInner, owned: bool) -> UnreachableInst {
         UnreachableInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
@@ -2108,13 +2108,18 @@ pub trait UserExt: ::llvm::value::ValueExt {
 
     fn get_num_operands(&self) -> u32 {
         unsafe {
-            ::ffi::llvm::User_getNumOperands(self.inner_llvm_User() as *const ::ffi::llvm_User) as u32
+            let ret = ::ffi::llvm::User_getNumOperands(self.inner_llvm_User() as *const ::ffi::llvm_User) as u32;
+            ret
         }
     }
 
-    fn get_operand(&self, idx: u32) -> ::llvm::value::Value {
+    fn get_operand(&self, idx: u32) -> Option<::llvm::value::Value> {
         unsafe {
-            ::llvm::value::Value::from_inner(::ffi::llvm::User_getOperand(self.inner_llvm_User() as *const ::ffi::llvm_User, idx as ::libc::c_uint), false)
+            let ret = ::ffi::llvm::User_getOperand(self.inner_llvm_User() as *const ::ffi::llvm_User, idx as ::libc::c_uint);
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::Value::from_inner(ret, false))
         }
     }
 
@@ -2132,32 +2137,33 @@ pub trait UserExt: ::llvm::value::ValueExt {
 }
 
 pub struct User {
-    inner: *mut UserInner,
+    inner: ::core::nonzero::NonZero<*mut UserInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for User {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl UserExt for User {
     fn inner_llvm_User(&self) -> *mut UserInner {
-        self.inner
+        *self.inner
     }
 }
 impl User {
     pub unsafe fn from_inner(inner: *mut UserInner, owned: bool) -> User {
         User {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
 
     pub fn classof(v: &::llvm::value::ValueExt) -> bool {
         unsafe {
-            ::ffi::llvm::User_classof(v.inner_llvm_Value())
+            let ret = ::ffi::llvm::User_classof(v.inner_llvm_Value());
+            ret
         }
     }
 }
@@ -2182,46 +2188,46 @@ pub trait VAArgInstExt: ::llvm::value::user::UnaryInstructionExt {
 }
 
 pub struct VAArgInst {
-    inner: *mut VAArgInstInner,
+    inner: ::core::nonzero::NonZero<*mut VAArgInstInner>,
     owned: bool,
 }
 impl ::llvm::value::ValueExt for VAArgInst {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for VAArgInst {
     fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::InstructionExt for VAArgInst {
     fn inner_llvm_Instruction(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UnaryInstructionExt for VAArgInst {
     fn inner_llvm_UnaryInstruction(&self) -> *mut ::ffi::llvm_UnaryInstruction {
         unsafe {
-            ::std::mem::transmute(self.inner)
+            ::core::mem::transmute(self.inner)
         }
     }
 }
 impl VAArgInstExt for VAArgInst {
     fn inner_llvm_VAArgInst(&self) -> *mut VAArgInstInner {
-        self.inner
+        *self.inner
     }
 }
 impl VAArgInst {
     pub unsafe fn from_inner(inner: *mut VAArgInstInner, owned: bool) -> VAArgInst {
         VAArgInst {
-            inner: inner,
+            inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }

@@ -444,6 +444,7 @@ mod raw {
         pub fn llvm_Type_getFloatPtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
         pub fn llvm_Type_getFloatTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
         pub fn llvm_BlockAddress_getFunction(inst: *const super::llvm_BlockAddress) -> *mut super::llvm_Function;
+        pub fn llvm_Module_getFunction(inst: *const super::llvm_Module, Name: super::llvm_StringRef) -> *mut super::llvm_Function;
         pub fn llvm_Type_getFunctionNumParams(inst: *const super::llvm_Type) -> ::libc::c_uint;
         pub fn llvm_Type_getFunctionParamType(inst: *const super::llvm_Type, idx: ::libc::c_uint) -> *mut super::llvm_Type;
         pub fn llvm_Function_getFunctionType(inst: *const super::llvm_Function) -> *mut super::llvm_FunctionType;
@@ -1809,6 +1810,12 @@ pub mod llvm {
     #[inline(always)]
     pub unsafe fn Module_getDataLayoutStr(inst: *const super::llvm_Module) -> super::std_string_const {
         raw::llvm_Module_getDataLayoutStr(inst)
+    }
+
+    // ::llvm::Module::getFunction
+    #[inline(always)]
+    pub unsafe fn Module_getFunction(inst: *const super::llvm_Module, Name: super::llvm_StringRef) -> *mut super::llvm_Function {
+        raw::llvm_Module_getFunction(inst, Name)
     }
 
     // ::llvm::Module::getMDKindID
