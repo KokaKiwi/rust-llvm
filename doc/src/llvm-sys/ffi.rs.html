@@ -2376,7 +2376,40 @@
 <span id="2334">2334</span>
 <span id="2335">2335</span>
 <span id="2336">2336</span>
+<span id="2337">2337</span>
+<span id="2338">2338</span>
+<span id="2339">2339</span>
+<span id="2340">2340</span>
+<span id="2341">2341</span>
+<span id="2342">2342</span>
+<span id="2343">2343</span>
+<span id="2344">2344</span>
+<span id="2345">2345</span>
+<span id="2346">2346</span>
+<span id="2347">2347</span>
+<span id="2348">2348</span>
+<span id="2349">2349</span>
+<span id="2350">2350</span>
+<span id="2351">2351</span>
+<span id="2352">2352</span>
+<span id="2353">2353</span>
+<span id="2354">2354</span>
+<span id="2355">2355</span>
+<span id="2356">2356</span>
+<span id="2357">2357</span>
+<span id="2358">2358</span>
+<span id="2359">2359</span>
+<span id="2360">2360</span>
+<span id="2361">2361</span>
+<span id="2362">2362</span>
+<span id="2363">2363</span>
+<span id="2364">2364</span>
+<span id="2365">2365</span>
+<span id="2366">2366</span>
+<span id="2367">2367</span>
 </pre><pre class='rust '>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>allow</span>(<span class='ident'>non_camel_case_types</span>, <span class='ident'>non_snake_case</span>, <span class='ident'>unstable</span>)]</span>
+
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_AddrSpaceCastInst</span>;
@@ -2474,6 +2507,7 @@
     <span class='ident'>CommonLinkage</span>,
 }
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+<span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>raw_pointer_derive</span>)]</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_StringRef</span> {
     <span class='kw'>pub</span> <span class='ident'>data</span>: <span class='op'>*</span><span class='kw'>const</span> ::<span class='ident'>libc</span>::<span class='ident'>c_char</span>,
@@ -2518,6 +2552,33 @@
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_GlobalVariable</span>;
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>llvm_CallingConv_ID</span> {
+    <span class='ident'>C</span> <span class='op'>=</span> <span class='number'>0</span>,
+    <span class='ident'>Fast</span> <span class='op'>=</span> <span class='number'>8</span>,
+    <span class='ident'>Cold</span> <span class='op'>=</span> <span class='number'>9</span>,
+    <span class='ident'>GHC</span> <span class='op'>=</span> <span class='number'>10</span>,
+    <span class='ident'>HiPE</span> <span class='op'>=</span> <span class='number'>11</span>,
+    <span class='ident'>WebKit_JS</span> <span class='op'>=</span> <span class='number'>12</span>,
+    <span class='ident'>AnyReg</span> <span class='op'>=</span> <span class='number'>13</span>,
+    <span class='ident'>PreserveMost</span> <span class='op'>=</span> <span class='number'>14</span>,
+    <span class='ident'>PreserveAll</span> <span class='op'>=</span> <span class='number'>15</span>,
+    <span class='ident'>X86_StdCall</span> <span class='op'>=</span> <span class='number'>64</span>,
+    <span class='ident'>X86_FastCall</span> <span class='op'>=</span> <span class='number'>65</span>,
+    <span class='ident'>ARM_APCS</span> <span class='op'>=</span> <span class='number'>66</span>,
+    <span class='ident'>ARM_AAPCS</span> <span class='op'>=</span> <span class='number'>67</span>,
+    <span class='ident'>ARM_AAPCS_VFP</span> <span class='op'>=</span> <span class='number'>68</span>,
+    <span class='ident'>MSP430_INTR</span> <span class='op'>=</span> <span class='number'>69</span>,
+    <span class='ident'>X86_ThisCall</span> <span class='op'>=</span> <span class='number'>70</span>,
+    <span class='ident'>PTX_Kernel</span> <span class='op'>=</span> <span class='number'>71</span>,
+    <span class='ident'>PTX_Device</span> <span class='op'>=</span> <span class='number'>72</span>,
+    <span class='ident'>SPIR_FUNC</span> <span class='op'>=</span> <span class='number'>75</span>,
+    <span class='ident'>SPIR_KERNEL</span> <span class='op'>=</span> <span class='number'>76</span>,
+    <span class='ident'>Intel_OCL_BI</span> <span class='op'>=</span> <span class='number'>77</span>,
+    <span class='ident'>X86_64_SysV</span> <span class='op'>=</span> <span class='number'>78</span>,
+    <span class='ident'>X86_64_Win64</span> <span class='op'>=</span> <span class='number'>79</span>,
+}
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_IndirectBrInst</span>;
@@ -2595,78 +2656,6 @@
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_Type</span>;
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_UnaryInstruction</span>;
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_UndefValue</span>;
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_UnreachableInst</span>;
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_User</span>;
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_VAArgInst</span>;
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_Value</span>;
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_VectorType</span>;
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_ArrayRef_llvm_Type_ptr</span> {
-    <span class='kw'>pub</span> <span class='ident'>data</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>llvm_Type</span>,
-    <span class='kw'>pub</span> <span class='ident'>length</span>: ::<span class='ident'>libc</span>::<span class='ident'>size_t</span>,
-}
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_ArrayRef_llvm_Constant_ptr</span> {
-    <span class='kw'>pub</span> <span class='ident'>data</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>llvm_Constant</span>,
-    <span class='kw'>pub</span> <span class='ident'>length</span>: ::<span class='ident'>libc</span>::<span class='ident'>size_t</span>,
-}
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>llvm_CallingConv_ID</span> {
-    <span class='ident'>C</span> <span class='op'>=</span> <span class='number'>0</span>,
-    <span class='ident'>Fast</span> <span class='op'>=</span> <span class='number'>8</span>,
-    <span class='ident'>Cold</span> <span class='op'>=</span> <span class='number'>9</span>,
-    <span class='ident'>GHC</span> <span class='op'>=</span> <span class='number'>10</span>,
-    <span class='ident'>HiPE</span> <span class='op'>=</span> <span class='number'>11</span>,
-    <span class='ident'>WebKit_JS</span> <span class='op'>=</span> <span class='number'>12</span>,
-    <span class='ident'>AnyReg</span> <span class='op'>=</span> <span class='number'>13</span>,
-    <span class='ident'>PreserveMost</span> <span class='op'>=</span> <span class='number'>14</span>,
-    <span class='ident'>PreserveAll</span> <span class='op'>=</span> <span class='number'>15</span>,
-    <span class='ident'>X86_StdCall</span> <span class='op'>=</span> <span class='number'>64</span>,
-    <span class='ident'>X86_FastCall</span> <span class='op'>=</span> <span class='number'>65</span>,
-    <span class='ident'>ARM_APCS</span> <span class='op'>=</span> <span class='number'>66</span>,
-    <span class='ident'>ARM_AAPCS</span> <span class='op'>=</span> <span class='number'>67</span>,
-    <span class='ident'>ARM_AAPCS_VFP</span> <span class='op'>=</span> <span class='number'>68</span>,
-    <span class='ident'>MSP430_INTR</span> <span class='op'>=</span> <span class='number'>69</span>,
-    <span class='ident'>X86_ThisCall</span> <span class='op'>=</span> <span class='number'>70</span>,
-    <span class='ident'>PTX_Kernel</span> <span class='op'>=</span> <span class='number'>71</span>,
-    <span class='ident'>PTX_Device</span> <span class='op'>=</span> <span class='number'>72</span>,
-    <span class='ident'>SPIR_FUNC</span> <span class='op'>=</span> <span class='number'>75</span>,
-    <span class='ident'>SPIR_KERNEL</span> <span class='op'>=</span> <span class='number'>76</span>,
-    <span class='ident'>Intel_OCL_BI</span> <span class='op'>=</span> <span class='number'>77</span>,
-    <span class='ident'>X86_64_SysV</span> <span class='op'>=</span> <span class='number'>78</span>,
-    <span class='ident'>X86_64_Win64</span> <span class='op'>=</span> <span class='number'>79</span>,
-}
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>std_string_const</span> {
-    <span class='kw'>pub</span> <span class='ident'>data</span>: <span class='op'>*</span><span class='kw'>const</span> ::<span class='ident'>libc</span>::<span class='ident'>c_char</span>,
-    <span class='kw'>pub</span> <span class='ident'>length</span>: ::<span class='ident'>libc</span>::<span class='ident'>size_t</span>,
-}
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_APInt</span> {
-    <span class='kw'>pub</span> <span class='ident'>num_bits</span>: ::<span class='ident'>libc</span>::<span class='ident'>c_uint</span>,
-    <span class='kw'>pub</span> <span class='ident'>value</span>: <span class='ident'>llvm_ArrayRef__libc_uint64_t</span>,
-}
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>llvm_Type_TypeID</span> {
     <span class='ident'>VoidTyID</span> <span class='op'>=</span> <span class='number'>0</span>,
     <span class='ident'>HalfTyID</span>,
@@ -2686,6 +2675,79 @@
     <span class='ident'>VectorTyID</span>,
 }
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_UnaryInstruction</span>;
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_UndefValue</span>;
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_UnreachableInst</span>;
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_User</span>;
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_VAArgInst</span>;
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_Value</span>;
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>llvm_Value_ValueTy</span> {
+    <span class='ident'>ArgumentVal</span>,
+    <span class='ident'>BasicBlockVal</span>,
+    <span class='ident'>FunctionVal</span>,
+    <span class='ident'>GlobalAliasVal</span>,
+    <span class='ident'>GlobalVariableVal</span>,
+    <span class='ident'>UndefValueVal</span>,
+    <span class='ident'>BlockAddressVal</span>,
+    <span class='ident'>ConstantExprVal</span>,
+    <span class='ident'>ConstantAggregateZeroVal</span>,
+    <span class='ident'>ConstantDataArrayVal</span>,
+    <span class='ident'>ConstantDataVectorVal</span>,
+    <span class='ident'>ConstantIntVal</span>,
+    <span class='ident'>ConstantFPVal</span>,
+    <span class='ident'>ConstantArrayVal</span>,
+    <span class='ident'>ConstantStructVal</span>,
+    <span class='ident'>ConstantVectorVal</span>,
+    <span class='ident'>ConstantPointerNullVal</span>,
+    <span class='ident'>MetadataAsValueVal</span>,
+    <span class='ident'>InlineAsmVal</span>,
+    <span class='ident'>InstructionVal</span>,
+}
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_VectorType</span>;
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+<span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>raw_pointer_derive</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_ArrayRef_llvm_Type_ptr</span> {
+    <span class='kw'>pub</span> <span class='ident'>data</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>llvm_Type</span>,
+    <span class='kw'>pub</span> <span class='ident'>length</span>: ::<span class='ident'>libc</span>::<span class='ident'>size_t</span>,
+}
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+<span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>raw_pointer_derive</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_ArrayRef_llvm_Constant_ptr</span> {
+    <span class='kw'>pub</span> <span class='ident'>data</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>llvm_Constant</span>,
+    <span class='kw'>pub</span> <span class='ident'>length</span>: ::<span class='ident'>libc</span>::<span class='ident'>size_t</span>,
+}
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+<span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>raw_pointer_derive</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>std_string_const</span> {
+    <span class='kw'>pub</span> <span class='ident'>data</span>: <span class='op'>*</span><span class='kw'>const</span> ::<span class='ident'>libc</span>::<span class='ident'>c_char</span>,
+    <span class='kw'>pub</span> <span class='ident'>length</span>: ::<span class='ident'>libc</span>::<span class='ident'>size_t</span>,
+}
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_APInt</span> {
+    <span class='kw'>pub</span> <span class='ident'>num_bits</span>: ::<span class='ident'>libc</span>::<span class='ident'>c_uint</span>,
+    <span class='kw'>pub</span> <span class='ident'>value</span>: <span class='ident'>llvm_ArrayRef__libc_uint64_t</span>,
+}
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+<span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>raw_pointer_derive</span>)]</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_ArrayRef__libc_uint64_t</span> {
     <span class='kw'>pub</span> <span class='ident'>data</span>: <span class='op'>*</span><span class='kw'>const</span> ::<span class='ident'>libc</span>::<span class='ident'>uint64_t</span>,

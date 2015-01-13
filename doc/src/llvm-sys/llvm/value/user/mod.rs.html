@@ -2097,13 +2097,50 @@
 <span id="2055">2055</span>
 <span id="2056">2056</span>
 <span id="2057">2057</span>
+<span id="2058">2058</span>
+<span id="2059">2059</span>
+<span id="2060">2060</span>
+<span id="2061">2061</span>
+<span id="2062">2062</span>
+<span id="2063">2063</span>
+<span id="2064">2064</span>
+<span id="2065">2065</span>
+<span id="2066">2066</span>
+<span id="2067">2067</span>
+<span id="2068">2068</span>
+<span id="2069">2069</span>
+<span id="2070">2070</span>
+<span id="2071">2071</span>
+<span id="2072">2072</span>
+<span id="2073">2073</span>
+<span id="2074">2074</span>
+<span id="2075">2075</span>
+<span id="2076">2076</span>
+<span id="2077">2077</span>
+<span id="2078">2078</span>
+<span id="2079">2079</span>
+<span id="2080">2080</span>
+<span id="2081">2081</span>
+<span id="2082">2082</span>
+<span id="2083">2083</span>
+<span id="2084">2084</span>
+<span id="2085">2085</span>
+<span id="2086">2086</span>
+<span id="2087">2087</span>
+<span id="2088">2088</span>
+<span id="2089">2089</span>
+<span id="2090">2090</span>
+<span id="2091">2091</span>
+<span id="2092">2092</span>
+<span id="2093">2093</span>
 </pre><pre class='rust '>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>constant</span>;
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>AddrSpaceCastInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_AddrSpaceCastInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>AddrSpaceCastInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CastInstExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_AddrSpaceCastInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AddrSpaceCastInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AddrSpaceCastInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_AddrSpaceCastInst</span>()
     }
@@ -2169,8 +2206,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>AllocaInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_AllocaInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>AllocaInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_AllocaInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AllocaInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AllocaInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_AllocaInst</span>()
     }
@@ -2229,8 +2267,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>AtomicCmpXchgInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_AtomicCmpXchgInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>AtomicCmpXchgInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_AtomicCmpXchgInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AtomicCmpXchgInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AtomicCmpXchgInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_AtomicCmpXchgInst</span>()
     }
@@ -2282,8 +2321,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>AtomicRMWInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_AtomicRMWInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>AtomicRMWInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_AtomicRMWInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AtomicRMWInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>AtomicRMWInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_AtomicRMWInst</span>()
     }
@@ -2335,8 +2375,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>BinaryOperatorInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_BinaryOperator</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>BinaryOperatorExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_BinaryOperator</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BinaryOperatorInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BinaryOperatorInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_BinaryOperator</span>()
     }
@@ -2388,8 +2429,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>BitCastInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_BitCastInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>BitCastInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CastInstExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_BitCastInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BitCastInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BitCastInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_BitCastInst</span>()
     }
@@ -2455,8 +2497,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>BranchInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_BranchInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>BranchInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_BranchInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BranchInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>BranchInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_BranchInst</span>()
     }
@@ -2515,8 +2558,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>CallInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_CallInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>CallInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_CallInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CallInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CallInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_CallInst</span>()
     }
@@ -2568,8 +2612,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>CastInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_CastInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>CastInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_CastInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CastInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CastInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_CastInst</span>()
     }
@@ -2628,8 +2673,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>CmpInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_CmpInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>CmpInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_CmpInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CmpInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>CmpInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_CmpInst</span>()
     }
@@ -2681,8 +2727,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>ExtractElementInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_ExtractElementInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ExtractElementInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_ExtractElementInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ExtractElementInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ExtractElementInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_ExtractElementInst</span>()
     }
@@ -2734,8 +2781,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>ExtractValueInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_ExtractValueInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ExtractValueInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_ExtractValueInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ExtractValueInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ExtractValueInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_ExtractValueInst</span>()
     }
@@ -2794,8 +2842,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>FPExtInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_FPExtInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>FPExtInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CastInstExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_FPExtInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FPExtInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FPExtInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_FPExtInst</span>()
     }
@@ -2861,8 +2910,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>FPToSIInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_FPToSIInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>FPToSIInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CastInstExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_FPToSIInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FPToSIInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FPToSIInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_FPToSIInst</span>()
     }
@@ -2928,8 +2978,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>FenceInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_FenceInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>FenceInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_FenceInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FenceInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>FenceInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_FenceInst</span>()
     }
@@ -2981,8 +3032,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>GetElementPtrInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_GetElementPtrInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>GetElementPtrInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_GetElementPtrInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>GetElementPtrInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>GetElementPtrInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_GetElementPtrInst</span>()
     }
@@ -3034,8 +3086,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>IndirectBrInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_IndirectBrInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>IndirectBrInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_IndirectBrInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>IndirectBrInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>IndirectBrInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_IndirectBrInst</span>()
     }
@@ -3094,8 +3147,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>InsertElementInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_InsertElementInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>InsertElementInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_InsertElementInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InsertElementInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InsertElementInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_InsertElementInst</span>()
     }
@@ -3147,8 +3201,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>InsertValueInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_InsertValueInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>InsertValueInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_InsertValueInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InsertValueInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InsertValueInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_InsertValueInst</span>()
     }
@@ -3200,8 +3255,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>InstructionInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Instruction</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>InstructionExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_Instruction</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InstructionInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InstructionInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_Instruction</span>()
     }
@@ -3246,8 +3302,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>InvokeInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_InvokeInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>InvokeInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_InvokeInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InvokeInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>InvokeInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_InvokeInst</span>()
     }
@@ -3306,8 +3363,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>LandingPadInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_LandingPadInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>LandingPadInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_LandingPadInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>LandingPadInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>LandingPadInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_LandingPadInst</span>()
     }
@@ -3359,8 +3417,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>LoadInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_LoadInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>LoadInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_LoadInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>LoadInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>LoadInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_LoadInst</span>()
     }
@@ -3419,8 +3478,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>OperatorInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Operator</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>OperatorExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_Operator</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>OperatorInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>OperatorInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_Operator</span>()
     }
@@ -3465,8 +3525,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>PHINodeInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_PHINode</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>PHINodeExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_PHINode</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>PHINodeInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>PHINodeInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_PHINode</span>()
     }
@@ -3518,8 +3579,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>ResumeInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_ResumeInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ResumeInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_ResumeInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ResumeInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ResumeInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_ResumeInst</span>()
     }
@@ -3578,8 +3640,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>ReturnInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_ReturnInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ReturnInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_ReturnInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ReturnInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ReturnInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_ReturnInst</span>()
     }
@@ -3638,8 +3701,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>SelectInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_SelectInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>SelectInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_SelectInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>SelectInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>SelectInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_SelectInst</span>()
     }
@@ -3691,8 +3755,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>ShuffleVectorInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_ShuffleVectorInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ShuffleVectorInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_ShuffleVectorInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ShuffleVectorInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ShuffleVectorInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_ShuffleVectorInst</span>()
     }
@@ -3744,8 +3809,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>StoreInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_StoreInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>StoreInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_StoreInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>StoreInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>StoreInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_StoreInst</span>()
     }
@@ -3797,8 +3863,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>SwitchInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_SwitchInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>SwitchInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_SwitchInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>SwitchInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>SwitchInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_SwitchInst</span>()
     }
@@ -3857,8 +3924,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>TerminatorInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_TerminatorInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>TerminatorInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_TerminatorInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>TerminatorInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>TerminatorInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_TerminatorInst</span>()
     }
@@ -3910,8 +3978,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>UnaryInstructionInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_UnaryInstruction</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>UnaryInstructionExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_UnaryInstruction</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>UnaryInstructionInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>UnaryInstructionInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_UnaryInstruction</span>()
     }
@@ -3963,8 +4032,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>UnreachableInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_UnreachableInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>UnreachableInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_UnreachableInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>UnreachableInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>UnreachableInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_UnreachableInst</span>()
     }
@@ -4023,8 +4093,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>UserInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_User</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>UserExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_User</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>UserInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>UserInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_User</span>()
     }
@@ -4098,8 +4169,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>VAArgInstInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_VAArgInst</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>VAArgInstExt</span>: ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_VAArgInst</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>VAArgInstInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>VAArgInstInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_VAArgInst</span>()
     }

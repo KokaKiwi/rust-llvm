@@ -286,14 +286,20 @@
 <span id="244">244</span>
 <span id="245">245</span>
 <span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
 </pre><pre class='rust '>
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>ty</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>value</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>calling_conv</span>;
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>DataLayoutInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_DataLayout</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>DataLayoutExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_DataLayout</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>DataLayoutInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>DataLayoutInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_DataLayout</span>()
     }
@@ -319,8 +325,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>LLVMContextInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_LLVMContext</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>LLVMContextExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_LLVMContext</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>LLVMContextInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>LLVMContextInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_LLVMContext</span>()
     }
@@ -346,8 +353,9 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>ModuleInner</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm_Module</span>;
 
 <span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ModuleExt</span> {
-
+    <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>non_snake_case</span>)]</span>
     <span class='kw'>fn</span> <span class='ident'>inner_llvm_Module</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ModuleInner</span>;
+
     <span class='kw'>fn</span> <span class='ident'>inner</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>ModuleInner</span> {
         <span class='self'>self</span>.<span class='ident'>inner_llvm_Module</span>()
     }

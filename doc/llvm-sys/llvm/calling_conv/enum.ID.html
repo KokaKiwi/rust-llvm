@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ID` enum in crate `llvm-sys`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ID">
+
+    <title>llvm-sys::llvm::calling_conv::ID - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>llvm-sys</a>::<wbr><a href='../index.html'>llvm</a>::<wbr><a href='index.html'>calling_conv</a></p><div class='block enum'><h2>Enums</h2><a class='enum current' href='enum.ID.html'>ID</a></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content enum">
+<h1 class='fqn'><span class='in-band'>Enum <a href='../../index.html'>llvm-sys</a>::<wbr><a href='../index.html'>llvm</a>::<wbr><a href='index.html'>calling_conv</a>::<wbr><a class='enum' href=''>ID</a><wbr><a class='stability Experimental' title=''>Experimental</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]
+            </a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-24106' href='../../../src/llvm-sys/llvm/calling_conv.rs.html#2-27'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum ID {
+    C,
+    Fast,
+    Cold,
+    GHC,
+    HiPE,
+    WebKitJS,
+    AnyReg,
+    PreserveMost,
+    PreserveAll,
+    FirstTargetCC,
+    X86StdCall,
+    X86FastCall,
+    ARMAPCS,
+    ARMAAPCS,
+    ARMAAPCSVFP,
+    MSP430INTR,
+    X86ThisCall,
+    PTXKernel,
+    PTXDevice,
+    SPIRFUNC,
+    SPIRKERNEL,
+    IntelOCLBI,
+    X8664SysV,
+    X8664Win64,
+}</pre><h2 class='variants'>Variants</h2>
+<table><tr><td id='variant.C'><a class='stability Experimental' title='Experimental'></a><code>C</code></td><td></td></tr><tr><td id='variant.Fast'><a class='stability Experimental' title='Experimental'></a><code>Fast</code></td><td></td></tr><tr><td id='variant.Cold'><a class='stability Experimental' title='Experimental'></a><code>Cold</code></td><td></td></tr><tr><td id='variant.GHC'><a class='stability Experimental' title='Experimental'></a><code>GHC</code></td><td></td></tr><tr><td id='variant.HiPE'><a class='stability Experimental' title='Experimental'></a><code>HiPE</code></td><td></td></tr><tr><td id='variant.WebKitJS'><a class='stability Experimental' title='Experimental'></a><code>WebKitJS</code></td><td></td></tr><tr><td id='variant.AnyReg'><a class='stability Experimental' title='Experimental'></a><code>AnyReg</code></td><td></td></tr><tr><td id='variant.PreserveMost'><a class='stability Experimental' title='Experimental'></a><code>PreserveMost</code></td><td></td></tr><tr><td id='variant.PreserveAll'><a class='stability Experimental' title='Experimental'></a><code>PreserveAll</code></td><td></td></tr><tr><td id='variant.FirstTargetCC'><a class='stability Experimental' title='Experimental'></a><code>FirstTargetCC</code></td><td></td></tr><tr><td id='variant.X86StdCall'><a class='stability Experimental' title='Experimental'></a><code>X86StdCall</code></td><td></td></tr><tr><td id='variant.X86FastCall'><a class='stability Experimental' title='Experimental'></a><code>X86FastCall</code></td><td></td></tr><tr><td id='variant.ARMAPCS'><a class='stability Experimental' title='Experimental'></a><code>ARMAPCS</code></td><td></td></tr><tr><td id='variant.ARMAAPCS'><a class='stability Experimental' title='Experimental'></a><code>ARMAAPCS</code></td><td></td></tr><tr><td id='variant.ARMAAPCSVFP'><a class='stability Experimental' title='Experimental'></a><code>ARMAAPCSVFP</code></td><td></td></tr><tr><td id='variant.MSP430INTR'><a class='stability Experimental' title='Experimental'></a><code>MSP430INTR</code></td><td></td></tr><tr><td id='variant.X86ThisCall'><a class='stability Experimental' title='Experimental'></a><code>X86ThisCall</code></td><td></td></tr><tr><td id='variant.PTXKernel'><a class='stability Experimental' title='Experimental'></a><code>PTXKernel</code></td><td></td></tr><tr><td id='variant.PTXDevice'><a class='stability Experimental' title='Experimental'></a><code>PTXDevice</code></td><td></td></tr><tr><td id='variant.SPIRFUNC'><a class='stability Experimental' title='Experimental'></a><code>SPIRFUNC</code></td><td></td></tr><tr><td id='variant.SPIRKERNEL'><a class='stability Experimental' title='Experimental'></a><code>SPIRKERNEL</code></td><td></td></tr><tr><td id='variant.IntelOCLBI'><a class='stability Experimental' title='Experimental'></a><code>IntelOCLBI</code></td><td></td></tr><tr><td id='variant.X8664SysV'><a class='stability Experimental' title='Experimental'></a><code>X8664SysV</code></td><td></td></tr><tr><td id='variant.X8664Win64'><a class='stability Experimental' title='Experimental'></a><code>X8664Win64</code></td><td></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Experimental' title='Experimental'></a><code>impl <a class='enum' href='../../../llvm-sys/llvm/calling_conv/enum.ID.html' title='llvm-sys::llvm::calling_conv::ID'>ID</a></code></h3><div class='impl-items'><h4 id='method.from_ffi' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.from_ffi' class='fnname'>from_ffi</a>(value: <a class='enum' href='../../../llvm-sys/ffi/enum.llvm_CallingConv_ID.html' title='llvm-sys::ffi::llvm_CallingConv_ID'>llvm_CallingConv_ID</a>) -&gt; <a class='enum' href='../../../llvm-sys/llvm/calling_conv/enum.ID.html' title='llvm-sys::llvm::calling_conv::ID'>ID</a></code></h4>
+<h4 id='method.to_ffi' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.to_ffi' class='fnname'>to_ffi</a>(self) -&gt; <a class='enum' href='../../../llvm-sys/ffi/enum.llvm_CallingConv_ID.html' title='llvm-sys::ffi::llvm_CallingConv_ID'>llvm_CallingConv_ID</a></code></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='enum' href='../../../llvm-sys/llvm/calling_conv/enum.ID.html' title='llvm-sys::llvm::calling_conv::ID'>ID</a></code></h3><div class='impl-items'></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "llvm-sys";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>
