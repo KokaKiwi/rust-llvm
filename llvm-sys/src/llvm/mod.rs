@@ -27,8 +27,7 @@ impl DataLayout {
         }
     }
 }
-impl Copy for DataLayout {
-}
+impl Copy for DataLayout {}
 pub type LLVMContextInner = ::ffi::llvm_LLVMContext;
 
 pub trait LLVMContextExt {
@@ -55,8 +54,7 @@ impl LLVMContext {
         }
     }
 }
-impl Copy for LLVMContext {
-}
+impl Copy for LLVMContext {}
 pub type ModuleInner = ::ffi::llvm_Module;
 
 pub trait ModuleExt {

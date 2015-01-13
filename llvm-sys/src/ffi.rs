@@ -98,11 +98,11 @@ pub enum llvm_GlobalValue_LinkageTypes {
 }
 #[repr(C)]
 #[allow(raw_pointer_derive)]
-#[derive(Copy)]
 pub struct llvm_StringRef {
     pub data: *const ::libc::c_char,
     pub length: ::libc::size_t,
 }
+impl Copy for llvm_StringRef {}
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_DataLayout;
@@ -311,11 +311,11 @@ pub enum llvm_Value_ValueTy {
 pub struct llvm_VectorType;
 #[repr(C)]
 #[allow(raw_pointer_derive)]
-#[derive(Copy)]
 pub struct llvm_ArrayRef_llvm_Type_ptr {
     pub data: *const *mut llvm_Type,
     pub length: ::libc::size_t,
 }
+impl Copy for llvm_ArrayRef_llvm_Type_ptr {}
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_APInt {
@@ -324,25 +324,25 @@ pub struct llvm_APInt {
 }
 #[repr(C)]
 #[allow(raw_pointer_derive)]
-#[derive(Copy)]
 pub struct llvm_ArrayRef_llvm_Constant_ptr {
     pub data: *const *mut llvm_Constant,
     pub length: ::libc::size_t,
 }
+impl Copy for llvm_ArrayRef_llvm_Constant_ptr {}
 #[repr(C)]
 #[allow(raw_pointer_derive)]
-#[derive(Copy)]
 pub struct std_string_const {
     pub data: *const ::libc::c_char,
     pub length: ::libc::size_t,
 }
+impl Copy for std_string_const {}
 #[repr(C)]
 #[allow(raw_pointer_derive)]
-#[derive(Copy)]
 pub struct llvm_ArrayRef__libc_uint64_t {
     pub data: *const ::libc::uint64_t,
     pub length: ::libc::size_t,
 }
+impl Copy for llvm_ArrayRef__libc_uint64_t {}
 
 mod raw {
     extern "C" {

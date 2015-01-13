@@ -10,12 +10,14 @@ class _StringRef(ConvertibleType):
         if lang == 'rust':
             writer.attr('repr', ['C'])
             writer.attr('allow', ['raw_pointer_derive'])
-            writer.attr('derive', ['Copy'])
 
         writer.struct(members=[
             (ptr(Char, const=True).ffi_name(lang), 'data'),
             (SizeTy.ffi_name(lang), 'length'),
         ], name=self.flat_name())
+
+        if lang == 'rust':
+            writer.writeln('impl Copy for %s {}' % (self.flat_name()))
 
     def flat_name(self):
         return 'llvm_StringRef'
@@ -37,9 +39,9 @@ class _StringRef(ConvertibleType):
         elif lang == 'rust':
             data = writer.gen.borrow(writer.gen.member(expr, 'data'))
             length = writer.gen.cast(writer.gen.member(expr, 'length'), 'usize')
-            slice = writer.gen.call('::std::slice::from_raw_buf', [data, length])
-            slice = writer.gen.call('::std::mem::transmute', [slice])
-            result = writer.gen.call('::std::str::from_utf8_unchecked', [slice])
+            slice = writer.gen.call('::core::slice::from_raw_buf', [data, length])
+            slice = writer.gen.call('::core::mem::transmute', [slice])
+            result = writer.gen.call('::core::str::from_utf8_unchecked', [slice])
 
             return result
 

@@ -50,8 +50,7 @@ impl CompositeType {
         }
     }
 }
-impl Copy for CompositeType {
-}
+impl Copy for CompositeType {}
 pub type FunctionTypeInner = ::ffi::llvm_FunctionType;
 
 pub trait FunctionTypeExt: ::llvm::ty::TypeExt {
@@ -138,8 +137,7 @@ impl FunctionType {
         }
     }
 }
-impl Copy for FunctionType {
-}
+impl Copy for FunctionType {}
 pub type IntegerTypeInner = ::ffi::llvm_IntegerType;
 
 pub trait IntegerTypeExt: ::llvm::ty::TypeExt {
@@ -209,8 +207,7 @@ impl IntegerType {
         }
     }
 }
-impl Copy for IntegerType {
-}
+impl Copy for IntegerType {}
 pub type StructTypeInner = ::ffi::llvm_StructType;
 
 pub trait StructTypeExt: ::llvm::ty::CompositeTypeExt {
@@ -380,9 +377,7 @@ impl StructType {
         }
     }
 }
-impl Copy for StructType {
-}
-#[derive(Copy)]
+impl Copy for StructType {}
 pub enum TypeID {
     VoidTyID,
     HalfTyID,
@@ -443,6 +438,7 @@ impl TypeID {
         }
     }
 }
+impl Copy for TypeID {}
 pub type TypeInner = ::ffi::llvm_Type;
 
 pub trait TypeExt {
@@ -884,5 +880,4 @@ impl Type {
         }
     }
 }
-impl Copy for Type {
-}
+impl Copy for Type {}

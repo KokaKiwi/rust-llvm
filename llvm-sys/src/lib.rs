@@ -1,6 +1,7 @@
 #![experimental]
 #![allow(unstable)]
 
+extern crate core;
 extern crate libc;
 
 pub mod ffi;

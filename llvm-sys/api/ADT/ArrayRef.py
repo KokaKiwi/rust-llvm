@@ -18,12 +18,14 @@ class ArrayRef(ConvertibleType):
         if lang == 'rust':
             writer.attr('repr', ['C'])
             writer.attr('allow', ['raw_pointer_derive'])
-            writer.attr('derive', ['Copy'])
 
         writer.struct(members=[
             (ptr(self.subtype, const=True).ffi_name(lang), 'data'),
             (SizeTy.ffi_name(lang), 'length'),
         ], name=self.flat_name())
+
+        if lang == 'rust':
+            writer.writeln('impl Copy for %s {}' % (self.flat_name()))
 
     def flat_name(self):
         return 'llvm_ArrayRef_%s' % (self.subtype.flat_name())
@@ -54,7 +56,7 @@ class ArrayRef(ConvertibleType):
             data = writer.gen.borrow(writer.gen.member(expr, 'data'))
             length = writer.gen.cast(writer.gen.member(expr ,'length'), 'usize')
 
-            return writer.gen.call('::std::slice::from_raw_buf', [data, length])
+            return writer.gen.call('::core::slice::from_raw_buf', [data, length])
 
         return super().convert_from_ffi(writer, lang, expr, **kwargs)
 

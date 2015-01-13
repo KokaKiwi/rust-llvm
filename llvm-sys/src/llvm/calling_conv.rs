@@ -1,4 +1,3 @@
-#[derive(Copy)]
 pub enum ID {
     C,
     Fast,
@@ -82,3 +81,4 @@ impl ID {
         }
     }
 }
+impl Copy for ID {}

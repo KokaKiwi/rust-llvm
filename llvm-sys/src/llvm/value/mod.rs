@@ -175,7 +175,6 @@ impl Drop for MetadataAsValue {
         }
     }
 }
-#[derive(Copy)]
 pub enum ValueTy {
     ArgumentVal,
     BasicBlockVal,
@@ -252,6 +251,7 @@ impl ValueTy {
         }
     }
 }
+impl Copy for ValueTy {}
 pub type ValueInner = ::ffi::llvm_Value;
 
 pub trait ValueExt {

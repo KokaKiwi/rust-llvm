@@ -69,8 +69,7 @@ impl ArrayType {
         }
     }
 }
-impl Copy for ArrayType {
-}
+impl Copy for ArrayType {}
 pub type PointerTypeInner = ::ffi::llvm_PointerType;
 
 pub trait PointerTypeExt: ::llvm::ty::seq::SequentialTypeExt {
@@ -148,8 +147,7 @@ impl PointerType {
         }
     }
 }
-impl Copy for PointerType {
-}
+impl Copy for PointerType {}
 pub type SequentialTypeInner = ::ffi::llvm_SequentialType;
 
 pub trait SequentialTypeExt: ::llvm::ty::CompositeTypeExt {
@@ -202,8 +200,7 @@ impl SequentialType {
         }
     }
 }
-impl Copy for SequentialType {
-}
+impl Copy for SequentialType {}
 pub type VectorTypeInner = ::ffi::llvm_VectorType;
 
 pub trait VectorTypeExt: ::llvm::ty::seq::SequentialTypeExt {
@@ -311,5 +308,4 @@ impl VectorType {
         }
     }
 }
-impl Copy for VectorType {
-}
+impl Copy for VectorType {}
