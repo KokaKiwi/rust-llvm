@@ -2687,6 +2687,13 @@
 <span id="2645">2645</span>
 <span id="2646">2646</span>
 <span id="2647">2647</span>
+<span id="2648">2648</span>
+<span id="2649">2649</span>
+<span id="2650">2650</span>
+<span id="2651">2651</span>
+<span id="2652">2652</span>
+<span id="2653">2653</span>
+<span id="2654">2654</span>
 </pre><pre class='rust '>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>allow</span>(<span class='ident'>non_camel_case_types</span>, <span class='ident'>non_snake_case</span>, <span class='ident'>unstable</span>)]</span>
 
@@ -2788,11 +2795,11 @@
 }
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>raw_pointer_derive</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_StringRef</span> {
     <span class='kw'>pub</span> <span class='ident'>data</span>: <span class='op'>*</span><span class='kw'>const</span> ::<span class='ident'>libc</span>::<span class='ident'>c_char</span>,
     <span class='kw'>pub</span> <span class='ident'>length</span>: ::<span class='ident'>libc</span>::<span class='ident'>size_t</span>,
 }
+<span class='kw'>impl</span> <span class='ident'>Copy</span> <span class='kw'>for</span> <span class='ident'>llvm_StringRef</span> {}
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_DataLayout</span>;
@@ -3001,11 +3008,11 @@
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_VectorType</span>;
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>raw_pointer_derive</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_ArrayRef_llvm_Type_ptr</span> {
     <span class='kw'>pub</span> <span class='ident'>data</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>llvm_Type</span>,
     <span class='kw'>pub</span> <span class='ident'>length</span>: ::<span class='ident'>libc</span>::<span class='ident'>size_t</span>,
 }
+<span class='kw'>impl</span> <span class='ident'>Copy</span> <span class='kw'>for</span> <span class='ident'>llvm_ArrayRef_llvm_Type_ptr</span> {}
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_APInt</span> {
@@ -3014,25 +3021,25 @@
 }
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>raw_pointer_derive</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_ArrayRef_llvm_Constant_ptr</span> {
     <span class='kw'>pub</span> <span class='ident'>data</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>llvm_Constant</span>,
     <span class='kw'>pub</span> <span class='ident'>length</span>: ::<span class='ident'>libc</span>::<span class='ident'>size_t</span>,
 }
+<span class='kw'>impl</span> <span class='ident'>Copy</span> <span class='kw'>for</span> <span class='ident'>llvm_ArrayRef_llvm_Constant_ptr</span> {}
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>raw_pointer_derive</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>std_string_const</span> {
     <span class='kw'>pub</span> <span class='ident'>data</span>: <span class='op'>*</span><span class='kw'>const</span> ::<span class='ident'>libc</span>::<span class='ident'>c_char</span>,
     <span class='kw'>pub</span> <span class='ident'>length</span>: ::<span class='ident'>libc</span>::<span class='ident'>size_t</span>,
 }
+<span class='kw'>impl</span> <span class='ident'>Copy</span> <span class='kw'>for</span> <span class='ident'>std_string_const</span> {}
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>raw_pointer_derive</span>)]</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_ArrayRef__libc_uint64_t</span> {
     <span class='kw'>pub</span> <span class='ident'>data</span>: <span class='op'>*</span><span class='kw'>const</span> ::<span class='ident'>libc</span>::<span class='ident'>uint64_t</span>,
     <span class='kw'>pub</span> <span class='ident'>length</span>: ::<span class='ident'>libc</span>::<span class='ident'>size_t</span>,
 }
+<span class='kw'>impl</span> <span class='ident'>Copy</span> <span class='kw'>for</span> <span class='ident'>llvm_ArrayRef__libc_uint64_t</span> {}
 
 <span class='kw'>mod</span> <span class='ident'>raw</span> {
     <span class='kw'>extern</span> <span class='string'>&quot;C&quot;</span> {
@@ -3134,6 +3141,7 @@
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Type_getFloatPtrTy</span>(<span class='ident'>ctx</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_LLVMContext</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_PointerType</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Type_getFloatTy</span>(<span class='ident'>ctx</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_LLVMContext</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Type</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_BlockAddress_getFunction</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_BlockAddress</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Function</span>;
+        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Module_getFunction</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Module</span>, <span class='ident'>Name</span>: <span class='ident'>super</span>::<span class='ident'>llvm_StringRef</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Function</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Type_getFunctionNumParams</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Type</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_uint</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Type_getFunctionParamType</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Type</span>, <span class='ident'>idx</span>: ::<span class='ident'>libc</span>::<span class='ident'>c_uint</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Type</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Function_getFunctionType</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Function</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_FunctionType</span>;
@@ -4499,6 +4507,12 @@
     <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
     <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>Module_getDataLayoutStr</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Module</span>) <span class='op'>-&gt;</span> <span class='ident'>super</span>::<span class='ident'>std_string_const</span> {
         <span class='ident'>raw</span>::<span class='ident'>llvm_Module_getDataLayoutStr</span>(<span class='ident'>inst</span>)
+    }
+
+    <span class='comment'>// ::llvm::Module::getFunction</span>
+    <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>Module_getFunction</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Module</span>, <span class='ident'>Name</span>: <span class='ident'>super</span>::<span class='ident'>llvm_StringRef</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Function</span> {
+        <span class='ident'>raw</span>::<span class='ident'>llvm_Module_getFunction</span>(<span class='ident'>inst</span>, <span class='ident'>Name</span>)
     }
 
     <span class='comment'>// ::llvm::Module::getMDKindID</span>

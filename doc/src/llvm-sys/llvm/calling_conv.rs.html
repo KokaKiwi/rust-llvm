@@ -125,7 +125,6 @@
 <span id="83">83</span>
 <span id="84">84</span>
 </pre><pre class='rust '>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>ID</span> {
     <span class='ident'>C</span>,
     <span class='ident'>Fast</span>,
@@ -209,6 +208,7 @@
         }
     }
 }
+<span class='kw'>impl</span> <span class='ident'>Copy</span> <span class='kw'>for</span> <span class='ident'>ID</span> {}
 </pre>
 </section>
     <section id='search' class="content hidden"></section>

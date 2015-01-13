@@ -44,19 +44,19 @@
 <h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>llvm</a>::<wbr><a href='index.html'>traits</a>::<wbr><a class='trait' href=''>SequentialTypeExt</a><wbr><a class='stability Experimental' title=''>Experimental</a></span><span class='out-of-band'><span id='render-detail'>
             <a id="collapse-all" href="#">[-]
             </a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-9993' href='../../llvm-sys/llvm/ty/seq/trait.SequentialTypeExt.html?gotosrc=9993'>[src]</a></span></h1>
+        </span><a id='src-10109' href='../../llvm-sys/llvm/ty/seq/trait.SequentialTypeExt.html?gotosrc=10109'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait SequentialTypeExt: <a class='trait' href='../../llvm/traits/trait.CompositeTypeExt.html' title='llvm::traits::CompositeTypeExt'>CompositeTypeExt</a> {
     fn <a href='#tymethod.inner_llvm_SequentialType' class='fnname'>inner_llvm_SequentialType</a>(&amp;self) -&gt; *mut <a class='struct' href='../../llvm-sys/ffi/struct.llvm_SequentialType.html' title='llvm-sys::ffi::llvm_SequentialType'>llvm_SequentialType</a>;
 
     fn <a href='#tymethod.inner' class='fnname'>inner</a>(&amp;self) -&gt; *mut <a class='struct' href='../../llvm-sys/ffi/struct.llvm_SequentialType.html' title='llvm-sys::ffi::llvm_SequentialType'>llvm_SequentialType</a> { ... }
-    fn <a href='#tymethod.get_element_type' class='fnname'>get_element_type</a>(&amp;self) -&gt; <a class='struct' href='../../llvm/api/ty/struct.Type.html' title='llvm::api::ty::Type'>Type</a> { ... }
+    fn <a href='#tymethod.get_element_type' class='fnname'>get_element_type</a>(&amp;self) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../llvm/api/ty/struct.Type.html' title='llvm::api::ty::Type'>Type</a>&gt; { ... }
 }</pre>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
         <h3 id='tymethod.inner_llvm_SequentialType' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.inner_llvm_SequentialType' class='fnname'>inner_llvm_SequentialType</a>(&amp;self) -&gt; *mut <a class='struct' href='../../llvm-sys/ffi/struct.llvm_SequentialType.html' title='llvm-sys::ffi::llvm_SequentialType'>llvm_SequentialType</a></code></h3></div>
             <h2 id='provided-methods'>Provided Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.inner' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.inner' class='fnname'>inner</a>(&amp;self) -&gt; *mut <a class='struct' href='../../llvm-sys/ffi/struct.llvm_SequentialType.html' title='llvm-sys::ffi::llvm_SequentialType'>llvm_SequentialType</a></code></h3><h3 id='tymethod.get_element_type' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.get_element_type' class='fnname'>get_element_type</a>(&amp;self) -&gt; <a class='struct' href='../../llvm/api/ty/struct.Type.html' title='llvm::api::ty::Type'>Type</a></code></h3></div>
+        <h3 id='tymethod.inner' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.inner' class='fnname'>inner</a>(&amp;self) -&gt; *mut <a class='struct' href='../../llvm-sys/ffi/struct.llvm_SequentialType.html' title='llvm-sys::ffi::llvm_SequentialType'>llvm_SequentialType</a></code></h3><h3 id='tymethod.get_element_type' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.get_element_type' class='fnname'>get_element_type</a>(&amp;self) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../llvm/api/ty/struct.Type.html' title='llvm::api::ty::Type'>Type</a>&gt;</code></h3></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
     <li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../llvm/traits/trait.SequentialTypeExt.html' title='llvm::traits::SequentialTypeExt'>SequentialTypeExt</a> for <a class='struct' href='../../llvm/api/ty/seq/struct.ArrayType.html' title='llvm::api::ty::seq::ArrayType'>ArrayType</a></code></li>
