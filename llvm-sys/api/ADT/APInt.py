@@ -41,13 +41,23 @@ class _APInt(ConvertibleType):
             args = [writer.gen.member(expr, 'num_bits'), value]
             return writer.gen.call('::llvm::APInt', args)
         elif lang == 'rust':
-            return expr
+            data_member = writer.gen.member(expr, 'value')
+            data = BigVal.convert_from_ffi(writer, lang, data_member, **kwargs)
+
+            num_bits = writer.gen.cast(writer.gen.member(expr, 'num_bits'), 'u32')
+
+            return '(%s, %s)' % (num_bits, data)
 
         return super().convert_from_ffi(writer, lang, expr, **kwargs)
 
     def convert_to_ffi(self, writer, lang, expr, **kwargs):
         if lang == 'c':
-            return expr
+            num_bits = writer.gen.call(writer.gen.member(expr, 'getBitWidth'))
+            data = writer.gen.call(writer.gen.member(expr, 'getRawData'))
+            data_length = writer.gen.call(writer.gen.member(expr, 'getNumWords'))
+
+            return writer.gen.init_struct([
+            ])
         elif lang == 'rust':
             struct_name = '::ffi::%s' % (self.ffi_name(lang))
             num_bits = writer.gen.member(expr, '0')

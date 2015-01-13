@@ -65,6 +65,27 @@ int llvm_ArrayType_isValidElementType(::llvm::Type* ty)
     return (::llvm::ArrayType::isValidElementType(ty) == true ? 1 : 0);
 }
 
+// ::llvm::BlockAddress::destroyConstant
+extern "C"
+void llvm_BlockAddress_destroyConstant(::llvm::BlockAddress* inst)
+{
+    return inst->destroyConstant();
+}
+
+// ::llvm::BlockAddress::getBasicBlock
+extern "C"
+::llvm::BasicBlock* llvm_BlockAddress_getBasicBlock(::llvm::BlockAddress const* inst)
+{
+    return inst->getBasicBlock();
+}
+
+// ::llvm::BlockAddress::getFunction
+extern "C"
+::llvm::Function* llvm_BlockAddress_getFunction(::llvm::BlockAddress const* inst)
+{
+    return inst->getFunction();
+}
+
 // ::llvm::CompositeType::classof
 extern "C"
 int llvm_CompositeType_classof(::llvm::Type const* ty)
@@ -245,6 +266,268 @@ extern "C"
 // ::llvm::ConstantArray::getType
 extern "C"
 ::llvm::Type* llvm_ConstantArray_getType(::llvm::ConstantArray const* inst)
+{
+    return inst->getType();
+}
+
+// ::llvm::ConstantFP::classof
+extern "C"
+int llvm_ConstantFP_classof(::llvm::Value const* V)
+{
+    return (::llvm::ConstantFP::classof(V) == true ? 1 : 0);
+}
+
+// ::llvm::ConstantFP::fromStr
+extern "C"
+::llvm::Constant* llvm_ConstantFP_fromStr(::llvm::Type* Ty, llvm_StringRef _Val)
+{
+    auto Val = ::llvm::StringRef(_Val.data, _Val.length);
+    return ::llvm::ConstantFP::get(Ty, Val);
+}
+
+// ::llvm::ConstantFP::get
+extern "C"
+::llvm::Constant* llvm_ConstantFP_get(::llvm::Type* Ty, double Val)
+{
+    return ::llvm::ConstantFP::get(Ty, Val);
+}
+
+// ::llvm::ConstantFP::getInfinity
+extern "C"
+::llvm::Constant* llvm_ConstantFP_getInfinity(::llvm::Type* Ty)
+{
+    return ::llvm::ConstantFP::getInfinity(Ty);
+}
+
+// ::llvm::ConstantFP::getNegativeZero
+extern "C"
+::llvm::Constant* llvm_ConstantFP_getNegativeZero(::llvm::Type* Ty)
+{
+    return ::llvm::ConstantFP::getNegativeZero(Ty);
+}
+
+// ::llvm::ConstantFP::getZeroValueForNegation
+extern "C"
+::llvm::Constant* llvm_ConstantFP_getZeroValueForNegation(::llvm::Type* Ty)
+{
+    return ::llvm::ConstantFP::getZeroValueForNegation(Ty);
+}
+
+// ::llvm::ConstantFP::isExactlyValueFloat
+extern "C"
+int llvm_ConstantFP_isExactlyValueFloat(::llvm::ConstantFP const* inst, double Val)
+{
+    return (inst->isExactlyValue(Val) == true ? 1 : 0);
+}
+
+// ::llvm::ConstantFP::isNaN
+extern "C"
+int llvm_ConstantFP_isNaN(::llvm::ConstantFP const* inst)
+{
+    return (inst->isNaN() == true ? 1 : 0);
+}
+
+// ::llvm::ConstantFP::isNegative
+extern "C"
+int llvm_ConstantFP_isNegative(::llvm::ConstantFP const* inst)
+{
+    return (inst->isNegative() == true ? 1 : 0);
+}
+
+// ::llvm::ConstantFP::isZero
+extern "C"
+int llvm_ConstantFP_isZero(::llvm::ConstantFP const* inst)
+{
+    return (inst->isZero() == true ? 1 : 0);
+}
+
+// ::llvm::ConstantInt::classof
+extern "C"
+int llvm_ConstantInt_classof(::llvm::Value const* Val)
+{
+    return (::llvm::ConstantInt::classof(Val) == true ? 1 : 0);
+}
+
+// ::llvm::ConstantInt::equalsInt
+extern "C"
+int llvm_ConstantInt_equalsInt(::llvm::ConstantInt const* inst, uint64_t Val)
+{
+    return (inst->equalsInt(Val) == true ? 1 : 0);
+}
+
+// ::llvm::ConstantInt::fromAPInt
+extern "C"
+::llvm::ConstantInt* llvm_ConstantInt_fromAPInt(::llvm::LLVMContext* Context, llvm_APInt _Val)
+{
+    auto Val = ::llvm::APInt(_Val.num_bits, ::llvm::ArrayRef<uint64_t>(_Val.value.data, _Val.value.length));
+    return ::llvm::ConstantInt::get(*Context, Val);
+}
+
+// ::llvm::ConstantInt::fromStr
+extern "C"
+::llvm::ConstantInt* llvm_ConstantInt_fromStr(::llvm::IntegerType* Ty, llvm_StringRef _Str, uint8_t radix)
+{
+    auto Str = ::llvm::StringRef(_Str.data, _Str.length);
+    return ::llvm::ConstantInt::get(Ty, Str, radix);
+}
+
+// ::llvm::ConstantInt::get
+extern "C"
+::llvm::ConstantInt* llvm_ConstantInt_get(::llvm::IntegerType* Ty, uint64_t Value)
+{
+    return ::llvm::ConstantInt::get(Ty, Value);
+}
+
+// ::llvm::ConstantInt::getBitWidth
+extern "C"
+unsigned int llvm_ConstantInt_getBitWidth(::llvm::ConstantInt const* inst)
+{
+    return inst->getBitWidth();
+}
+
+// ::llvm::ConstantInt::getFalse
+extern "C"
+::llvm::Constant* llvm_ConstantInt_getFalse(::llvm::Type* Ty)
+{
+    return ::llvm::ConstantInt::getFalse(Ty);
+}
+
+// ::llvm::ConstantInt::getFalseWithContext
+extern "C"
+::llvm::ConstantInt* llvm_ConstantInt_getFalseWithContext(::llvm::LLVMContext* Context)
+{
+    return ::llvm::ConstantInt::getFalse(*Context);
+}
+
+// ::llvm::ConstantInt::getSExtValue
+extern "C"
+int64_t llvm_ConstantInt_getSExtValue(::llvm::ConstantInt const* inst)
+{
+    return inst->getSExtValue();
+}
+
+// ::llvm::ConstantInt::getSigned
+extern "C"
+::llvm::ConstantInt* llvm_ConstantInt_getSigned(::llvm::IntegerType* Ty, uint64_t Value, int isSigned)
+{
+    return ::llvm::ConstantInt::get(Ty, Value, (isSigned == 1 ? true : false));
+}
+
+// ::llvm::ConstantInt::getTrue
+extern "C"
+::llvm::Constant* llvm_ConstantInt_getTrue(::llvm::Type* Ty)
+{
+    return ::llvm::ConstantInt::getTrue(Ty);
+}
+
+// ::llvm::ConstantInt::getTrueWithContext
+extern "C"
+::llvm::ConstantInt* llvm_ConstantInt_getTrueWithContext(::llvm::LLVMContext* Context)
+{
+    return ::llvm::ConstantInt::getTrue(*Context);
+}
+
+// ::llvm::ConstantInt::getType
+extern "C"
+::llvm::IntegerType* llvm_ConstantInt_getType(::llvm::ConstantInt const* inst)
+{
+    return inst->getType();
+}
+
+// ::llvm::ConstantInt::getZExtValue
+extern "C"
+uint64_t llvm_ConstantInt_getZExtValue(::llvm::ConstantInt const* inst)
+{
+    return inst->getZExtValue();
+}
+
+// ::llvm::ConstantInt::isMaxValue
+extern "C"
+int llvm_ConstantInt_isMaxValue(::llvm::ConstantInt const* inst, int isSigned)
+{
+    return (inst->isMaxValue((isSigned == 1 ? true : false)) == true ? 1 : 0);
+}
+
+// ::llvm::ConstantInt::isMinValue
+extern "C"
+int llvm_ConstantInt_isMinValue(::llvm::ConstantInt const* inst, int isSigned)
+{
+    return (inst->isMinValue((isSigned == 1 ? true : false)) == true ? 1 : 0);
+}
+
+// ::llvm::ConstantInt::isMinusOne
+extern "C"
+int llvm_ConstantInt_isMinusOne(::llvm::ConstantInt const* inst)
+{
+    return (inst->isMinusOne() == true ? 1 : 0);
+}
+
+// ::llvm::ConstantInt::isNegative
+extern "C"
+int llvm_ConstantInt_isNegative(::llvm::ConstantInt const* inst)
+{
+    return (inst->isNegative() == true ? 1 : 0);
+}
+
+// ::llvm::ConstantInt::isOne
+extern "C"
+int llvm_ConstantInt_isOne(::llvm::ConstantInt const* inst)
+{
+    return (inst->isOne() == true ? 1 : 0);
+}
+
+// ::llvm::ConstantInt::isSignedValueValidForType
+extern "C"
+int llvm_ConstantInt_isSignedValueValidForType(::llvm::Type* Ty, int64_t Val)
+{
+    return (::llvm::ConstantInt::isValueValidForType(Ty, Val) == true ? 1 : 0);
+}
+
+// ::llvm::ConstantInt::isValueValidForType
+extern "C"
+int llvm_ConstantInt_isValueValidForType(::llvm::Type* Ty, uint64_t Val)
+{
+    return (::llvm::ConstantInt::isValueValidForType(Ty, Val) == true ? 1 : 0);
+}
+
+// ::llvm::ConstantInt::isZero
+extern "C"
+int llvm_ConstantInt_isZero(::llvm::ConstantInt const* inst)
+{
+    return (inst->isZero() == true ? 1 : 0);
+}
+
+// ::llvm::ConstantInt::uge
+extern "C"
+int llvm_ConstantInt_uge(::llvm::ConstantInt const* inst, uint64_t Num)
+{
+    return (inst->uge(Num) == true ? 1 : 0);
+}
+
+// ::llvm::ConstantPointerNull::classof
+extern "C"
+int llvm_ConstantPointerNull_classof(::llvm::Value const* Val)
+{
+    return (::llvm::ConstantPointerNull::classof(Val) == true ? 1 : 0);
+}
+
+// ::llvm::ConstantPointerNull::destroyConstant
+extern "C"
+void llvm_ConstantPointerNull_destroyConstant(::llvm::ConstantPointerNull* inst)
+{
+    return inst->destroyConstant();
+}
+
+// ::llvm::ConstantPointerNull::get
+extern "C"
+::llvm::ConstantPointerNull* llvm_ConstantPointerNull_get(::llvm::PointerType* Ty)
+{
+    return ::llvm::ConstantPointerNull::get(Ty);
+}
+
+// ::llvm::ConstantPointerNull::getType
+extern "C"
+::llvm::PointerType* llvm_ConstantPointerNull_getType(::llvm::ConstantPointerNull const* inst)
 {
     return inst->getType();
 }

@@ -4,9 +4,10 @@ from .ns import llvm
 from .ADT.APInt import APInt
 from .ADT.ArrayRef import ArrayRef
 from .ADT.StringRef import StringRef
-from .Type import Type, ArrayType, PointerType
+from .LLVMContext import LLVMContext
+from .Type import Type, ArrayType, PointerType, IntegerType
 from .User import User
-from .Value import Value
+from .Value import BasicBlock, Value
 
 @llvm.body
 class llvm_body:
@@ -69,6 +70,12 @@ class Constant:
     getAllOnesValue = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'))
     getIntegerValue = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'), (APInt, 'Value'))
 
+@BlockAddress.body
+class BlockAddress:
+    destroyConstant = Method()
+
+    getBasicBlock = Method(ptr(BasicBlock), const=True)
+
 @ConstantArray.body
 class ConstantArray:
     getType = Method(ptr(Type), const=True)
@@ -77,10 +84,79 @@ class ConstantArray:
 
     classof = StaticMethod(Bool, (ptr(Value, const=True), 'V'))
 
+@ConstantFP.body
+class ConstantFP:
+    isZero = Method(Bool, const=True)
+    isNegative = Method(Bool, const=True)
+    isNaN = Method(Bool, const=True)
+
+    isExactlyValueFloat = Method(Bool, (Double, 'Val'), const=True).with_call_name('isExactlyValue')
+
+    getZeroValueForNegation = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'))
+
+    get = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'), (Double, 'Val'))
+    fromStr = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'), (StringRef, 'Val')).with_call_name('get')
+
+    getNegativeZero = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'))
+    getInfinity = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'))
+
+    classof = StaticMethod(Bool, (ptr(Value, const=True), 'V'))
+
+@ConstantInt.body
+class ConstantInt:
+    getTrue = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'))
+    getFalse = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'))
+
+    getTrueWithContext = StaticMethod(ptr(ConstantInt), (ref(LLVMContext), 'Context')).with_call_name('getTrue')
+    getFalseWithContext = StaticMethod(ptr(ConstantInt), (ref(LLVMContext), 'Context')).with_call_name('getFalse')
+
+    get = StaticMethod(ptr(ConstantInt), (ptr(IntegerType), 'Ty'), (UnsignedInt64, 'Value'))
+    getSigned = StaticMethod(ptr(ConstantInt), (ptr(IntegerType), 'Ty'), (UnsignedInt64, 'Value'), (Bool, 'isSigned')).with_call_name('get')
+
+    fromAPInt = StaticMethod(ptr(ConstantInt), (ref(LLVMContext), 'Context'), (APInt, 'Val')).with_call_name('get')
+    fromStr = StaticMethod(ptr(ConstantInt), (ptr(IntegerType), 'Ty'), (StringRef, 'Str'), (UnsignedInt8, 'radix')).with_call_name('get')
+
+    isValueValidForType = StaticMethod(Bool, (ptr(Type), 'Ty'), (UnsignedInt64, 'Val'))
+    isSignedValueValidForType = StaticMethod(Bool, (ptr(Type), 'Ty'), (Int64, 'Val')).with_call_name('isValueValidForType')
+
+    classof = StaticMethod(Bool, (ptr(Value, const=True), 'Val'))
+
+    # Unstable
+    # getValue = Method(APInt, const=True)
+
+    getBitWidth = Method(UnsignedInt, const=True)
+
+    getZExtValue = Method(UnsignedInt64, const=True)
+    getSExtValue = Method(Int64, const=True)
+
+    equalsInt = Method(Bool, (UnsignedInt64, 'Val'), const=True)
+
+    getType = Method(ptr(IntegerType), const=True)
+
+    isNegative = Method(Bool, const=True)
+    isZero = Method(Bool, const=True)
+    isOne = Method(Bool, const=True)
+    isMinusOne = Method(Bool, const=True)
+
+    isMaxValue = Method(Bool, (Bool, 'isSigned'), const=True)
+    isMinValue = Method(Bool, (Bool, 'isSigned'), const=True)
+
+    uge = Method(Bool, (UnsignedInt64, 'Num'), const=True)
+
+@ConstantPointerNull.body
+class ConstantPointerNull:
+    destroyConstant = Method()
+
+    getType = Method(ptr(PointerType), const=True)
+
+    get = StaticMethod(ptr(ConstantPointerNull), (ptr(PointerType), 'Ty'))
+
+    classof = StaticMethod(Bool, (ptr(Value, const=True), 'Val'))
+
 @GlobalValue.body
 class GlobalValue:
     LinkageTypes = Enum(values=[
-        'ExternalLinkage', 'AvailableExternallyLinkage', 'LinkOnceAnyLinkage',
+        ('ExternalLinkage', 0), 'AvailableExternallyLinkage', 'LinkOnceAnyLinkage',
         'LinkOnceODRLinkage', 'WeakAnyLinkage', 'WeakODRLinkage',
         'AppendingLinkage', 'InternalLinkage', 'PrivateLinkage',
         'ExternalWeakLinkage', 'CommonLinkage',

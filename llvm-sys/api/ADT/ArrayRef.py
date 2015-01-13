@@ -51,7 +51,10 @@ class ArrayRef(ConvertibleType):
             args = [writer.gen.member(expr, 'data'), writer.gen.member(expr, 'length')]
             return writer.gen.call(self.ffi_name('c++'), args)
         elif lang == 'rust':
-            return expr
+            data = writer.gen.borrow(writer.gen.member(expr, 'data'))
+            length = writer.gen.cast(writer.gen.member(expr ,'length'), 'usize')
+
+            return writer.gen.call('::std::slice::from_raw_buf', [data, length])
 
         return super().convert_from_ffi(writer, lang, expr, **kwargs)
 

@@ -2,7 +2,7 @@ from bindgen.ast.objects import *
 from bindgen.ast.utils import submodpath
 from .ns import llvm
 from .ADT.StringRef import StringRef
-from .Constant import GlobalObject, GlobalValue
+from .Constant import BlockAddress, GlobalObject, GlobalValue
 from .LLVMContext import LLVMContext
 from .Type import Type, FunctionType
 from .Value import Value
@@ -93,3 +93,7 @@ class Function:
     CreateWithName = StaticMethod(ptr(Function), (ptr(FunctionType), 'Ty'), (GlobalValue.LinkageTypes, 'Linkage'), (StringRef, 'Name')).with_call_name('Create')
 
     classof = StaticMethod(Bool, (ptr(Value, const=True), 'Val'))
+
+@BlockAddress.body
+class BlockAddress:
+    getFunction = Method(ptr(Function), const=True)

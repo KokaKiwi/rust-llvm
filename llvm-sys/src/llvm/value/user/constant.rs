@@ -7,6 +7,24 @@ pub trait BlockAddressExt: ::llvm::value::user::constant::ConstantExt {
     fn inner(&self) -> *mut BlockAddressInner {
         self.inner_llvm_BlockAddress()
     }
+
+    fn destroy_constant(&mut self) {
+        unsafe {
+            ::ffi::llvm::BlockAddress_destroyConstant(self.inner_llvm_BlockAddress());
+        }
+    }
+
+    fn get_basic_block(&self) -> ::llvm::value::BasicBlock {
+        unsafe {
+            ::llvm::value::BasicBlock::from_inner(::ffi::llvm::BlockAddress_getBasicBlock(self.inner_llvm_BlockAddress() as *const ::ffi::llvm_BlockAddress))
+        }
+    }
+
+    fn get_function(&self) -> ::llvm::value::user::constant::Function {
+        unsafe {
+            ::llvm::value::user::constant::Function::from_inner(::ffi::llvm::BlockAddress_getFunction(self.inner_llvm_BlockAddress() as *const ::ffi::llvm_BlockAddress))
+        }
+    }
 }
 
 pub struct BlockAddress {
@@ -596,6 +614,30 @@ pub trait ConstantFPExt: ::llvm::value::user::constant::ConstantExt {
     fn inner(&self) -> *mut ConstantFPInner {
         self.inner_llvm_ConstantFP()
     }
+
+    fn is_exactly_value_float(&self, val: f64) -> bool {
+        unsafe {
+            ::ffi::llvm::ConstantFP_isExactlyValueFloat(self.inner_llvm_ConstantFP() as *const ::ffi::llvm_ConstantFP, val as ::libc::c_double)
+        }
+    }
+
+    fn is_na_n(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::ConstantFP_isNaN(self.inner_llvm_ConstantFP() as *const ::ffi::llvm_ConstantFP)
+        }
+    }
+
+    fn is_negative(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::ConstantFP_isNegative(self.inner_llvm_ConstantFP() as *const ::ffi::llvm_ConstantFP)
+        }
+    }
+
+    fn is_zero(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::ConstantFP_isZero(self.inner_llvm_ConstantFP() as *const ::ffi::llvm_ConstantFP)
+        }
+    }
 }
 
 pub struct ConstantFP {
@@ -633,6 +675,46 @@ impl ConstantFP {
             inner: inner,
         }
     }
+
+    pub fn classof(v: &::llvm::value::ValueExt) -> bool {
+        unsafe {
+            ::ffi::llvm::ConstantFP_classof(v.inner_llvm_Value())
+        }
+    }
+
+    pub fn from_str(ty: &::llvm::ty::TypeExt, val: &str) -> ::llvm::value::user::constant::Constant {
+        unsafe {
+            let c_val = ::ffi::llvm_StringRef {
+                data: val.as_ptr() as *const ::libc::c_char,
+                length: val.len() as ::libc::size_t,
+            };
+            ::llvm::value::user::constant::Constant::from_inner(::ffi::llvm::ConstantFP_fromStr(ty.inner_llvm_Type(), c_val))
+        }
+    }
+
+    pub fn get(ty: &::llvm::ty::TypeExt, val: f64) -> ::llvm::value::user::constant::Constant {
+        unsafe {
+            ::llvm::value::user::constant::Constant::from_inner(::ffi::llvm::ConstantFP_get(ty.inner_llvm_Type(), val as ::libc::c_double))
+        }
+    }
+
+    pub fn get_infinity(ty: &::llvm::ty::TypeExt) -> ::llvm::value::user::constant::Constant {
+        unsafe {
+            ::llvm::value::user::constant::Constant::from_inner(::ffi::llvm::ConstantFP_getInfinity(ty.inner_llvm_Type()))
+        }
+    }
+
+    pub fn get_negative_zero(ty: &::llvm::ty::TypeExt) -> ::llvm::value::user::constant::Constant {
+        unsafe {
+            ::llvm::value::user::constant::Constant::from_inner(::ffi::llvm::ConstantFP_getNegativeZero(ty.inner_llvm_Type()))
+        }
+    }
+
+    pub fn get_zero_value_for_negation(ty: &::llvm::ty::TypeExt) -> ::llvm::value::user::constant::Constant {
+        unsafe {
+            ::llvm::value::user::constant::Constant::from_inner(::ffi::llvm::ConstantFP_getZeroValueForNegation(ty.inner_llvm_Type()))
+        }
+    }
 }
 impl Drop for ConstantFP {
     fn drop(&mut self) {
@@ -649,6 +731,78 @@ pub trait ConstantIntExt: ::llvm::value::user::constant::ConstantExt {
 
     fn inner(&self) -> *mut ConstantIntInner {
         self.inner_llvm_ConstantInt()
+    }
+
+    fn equals_int(&self, val: u64) -> bool {
+        unsafe {
+            ::ffi::llvm::ConstantInt_equalsInt(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt, val as ::libc::uint64_t)
+        }
+    }
+
+    fn get_bit_width(&self) -> u32 {
+        unsafe {
+            ::ffi::llvm::ConstantInt_getBitWidth(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt) as u32
+        }
+    }
+
+    fn get_s_ext_value(&self) -> i64 {
+        unsafe {
+            ::ffi::llvm::ConstantInt_getSExtValue(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt) as i64
+        }
+    }
+
+    fn get_type(&self) -> ::llvm::ty::IntegerType {
+        unsafe {
+            ::llvm::ty::IntegerType::from_inner(::ffi::llvm::ConstantInt_getType(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt))
+        }
+    }
+
+    fn get_z_ext_value(&self) -> u64 {
+        unsafe {
+            ::ffi::llvm::ConstantInt_getZExtValue(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt) as u64
+        }
+    }
+
+    fn is_max_value(&self, is_signed: bool) -> bool {
+        unsafe {
+            ::ffi::llvm::ConstantInt_isMaxValue(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt, is_signed)
+        }
+    }
+
+    fn is_min_value(&self, is_signed: bool) -> bool {
+        unsafe {
+            ::ffi::llvm::ConstantInt_isMinValue(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt, is_signed)
+        }
+    }
+
+    fn is_minus_one(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::ConstantInt_isMinusOne(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt)
+        }
+    }
+
+    fn is_negative(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::ConstantInt_isNegative(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt)
+        }
+    }
+
+    fn is_one(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::ConstantInt_isOne(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt)
+        }
+    }
+
+    fn is_zero(&self) -> bool {
+        unsafe {
+            ::ffi::llvm::ConstantInt_isZero(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt)
+        }
+    }
+
+    fn uge(&self, num: u64) -> bool {
+        unsafe {
+            ::ffi::llvm::ConstantInt_uge(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt, num as ::libc::uint64_t)
+        }
     }
 }
 
@@ -687,6 +841,83 @@ impl ConstantInt {
             inner: inner,
         }
     }
+
+    pub fn classof(val: &::llvm::value::ValueExt) -> bool {
+        unsafe {
+            ::ffi::llvm::ConstantInt_classof(val.inner_llvm_Value())
+        }
+    }
+
+    pub fn from_ap_int(context: &::llvm::LLVMContextExt, val: (u32, &[u64])) -> ::llvm::value::user::constant::ConstantInt {
+        unsafe {
+            let c_val = ::ffi::llvm_APInt {
+                num_bits: val.0 as ::libc::c_uint,
+                value: ::ffi::llvm_ArrayRef__libc_uint64_t {
+                data: val.1.as_ptr(),
+                length: val.1.len() as ::libc::size_t,
+            },
+            };
+            ::llvm::value::user::constant::ConstantInt::from_inner(::ffi::llvm::ConstantInt_fromAPInt(context.inner_llvm_LLVMContext(), c_val))
+        }
+    }
+
+    pub fn from_str(ty: &::llvm::ty::IntegerTypeExt, str: &str, radix: u8) -> ::llvm::value::user::constant::ConstantInt {
+        unsafe {
+            let c_str = ::ffi::llvm_StringRef {
+                data: str.as_ptr() as *const ::libc::c_char,
+                length: str.len() as ::libc::size_t,
+            };
+            ::llvm::value::user::constant::ConstantInt::from_inner(::ffi::llvm::ConstantInt_fromStr(ty.inner_llvm_IntegerType(), c_str, radix as ::libc::uint8_t))
+        }
+    }
+
+    pub fn get(ty: &::llvm::ty::IntegerTypeExt, value: u64) -> ::llvm::value::user::constant::ConstantInt {
+        unsafe {
+            ::llvm::value::user::constant::ConstantInt::from_inner(::ffi::llvm::ConstantInt_get(ty.inner_llvm_IntegerType(), value as ::libc::uint64_t))
+        }
+    }
+
+    pub fn get_false(ty: &::llvm::ty::TypeExt) -> ::llvm::value::user::constant::Constant {
+        unsafe {
+            ::llvm::value::user::constant::Constant::from_inner(::ffi::llvm::ConstantInt_getFalse(ty.inner_llvm_Type()))
+        }
+    }
+
+    pub fn get_false_with_context(context: &::llvm::LLVMContextExt) -> ::llvm::value::user::constant::ConstantInt {
+        unsafe {
+            ::llvm::value::user::constant::ConstantInt::from_inner(::ffi::llvm::ConstantInt_getFalseWithContext(context.inner_llvm_LLVMContext()))
+        }
+    }
+
+    pub fn get_signed(ty: &::llvm::ty::IntegerTypeExt, value: u64, is_signed: bool) -> ::llvm::value::user::constant::ConstantInt {
+        unsafe {
+            ::llvm::value::user::constant::ConstantInt::from_inner(::ffi::llvm::ConstantInt_getSigned(ty.inner_llvm_IntegerType(), value as ::libc::uint64_t, is_signed))
+        }
+    }
+
+    pub fn get_true(ty: &::llvm::ty::TypeExt) -> ::llvm::value::user::constant::Constant {
+        unsafe {
+            ::llvm::value::user::constant::Constant::from_inner(::ffi::llvm::ConstantInt_getTrue(ty.inner_llvm_Type()))
+        }
+    }
+
+    pub fn get_true_with_context(context: &::llvm::LLVMContextExt) -> ::llvm::value::user::constant::ConstantInt {
+        unsafe {
+            ::llvm::value::user::constant::ConstantInt::from_inner(::ffi::llvm::ConstantInt_getTrueWithContext(context.inner_llvm_LLVMContext()))
+        }
+    }
+
+    pub fn is_signed_value_valid_for_type(ty: &::llvm::ty::TypeExt, val: i64) -> bool {
+        unsafe {
+            ::ffi::llvm::ConstantInt_isSignedValueValidForType(ty.inner_llvm_Type(), val as ::libc::int64_t)
+        }
+    }
+
+    pub fn is_value_valid_for_type(ty: &::llvm::ty::TypeExt, val: u64) -> bool {
+        unsafe {
+            ::ffi::llvm::ConstantInt_isValueValidForType(ty.inner_llvm_Type(), val as ::libc::uint64_t)
+        }
+    }
 }
 impl Drop for ConstantInt {
     fn drop(&mut self) {
@@ -703,6 +934,18 @@ pub trait ConstantPointerNullExt: ::llvm::value::user::constant::ConstantExt {
 
     fn inner(&self) -> *mut ConstantPointerNullInner {
         self.inner_llvm_ConstantPointerNull()
+    }
+
+    fn destroy_constant(&mut self) {
+        unsafe {
+            ::ffi::llvm::ConstantPointerNull_destroyConstant(self.inner_llvm_ConstantPointerNull());
+        }
+    }
+
+    fn get_type(&self) -> ::llvm::ty::seq::PointerType {
+        unsafe {
+            ::llvm::ty::seq::PointerType::from_inner(::ffi::llvm::ConstantPointerNull_getType(self.inner_llvm_ConstantPointerNull() as *const ::ffi::llvm_ConstantPointerNull))
+        }
     }
 }
 
@@ -739,6 +982,18 @@ impl ConstantPointerNull {
     pub unsafe fn from_inner(inner: *mut ConstantPointerNullInner) -> ConstantPointerNull {
         ConstantPointerNull {
             inner: inner,
+        }
+    }
+
+    pub fn classof(val: &::llvm::value::ValueExt) -> bool {
+        unsafe {
+            ::ffi::llvm::ConstantPointerNull_classof(val.inner_llvm_Value())
+        }
+    }
+
+    pub fn get(ty: &::llvm::ty::seq::PointerTypeExt) -> ::llvm::value::user::constant::ConstantPointerNull {
+        unsafe {
+            ::llvm::value::user::constant::ConstantPointerNull::from_inner(::ffi::llvm::ConstantPointerNull_get(ty.inner_llvm_PointerType()))
         }
     }
 }
