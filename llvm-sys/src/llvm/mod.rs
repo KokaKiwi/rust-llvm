@@ -1,10 +1,12 @@
 pub mod ty;
 pub mod value;
+pub mod calling_conv;
 pub type DataLayoutInner = ::ffi::llvm_DataLayout;
 
 pub trait DataLayoutExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_DataLayout(&self) -> *mut DataLayoutInner;
+
     fn inner(&self) -> *mut DataLayoutInner {
         self.inner_llvm_DataLayout()
     }
@@ -30,8 +32,9 @@ impl Copy for DataLayout {
 pub type LLVMContextInner = ::ffi::llvm_LLVMContext;
 
 pub trait LLVMContextExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_LLVMContext(&self) -> *mut LLVMContextInner;
+
     fn inner(&self) -> *mut LLVMContextInner {
         self.inner_llvm_LLVMContext()
     }
@@ -57,8 +60,9 @@ impl Copy for LLVMContext {
 pub type ModuleInner = ::ffi::llvm_Module;
 
 pub trait ModuleExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_Module(&self) -> *mut ModuleInner;
+
     fn inner(&self) -> *mut ModuleInner {
         self.inner_llvm_Module()
     }

@@ -2,8 +2,9 @@ pub mod seq;
 pub type CompositeTypeInner = ::ffi::llvm_CompositeType;
 
 pub trait CompositeTypeExt: ::llvm::ty::TypeExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_CompositeType(&self) -> *mut CompositeTypeInner;
+
     fn inner(&self) -> *mut CompositeTypeInner {
         self.inner_llvm_CompositeType()
     }
@@ -54,8 +55,9 @@ impl Copy for CompositeType {
 pub type FunctionTypeInner = ::ffi::llvm_FunctionType;
 
 pub trait FunctionTypeExt: ::llvm::ty::TypeExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_FunctionType(&self) -> *mut FunctionTypeInner;
+
     fn inner(&self) -> *mut FunctionTypeInner {
         self.inner_llvm_FunctionType()
     }
@@ -141,8 +143,9 @@ impl Copy for FunctionType {
 pub type IntegerTypeInner = ::ffi::llvm_IntegerType;
 
 pub trait IntegerTypeExt: ::llvm::ty::TypeExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_IntegerType(&self) -> *mut IntegerTypeInner;
+
     fn inner(&self) -> *mut IntegerTypeInner {
         self.inner_llvm_IntegerType()
     }
@@ -211,8 +214,9 @@ impl Copy for IntegerType {
 pub type StructTypeInner = ::ffi::llvm_StructType;
 
 pub trait StructTypeExt: ::llvm::ty::CompositeTypeExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_StructType(&self) -> *mut StructTypeInner;
+
     fn inner(&self) -> *mut StructTypeInner {
         self.inner_llvm_StructType()
     }
@@ -378,11 +382,73 @@ impl StructType {
 }
 impl Copy for StructType {
 }
+#[derive(Copy)]
+pub enum TypeID {
+    VoidTyID,
+    HalfTyID,
+    FloatTyID,
+    DoubleTyID,
+    X86FP80TyID,
+    FP128TyID,
+    PPCFP128TyID,
+    LabelTyID,
+    MetadataTyID,
+    X86MMXTyID,
+    IntegerTyID,
+    FunctionTyID,
+    StructTyID,
+    ArrayTyID,
+    PointerTyID,
+    VectorTyID,
+}
+impl TypeID {
+    pub fn from_ffi(value: ::ffi::llvm_Type_TypeID) -> TypeID {
+        match value {
+            ::ffi::llvm_Type_TypeID::VoidTyID => TypeID::VoidTyID,
+            ::ffi::llvm_Type_TypeID::HalfTyID => TypeID::HalfTyID,
+            ::ffi::llvm_Type_TypeID::FloatTyID => TypeID::FloatTyID,
+            ::ffi::llvm_Type_TypeID::DoubleTyID => TypeID::DoubleTyID,
+            ::ffi::llvm_Type_TypeID::X86_FP80TyID => TypeID::X86FP80TyID,
+            ::ffi::llvm_Type_TypeID::FP128TyID => TypeID::FP128TyID,
+            ::ffi::llvm_Type_TypeID::PPC_FP128TyID => TypeID::PPCFP128TyID,
+            ::ffi::llvm_Type_TypeID::LabelTyID => TypeID::LabelTyID,
+            ::ffi::llvm_Type_TypeID::MetadataTyID => TypeID::MetadataTyID,
+            ::ffi::llvm_Type_TypeID::X86_MMXTyID => TypeID::X86MMXTyID,
+            ::ffi::llvm_Type_TypeID::IntegerTyID => TypeID::IntegerTyID,
+            ::ffi::llvm_Type_TypeID::FunctionTyID => TypeID::FunctionTyID,
+            ::ffi::llvm_Type_TypeID::StructTyID => TypeID::StructTyID,
+            ::ffi::llvm_Type_TypeID::ArrayTyID => TypeID::ArrayTyID,
+            ::ffi::llvm_Type_TypeID::PointerTyID => TypeID::PointerTyID,
+            ::ffi::llvm_Type_TypeID::VectorTyID => TypeID::VectorTyID,
+        }
+    }
+    pub fn to_ffi(self) -> ::ffi::llvm_Type_TypeID {
+        match self {
+            TypeID::VoidTyID => ::ffi::llvm_Type_TypeID::VoidTyID,
+            TypeID::HalfTyID => ::ffi::llvm_Type_TypeID::HalfTyID,
+            TypeID::FloatTyID => ::ffi::llvm_Type_TypeID::FloatTyID,
+            TypeID::DoubleTyID => ::ffi::llvm_Type_TypeID::DoubleTyID,
+            TypeID::X86FP80TyID => ::ffi::llvm_Type_TypeID::X86_FP80TyID,
+            TypeID::FP128TyID => ::ffi::llvm_Type_TypeID::FP128TyID,
+            TypeID::PPCFP128TyID => ::ffi::llvm_Type_TypeID::PPC_FP128TyID,
+            TypeID::LabelTyID => ::ffi::llvm_Type_TypeID::LabelTyID,
+            TypeID::MetadataTyID => ::ffi::llvm_Type_TypeID::MetadataTyID,
+            TypeID::X86MMXTyID => ::ffi::llvm_Type_TypeID::X86_MMXTyID,
+            TypeID::IntegerTyID => ::ffi::llvm_Type_TypeID::IntegerTyID,
+            TypeID::FunctionTyID => ::ffi::llvm_Type_TypeID::FunctionTyID,
+            TypeID::StructTyID => ::ffi::llvm_Type_TypeID::StructTyID,
+            TypeID::ArrayTyID => ::ffi::llvm_Type_TypeID::ArrayTyID,
+            TypeID::PointerTyID => ::ffi::llvm_Type_TypeID::PointerTyID,
+            TypeID::VectorTyID => ::ffi::llvm_Type_TypeID::VectorTyID,
+        }
+    }
+}
 pub type TypeInner = ::ffi::llvm_Type;
 
 pub trait TypeExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_Type(&self) -> *mut TypeInner;
+
     fn inner(&self) -> *mut TypeInner {
         self.inner_llvm_Type()
     }
@@ -466,9 +532,9 @@ pub trait TypeExt {
         }
     }
 
-    fn get_type_id(&self) -> ::ffi::llvm_Type_TypeID {
+    fn get_type_id(&self) -> ::llvm::ty::TypeID {
         unsafe {
-            ::ffi::llvm::Type_getTypeID(self.inner_llvm_Type() as *const ::ffi::llvm_Type)
+            ::llvm::ty::TypeID::from_ffi(::ffi::llvm::Type_getTypeID(self.inner_llvm_Type() as *const ::ffi::llvm_Type))
         }
     }
 

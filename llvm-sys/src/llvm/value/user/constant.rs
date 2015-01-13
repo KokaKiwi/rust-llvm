@@ -1,8 +1,9 @@
 pub type BlockAddressInner = ::ffi::llvm_BlockAddress;
 
 pub trait BlockAddressExt: ::llvm::value::user::constant::ConstantExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_BlockAddress(&self) -> *mut BlockAddressInner;
+
     fn inner(&self) -> *mut BlockAddressInner {
         self.inner_llvm_BlockAddress()
     }
@@ -54,8 +55,9 @@ impl Drop for BlockAddress {
 pub type ConstantInner = ::ffi::llvm_Constant;
 
 pub trait ConstantExt: ::llvm::value::user::UserExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_Constant(&self) -> *mut ConstantInner;
+
     fn inner(&self) -> *mut ConstantInner {
         self.inner_llvm_Constant()
     }
@@ -227,8 +229,9 @@ impl Drop for Constant {
 pub type ConstantAggregateZeroInner = ::ffi::llvm_ConstantAggregateZero;
 
 pub trait ConstantAggregateZeroExt: ::llvm::value::user::constant::ConstantExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_ConstantAggregateZero(&self) -> *mut ConstantAggregateZeroInner;
+
     fn inner(&self) -> *mut ConstantAggregateZeroInner {
         self.inner_llvm_ConstantAggregateZero()
     }
@@ -280,8 +283,9 @@ impl Drop for ConstantAggregateZero {
 pub type ConstantArrayInner = ::ffi::llvm_ConstantArray;
 
 pub trait ConstantArrayExt: ::llvm::value::user::constant::ConstantExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_ConstantArray(&self) -> *mut ConstantArrayInner;
+
     fn inner(&self) -> *mut ConstantArrayInner {
         self.inner_llvm_ConstantArray()
     }
@@ -356,8 +360,9 @@ impl Drop for ConstantArray {
 pub type ConstantDataArrayInner = ::ffi::llvm_ConstantDataArray;
 
 pub trait ConstantDataArrayExt: ::llvm::value::user::constant::ConstantDataSequentialExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_ConstantDataArray(&self) -> *mut ConstantDataArrayInner;
+
     fn inner(&self) -> *mut ConstantDataArrayInner {
         self.inner_llvm_ConstantDataArray()
     }
@@ -416,8 +421,9 @@ impl Drop for ConstantDataArray {
 pub type ConstantDataSequentialInner = ::ffi::llvm_ConstantDataSequential;
 
 pub trait ConstantDataSequentialExt: ::llvm::value::user::constant::ConstantExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_ConstantDataSequential(&self) -> *mut ConstantDataSequentialInner;
+
     fn inner(&self) -> *mut ConstantDataSequentialInner {
         self.inner_llvm_ConstantDataSequential()
     }
@@ -469,8 +475,9 @@ impl Drop for ConstantDataSequential {
 pub type ConstantDataVectorInner = ::ffi::llvm_ConstantDataVector;
 
 pub trait ConstantDataVectorExt: ::llvm::value::user::constant::ConstantDataSequentialExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_ConstantDataVector(&self) -> *mut ConstantDataVectorInner;
+
     fn inner(&self) -> *mut ConstantDataVectorInner {
         self.inner_llvm_ConstantDataVector()
     }
@@ -529,8 +536,9 @@ impl Drop for ConstantDataVector {
 pub type ConstantExprInner = ::ffi::llvm_ConstantExpr;
 
 pub trait ConstantExprExt: ::llvm::value::user::constant::ConstantExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_ConstantExpr(&self) -> *mut ConstantExprInner;
+
     fn inner(&self) -> *mut ConstantExprInner {
         self.inner_llvm_ConstantExpr()
     }
@@ -582,8 +590,9 @@ impl Drop for ConstantExpr {
 pub type ConstantFPInner = ::ffi::llvm_ConstantFP;
 
 pub trait ConstantFPExt: ::llvm::value::user::constant::ConstantExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_ConstantFP(&self) -> *mut ConstantFPInner;
+
     fn inner(&self) -> *mut ConstantFPInner {
         self.inner_llvm_ConstantFP()
     }
@@ -635,8 +644,9 @@ impl Drop for ConstantFP {
 pub type ConstantIntInner = ::ffi::llvm_ConstantInt;
 
 pub trait ConstantIntExt: ::llvm::value::user::constant::ConstantExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_ConstantInt(&self) -> *mut ConstantIntInner;
+
     fn inner(&self) -> *mut ConstantIntInner {
         self.inner_llvm_ConstantInt()
     }
@@ -688,8 +698,9 @@ impl Drop for ConstantInt {
 pub type ConstantPointerNullInner = ::ffi::llvm_ConstantPointerNull;
 
 pub trait ConstantPointerNullExt: ::llvm::value::user::constant::ConstantExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_ConstantPointerNull(&self) -> *mut ConstantPointerNullInner;
+
     fn inner(&self) -> *mut ConstantPointerNullInner {
         self.inner_llvm_ConstantPointerNull()
     }
@@ -741,8 +752,9 @@ impl Drop for ConstantPointerNull {
 pub type ConstantStructInner = ::ffi::llvm_ConstantStruct;
 
 pub trait ConstantStructExt: ::llvm::value::user::constant::ConstantExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_ConstantStruct(&self) -> *mut ConstantStructInner;
+
     fn inner(&self) -> *mut ConstantStructInner {
         self.inner_llvm_ConstantStruct()
     }
@@ -794,8 +806,9 @@ impl Drop for ConstantStruct {
 pub type ConstantVectorInner = ::ffi::llvm_ConstantVector;
 
 pub trait ConstantVectorExt: ::llvm::value::user::constant::ConstantExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_ConstantVector(&self) -> *mut ConstantVectorInner;
+
     fn inner(&self) -> *mut ConstantVectorInner {
         self.inner_llvm_ConstantVector()
     }
@@ -847,8 +860,9 @@ impl Drop for ConstantVector {
 pub type FunctionInner = ::ffi::llvm_Function;
 
 pub trait FunctionExt: ::llvm::value::user::constant::GlobalObjectExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_Function(&self) -> *mut FunctionInner;
+
     fn inner(&self) -> *mut FunctionInner {
         self.inner_llvm_Function()
     }
@@ -943,9 +957,9 @@ pub trait FunctionExt: ::llvm::value::user::constant::GlobalObjectExt {
         }
     }
 
-    fn get_calling_conv(&self) -> ::ffi::llvm_CallingConv_ID {
+    fn get_calling_conv(&self) -> ::llvm::calling_conv::ID {
         unsafe {
-            ::ffi::llvm::Function_getCallingConv(self.inner_llvm_Function() as *const ::ffi::llvm_Function)
+            ::llvm::calling_conv::ID::from_ffi(::ffi::llvm::Function_getCallingConv(self.inner_llvm_Function() as *const ::ffi::llvm_Function))
         }
     }
 
@@ -1049,9 +1063,9 @@ pub trait FunctionExt: ::llvm::value::user::constant::GlobalObjectExt {
         }
     }
 
-    fn set_calling_conv(&mut self, cc: ::ffi::llvm_CallingConv_ID) {
+    fn set_calling_conv(&mut self, cc: ::llvm::calling_conv::ID) {
         unsafe {
-            ::ffi::llvm::Function_setCallingConv(self.inner_llvm_Function(), cc);
+            ::ffi::llvm::Function_setCallingConv(self.inner_llvm_Function(), cc.to_ffi());
         }
     }
 
@@ -1166,19 +1180,19 @@ impl Function {
         }
     }
 
-    pub fn create(ty: &::llvm::ty::FunctionTypeExt, linkage: ::ffi::llvm_GlobalValue_LinkageTypes) -> ::llvm::value::user::constant::Function {
+    pub fn create(ty: &::llvm::ty::FunctionTypeExt, linkage: ::llvm::value::user::constant::LinkageTypes) -> ::llvm::value::user::constant::Function {
         unsafe {
-            ::llvm::value::user::constant::Function::from_inner(::ffi::llvm::Function_Create(ty.inner_llvm_FunctionType(), linkage))
+            ::llvm::value::user::constant::Function::from_inner(::ffi::llvm::Function_Create(ty.inner_llvm_FunctionType(), linkage.to_ffi()))
         }
     }
 
-    pub fn create_with_name(ty: &::llvm::ty::FunctionTypeExt, linkage: ::ffi::llvm_GlobalValue_LinkageTypes, name: &str) -> ::llvm::value::user::constant::Function {
+    pub fn create_with_name(ty: &::llvm::ty::FunctionTypeExt, linkage: ::llvm::value::user::constant::LinkageTypes, name: &str) -> ::llvm::value::user::constant::Function {
         unsafe {
             let c_name = ::ffi::llvm_StringRef {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            ::llvm::value::user::constant::Function::from_inner(::ffi::llvm::Function_CreateWithName(ty.inner_llvm_FunctionType(), linkage, c_name))
+            ::llvm::value::user::constant::Function::from_inner(::ffi::llvm::Function_CreateWithName(ty.inner_llvm_FunctionType(), linkage.to_ffi(), c_name))
         }
     }
 
@@ -1198,8 +1212,9 @@ impl Drop for Function {
 pub type GlobalAliasInner = ::ffi::llvm_GlobalAlias;
 
 pub trait GlobalAliasExt: ::llvm::value::user::constant::GlobalValueExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_GlobalAlias(&self) -> *mut GlobalAliasInner;
+
     fn inner(&self) -> *mut GlobalAliasInner {
         self.inner_llvm_GlobalAlias()
     }
@@ -1258,8 +1273,9 @@ impl Drop for GlobalAlias {
 pub type GlobalObjectInner = ::ffi::llvm_GlobalObject;
 
 pub trait GlobalObjectExt: ::llvm::value::user::constant::GlobalValueExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_GlobalObject(&self) -> *mut GlobalObjectInner;
+
     fn inner(&self) -> *mut GlobalObjectInner {
         self.inner_llvm_GlobalObject()
     }
@@ -1325,11 +1341,58 @@ impl Drop for GlobalObject {
         }
     }
 }
+#[derive(Copy)]
+pub enum LinkageTypes {
+    ExternalLinkage,
+    AvailableExternallyLinkage,
+    LinkOnceAnyLinkage,
+    LinkOnceODRLinkage,
+    WeakAnyLinkage,
+    WeakODRLinkage,
+    AppendingLinkage,
+    InternalLinkage,
+    PrivateLinkage,
+    ExternalWeakLinkage,
+    CommonLinkage,
+}
+impl LinkageTypes {
+    pub fn from_ffi(value: ::ffi::llvm_GlobalValue_LinkageTypes) -> LinkageTypes {
+        match value {
+            ::ffi::llvm_GlobalValue_LinkageTypes::ExternalLinkage => LinkageTypes::ExternalLinkage,
+            ::ffi::llvm_GlobalValue_LinkageTypes::AvailableExternallyLinkage => LinkageTypes::AvailableExternallyLinkage,
+            ::ffi::llvm_GlobalValue_LinkageTypes::LinkOnceAnyLinkage => LinkageTypes::LinkOnceAnyLinkage,
+            ::ffi::llvm_GlobalValue_LinkageTypes::LinkOnceODRLinkage => LinkageTypes::LinkOnceODRLinkage,
+            ::ffi::llvm_GlobalValue_LinkageTypes::WeakAnyLinkage => LinkageTypes::WeakAnyLinkage,
+            ::ffi::llvm_GlobalValue_LinkageTypes::WeakODRLinkage => LinkageTypes::WeakODRLinkage,
+            ::ffi::llvm_GlobalValue_LinkageTypes::AppendingLinkage => LinkageTypes::AppendingLinkage,
+            ::ffi::llvm_GlobalValue_LinkageTypes::InternalLinkage => LinkageTypes::InternalLinkage,
+            ::ffi::llvm_GlobalValue_LinkageTypes::PrivateLinkage => LinkageTypes::PrivateLinkage,
+            ::ffi::llvm_GlobalValue_LinkageTypes::ExternalWeakLinkage => LinkageTypes::ExternalWeakLinkage,
+            ::ffi::llvm_GlobalValue_LinkageTypes::CommonLinkage => LinkageTypes::CommonLinkage,
+        }
+    }
+    pub fn to_ffi(self) -> ::ffi::llvm_GlobalValue_LinkageTypes {
+        match self {
+            LinkageTypes::ExternalLinkage => ::ffi::llvm_GlobalValue_LinkageTypes::ExternalLinkage,
+            LinkageTypes::AvailableExternallyLinkage => ::ffi::llvm_GlobalValue_LinkageTypes::AvailableExternallyLinkage,
+            LinkageTypes::LinkOnceAnyLinkage => ::ffi::llvm_GlobalValue_LinkageTypes::LinkOnceAnyLinkage,
+            LinkageTypes::LinkOnceODRLinkage => ::ffi::llvm_GlobalValue_LinkageTypes::LinkOnceODRLinkage,
+            LinkageTypes::WeakAnyLinkage => ::ffi::llvm_GlobalValue_LinkageTypes::WeakAnyLinkage,
+            LinkageTypes::WeakODRLinkage => ::ffi::llvm_GlobalValue_LinkageTypes::WeakODRLinkage,
+            LinkageTypes::AppendingLinkage => ::ffi::llvm_GlobalValue_LinkageTypes::AppendingLinkage,
+            LinkageTypes::InternalLinkage => ::ffi::llvm_GlobalValue_LinkageTypes::InternalLinkage,
+            LinkageTypes::PrivateLinkage => ::ffi::llvm_GlobalValue_LinkageTypes::PrivateLinkage,
+            LinkageTypes::ExternalWeakLinkage => ::ffi::llvm_GlobalValue_LinkageTypes::ExternalWeakLinkage,
+            LinkageTypes::CommonLinkage => ::ffi::llvm_GlobalValue_LinkageTypes::CommonLinkage,
+        }
+    }
+}
 pub type GlobalValueInner = ::ffi::llvm_GlobalValue;
 
 pub trait GlobalValueExt: ::llvm::value::user::constant::ConstantExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_GlobalValue(&self) -> *mut GlobalValueInner;
+
     fn inner(&self) -> *mut GlobalValueInner {
         self.inner_llvm_GlobalValue()
     }
@@ -1591,8 +1654,9 @@ impl Drop for GlobalValue {
 pub type GlobalVariableInner = ::ffi::llvm_GlobalVariable;
 
 pub trait GlobalVariableExt: ::llvm::value::user::constant::GlobalObjectExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_GlobalVariable(&self) -> *mut GlobalVariableInner;
+
     fn inner(&self) -> *mut GlobalVariableInner {
         self.inner_llvm_GlobalVariable()
     }
@@ -1726,15 +1790,15 @@ impl GlobalVariable {
         }
     }
 
-    pub fn new(ty: &::llvm::ty::TypeExt, is_constant: bool, linkage: ::ffi::llvm_GlobalValue_LinkageTypes) -> ::llvm::value::user::constant::GlobalVariable {
+    pub fn new(ty: &::llvm::ty::TypeExt, is_constant: bool, linkage: ::llvm::value::user::constant::LinkageTypes) -> ::llvm::value::user::constant::GlobalVariable {
         unsafe {
-            ::llvm::value::user::constant::GlobalVariable::from_inner(::ffi::llvm::GlobalVariable_new(ty.inner_llvm_Type(), is_constant, linkage))
+            ::llvm::value::user::constant::GlobalVariable::from_inner(::ffi::llvm::GlobalVariable_new(ty.inner_llvm_Type(), is_constant, linkage.to_ffi()))
         }
     }
 
-    pub fn new_with_module(module: &::llvm::ModuleExt, ty: &::llvm::ty::TypeExt, is_constant: bool, linkage: ::ffi::llvm_GlobalValue_LinkageTypes, initializer: &::llvm::value::user::constant::ConstantExt) -> ::llvm::value::user::constant::GlobalVariable {
+    pub fn new_with_module(module: &::llvm::ModuleExt, ty: &::llvm::ty::TypeExt, is_constant: bool, linkage: ::llvm::value::user::constant::LinkageTypes, initializer: &::llvm::value::user::constant::ConstantExt) -> ::llvm::value::user::constant::GlobalVariable {
         unsafe {
-            ::llvm::value::user::constant::GlobalVariable::from_inner(::ffi::llvm::GlobalVariable_newWithModule(module.inner_llvm_Module(), ty.inner_llvm_Type(), is_constant, linkage, initializer.inner_llvm_Constant()))
+            ::llvm::value::user::constant::GlobalVariable::from_inner(::ffi::llvm::GlobalVariable_newWithModule(module.inner_llvm_Module(), ty.inner_llvm_Type(), is_constant, linkage.to_ffi(), initializer.inner_llvm_Constant()))
         }
     }
 }
@@ -1748,8 +1812,9 @@ impl Drop for GlobalVariable {
 pub type UndefValueInner = ::ffi::llvm_UndefValue;
 
 pub trait UndefValueExt: ::llvm::value::user::constant::ConstantExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_UndefValue(&self) -> *mut UndefValueInner;
+
     fn inner(&self) -> *mut UndefValueInner {
         self.inner_llvm_UndefValue()
     }

@@ -2,8 +2,9 @@ pub mod user;
 pub type ArgumentInner = ::ffi::llvm_Argument;
 
 pub trait ArgumentExt: ::llvm::value::ValueExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_Argument(&self) -> *mut ArgumentInner;
+
     fn inner(&self) -> *mut ArgumentInner {
         self.inner_llvm_Argument()
     }
@@ -41,8 +42,9 @@ impl Drop for Argument {
 pub type BasicBlockInner = ::ffi::llvm_BasicBlock;
 
 pub trait BasicBlockExt: ::llvm::value::ValueExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_BasicBlock(&self) -> *mut BasicBlockInner;
+
     fn inner(&self) -> *mut BasicBlockInner {
         self.inner_llvm_BasicBlock()
     }
@@ -80,8 +82,9 @@ impl Drop for BasicBlock {
 pub type InlineAsmInner = ::ffi::llvm_InlineAsm;
 
 pub trait InlineAsmExt: ::llvm::value::ValueExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_InlineAsm(&self) -> *mut InlineAsmInner;
+
     fn inner(&self) -> *mut InlineAsmInner {
         self.inner_llvm_InlineAsm()
     }
@@ -119,8 +122,9 @@ impl Drop for InlineAsm {
 pub type MetadataAsValueInner = ::ffi::llvm_MetadataAsValue;
 
 pub trait MetadataAsValueExt: ::llvm::value::ValueExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_MetadataAsValue(&self) -> *mut MetadataAsValueInner;
+
     fn inner(&self) -> *mut MetadataAsValueInner {
         self.inner_llvm_MetadataAsValue()
     }
@@ -155,11 +159,89 @@ impl Drop for MetadataAsValue {
         }
     }
 }
+#[derive(Copy)]
+pub enum ValueTy {
+    ArgumentVal,
+    BasicBlockVal,
+    FunctionVal,
+    GlobalAliasVal,
+    GlobalVariableVal,
+    UndefValueVal,
+    BlockAddressVal,
+    ConstantExprVal,
+    ConstantAggregateZeroVal,
+    ConstantDataArrayVal,
+    ConstantDataVectorVal,
+    ConstantIntVal,
+    ConstantFPVal,
+    ConstantArrayVal,
+    ConstantStructVal,
+    ConstantVectorVal,
+    ConstantPointerNullVal,
+    MetadataAsValueVal,
+    InlineAsmVal,
+    InstructionVal,
+    ConstantFirstVal,
+    ConstantLastVal,
+}
+impl ValueTy {
+    pub fn from_ffi(value: ::ffi::llvm_Value_ValueTy) -> ValueTy {
+        match value {
+            ::ffi::llvm_Value_ValueTy::ArgumentVal => ValueTy::ArgumentVal,
+            ::ffi::llvm_Value_ValueTy::BasicBlockVal => ValueTy::BasicBlockVal,
+            ::ffi::llvm_Value_ValueTy::FunctionVal => ValueTy::FunctionVal,
+            ::ffi::llvm_Value_ValueTy::GlobalAliasVal => ValueTy::GlobalAliasVal,
+            ::ffi::llvm_Value_ValueTy::GlobalVariableVal => ValueTy::GlobalVariableVal,
+            ::ffi::llvm_Value_ValueTy::UndefValueVal => ValueTy::UndefValueVal,
+            ::ffi::llvm_Value_ValueTy::BlockAddressVal => ValueTy::BlockAddressVal,
+            ::ffi::llvm_Value_ValueTy::ConstantExprVal => ValueTy::ConstantExprVal,
+            ::ffi::llvm_Value_ValueTy::ConstantAggregateZeroVal => ValueTy::ConstantAggregateZeroVal,
+            ::ffi::llvm_Value_ValueTy::ConstantDataArrayVal => ValueTy::ConstantDataArrayVal,
+            ::ffi::llvm_Value_ValueTy::ConstantDataVectorVal => ValueTy::ConstantDataVectorVal,
+            ::ffi::llvm_Value_ValueTy::ConstantIntVal => ValueTy::ConstantIntVal,
+            ::ffi::llvm_Value_ValueTy::ConstantFPVal => ValueTy::ConstantFPVal,
+            ::ffi::llvm_Value_ValueTy::ConstantArrayVal => ValueTy::ConstantArrayVal,
+            ::ffi::llvm_Value_ValueTy::ConstantStructVal => ValueTy::ConstantStructVal,
+            ::ffi::llvm_Value_ValueTy::ConstantVectorVal => ValueTy::ConstantVectorVal,
+            ::ffi::llvm_Value_ValueTy::ConstantPointerNullVal => ValueTy::ConstantPointerNullVal,
+            ::ffi::llvm_Value_ValueTy::MetadataAsValueVal => ValueTy::MetadataAsValueVal,
+            ::ffi::llvm_Value_ValueTy::InlineAsmVal => ValueTy::InlineAsmVal,
+            ::ffi::llvm_Value_ValueTy::InstructionVal => ValueTy::InstructionVal,
+        }
+    }
+    pub fn to_ffi(self) -> ::ffi::llvm_Value_ValueTy {
+        match self {
+            ValueTy::ArgumentVal => ::ffi::llvm_Value_ValueTy::ArgumentVal,
+            ValueTy::BasicBlockVal => ::ffi::llvm_Value_ValueTy::BasicBlockVal,
+            ValueTy::FunctionVal => ::ffi::llvm_Value_ValueTy::FunctionVal,
+            ValueTy::GlobalAliasVal => ::ffi::llvm_Value_ValueTy::GlobalAliasVal,
+            ValueTy::GlobalVariableVal => ::ffi::llvm_Value_ValueTy::GlobalVariableVal,
+            ValueTy::UndefValueVal => ::ffi::llvm_Value_ValueTy::UndefValueVal,
+            ValueTy::BlockAddressVal => ::ffi::llvm_Value_ValueTy::BlockAddressVal,
+            ValueTy::ConstantExprVal => ::ffi::llvm_Value_ValueTy::ConstantExprVal,
+            ValueTy::ConstantAggregateZeroVal => ::ffi::llvm_Value_ValueTy::ConstantAggregateZeroVal,
+            ValueTy::ConstantDataArrayVal => ::ffi::llvm_Value_ValueTy::ConstantDataArrayVal,
+            ValueTy::ConstantDataVectorVal => ::ffi::llvm_Value_ValueTy::ConstantDataVectorVal,
+            ValueTy::ConstantIntVal => ::ffi::llvm_Value_ValueTy::ConstantIntVal,
+            ValueTy::ConstantFPVal => ::ffi::llvm_Value_ValueTy::ConstantFPVal,
+            ValueTy::ConstantArrayVal => ::ffi::llvm_Value_ValueTy::ConstantArrayVal,
+            ValueTy::ConstantStructVal => ::ffi::llvm_Value_ValueTy::ConstantStructVal,
+            ValueTy::ConstantVectorVal => ::ffi::llvm_Value_ValueTy::ConstantVectorVal,
+            ValueTy::ConstantPointerNullVal => ::ffi::llvm_Value_ValueTy::ConstantPointerNullVal,
+            ValueTy::MetadataAsValueVal => ::ffi::llvm_Value_ValueTy::MetadataAsValueVal,
+            ValueTy::InlineAsmVal => ::ffi::llvm_Value_ValueTy::InlineAsmVal,
+            ValueTy::InstructionVal => ::ffi::llvm_Value_ValueTy::InstructionVal,
+            ValueTy::ConstantFirstVal => ::ffi::llvm_Value_ValueTy::FunctionVal,
+            ValueTy::ConstantLastVal => ::ffi::llvm_Value_ValueTy::ConstantPointerNullVal,
+        }
+    }
+}
 pub type ValueInner = ::ffi::llvm_Value;
 
 pub trait ValueExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_Value(&self) -> *mut ValueInner;
+
     fn inner(&self) -> *mut ValueInner {
         self.inner_llvm_Value()
     }

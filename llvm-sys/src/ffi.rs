@@ -1,3 +1,5 @@
+#![allow(non_camel_case_types, non_snake_case, unstable)]
+
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_AddrSpaceCastInst;
@@ -95,6 +97,7 @@ pub enum llvm_GlobalValue_LinkageTypes {
     CommonLinkage,
 }
 #[repr(C)]
+#[allow(raw_pointer_derive)]
 #[derive(Copy)]
 pub struct llvm_StringRef {
     pub data: *const ::libc::c_char,
@@ -139,6 +142,33 @@ pub struct llvm_GlobalValue;
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_GlobalVariable;
+#[repr(C)]
+#[derive(Copy)]
+pub enum llvm_CallingConv_ID {
+    C = 0,
+    Fast = 8,
+    Cold = 9,
+    GHC = 10,
+    HiPE = 11,
+    WebKit_JS = 12,
+    AnyReg = 13,
+    PreserveMost = 14,
+    PreserveAll = 15,
+    X86_StdCall = 64,
+    X86_FastCall = 65,
+    ARM_APCS = 66,
+    ARM_AAPCS = 67,
+    ARM_AAPCS_VFP = 68,
+    MSP430_INTR = 69,
+    X86_ThisCall = 70,
+    PTX_Kernel = 71,
+    PTX_Device = 72,
+    SPIR_FUNC = 75,
+    SPIR_KERNEL = 76,
+    Intel_OCL_BI = 77,
+    X86_64_SysV = 78,
+    X86_64_Win64 = 79,
+}
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_IndirectBrInst;
@@ -216,78 +246,6 @@ pub struct llvm_TerminatorInst;
 pub struct llvm_Type;
 #[repr(C)]
 #[derive(Copy)]
-pub struct llvm_UnaryInstruction;
-#[repr(C)]
-#[derive(Copy)]
-pub struct llvm_UndefValue;
-#[repr(C)]
-#[derive(Copy)]
-pub struct llvm_UnreachableInst;
-#[repr(C)]
-#[derive(Copy)]
-pub struct llvm_User;
-#[repr(C)]
-#[derive(Copy)]
-pub struct llvm_VAArgInst;
-#[repr(C)]
-#[derive(Copy)]
-pub struct llvm_Value;
-#[repr(C)]
-#[derive(Copy)]
-pub struct llvm_VectorType;
-#[repr(C)]
-#[derive(Copy)]
-pub struct llvm_ArrayRef_llvm_Type_ptr {
-    pub data: *const *mut llvm_Type,
-    pub length: ::libc::size_t,
-}
-#[repr(C)]
-#[derive(Copy)]
-pub struct llvm_ArrayRef_llvm_Constant_ptr {
-    pub data: *const *mut llvm_Constant,
-    pub length: ::libc::size_t,
-}
-#[repr(C)]
-#[derive(Copy)]
-pub enum llvm_CallingConv_ID {
-    C = 0,
-    Fast = 8,
-    Cold = 9,
-    GHC = 10,
-    HiPE = 11,
-    WebKit_JS = 12,
-    AnyReg = 13,
-    PreserveMost = 14,
-    PreserveAll = 15,
-    X86_StdCall = 64,
-    X86_FastCall = 65,
-    ARM_APCS = 66,
-    ARM_AAPCS = 67,
-    ARM_AAPCS_VFP = 68,
-    MSP430_INTR = 69,
-    X86_ThisCall = 70,
-    PTX_Kernel = 71,
-    PTX_Device = 72,
-    SPIR_FUNC = 75,
-    SPIR_KERNEL = 76,
-    Intel_OCL_BI = 77,
-    X86_64_SysV = 78,
-    X86_64_Win64 = 79,
-}
-#[repr(C)]
-#[derive(Copy)]
-pub struct std_string_const {
-    pub data: *const ::libc::c_char,
-    pub length: ::libc::size_t,
-}
-#[repr(C)]
-#[derive(Copy)]
-pub struct llvm_APInt {
-    pub num_bits: ::libc::c_uint,
-    pub value: llvm_ArrayRef__libc_uint64_t,
-}
-#[repr(C)]
-#[derive(Copy)]
 pub enum llvm_Type_TypeID {
     VoidTyID = 0,
     HalfTyID,
@@ -307,6 +265,79 @@ pub enum llvm_Type_TypeID {
     VectorTyID,
 }
 #[repr(C)]
+#[derive(Copy)]
+pub struct llvm_UnaryInstruction;
+#[repr(C)]
+#[derive(Copy)]
+pub struct llvm_UndefValue;
+#[repr(C)]
+#[derive(Copy)]
+pub struct llvm_UnreachableInst;
+#[repr(C)]
+#[derive(Copy)]
+pub struct llvm_User;
+#[repr(C)]
+#[derive(Copy)]
+pub struct llvm_VAArgInst;
+#[repr(C)]
+#[derive(Copy)]
+pub struct llvm_Value;
+#[repr(C)]
+#[derive(Copy)]
+pub enum llvm_Value_ValueTy {
+    ArgumentVal,
+    BasicBlockVal,
+    FunctionVal,
+    GlobalAliasVal,
+    GlobalVariableVal,
+    UndefValueVal,
+    BlockAddressVal,
+    ConstantExprVal,
+    ConstantAggregateZeroVal,
+    ConstantDataArrayVal,
+    ConstantDataVectorVal,
+    ConstantIntVal,
+    ConstantFPVal,
+    ConstantArrayVal,
+    ConstantStructVal,
+    ConstantVectorVal,
+    ConstantPointerNullVal,
+    MetadataAsValueVal,
+    InlineAsmVal,
+    InstructionVal,
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct llvm_VectorType;
+#[repr(C)]
+#[allow(raw_pointer_derive)]
+#[derive(Copy)]
+pub struct llvm_ArrayRef_llvm_Type_ptr {
+    pub data: *const *mut llvm_Type,
+    pub length: ::libc::size_t,
+}
+#[repr(C)]
+#[allow(raw_pointer_derive)]
+#[derive(Copy)]
+pub struct llvm_ArrayRef_llvm_Constant_ptr {
+    pub data: *const *mut llvm_Constant,
+    pub length: ::libc::size_t,
+}
+#[repr(C)]
+#[allow(raw_pointer_derive)]
+#[derive(Copy)]
+pub struct std_string_const {
+    pub data: *const ::libc::c_char,
+    pub length: ::libc::size_t,
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct llvm_APInt {
+    pub num_bits: ::libc::c_uint,
+    pub value: llvm_ArrayRef__libc_uint64_t,
+}
+#[repr(C)]
+#[allow(raw_pointer_derive)]
 #[derive(Copy)]
 pub struct llvm_ArrayRef__libc_uint64_t {
     pub data: *const ::libc::uint64_t,

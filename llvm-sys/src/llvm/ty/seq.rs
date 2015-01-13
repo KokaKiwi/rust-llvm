@@ -1,8 +1,9 @@
 pub type ArrayTypeInner = ::ffi::llvm_ArrayType;
 
 pub trait ArrayTypeExt: ::llvm::ty::seq::SequentialTypeExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_ArrayType(&self) -> *mut ArrayTypeInner;
+
     fn inner(&self) -> *mut ArrayTypeInner {
         self.inner_llvm_ArrayType()
     }
@@ -73,8 +74,9 @@ impl Copy for ArrayType {
 pub type PointerTypeInner = ::ffi::llvm_PointerType;
 
 pub trait PointerTypeExt: ::llvm::ty::seq::SequentialTypeExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_PointerType(&self) -> *mut PointerTypeInner;
+
     fn inner(&self) -> *mut PointerTypeInner {
         self.inner_llvm_PointerType()
     }
@@ -151,8 +153,9 @@ impl Copy for PointerType {
 pub type SequentialTypeInner = ::ffi::llvm_SequentialType;
 
 pub trait SequentialTypeExt: ::llvm::ty::CompositeTypeExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_SequentialType(&self) -> *mut SequentialTypeInner;
+
     fn inner(&self) -> *mut SequentialTypeInner {
         self.inner_llvm_SequentialType()
     }
@@ -204,8 +207,9 @@ impl Copy for SequentialType {
 pub type VectorTypeInner = ::ffi::llvm_VectorType;
 
 pub trait VectorTypeExt: ::llvm::ty::seq::SequentialTypeExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_VectorType(&self) -> *mut VectorTypeInner;
+
     fn inner(&self) -> *mut VectorTypeInner {
         self.inner_llvm_VectorType()
     }

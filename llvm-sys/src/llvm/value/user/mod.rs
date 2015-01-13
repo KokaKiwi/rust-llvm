@@ -2,8 +2,9 @@ pub mod constant;
 pub type AddrSpaceCastInstInner = ::ffi::llvm_AddrSpaceCastInst;
 
 pub trait AddrSpaceCastInstExt: ::llvm::value::user::CastInstExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_AddrSpaceCastInst(&self) -> *mut AddrSpaceCastInstInner;
+
     fn inner(&self) -> *mut AddrSpaceCastInstInner {
         self.inner_llvm_AddrSpaceCastInst()
     }
@@ -69,8 +70,9 @@ impl Drop for AddrSpaceCastInst {
 pub type AllocaInstInner = ::ffi::llvm_AllocaInst;
 
 pub trait AllocaInstExt: ::llvm::value::user::UnaryInstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_AllocaInst(&self) -> *mut AllocaInstInner;
+
     fn inner(&self) -> *mut AllocaInstInner {
         self.inner_llvm_AllocaInst()
     }
@@ -129,8 +131,9 @@ impl Drop for AllocaInst {
 pub type AtomicCmpXchgInstInner = ::ffi::llvm_AtomicCmpXchgInst;
 
 pub trait AtomicCmpXchgInstExt: ::llvm::value::user::InstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_AtomicCmpXchgInst(&self) -> *mut AtomicCmpXchgInstInner;
+
     fn inner(&self) -> *mut AtomicCmpXchgInstInner {
         self.inner_llvm_AtomicCmpXchgInst()
     }
@@ -182,8 +185,9 @@ impl Drop for AtomicCmpXchgInst {
 pub type AtomicRMWInstInner = ::ffi::llvm_AtomicRMWInst;
 
 pub trait AtomicRMWInstExt: ::llvm::value::user::InstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_AtomicRMWInst(&self) -> *mut AtomicRMWInstInner;
+
     fn inner(&self) -> *mut AtomicRMWInstInner {
         self.inner_llvm_AtomicRMWInst()
     }
@@ -235,8 +239,9 @@ impl Drop for AtomicRMWInst {
 pub type BinaryOperatorInner = ::ffi::llvm_BinaryOperator;
 
 pub trait BinaryOperatorExt: ::llvm::value::user::InstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_BinaryOperator(&self) -> *mut BinaryOperatorInner;
+
     fn inner(&self) -> *mut BinaryOperatorInner {
         self.inner_llvm_BinaryOperator()
     }
@@ -288,8 +293,9 @@ impl Drop for BinaryOperator {
 pub type BitCastInstInner = ::ffi::llvm_BitCastInst;
 
 pub trait BitCastInstExt: ::llvm::value::user::CastInstExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_BitCastInst(&self) -> *mut BitCastInstInner;
+
     fn inner(&self) -> *mut BitCastInstInner {
         self.inner_llvm_BitCastInst()
     }
@@ -355,8 +361,9 @@ impl Drop for BitCastInst {
 pub type BranchInstInner = ::ffi::llvm_BranchInst;
 
 pub trait BranchInstExt: ::llvm::value::user::TerminatorInstExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_BranchInst(&self) -> *mut BranchInstInner;
+
     fn inner(&self) -> *mut BranchInstInner {
         self.inner_llvm_BranchInst()
     }
@@ -415,8 +422,9 @@ impl Drop for BranchInst {
 pub type CallInstInner = ::ffi::llvm_CallInst;
 
 pub trait CallInstExt: ::llvm::value::user::InstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_CallInst(&self) -> *mut CallInstInner;
+
     fn inner(&self) -> *mut CallInstInner {
         self.inner_llvm_CallInst()
     }
@@ -468,8 +476,9 @@ impl Drop for CallInst {
 pub type CastInstInner = ::ffi::llvm_CastInst;
 
 pub trait CastInstExt: ::llvm::value::user::UnaryInstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_CastInst(&self) -> *mut CastInstInner;
+
     fn inner(&self) -> *mut CastInstInner {
         self.inner_llvm_CastInst()
     }
@@ -528,8 +537,9 @@ impl Drop for CastInst {
 pub type CmpInstInner = ::ffi::llvm_CmpInst;
 
 pub trait CmpInstExt: ::llvm::value::user::InstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_CmpInst(&self) -> *mut CmpInstInner;
+
     fn inner(&self) -> *mut CmpInstInner {
         self.inner_llvm_CmpInst()
     }
@@ -581,8 +591,9 @@ impl Drop for CmpInst {
 pub type ExtractElementInstInner = ::ffi::llvm_ExtractElementInst;
 
 pub trait ExtractElementInstExt: ::llvm::value::user::InstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_ExtractElementInst(&self) -> *mut ExtractElementInstInner;
+
     fn inner(&self) -> *mut ExtractElementInstInner {
         self.inner_llvm_ExtractElementInst()
     }
@@ -634,8 +645,9 @@ impl Drop for ExtractElementInst {
 pub type ExtractValueInstInner = ::ffi::llvm_ExtractValueInst;
 
 pub trait ExtractValueInstExt: ::llvm::value::user::UnaryInstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_ExtractValueInst(&self) -> *mut ExtractValueInstInner;
+
     fn inner(&self) -> *mut ExtractValueInstInner {
         self.inner_llvm_ExtractValueInst()
     }
@@ -694,8 +706,9 @@ impl Drop for ExtractValueInst {
 pub type FPExtInstInner = ::ffi::llvm_FPExtInst;
 
 pub trait FPExtInstExt: ::llvm::value::user::CastInstExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_FPExtInst(&self) -> *mut FPExtInstInner;
+
     fn inner(&self) -> *mut FPExtInstInner {
         self.inner_llvm_FPExtInst()
     }
@@ -761,8 +774,9 @@ impl Drop for FPExtInst {
 pub type FPToSIInstInner = ::ffi::llvm_FPToSIInst;
 
 pub trait FPToSIInstExt: ::llvm::value::user::CastInstExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_FPToSIInst(&self) -> *mut FPToSIInstInner;
+
     fn inner(&self) -> *mut FPToSIInstInner {
         self.inner_llvm_FPToSIInst()
     }
@@ -828,8 +842,9 @@ impl Drop for FPToSIInst {
 pub type FenceInstInner = ::ffi::llvm_FenceInst;
 
 pub trait FenceInstExt: ::llvm::value::user::InstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_FenceInst(&self) -> *mut FenceInstInner;
+
     fn inner(&self) -> *mut FenceInstInner {
         self.inner_llvm_FenceInst()
     }
@@ -881,8 +896,9 @@ impl Drop for FenceInst {
 pub type GetElementPtrInstInner = ::ffi::llvm_GetElementPtrInst;
 
 pub trait GetElementPtrInstExt: ::llvm::value::user::InstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_GetElementPtrInst(&self) -> *mut GetElementPtrInstInner;
+
     fn inner(&self) -> *mut GetElementPtrInstInner {
         self.inner_llvm_GetElementPtrInst()
     }
@@ -934,8 +950,9 @@ impl Drop for GetElementPtrInst {
 pub type IndirectBrInstInner = ::ffi::llvm_IndirectBrInst;
 
 pub trait IndirectBrInstExt: ::llvm::value::user::TerminatorInstExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_IndirectBrInst(&self) -> *mut IndirectBrInstInner;
+
     fn inner(&self) -> *mut IndirectBrInstInner {
         self.inner_llvm_IndirectBrInst()
     }
@@ -994,8 +1011,9 @@ impl Drop for IndirectBrInst {
 pub type InsertElementInstInner = ::ffi::llvm_InsertElementInst;
 
 pub trait InsertElementInstExt: ::llvm::value::user::InstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_InsertElementInst(&self) -> *mut InsertElementInstInner;
+
     fn inner(&self) -> *mut InsertElementInstInner {
         self.inner_llvm_InsertElementInst()
     }
@@ -1047,8 +1065,9 @@ impl Drop for InsertElementInst {
 pub type InsertValueInstInner = ::ffi::llvm_InsertValueInst;
 
 pub trait InsertValueInstExt: ::llvm::value::user::InstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_InsertValueInst(&self) -> *mut InsertValueInstInner;
+
     fn inner(&self) -> *mut InsertValueInstInner {
         self.inner_llvm_InsertValueInst()
     }
@@ -1100,8 +1119,9 @@ impl Drop for InsertValueInst {
 pub type InstructionInner = ::ffi::llvm_Instruction;
 
 pub trait InstructionExt: ::llvm::value::user::UserExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_Instruction(&self) -> *mut InstructionInner;
+
     fn inner(&self) -> *mut InstructionInner {
         self.inner_llvm_Instruction()
     }
@@ -1146,8 +1166,9 @@ impl Drop for Instruction {
 pub type InvokeInstInner = ::ffi::llvm_InvokeInst;
 
 pub trait InvokeInstExt: ::llvm::value::user::TerminatorInstExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_InvokeInst(&self) -> *mut InvokeInstInner;
+
     fn inner(&self) -> *mut InvokeInstInner {
         self.inner_llvm_InvokeInst()
     }
@@ -1206,8 +1227,9 @@ impl Drop for InvokeInst {
 pub type LandingPadInstInner = ::ffi::llvm_LandingPadInst;
 
 pub trait LandingPadInstExt: ::llvm::value::user::InstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_LandingPadInst(&self) -> *mut LandingPadInstInner;
+
     fn inner(&self) -> *mut LandingPadInstInner {
         self.inner_llvm_LandingPadInst()
     }
@@ -1259,8 +1281,9 @@ impl Drop for LandingPadInst {
 pub type LoadInstInner = ::ffi::llvm_LoadInst;
 
 pub trait LoadInstExt: ::llvm::value::user::UnaryInstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_LoadInst(&self) -> *mut LoadInstInner;
+
     fn inner(&self) -> *mut LoadInstInner {
         self.inner_llvm_LoadInst()
     }
@@ -1319,8 +1342,9 @@ impl Drop for LoadInst {
 pub type OperatorInner = ::ffi::llvm_Operator;
 
 pub trait OperatorExt: ::llvm::value::user::UserExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_Operator(&self) -> *mut OperatorInner;
+
     fn inner(&self) -> *mut OperatorInner {
         self.inner_llvm_Operator()
     }
@@ -1365,8 +1389,9 @@ impl Drop for Operator {
 pub type PHINodeInner = ::ffi::llvm_PHINode;
 
 pub trait PHINodeExt: ::llvm::value::user::InstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_PHINode(&self) -> *mut PHINodeInner;
+
     fn inner(&self) -> *mut PHINodeInner {
         self.inner_llvm_PHINode()
     }
@@ -1418,8 +1443,9 @@ impl Drop for PHINode {
 pub type ResumeInstInner = ::ffi::llvm_ResumeInst;
 
 pub trait ResumeInstExt: ::llvm::value::user::TerminatorInstExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_ResumeInst(&self) -> *mut ResumeInstInner;
+
     fn inner(&self) -> *mut ResumeInstInner {
         self.inner_llvm_ResumeInst()
     }
@@ -1478,8 +1504,9 @@ impl Drop for ResumeInst {
 pub type ReturnInstInner = ::ffi::llvm_ReturnInst;
 
 pub trait ReturnInstExt: ::llvm::value::user::TerminatorInstExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_ReturnInst(&self) -> *mut ReturnInstInner;
+
     fn inner(&self) -> *mut ReturnInstInner {
         self.inner_llvm_ReturnInst()
     }
@@ -1538,8 +1565,9 @@ impl Drop for ReturnInst {
 pub type SelectInstInner = ::ffi::llvm_SelectInst;
 
 pub trait SelectInstExt: ::llvm::value::user::InstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_SelectInst(&self) -> *mut SelectInstInner;
+
     fn inner(&self) -> *mut SelectInstInner {
         self.inner_llvm_SelectInst()
     }
@@ -1591,8 +1619,9 @@ impl Drop for SelectInst {
 pub type ShuffleVectorInstInner = ::ffi::llvm_ShuffleVectorInst;
 
 pub trait ShuffleVectorInstExt: ::llvm::value::user::InstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_ShuffleVectorInst(&self) -> *mut ShuffleVectorInstInner;
+
     fn inner(&self) -> *mut ShuffleVectorInstInner {
         self.inner_llvm_ShuffleVectorInst()
     }
@@ -1644,8 +1673,9 @@ impl Drop for ShuffleVectorInst {
 pub type StoreInstInner = ::ffi::llvm_StoreInst;
 
 pub trait StoreInstExt: ::llvm::value::user::InstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_StoreInst(&self) -> *mut StoreInstInner;
+
     fn inner(&self) -> *mut StoreInstInner {
         self.inner_llvm_StoreInst()
     }
@@ -1697,8 +1727,9 @@ impl Drop for StoreInst {
 pub type SwitchInstInner = ::ffi::llvm_SwitchInst;
 
 pub trait SwitchInstExt: ::llvm::value::user::TerminatorInstExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_SwitchInst(&self) -> *mut SwitchInstInner;
+
     fn inner(&self) -> *mut SwitchInstInner {
         self.inner_llvm_SwitchInst()
     }
@@ -1757,8 +1788,9 @@ impl Drop for SwitchInst {
 pub type TerminatorInstInner = ::ffi::llvm_TerminatorInst;
 
 pub trait TerminatorInstExt: ::llvm::value::user::InstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_TerminatorInst(&self) -> *mut TerminatorInstInner;
+
     fn inner(&self) -> *mut TerminatorInstInner {
         self.inner_llvm_TerminatorInst()
     }
@@ -1810,8 +1842,9 @@ impl Drop for TerminatorInst {
 pub type UnaryInstructionInner = ::ffi::llvm_UnaryInstruction;
 
 pub trait UnaryInstructionExt: ::llvm::value::user::InstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_UnaryInstruction(&self) -> *mut UnaryInstructionInner;
+
     fn inner(&self) -> *mut UnaryInstructionInner {
         self.inner_llvm_UnaryInstruction()
     }
@@ -1863,8 +1896,9 @@ impl Drop for UnaryInstruction {
 pub type UnreachableInstInner = ::ffi::llvm_UnreachableInst;
 
 pub trait UnreachableInstExt: ::llvm::value::user::TerminatorInstExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_UnreachableInst(&self) -> *mut UnreachableInstInner;
+
     fn inner(&self) -> *mut UnreachableInstInner {
         self.inner_llvm_UnreachableInst()
     }
@@ -1923,8 +1957,9 @@ impl Drop for UnreachableInst {
 pub type UserInner = ::ffi::llvm_User;
 
 pub trait UserExt: ::llvm::value::ValueExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_User(&self) -> *mut UserInner;
+
     fn inner(&self) -> *mut UserInner {
         self.inner_llvm_User()
     }
@@ -1998,8 +2033,9 @@ impl Drop for User {
 pub type VAArgInstInner = ::ffi::llvm_VAArgInst;
 
 pub trait VAArgInstExt: ::llvm::value::user::UnaryInstructionExt {
-
+    #[allow(non_snake_case)]
     fn inner_llvm_VAArgInst(&self) -> *mut VAArgInstInner;
+
     fn inner(&self) -> *mut VAArgInstInner {
         self.inner_llvm_VAArgInst()
     }
