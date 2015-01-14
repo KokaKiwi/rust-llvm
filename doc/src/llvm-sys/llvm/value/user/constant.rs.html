@@ -4836,7 +4836,7 @@
         <span class='kw'>unsafe</span> {
             <span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>GlobalVariable_new</span>(<span class='ident'>ty</span>.<span class='ident'>inner_llvm_Type</span>(), <span class='ident'>is_constant</span>, <span class='ident'>linkage</span>.<span class='ident'>to_ffi</span>());
             <span class='kw'>if</span> <span class='ident'>ret</span>.<span class='ident'>is_null</span>(){
-                <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;GlobalVariable constructor returned a null pointer!&quot;</span>);
+                <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;::llvm::GlobalVariable::new returned a null pointer!&quot;</span>);
             }
             ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>GlobalVariable</span>::<span class='ident'>from_inner</span>(<span class='ident'>ret</span>, <span class='boolval'>true</span>)
         }
@@ -4846,7 +4846,7 @@
         <span class='kw'>unsafe</span> {
             <span class='kw'>let</span> <span class='ident'>ret</span> <span class='op'>=</span> ::<span class='ident'>ffi</span>::<span class='ident'>llvm</span>::<span class='ident'>GlobalVariable_newWithModule</span>(<span class='ident'>module</span>.<span class='ident'>inner_llvm_Module</span>(), <span class='ident'>ty</span>.<span class='ident'>inner_llvm_Type</span>(), <span class='ident'>is_constant</span>, <span class='ident'>linkage</span>.<span class='ident'>to_ffi</span>(), <span class='ident'>initializer</span>.<span class='ident'>inner_llvm_Constant</span>());
             <span class='kw'>if</span> <span class='ident'>ret</span>.<span class='ident'>is_null</span>(){
-                <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;GlobalVariable constructor returned a null pointer!&quot;</span>);
+                <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;::llvm::GlobalVariable::newWithModule returned a null pointer!&quot;</span>);
             }
             ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>GlobalVariable</span>::<span class='ident'>from_inner</span>(<span class='ident'>ret</span>, <span class='boolval'>true</span>)
         }

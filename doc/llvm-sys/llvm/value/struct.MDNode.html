@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `MDNode` struct in crate `llvm-sys`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, MDNode">
+
+    <title>llvm-sys::llvm::value::MDNode - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>llvm-sys</a>::<wbr><a href='../index.html'>llvm</a>::<wbr><a href='index.html'>value</a></p><div class='block mod'><h2>Modules</h2><a class='mod ' href='user/index.html'>user</a></div><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.Argument.html'>Argument</a><a class='struct ' href='struct.BasicBlock.html'>BasicBlock</a><a class='struct ' href='struct.InlineAsm.html'>InlineAsm</a><a class='struct current' href='struct.MDNode.html'>MDNode</a><a class='struct ' href='struct.MDString.html'>MDString</a><a class='struct ' href='struct.Value.html'>Value</a></div><div class='block enum'><h2>Enums</h2><a class='enum ' href='enum.ValueTy.html'>ValueTy</a></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='trait.ArgumentExt.html'>ArgumentExt</a><a class='trait ' href='trait.BasicBlockExt.html'>BasicBlockExt</a><a class='trait ' href='trait.InlineAsmExt.html'>InlineAsmExt</a><a class='trait ' href='trait.MDNodeExt.html'>MDNodeExt</a><a class='trait ' href='trait.MDStringExt.html'>MDStringExt</a><a class='trait ' href='trait.ValueExt.html'>ValueExt</a></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>llvm-sys</a>::<wbr><a href='../index.html'>llvm</a>::<wbr><a href='index.html'>value</a>::<wbr><a class='struct' href=''>MDNode</a><wbr><a class='stability Experimental' title=''>Experimental</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]
+            </a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-31900' href='../../../src/llvm-sys/llvm/value/mod.rs.html#145-148'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct MDNode {
+    // some fields omitted
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Experimental' title='Experimental'></a><code>impl <a class='struct' href='../../../llvm-sys/llvm/value/struct.MDNode.html' title='llvm-sys::llvm::value::MDNode'>MDNode</a></code></h3><div class='impl-items'><h4 id='method.from_inner' class='method'><a class='stability Experimental' title='Experimental'></a><code>unsafe fn <a href='#method.from_inner' class='fnname'>from_inner</a>(inner: *mut <a class='type' href='../../../llvm-sys/llvm/value/type.MDNodeInner.html' title='llvm-sys::llvm::value::MDNodeInner'>MDNodeInner</a>, owned: <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>) -&gt; <a class='struct' href='../../../llvm-sys/llvm/value/struct.MDNode.html' title='llvm-sys::llvm::value::MDNode'>MDNode</a></code></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../llvm-sys/llvm/value/trait.ValueExt.html' title='llvm-sys::llvm::value::ValueExt'>ValueExt</a> for <a class='struct' href='../../../llvm-sys/llvm/value/struct.MDNode.html' title='llvm-sys::llvm::value::MDNode'>MDNode</a></code></h3><div class='impl-items'><h4 id='method.inner_llvm_Value' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.inner_llvm_Value' class='fnname'>inner_llvm_Value</a>(&amp;self) -&gt; *mut <a class='struct' href='../../../llvm-sys/ffi/struct.llvm_Value.html' title='llvm-sys::ffi::llvm_Value'>llvm_Value</a></code></h4>
+<h4 id='method.inner' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.inner' class='fnname'>inner</a>(&amp;self) -&gt; *mut <a class='type' href='../../../llvm-sys/llvm/value/type.ValueInner.html' title='llvm-sys::llvm::value::ValueInner'>ValueInner</a></code></h4>
+<h4 id='method.dump' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.dump' class='fnname'>dump</a>(&amp;self)</code></h4>
+<h4 id='method.get_context' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.get_context' class='fnname'>get_context</a>(&amp;self) -&gt; <a class='struct' href='../../../llvm-sys/llvm/struct.LLVMContext.html' title='llvm-sys::llvm::LLVMContext'>LLVMContext</a></code></h4>
+<h4 id='method.get_name' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.get_name' class='fnname'>get_name</a>(&amp;self) -&gt; &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a></code></h4>
+<h4 id='method.get_num_uses' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.get_num_uses' class='fnname'>get_num_uses</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+<h4 id='method.get_type' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.get_type' class='fnname'>get_type</a>(&amp;self) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../../llvm-sys/llvm/ty/struct.Type.html' title='llvm-sys::llvm::ty::Type'>Type</a>&gt;</code></h4>
+<h4 id='method.get_value_id' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.get_value_id' class='fnname'>get_value_id</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+<h4 id='method.has_n_uses' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.has_n_uses' class='fnname'>has_n_uses</a>(&amp;self, n: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.has_n_uses_or_more' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.has_n_uses_or_more' class='fnname'>has_n_uses_or_more</a>(&amp;self, n: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.has_name' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.has_name' class='fnname'>has_name</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.has_one_use' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.has_one_use' class='fnname'>has_one_use</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.is_used_in_basic_block' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.is_used_in_basic_block' class='fnname'>is_used_in_basic_block</a>(&amp;self, bb: &amp;<a class='trait' href='../../../llvm-sys/llvm/value/trait.BasicBlockExt.html' title='llvm-sys::llvm::value::BasicBlockExt'>BasicBlockExt</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.mutate_type' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.mutate_type' class='fnname'>mutate_type</a>(&amp;mut self, ty: &amp;<a class='trait' href='../../../llvm-sys/llvm/ty/trait.TypeExt.html' title='llvm-sys::llvm::ty::TypeExt'>TypeExt</a>)</code></h4>
+<h4 id='method.replace_all_uses_with' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.replace_all_uses_with' class='fnname'>replace_all_uses_with</a>(&amp;mut self, value: &amp;<a class='trait' href='../../../llvm-sys/llvm/value/trait.ValueExt.html' title='llvm-sys::llvm::value::ValueExt'>ValueExt</a>)</code></h4>
+<h4 id='method.set_name' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.set_name' class='fnname'>set_name</a>(&amp;mut self, name: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>)</code></h4>
+<h4 id='method.take_name' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.take_name' class='fnname'>take_name</a>(&amp;mut self, value: &amp;<a class='trait' href='../../../llvm-sys/llvm/value/trait.ValueExt.html' title='llvm-sys::llvm::value::ValueExt'>ValueExt</a>)</code></h4>
+</div><h3 class='impl'><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../llvm-sys/llvm/value/trait.MDNodeExt.html' title='llvm-sys::llvm::value::MDNodeExt'>MDNodeExt</a> for <a class='struct' href='../../../llvm-sys/llvm/value/struct.MDNode.html' title='llvm-sys::llvm::value::MDNode'>MDNode</a></code></h3><div class='impl-items'><h4 id='method.inner_llvm_MDNode' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.inner_llvm_MDNode' class='fnname'>inner_llvm_MDNode</a>(&amp;self) -&gt; *mut <a class='type' href='../../../llvm-sys/llvm/value/type.MDNodeInner.html' title='llvm-sys::llvm::value::MDNodeInner'>MDNodeInner</a></code></h4>
+<h4 id='method.inner' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.inner' class='fnname'>inner</a>(&amp;self) -&gt; *mut <a class='type' href='../../../llvm-sys/llvm/value/type.MDNodeInner.html' title='llvm-sys::llvm::value::MDNodeInner'>MDNodeInner</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../../../llvm-sys/llvm/value/struct.MDNode.html' title='llvm-sys::llvm::value::MDNode'>MDNode</a></code></h3><div class='impl-items'><h4 id='method.drop' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "llvm-sys";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

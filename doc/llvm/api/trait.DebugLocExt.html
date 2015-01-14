@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `DebugLocExt` trait in crate `llvm`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, DebugLocExt">
+
+    <title>llvm::api::DebugLocExt - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>llvm</a>::<wbr><a href='index.html'>api</a></p><div class='block mod'><h2>Modules</h2><a class='mod ' href='calling_conv/index.html'>calling_conv</a><a class='mod ' href='ty/index.html'>ty</a><a class='mod ' href='value/index.html'>value</a></div><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.DataLayout.html'>DataLayout</a><a class='struct ' href='struct.DebugLoc.html'>DebugLoc</a><a class='struct ' href='struct.LLVMContext.html'>LLVMContext</a><a class='struct ' href='struct.Module.html'>Module</a></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='trait.DataLayoutExt.html'>DataLayoutExt</a><a class='trait current' href='trait.DebugLocExt.html'>DebugLocExt</a><a class='trait ' href='trait.LLVMContextExt.html'>LLVMContextExt</a><a class='trait ' href='trait.ModuleExt.html'>ModuleExt</a></div><div class='block fn'><h2>Functions</h2><a class='fn ' href='fn.get_global_context.html'>get_global_context</a></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>llvm</a>::<wbr><a href='index.html'>api</a>::<wbr><a class='trait' href=''>DebugLocExt</a><wbr><a class='stability Experimental' title=''>Experimental</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]
+            </a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-32982' href='../../llvm-sys/llvm/trait.DebugLocExt.html?gotosrc=32982'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait DebugLocExt {
+    fn <a href='#tymethod.inner_llvm_DebugLoc' class='fnname'>inner_llvm_DebugLoc</a>(&amp;self) -&gt; *mut <a class='struct' href='../../llvm-sys/ffi/struct.llvm_DebugLoc.html' title='llvm-sys::ffi::llvm_DebugLoc'>llvm_DebugLoc</a>;
+
+    fn <a href='#tymethod.inner' class='fnname'>inner</a>(&amp;self) -&gt; *mut <a class='struct' href='../../llvm-sys/ffi/struct.llvm_DebugLoc.html' title='llvm-sys::ffi::llvm_DebugLoc'>llvm_DebugLoc</a> { ... }
+    fn <a href='#tymethod.dump' class='fnname'>dump</a>(&amp;self, ctx: &amp;<a class='trait' href='../../llvm/traits/trait.LLVMContextExt.html' title='llvm::traits::LLVMContextExt'>LLVMContextExt</a>) { ... }
+    fn <a href='#tymethod.get_as_md_node' class='fnname'>get_as_md_node</a>(&amp;self, ctx: &amp;<a class='trait' href='../../llvm/traits/trait.LLVMContextExt.html' title='llvm::traits::LLVMContextExt'>LLVMContextExt</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../llvm/api/value/struct.MDNode.html' title='llvm::api::value::MDNode'>MDNode</a>&gt; { ... }
+    fn <a href='#tymethod.get_col' class='fnname'>get_col</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a> { ... }
+    fn <a href='#tymethod.get_inlined_at' class='fnname'>get_inlined_at</a>(&amp;self, ctx: &amp;<a class='trait' href='../../llvm/traits/trait.LLVMContextExt.html' title='llvm::traits::LLVMContextExt'>LLVMContextExt</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../llvm/api/value/struct.MDNode.html' title='llvm::api::value::MDNode'>MDNode</a>&gt; { ... }
+    fn <a href='#tymethod.get_line' class='fnname'>get_line</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a> { ... }
+    fn <a href='#tymethod.get_scope' class='fnname'>get_scope</a>(&amp;self, ctx: &amp;<a class='trait' href='../../llvm/traits/trait.LLVMContextExt.html' title='llvm::traits::LLVMContextExt'>LLVMContextExt</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../llvm/api/value/struct.MDNode.html' title='llvm::api::value::MDNode'>MDNode</a>&gt; { ... }
+    fn <a href='#tymethod.get_scope_node' class='fnname'>get_scope_node</a>(&amp;self, ctx: &amp;<a class='trait' href='../../llvm/traits/trait.LLVMContextExt.html' title='llvm::traits::LLVMContextExt'>LLVMContextExt</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../llvm/api/value/struct.MDNode.html' title='llvm::api::value::MDNode'>MDNode</a>&gt; { ... }
+    fn <a href='#tymethod.is_unknown' class='fnname'>is_unknown</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a> { ... }
+}</pre>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.inner_llvm_DebugLoc' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.inner_llvm_DebugLoc' class='fnname'>inner_llvm_DebugLoc</a>(&amp;self) -&gt; *mut <a class='struct' href='../../llvm-sys/ffi/struct.llvm_DebugLoc.html' title='llvm-sys::ffi::llvm_DebugLoc'>llvm_DebugLoc</a></code></h3></div>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.inner' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.inner' class='fnname'>inner</a>(&amp;self) -&gt; *mut <a class='struct' href='../../llvm-sys/ffi/struct.llvm_DebugLoc.html' title='llvm-sys::ffi::llvm_DebugLoc'>llvm_DebugLoc</a></code></h3><h3 id='tymethod.dump' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.dump' class='fnname'>dump</a>(&amp;self, ctx: &amp;<a class='trait' href='../../llvm/traits/trait.LLVMContextExt.html' title='llvm::traits::LLVMContextExt'>LLVMContextExt</a>)</code></h3><h3 id='tymethod.get_as_md_node' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.get_as_md_node' class='fnname'>get_as_md_node</a>(&amp;self, ctx: &amp;<a class='trait' href='../../llvm/traits/trait.LLVMContextExt.html' title='llvm::traits::LLVMContextExt'>LLVMContextExt</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../llvm/api/value/struct.MDNode.html' title='llvm::api::value::MDNode'>MDNode</a>&gt;</code></h3><h3 id='tymethod.get_col' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.get_col' class='fnname'>get_col</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h3><h3 id='tymethod.get_inlined_at' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.get_inlined_at' class='fnname'>get_inlined_at</a>(&amp;self, ctx: &amp;<a class='trait' href='../../llvm/traits/trait.LLVMContextExt.html' title='llvm::traits::LLVMContextExt'>LLVMContextExt</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../llvm/api/value/struct.MDNode.html' title='llvm::api::value::MDNode'>MDNode</a>&gt;</code></h3><h3 id='tymethod.get_line' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.get_line' class='fnname'>get_line</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h3><h3 id='tymethod.get_scope' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.get_scope' class='fnname'>get_scope</a>(&amp;self, ctx: &amp;<a class='trait' href='../../llvm/traits/trait.LLVMContextExt.html' title='llvm::traits::LLVMContextExt'>LLVMContextExt</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../llvm/api/value/struct.MDNode.html' title='llvm::api::value::MDNode'>MDNode</a>&gt;</code></h3><h3 id='tymethod.get_scope_node' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.get_scope_node' class='fnname'>get_scope_node</a>(&amp;self, ctx: &amp;<a class='trait' href='../../llvm/traits/trait.LLVMContextExt.html' title='llvm::traits::LLVMContextExt'>LLVMContextExt</a>) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../llvm/api/value/struct.MDNode.html' title='llvm::api::value::MDNode'>MDNode</a>&gt;</code></h3><h3 id='tymethod.is_unknown' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.is_unknown' class='fnname'>is_unknown</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h3></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../llvm/traits/trait.DebugLocExt.html' title='llvm::traits::DebugLocExt'>DebugLocExt</a> for <a class='struct' href='../../llvm/api/struct.DebugLoc.html' title='llvm::api::DebugLoc'>DebugLoc</a></code></li>
+</ul><script type="text/javascript" async
+                              src="../../implementors/llvm-sys/llvm/trait.DebugLocExt.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "llvm";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

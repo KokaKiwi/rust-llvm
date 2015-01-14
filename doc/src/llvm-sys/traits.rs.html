@@ -112,6 +112,8 @@
 <span id="70">70</span>
 <span id="71">71</span>
 <span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
 </pre><pre class='rust '>
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>seq</span>::<span class='ident'>ArrayTypeExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>seq</span>::<span class='ident'>PointerTypeExt</span>;
@@ -141,48 +143,50 @@
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>GlobalValueExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>GlobalVariableExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>UndefValueExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>AddrSpaceCastInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>AllocaInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>AtomicCmpXchgInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>AtomicRMWInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>BinaryOperatorExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>BitCastInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>BranchInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CallInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CastInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>CmpInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>ExtractElementInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>ExtractValueInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>FPExtInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>FPToSIInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>FenceInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>GetElementPtrInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>IndirectBrInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InsertElementInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InsertValueInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InstructionExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>InvokeInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>LandingPadInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>LoadInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>AddrSpaceCastInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>AllocaInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>AtomicCmpXchgInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>AtomicRMWInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>BinaryOperatorExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>BitCastInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>BranchInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>CallInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>CastInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>CmpInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>ExtractElementInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>ExtractValueInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>FPExtInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>FPToSIInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>FenceInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>GetElementPtrInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>IndirectBrInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>InsertElementInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>InsertValueInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>InstructionExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>InvokeInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>LandingPadInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>LoadInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>PHINodeExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>ResumeInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>ReturnInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>SelectInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>ShuffleVectorInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>StoreInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>SwitchInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>TerminatorInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>UnaryInstructionExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>UnreachableInstExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>VAArgInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>OperatorExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>PHINodeExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>ResumeInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>ReturnInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>SelectInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>ShuffleVectorInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>StoreInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>SwitchInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>TerminatorInstExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnaryInstructionExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UnreachableInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>VAArgInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ArgumentExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>BasicBlockExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>InlineAsmExt</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>MetadataAsValueExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>MDNodeExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>MDStringExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>DataLayoutExt</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>DebugLocExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>LLVMContextExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ModuleExt</span>;
 </pre>
