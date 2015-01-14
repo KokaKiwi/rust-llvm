@@ -131,42 +131,86 @@ impl Drop for InlineAsm {
         }
     }
 }
-pub type MetadataAsValueInner = ::ffi::llvm_MetadataAsValue;
+pub type MDNodeInner = ::ffi::llvm_MDNode;
 
-pub trait MetadataAsValueExt: ::llvm::value::ValueExt {
+pub trait MDNodeExt: ::llvm::value::ValueExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_MetadataAsValue(&self) -> *mut MetadataAsValueInner;
+    fn inner_llvm_MDNode(&self) -> *mut MDNodeInner;
 
-    fn inner(&self) -> *mut MetadataAsValueInner {
-        self.inner_llvm_MetadataAsValue()
+    fn inner(&self) -> *mut MDNodeInner {
+        self.inner_llvm_MDNode()
     }
 }
 
-pub struct MetadataAsValue {
-    inner: ::core::nonzero::NonZero<*mut MetadataAsValueInner>,
+pub struct MDNode {
+    inner: ::core::nonzero::NonZero<*mut MDNodeInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for MetadataAsValue {
+impl ::llvm::value::ValueExt for MDNode {
     fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl MetadataAsValueExt for MetadataAsValue {
-    fn inner_llvm_MetadataAsValue(&self) -> *mut MetadataAsValueInner {
+impl MDNodeExt for MDNode {
+    fn inner_llvm_MDNode(&self) -> *mut MDNodeInner {
         *self.inner
     }
 }
-impl MetadataAsValue {
-    pub unsafe fn from_inner(inner: *mut MetadataAsValueInner, owned: bool) -> MetadataAsValue {
-        MetadataAsValue {
+impl MDNode {
+    pub unsafe fn from_inner(inner: *mut MDNodeInner, owned: bool) -> MDNode {
+        MDNode {
             inner: ::core::nonzero::NonZero::new(inner),
             owned: owned,
         }
     }
 }
-impl Drop for MetadataAsValue {
+impl Drop for MDNode {
+    fn drop(&mut self) {
+        if self.owned {
+            unsafe {
+                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner_llvm_Value(self));
+            }
+        }
+    }
+}
+pub type MDStringInner = ::ffi::llvm_MDString;
+
+pub trait MDStringExt: ::llvm::value::ValueExt {
+    #[allow(non_snake_case)]
+    fn inner_llvm_MDString(&self) -> *mut MDStringInner;
+
+    fn inner(&self) -> *mut MDStringInner {
+        self.inner_llvm_MDString()
+    }
+}
+
+pub struct MDString {
+    inner: ::core::nonzero::NonZero<*mut MDStringInner>,
+    owned: bool,
+}
+impl ::llvm::value::ValueExt for MDString {
+    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+        unsafe {
+            ::core::mem::transmute(self.inner)
+        }
+    }
+}
+impl MDStringExt for MDString {
+    fn inner_llvm_MDString(&self) -> *mut MDStringInner {
+        *self.inner
+    }
+}
+impl MDString {
+    pub unsafe fn from_inner(inner: *mut MDStringInner, owned: bool) -> MDString {
+        MDString {
+            inner: ::core::nonzero::NonZero::new(inner),
+            owned: owned,
+        }
+    }
+}
+impl Drop for MDString {
     fn drop(&mut self) {
         if self.owned {
             unsafe {

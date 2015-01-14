@@ -108,6 +108,9 @@ impl Copy for llvm_StringRef {}
 pub struct llvm_DataLayout;
 #[repr(C)]
 #[derive(Copy)]
+pub struct llvm_DebugLoc;
+#[repr(C)]
+#[derive(Copy)]
 pub struct llvm_ExtractElementInst;
 #[repr(C)]
 #[derive(Copy)]
@@ -201,7 +204,10 @@ pub struct llvm_LandingPadInst;
 pub struct llvm_LoadInst;
 #[repr(C)]
 #[derive(Copy)]
-pub struct llvm_MetadataAsValue;
+pub struct llvm_MDNode;
+#[repr(C)]
+#[derive(Copy)]
+pub struct llvm_MDString;
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_Module;
@@ -317,6 +323,13 @@ pub struct llvm_ArrayRef_llvm_Type_ptr {
 }
 impl Copy for llvm_ArrayRef_llvm_Type_ptr {}
 #[repr(C)]
+#[allow(raw_pointer_derive)]
+pub struct llvm_ArrayRef__libc_c_uint {
+    pub data: *const ::libc::c_uint,
+    pub length: ::libc::size_t,
+}
+impl Copy for llvm_ArrayRef__libc_c_uint {}
+#[repr(C)]
 #[derive(Copy)]
 pub struct llvm_APInt {
     pub num_bits: ::libc::c_uint,
@@ -369,14 +382,17 @@ mod raw {
         pub fn llvm_User_classof(V: *mut super::llvm_Value) -> ::libc::c_int;
         pub fn llvm_VectorType_classof(ty: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Function_clearGC(inst: *mut super::llvm_Function) -> ::libc::c_void;
+        pub fn llvm_Instruction_clone(inst: *const super::llvm_Instruction) -> *mut super::llvm_Instruction;
         pub fn llvm_Function_copyAttributesFrom(inst: *mut super::llvm_Function, Src: *mut super::llvm_GlobalValue) -> ::libc::c_void;
         pub fn llvm_GlobalValue_copyAttributesFrom(inst: *mut super::llvm_GlobalValue, Src: *mut super::llvm_GlobalValue) -> ::libc::c_void;
         pub fn llvm_GlobalVariable_copyAttributesFrom(inst: *mut super::llvm_GlobalVariable, Src: *mut super::llvm_GlobalValue) -> ::libc::c_void;
+        pub fn llvm_Instruction_copyFastMathFlags(inst: *mut super::llvm_Instruction, Inst: *const super::llvm_Instruction) -> ::libc::c_void;
         pub fn llvm_StructType_create(ctx: *mut super::llvm_LLVMContext, Elements: super::llvm_ArrayRef_llvm_Type_ptr, Name: super::llvm_StringRef) -> *mut super::llvm_StructType;
         pub fn llvm_StructType_createPacked(ctx: *mut super::llvm_LLVMContext, Elements: super::llvm_ArrayRef_llvm_Type_ptr, Name: super::llvm_StringRef, isPacked: ::libc::c_int) -> *mut super::llvm_StructType;
         pub fn llvm_Function_delete(inst: *mut super::llvm_Function) -> ::libc::c_void;
         pub fn llvm_GlobalValue_delete(inst: *mut super::llvm_GlobalValue) -> ::libc::c_void;
         pub fn llvm_GlobalVariable_delete(inst: *mut super::llvm_GlobalVariable) -> ::libc::c_void;
+        pub fn llvm_Instruction_delete(inst: *mut super::llvm_Instruction) -> ::libc::c_void;
         pub fn llvm_Module_delete(inst: *mut super::llvm_Module) -> ::libc::c_void;
         pub fn llvm_User_delete(inst: *mut super::llvm_User) -> ::libc::c_void;
         pub fn llvm_Value_delete(inst: *mut super::llvm_Value) -> ::libc::c_void;
@@ -392,6 +408,9 @@ mod raw {
         pub fn llvm_Function_doesNotReturn(inst: *const super::llvm_Function) -> ::libc::c_int;
         pub fn llvm_Function_doesNotThrow(inst: *const super::llvm_Function) -> ::libc::c_int;
         pub fn llvm_User_dropAllReferences(inst: *mut super::llvm_User) -> ::libc::c_void;
+        pub fn llvm_Instruction_dropUnknownMetadata(inst: *mut super::llvm_Instruction) -> ::libc::c_void;
+        pub fn llvm_Instruction_dropUnknownMetadataFromIDS(inst: *mut super::llvm_Instruction, KnownIDs: super::llvm_ArrayRef__libc_c_uint) -> ::libc::c_void;
+        pub fn llvm_DebugLoc_dump(inst: *const super::llvm_DebugLoc, Ctx: *const super::llvm_LLVMContext) -> ::libc::c_void;
         pub fn llvm_Module_dump(inst: *const super::llvm_Module) -> ::libc::c_void;
         pub fn llvm_Type_dump(inst: *const super::llvm_Type) -> ::libc::c_void;
         pub fn llvm_Value_dump(inst: *const super::llvm_Value) -> ::libc::c_void;
@@ -399,6 +418,7 @@ mod raw {
         pub fn llvm_Function_eraseFromParent(inst: *mut super::llvm_Function) -> ::libc::c_void;
         pub fn llvm_GlobalValue_eraseFromParent(inst: *mut super::llvm_GlobalValue) -> ::libc::c_void;
         pub fn llvm_GlobalVariable_eraseFromParent(inst: *mut super::llvm_GlobalVariable) -> ::libc::c_void;
+        pub fn llvm_Instruction_eraseFromParent(inst: *mut super::llvm_Instruction) -> ::libc::c_void;
         pub fn llvm_ConstantInt_fromAPInt(Context: *mut super::llvm_LLVMContext, Val: super::llvm_APInt) -> *mut super::llvm_ConstantInt;
         pub fn llvm_ConstantFP_fromStr(Ty: *mut super::llvm_Type, Val: super::llvm_StringRef) -> *mut super::llvm_Constant;
         pub fn llvm_ConstantInt_fromStr(Ty: *mut super::llvm_IntegerType, Str: super::llvm_StringRef, radix: ::libc::uint8_t) -> *mut super::llvm_ConstantInt;
@@ -416,20 +436,24 @@ mod raw {
         pub fn llvm_Constant_getAggregateElementConstant(inst: *const super::llvm_Constant, Elt: *mut super::llvm_Constant) -> *mut super::llvm_Constant;
         pub fn llvm_GlobalValue_getAlignment(inst: *const super::llvm_GlobalValue) -> ::libc::c_uint;
         pub fn llvm_Constant_getAllOnesValue(Ty: *mut super::llvm_Type) -> *mut super::llvm_Constant;
+        pub fn llvm_DebugLoc_getAsMDNode(inst: *const super::llvm_DebugLoc, Ctx: *const super::llvm_LLVMContext) -> *mut super::llvm_MDNode;
         pub fn llvm_BlockAddress_getBasicBlock(inst: *const super::llvm_BlockAddress) -> *mut super::llvm_BasicBlock;
         pub fn llvm_IntegerType_getBitMask(inst: *const super::llvm_IntegerType) -> ::libc::uint64_t;
         pub fn llvm_ConstantInt_getBitWidth(inst: *const super::llvm_ConstantInt) -> ::libc::c_uint;
         pub fn llvm_IntegerType_getBitWidth(inst: *const super::llvm_IntegerType) -> ::libc::c_uint;
         pub fn llvm_VectorType_getBitWidth(inst: *const super::llvm_VectorType) -> ::libc::c_uint;
         pub fn llvm_Function_getCallingConv(inst: *const super::llvm_Function) -> super::llvm_CallingConv_ID;
+        pub fn llvm_DebugLoc_getCol(inst: *const super::llvm_DebugLoc) -> ::libc::c_uint;
         pub fn llvm_Type_getContainedType(inst: *const super::llvm_Type, idx: ::libc::c_uint) -> *mut super::llvm_Type;
         pub fn llvm_Function_getContext(inst: *const super::llvm_Function) -> *mut super::llvm_LLVMContext;
         pub fn llvm_Module_getContext(inst: *const super::llvm_Module) -> *mut super::llvm_LLVMContext;
         pub fn llvm_Type_getContext(inst: *const super::llvm_Type) -> *mut super::llvm_LLVMContext;
         pub fn llvm_Value_getContext(inst: *const super::llvm_Value) -> *mut super::llvm_LLVMContext;
         pub fn llvm_GlobalValue_getDataLayout(inst: *const super::llvm_GlobalValue) -> *const super::llvm_DataLayout;
+        pub fn llvm_Instruction_getDataLayout(inst: *const super::llvm_Instruction) -> *const super::llvm_DataLayout;
         pub fn llvm_Module_getDataLayout(inst: *const super::llvm_Module) -> *const super::llvm_DataLayout;
         pub fn llvm_Module_getDataLayoutStr(inst: *const super::llvm_Module) -> super::std_string_const;
+        pub fn llvm_Instruction_getDebugLoc(inst: *const super::llvm_Instruction) -> *const super::llvm_DebugLoc;
         pub fn llvm_Function_getDereferenceableBytes(inst: *const super::llvm_Function, idx: ::libc::c_uint) -> ::libc::uint64_t;
         pub fn llvm_VectorType_getDoubleElementsVectorType(ty: *mut super::llvm_VectorType) -> *mut super::llvm_VectorType;
         pub fn llvm_Type_getDoublePtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
@@ -455,6 +479,7 @@ mod raw {
         pub fn llvm_ConstantFP_getInfinity(Ty: *mut super::llvm_Type) -> *mut super::llvm_Constant;
         pub fn llvm_GlobalVariable_getInitializer(inst: *const super::llvm_GlobalVariable) -> *const super::llvm_Constant;
         pub fn llvm_GlobalVariable_getInitializerMut(inst: *mut super::llvm_GlobalVariable) -> *mut super::llvm_Constant;
+        pub fn llvm_DebugLoc_getInlinedAt(inst: *const super::llvm_DebugLoc, Ctx: *const super::llvm_LLVMContext) -> *mut super::llvm_MDNode;
         pub fn llvm_Type_getInt16PtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
         pub fn llvm_Type_getInt16Ty(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_IntegerType;
         pub fn llvm_Type_getInt1PtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
@@ -471,7 +496,10 @@ mod raw {
         pub fn llvm_Constant_getIntegerValue(Ty: *mut super::llvm_Type, Value: super::llvm_APInt) -> *mut super::llvm_Constant;
         pub fn llvm_Function_getIntrinsicID(inst: *const super::llvm_Function) -> ::libc::c_uint;
         pub fn llvm_Type_getLabelTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
+        pub fn llvm_DebugLoc_getLine(inst: *const super::llvm_DebugLoc) -> ::libc::c_uint;
         pub fn llvm_Module_getMDKindID(inst: *const super::llvm_Module, Name: super::llvm_StringRef) -> ::libc::c_uint;
+        pub fn llvm_Instruction_getMetadata(inst: *const super::llvm_Instruction, KindID: ::libc::c_uint) -> *mut super::llvm_MDNode;
+        pub fn llvm_Instruction_getMetadataStr(inst: *const super::llvm_Instruction, Kind: super::llvm_StringRef) -> *mut super::llvm_MDNode;
         pub fn llvm_Type_getMetadataTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
         pub fn llvm_Module_getModuleIdentifier(inst: *const super::llvm_Module) -> super::std_string_const;
         pub fn llvm_Module_getModuleInlineAsm(inst: *const super::llvm_Module) -> super::std_string_const;
@@ -487,6 +515,7 @@ mod raw {
         pub fn llvm_User_getNumOperands(inst: *const super::llvm_User) -> ::libc::c_uint;
         pub fn llvm_FunctionType_getNumParams(inst: *const super::llvm_FunctionType) -> ::libc::c_uint;
         pub fn llvm_Value_getNumUses(inst: *const super::llvm_Value) -> ::libc::c_uint;
+        pub fn llvm_Instruction_getOpcode(inst: *const super::llvm_Instruction) -> ::libc::c_uint;
         pub fn llvm_User_getOperand(inst: *const super::llvm_User, idx: ::libc::c_uint) -> *mut super::llvm_Value;
         pub fn llvm_Module_getOrInsertFunction(inst: *mut super::llvm_Module, Name: super::llvm_StringRef, ty: *mut super::llvm_FunctionType) -> *mut super::llvm_Constant;
         pub fn llvm_Type_getPPC_FP128PtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
@@ -494,13 +523,17 @@ mod raw {
         pub fn llvm_Function_getParamAlignment(inst: *const super::llvm_Function, idx: ::libc::c_uint) -> ::libc::c_uint;
         pub fn llvm_FunctionType_getParamType(inst: *const super::llvm_FunctionType, idx: ::libc::c_uint) -> *mut super::llvm_Type;
         pub fn llvm_GlobalValue_getParent(inst: *const super::llvm_GlobalValue) -> *const super::llvm_Module;
+        pub fn llvm_Instruction_getParent(inst: *const super::llvm_Instruction) -> *const super::llvm_BasicBlock;
         pub fn llvm_GlobalValue_getParentMut(inst: *mut super::llvm_GlobalValue) -> *mut super::llvm_Module;
+        pub fn llvm_Instruction_getParentMut(inst: *mut super::llvm_Instruction) -> *mut super::llvm_BasicBlock;
         pub fn llvm_Type_getPointerAddressSpace(inst: *const super::llvm_Type) -> ::libc::c_uint;
         pub fn llvm_Type_getPointerElementType(inst: *const super::llvm_Type) -> *mut super::llvm_Type;
         pub fn llvm_Type_getPointerTo(inst: *mut super::llvm_Type, idx: ::libc::c_uint) -> *mut super::llvm_PointerType;
         pub fn llvm_Function_getReturnType(inst: *const super::llvm_Function) -> *mut super::llvm_Type;
         pub fn llvm_FunctionType_getReturnType(inst: *const super::llvm_FunctionType) -> *mut super::llvm_Type;
         pub fn llvm_ConstantInt_getSExtValue(inst: *const super::llvm_ConstantInt) -> ::libc::int64_t;
+        pub fn llvm_DebugLoc_getScope(inst: *const super::llvm_DebugLoc, Ctx: *const super::llvm_LLVMContext) -> *mut super::llvm_MDNode;
+        pub fn llvm_DebugLoc_getScopeNode(inst: *const super::llvm_DebugLoc, Ctx: *const super::llvm_LLVMContext) -> *mut super::llvm_MDNode;
         pub fn llvm_Type_getSequentialElementType(inst: *const super::llvm_Type) -> *mut super::llvm_Type;
         pub fn llvm_IntegerType_getSignBit(inst: *const super::llvm_IntegerType) -> ::libc::uint64_t;
         pub fn llvm_ConstantInt_getSigned(Ty: *mut super::llvm_IntegerType, Value: ::libc::uint64_t, isSigned: ::libc::c_int) -> *mut super::llvm_ConstantInt;
@@ -529,6 +562,7 @@ mod raw {
         pub fn llvm_Type_getX86_MMXTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
         pub fn llvm_ConstantInt_getZExtValue(inst: *const super::llvm_ConstantInt) -> ::libc::uint64_t;
         pub fn llvm_ConstantFP_getZeroValueForNegation(Ty: *mut super::llvm_Type) -> *mut super::llvm_Constant;
+        pub fn llvm_Instruction_hasAllowReciprocal(inst: *const super::llvm_Instruction) -> ::libc::c_int;
         pub fn llvm_GlobalValue_hasAppendingLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
         pub fn llvm_GlobalValue_hasAvailableExternallyLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
         pub fn llvm_GlobalValue_hasCommonLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
@@ -545,10 +579,15 @@ mod raw {
         pub fn llvm_GlobalValue_hasInternalLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
         pub fn llvm_GlobalValue_hasLinkOnceLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
         pub fn llvm_GlobalValue_hasLocalLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_Instruction_hasMetadata(inst: *const super::llvm_Instruction) -> ::libc::c_int;
+        pub fn llvm_Instruction_hasMetadataOtherThanDebugLoc(inst: *const super::llvm_Instruction) -> ::libc::c_int;
         pub fn llvm_Value_hasNUses(inst: *const super::llvm_Value, N: ::libc::c_uint) -> ::libc::c_int;
         pub fn llvm_Value_hasNUsesOrMore(inst: *const super::llvm_Value, N: ::libc::c_uint) -> ::libc::c_int;
         pub fn llvm_StructType_hasName(inst: *const super::llvm_StructType) -> ::libc::c_int;
         pub fn llvm_Value_hasName(inst: *const super::llvm_Value) -> ::libc::c_int;
+        pub fn llvm_Instruction_hasNoInfs(inst: *const super::llvm_Instruction) -> ::libc::c_int;
+        pub fn llvm_Instruction_hasNoNaNs(inst: *const super::llvm_Instruction) -> ::libc::c_int;
+        pub fn llvm_Instruction_hasNoSignedZeros(inst: *const super::llvm_Instruction) -> ::libc::c_int;
         pub fn llvm_Value_hasOneUse(inst: *const super::llvm_Value) -> ::libc::c_int;
         pub fn llvm_GlobalValue_hasPrivateLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
         pub fn llvm_GlobalValue_hasProtectedVisibility(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
@@ -557,13 +596,21 @@ mod raw {
         pub fn llvm_Function_hasUWTable(inst: *const super::llvm_Function) -> ::libc::c_int;
         pub fn llvm_GlobalVariable_hasUniqueInitializer(inst: *const super::llvm_GlobalVariable) -> ::libc::c_int;
         pub fn llvm_GlobalValue_hasUnnamedAddr(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_Instruction_hasUnsafeAlgebra(inst: *const super::llvm_Instruction) -> ::libc::c_int;
         pub fn llvm_GlobalValue_hasWeakAnyLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
         pub fn llvm_GlobalValue_hasWeakLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
         pub fn llvm_GlobalValue_hasWeakODRLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
         pub fn llvm_CompositeType_indexValid(inst: *const super::llvm_CompositeType, idx: ::libc::c_uint) -> ::libc::c_int;
+        pub fn llvm_Instruction_insertAfter(inst: *mut super::llvm_Instruction, InsertPos: *mut super::llvm_Instruction) -> ::libc::c_void;
+        pub fn llvm_Instruction_insertBefore(inst: *mut super::llvm_Instruction, InsertPos: *mut super::llvm_Instruction) -> ::libc::c_void;
         pub fn llvm_Type_isAggregateType(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Constant_isAllOnesValue(inst: *const super::llvm_Constant) -> ::libc::c_int;
+        pub fn llvm_Instruction_isArithmeticShift(inst: *const super::llvm_Instruction) -> ::libc::c_int;
         pub fn llvm_Type_isArrayTy(inst: *const super::llvm_Type) -> ::libc::c_int;
+        pub fn llvm_Instruction_isAssociative(inst: *const super::llvm_Instruction) -> ::libc::c_int;
+        pub fn llvm_Instruction_isBinaryOp(inst: *const super::llvm_Instruction) -> ::libc::c_int;
+        pub fn llvm_Instruction_isCast(inst: *const super::llvm_Instruction) -> ::libc::c_int;
+        pub fn llvm_Instruction_isCommutative(inst: *const super::llvm_Instruction) -> ::libc::c_int;
         pub fn llvm_GlobalVariable_isConstant(inst: *const super::llvm_GlobalVariable) -> ::libc::c_int;
         pub fn llvm_Constant_isConstantUsed(inst: *const super::llvm_Constant) -> ::libc::c_int;
         pub fn llvm_Constant_isDLLImportDependent(inst: *const super::llvm_Constant) -> ::libc::c_int;
@@ -581,12 +628,16 @@ mod raw {
         pub fn llvm_Type_isFunctionTy(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Type_isFunctionVarArg(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Type_isHalfTy(inst: *const super::llvm_Type) -> ::libc::c_int;
+        pub fn llvm_Instruction_isIdempotent(inst: *const super::llvm_Instruction) -> ::libc::c_int;
+        pub fn llvm_Instruction_isIdenticalTo(inst: *const super::llvm_Instruction, Inst: *const super::llvm_Instruction) -> ::libc::c_int;
+        pub fn llvm_Instruction_isIdenticalToWhenDefined(inst: *const super::llvm_Instruction, Inst: *const super::llvm_Instruction) -> ::libc::c_int;
         pub fn llvm_Type_isIntOrIntVectorTy(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Type_isIntegerTy(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Function_isIntrinsic(inst: *const super::llvm_Function) -> ::libc::c_int;
         pub fn llvm_Type_isLabelTy(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_StructType_isLayoutIdentical(inst: *const super::llvm_StructType, Other: *mut super::llvm_StructType) -> ::libc::c_int;
         pub fn llvm_StructType_isLiteral(inst: *const super::llvm_StructType) -> ::libc::c_int;
+        pub fn llvm_Instruction_isLogicalShift(inst: *const super::llvm_Instruction) -> ::libc::c_int;
         pub fn llvm_ConstantInt_isMaxValue(inst: *const super::llvm_ConstantInt, isSigned: ::libc::c_int) -> ::libc::c_int;
         pub fn llvm_Type_isMetadataTy(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Constant_isMinSignedValue(inst: *const super::llvm_Constant) -> ::libc::c_int;
@@ -596,6 +647,7 @@ mod raw {
         pub fn llvm_ConstantFP_isNegative(inst: *const super::llvm_ConstantFP) -> ::libc::c_int;
         pub fn llvm_ConstantInt_isNegative(inst: *const super::llvm_ConstantInt) -> ::libc::c_int;
         pub fn llvm_Constant_isNegativeZeroValue(inst: *const super::llvm_Constant) -> ::libc::c_int;
+        pub fn llvm_Instruction_isNilpotent(inst: *const super::llvm_Instruction) -> ::libc::c_int;
         pub fn llvm_Constant_isNullValue(inst: *const super::llvm_Constant) -> ::libc::c_int;
         pub fn llvm_ConstantInt_isOne(inst: *const super::llvm_ConstantInt) -> ::libc::c_int;
         pub fn llvm_StructType_isOpaque(inst: *const super::llvm_StructType) -> ::libc::c_int;
@@ -604,14 +656,19 @@ mod raw {
         pub fn llvm_Type_isPointerTy(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_IntegerType_isPowerOf2ByteWidth(inst: *const super::llvm_IntegerType) -> ::libc::c_int;
         pub fn llvm_Type_isPtrOrPtrVectorTy(inst: *const super::llvm_Type) -> ::libc::c_int;
+        pub fn llvm_Instruction_isSameOperationAs(inst: *const super::llvm_Instruction, Inst: *const super::llvm_Instruction, flags: ::libc::c_uint) -> ::libc::c_int;
+        pub fn llvm_Instruction_isShift(inst: *mut super::llvm_Instruction) -> ::libc::c_int;
         pub fn llvm_ConstantInt_isSignedValueValidForType(Ty: *mut super::llvm_Type, Val: ::libc::int64_t) -> ::libc::c_int;
         pub fn llvm_Type_isSingleValueType(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_StructType_isSized(inst: *const super::llvm_StructType) -> ::libc::c_int;
         pub fn llvm_Type_isSized(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Type_isStructTy(inst: *const super::llvm_Type) -> ::libc::c_int;
+        pub fn llvm_Instruction_isTerminator(inst: *const super::llvm_Instruction) -> ::libc::c_int;
         pub fn llvm_Constant_isThreadDependent(inst: *const super::llvm_Constant) -> ::libc::c_int;
         pub fn llvm_GlobalValue_isThreadLocal(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_DebugLoc_isUnknown(inst: *const super::llvm_DebugLoc) -> ::libc::c_int;
         pub fn llvm_Value_isUsedInBasicBlock(inst: *const super::llvm_Value, BB: *const super::llvm_BasicBlock) -> ::libc::c_int;
+        pub fn llvm_Instruction_isUsedOutsideOfBlock(inst: *const super::llvm_Instruction, BB: *const super::llvm_BasicBlock) -> ::libc::c_int;
         pub fn llvm_FunctionType_isValidArgumentType(ty: *mut super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_ArrayType_isValidElementType(ty: *mut super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_PointerType_isValidElementType(ty: *mut super::llvm_Type) -> ::libc::c_int;
@@ -630,8 +687,16 @@ mod raw {
         pub fn llvm_ConstantInt_isZero(inst: *const super::llvm_ConstantInt) -> ::libc::c_int;
         pub fn llvm_Constant_isZeroValue(inst: *const super::llvm_Constant) -> ::libc::c_int;
         pub fn llvm_GlobalValue_mayBeOverridden(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
+        pub fn llvm_Instruction_mayHaveSideEffects(inst: *const super::llvm_Instruction) -> ::libc::c_int;
+        pub fn llvm_Instruction_mayReadFromMemory(inst: *const super::llvm_Instruction) -> ::libc::c_int;
+        pub fn llvm_Instruction_mayReadOrWriteMemory(inst: *const super::llvm_Instruction) -> ::libc::c_int;
+        pub fn llvm_Instruction_mayReturn(inst: *const super::llvm_Instruction) -> ::libc::c_int;
+        pub fn llvm_Instruction_mayThrow(inst: *const super::llvm_Instruction) -> ::libc::c_int;
+        pub fn llvm_Instruction_mayWriteToMemory(inst: *const super::llvm_Instruction) -> ::libc::c_int;
+        pub fn llvm_Instruction_moveBefore(inst: *mut super::llvm_Instruction, MovePos: *mut super::llvm_Instruction) -> ::libc::c_void;
         pub fn llvm_Value_mutateType(inst: *mut super::llvm_Value, ty: *mut super::llvm_Type) -> ::libc::c_void;
         pub fn llvm_Function_needsUnwindTableEntry(inst: *const super::llvm_Function) -> ::libc::c_int;
+        pub fn llvm_DebugLoc_new() -> *mut super::llvm_DebugLoc;
         pub fn llvm_GlobalVariable_new(Ty: *mut super::llvm_Type, isConstant: ::libc::c_int, Linkage: super::llvm_GlobalValue_LinkageTypes) -> *mut super::llvm_GlobalVariable;
         pub fn llvm_Module_new(ModuleID: super::llvm_StringRef, Context: *mut super::llvm_LLVMContext) -> *mut super::llvm_Module;
         pub fn llvm_GlobalVariable_newWithModule(Module: *mut super::llvm_Module, Ty: *mut super::llvm_Type, isConstant: ::libc::c_int, Linkage: super::llvm_GlobalValue_LinkageTypes, Initializer: *mut super::llvm_Constant) -> *mut super::llvm_GlobalVariable;
@@ -641,6 +706,7 @@ mod raw {
         pub fn llvm_Function_removeFromParent(inst: *mut super::llvm_Function) -> ::libc::c_void;
         pub fn llvm_GlobalValue_removeFromParent(inst: *mut super::llvm_GlobalValue) -> ::libc::c_void;
         pub fn llvm_GlobalVariable_removeFromParent(inst: *mut super::llvm_GlobalVariable) -> ::libc::c_void;
+        pub fn llvm_Instruction_removeFromParent(inst: *mut super::llvm_Instruction) -> ::libc::c_void;
         pub fn llvm_Value_replaceAllUsesWith(inst: *mut super::llvm_Value, Value: *mut super::llvm_Value) -> ::libc::c_void;
         pub fn llvm_User_replaceUsesOfWith(inst: *mut super::llvm_User, From: *mut super::llvm_Value, To: *mut super::llvm_Value) -> ::libc::c_void;
         pub fn llvm_StructType_setBody(inst: *mut super::llvm_StructType, Elements: super::llvm_ArrayRef_llvm_Type_ptr) -> ::libc::c_void;
@@ -650,6 +716,7 @@ mod raw {
         pub fn llvm_GlobalVariable_setConstant(inst: *mut super::llvm_GlobalVariable, Val: ::libc::c_int) -> ::libc::c_void;
         pub fn llvm_Module_setDataLayout(inst: *mut super::llvm_Module, Other: *const super::llvm_DataLayout) -> ::libc::c_void;
         pub fn llvm_Module_setDataLayoutStr(inst: *mut super::llvm_Module, Desc: super::llvm_StringRef) -> ::libc::c_void;
+        pub fn llvm_Instruction_setDebugLoc(inst: *mut super::llvm_Instruction, Loc: *const super::llvm_DebugLoc) -> ::libc::c_void;
         pub fn llvm_Function_setDoesNotAccessMemory(inst: *mut super::llvm_Function) -> ::libc::c_void;
         pub fn llvm_Function_setDoesNotAccessMemoryParam(inst: *mut super::llvm_Function, n: ::libc::c_uint) -> ::libc::c_void;
         pub fn llvm_Function_setDoesNotAlias(inst: *mut super::llvm_Function, n: ::libc::c_uint) -> ::libc::c_void;
@@ -657,8 +724,15 @@ mod raw {
         pub fn llvm_Function_setDoesNotReturn(inst: *mut super::llvm_Function) -> ::libc::c_void;
         pub fn llvm_Function_setDoesNotThrow(inst: *mut super::llvm_Function) -> ::libc::c_void;
         pub fn llvm_GlobalVariable_setExternallyInitialized(inst: *mut super::llvm_GlobalVariable, Val: ::libc::c_int) -> ::libc::c_void;
+        pub fn llvm_Instruction_setHasAllowReciprocal(inst: *mut super::llvm_Instruction, Val: ::libc::c_int) -> ::libc::c_void;
+        pub fn llvm_Instruction_setHasNoInfs(inst: *mut super::llvm_Instruction, Val: ::libc::c_int) -> ::libc::c_void;
+        pub fn llvm_Instruction_setHasNoNaNs(inst: *mut super::llvm_Instruction, Val: ::libc::c_int) -> ::libc::c_void;
+        pub fn llvm_Instruction_setHasNoSignedZeros(inst: *mut super::llvm_Instruction, Val: ::libc::c_int) -> ::libc::c_void;
         pub fn llvm_Function_setHasUWTable(inst: *mut super::llvm_Function) -> ::libc::c_void;
+        pub fn llvm_Instruction_setHasUnsafeAlgebra(inst: *mut super::llvm_Instruction, Val: ::libc::c_int) -> ::libc::c_void;
         pub fn llvm_GlobalVariable_setInitializer(inst: *mut super::llvm_GlobalVariable, InitVal: *mut super::llvm_Constant) -> ::libc::c_void;
+        pub fn llvm_Instruction_setMetadata(inst: *mut super::llvm_Instruction, KindID: ::libc::c_uint, Node: *mut super::llvm_MDNode) -> ::libc::c_void;
+        pub fn llvm_Instruction_setMetadataStr(inst: *mut super::llvm_Instruction, Kind: super::llvm_StringRef, Node: *mut super::llvm_MDNode) -> ::libc::c_void;
         pub fn llvm_Module_setModuleIdentifier(inst: *mut super::llvm_Module, ID: super::llvm_StringRef) -> ::libc::c_void;
         pub fn llvm_Module_setModuleInlineAsm(inst: *mut super::llvm_Module, Asm: super::llvm_StringRef) -> ::libc::c_void;
         pub fn llvm_StructType_setName(inst: *mut super::llvm_StructType, Name: super::llvm_StringRef) -> ::libc::c_void;
@@ -674,6 +748,8 @@ mod raw {
         pub fn llvm_Constant_stripPointerCastsMut(inst: *mut super::llvm_Constant) -> *mut super::llvm_Constant;
         pub fn llvm_Value_takeName(inst: *mut super::llvm_Value, Value: *mut super::llvm_Value) -> ::libc::c_void;
         pub fn llvm_ConstantInt_uge(inst: *const super::llvm_ConstantInt, Num: ::libc::uint64_t) -> ::libc::c_int;
+        pub fn llvm_Instruction_user_back(inst: *const super::llvm_Instruction) -> *const super::llvm_Instruction;
+        pub fn llvm_Instruction_user_back_mut(inst: *mut super::llvm_Instruction) -> *mut super::llvm_Instruction;
     }
 }
 
@@ -1102,6 +1178,60 @@ pub mod llvm {
     #[inline(always)]
     pub unsafe fn ConstantPointerNull_getType(inst: *const super::llvm_ConstantPointerNull) -> *mut super::llvm_PointerType {
         raw::llvm_ConstantPointerNull_getType(inst)
+    }
+
+    // ::llvm::DebugLoc::dump
+    #[inline(always)]
+    pub unsafe fn DebugLoc_dump(inst: *const super::llvm_DebugLoc, Ctx: *const super::llvm_LLVMContext) -> ::libc::c_void {
+        raw::llvm_DebugLoc_dump(inst, Ctx)
+    }
+
+    // ::llvm::DebugLoc::getAsMDNode
+    #[inline(always)]
+    pub unsafe fn DebugLoc_getAsMDNode(inst: *const super::llvm_DebugLoc, Ctx: *const super::llvm_LLVMContext) -> *mut super::llvm_MDNode {
+        raw::llvm_DebugLoc_getAsMDNode(inst, Ctx)
+    }
+
+    // ::llvm::DebugLoc::getCol
+    #[inline(always)]
+    pub unsafe fn DebugLoc_getCol(inst: *const super::llvm_DebugLoc) -> ::libc::c_uint {
+        raw::llvm_DebugLoc_getCol(inst)
+    }
+
+    // ::llvm::DebugLoc::getInlinedAt
+    #[inline(always)]
+    pub unsafe fn DebugLoc_getInlinedAt(inst: *const super::llvm_DebugLoc, Ctx: *const super::llvm_LLVMContext) -> *mut super::llvm_MDNode {
+        raw::llvm_DebugLoc_getInlinedAt(inst, Ctx)
+    }
+
+    // ::llvm::DebugLoc::getLine
+    #[inline(always)]
+    pub unsafe fn DebugLoc_getLine(inst: *const super::llvm_DebugLoc) -> ::libc::c_uint {
+        raw::llvm_DebugLoc_getLine(inst)
+    }
+
+    // ::llvm::DebugLoc::getScope
+    #[inline(always)]
+    pub unsafe fn DebugLoc_getScope(inst: *const super::llvm_DebugLoc, Ctx: *const super::llvm_LLVMContext) -> *mut super::llvm_MDNode {
+        raw::llvm_DebugLoc_getScope(inst, Ctx)
+    }
+
+    // ::llvm::DebugLoc::getScopeNode
+    #[inline(always)]
+    pub unsafe fn DebugLoc_getScopeNode(inst: *const super::llvm_DebugLoc, Ctx: *const super::llvm_LLVMContext) -> *mut super::llvm_MDNode {
+        raw::llvm_DebugLoc_getScopeNode(inst, Ctx)
+    }
+
+    // ::llvm::DebugLoc::isUnknown
+    #[inline(always)]
+    pub unsafe fn DebugLoc_isUnknown(inst: *const super::llvm_DebugLoc) -> bool {
+        raw::llvm_DebugLoc_isUnknown(inst) != 0
+    }
+
+    // ::llvm::DebugLoc::new
+    #[inline(always)]
+    pub unsafe fn DebugLoc_new() -> *mut super::llvm_DebugLoc {
+        raw::llvm_DebugLoc_new()
     }
 
     // ::llvm::Function::Create
@@ -1738,6 +1868,330 @@ pub mod llvm {
     #[inline(always)]
     pub unsafe fn GlobalVariable_setInitializer(inst: *mut super::llvm_GlobalVariable, InitVal: *mut super::llvm_Constant) -> ::libc::c_void {
         raw::llvm_GlobalVariable_setInitializer(inst, InitVal)
+    }
+
+    // ::llvm::Instruction::clone
+    #[inline(always)]
+    pub unsafe fn Instruction_clone(inst: *const super::llvm_Instruction) -> *mut super::llvm_Instruction {
+        raw::llvm_Instruction_clone(inst)
+    }
+
+    // ::llvm::Instruction::copyFastMathFlags
+    #[inline(always)]
+    pub unsafe fn Instruction_copyFastMathFlags(inst: *mut super::llvm_Instruction, Inst: *const super::llvm_Instruction) -> ::libc::c_void {
+        raw::llvm_Instruction_copyFastMathFlags(inst, Inst)
+    }
+
+    // ::llvm::Instruction::delete
+    #[inline(always)]
+    pub unsafe fn Instruction_delete(inst: *mut super::llvm_Instruction) -> ::libc::c_void {
+        raw::llvm_Instruction_delete(inst)
+    }
+
+    // ::llvm::Instruction::dropUnknownMetadata
+    #[inline(always)]
+    pub unsafe fn Instruction_dropUnknownMetadata(inst: *mut super::llvm_Instruction) -> ::libc::c_void {
+        raw::llvm_Instruction_dropUnknownMetadata(inst)
+    }
+
+    // ::llvm::Instruction::dropUnknownMetadataFromIDS
+    #[inline(always)]
+    pub unsafe fn Instruction_dropUnknownMetadataFromIDS(inst: *mut super::llvm_Instruction, KnownIDs: super::llvm_ArrayRef__libc_c_uint) -> ::libc::c_void {
+        raw::llvm_Instruction_dropUnknownMetadataFromIDS(inst, KnownIDs)
+    }
+
+    // ::llvm::Instruction::eraseFromParent
+    #[inline(always)]
+    pub unsafe fn Instruction_eraseFromParent(inst: *mut super::llvm_Instruction) -> ::libc::c_void {
+        raw::llvm_Instruction_eraseFromParent(inst)
+    }
+
+    // ::llvm::Instruction::getDataLayout
+    #[inline(always)]
+    pub unsafe fn Instruction_getDataLayout(inst: *const super::llvm_Instruction) -> *const super::llvm_DataLayout {
+        raw::llvm_Instruction_getDataLayout(inst)
+    }
+
+    // ::llvm::Instruction::getDebugLoc
+    #[inline(always)]
+    pub unsafe fn Instruction_getDebugLoc(inst: *const super::llvm_Instruction) -> *const super::llvm_DebugLoc {
+        raw::llvm_Instruction_getDebugLoc(inst)
+    }
+
+    // ::llvm::Instruction::getMetadata
+    #[inline(always)]
+    pub unsafe fn Instruction_getMetadata(inst: *const super::llvm_Instruction, KindID: ::libc::c_uint) -> *mut super::llvm_MDNode {
+        raw::llvm_Instruction_getMetadata(inst, KindID)
+    }
+
+    // ::llvm::Instruction::getMetadataStr
+    #[inline(always)]
+    pub unsafe fn Instruction_getMetadataStr(inst: *const super::llvm_Instruction, Kind: super::llvm_StringRef) -> *mut super::llvm_MDNode {
+        raw::llvm_Instruction_getMetadataStr(inst, Kind)
+    }
+
+    // ::llvm::Instruction::getOpcode
+    #[inline(always)]
+    pub unsafe fn Instruction_getOpcode(inst: *const super::llvm_Instruction) -> ::libc::c_uint {
+        raw::llvm_Instruction_getOpcode(inst)
+    }
+
+    // ::llvm::Instruction::getParent
+    #[inline(always)]
+    pub unsafe fn Instruction_getParent(inst: *const super::llvm_Instruction) -> *const super::llvm_BasicBlock {
+        raw::llvm_Instruction_getParent(inst)
+    }
+
+    // ::llvm::Instruction::getParentMut
+    #[inline(always)]
+    pub unsafe fn Instruction_getParentMut(inst: *mut super::llvm_Instruction) -> *mut super::llvm_BasicBlock {
+        raw::llvm_Instruction_getParentMut(inst)
+    }
+
+    // ::llvm::Instruction::hasAllowReciprocal
+    #[inline(always)]
+    pub unsafe fn Instruction_hasAllowReciprocal(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_hasAllowReciprocal(inst) != 0
+    }
+
+    // ::llvm::Instruction::hasMetadata
+    #[inline(always)]
+    pub unsafe fn Instruction_hasMetadata(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_hasMetadata(inst) != 0
+    }
+
+    // ::llvm::Instruction::hasMetadataOtherThanDebugLoc
+    #[inline(always)]
+    pub unsafe fn Instruction_hasMetadataOtherThanDebugLoc(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_hasMetadataOtherThanDebugLoc(inst) != 0
+    }
+
+    // ::llvm::Instruction::hasNoInfs
+    #[inline(always)]
+    pub unsafe fn Instruction_hasNoInfs(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_hasNoInfs(inst) != 0
+    }
+
+    // ::llvm::Instruction::hasNoNaNs
+    #[inline(always)]
+    pub unsafe fn Instruction_hasNoNaNs(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_hasNoNaNs(inst) != 0
+    }
+
+    // ::llvm::Instruction::hasNoSignedZeros
+    #[inline(always)]
+    pub unsafe fn Instruction_hasNoSignedZeros(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_hasNoSignedZeros(inst) != 0
+    }
+
+    // ::llvm::Instruction::hasUnsafeAlgebra
+    #[inline(always)]
+    pub unsafe fn Instruction_hasUnsafeAlgebra(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_hasUnsafeAlgebra(inst) != 0
+    }
+
+    // ::llvm::Instruction::insertAfter
+    #[inline(always)]
+    pub unsafe fn Instruction_insertAfter(inst: *mut super::llvm_Instruction, InsertPos: *mut super::llvm_Instruction) -> ::libc::c_void {
+        raw::llvm_Instruction_insertAfter(inst, InsertPos)
+    }
+
+    // ::llvm::Instruction::insertBefore
+    #[inline(always)]
+    pub unsafe fn Instruction_insertBefore(inst: *mut super::llvm_Instruction, InsertPos: *mut super::llvm_Instruction) -> ::libc::c_void {
+        raw::llvm_Instruction_insertBefore(inst, InsertPos)
+    }
+
+    // ::llvm::Instruction::isArithmeticShift
+    #[inline(always)]
+    pub unsafe fn Instruction_isArithmeticShift(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_isArithmeticShift(inst) != 0
+    }
+
+    // ::llvm::Instruction::isAssociative
+    #[inline(always)]
+    pub unsafe fn Instruction_isAssociative(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_isAssociative(inst) != 0
+    }
+
+    // ::llvm::Instruction::isBinaryOp
+    #[inline(always)]
+    pub unsafe fn Instruction_isBinaryOp(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_isBinaryOp(inst) != 0
+    }
+
+    // ::llvm::Instruction::isCast
+    #[inline(always)]
+    pub unsafe fn Instruction_isCast(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_isCast(inst) != 0
+    }
+
+    // ::llvm::Instruction::isCommutative
+    #[inline(always)]
+    pub unsafe fn Instruction_isCommutative(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_isCommutative(inst) != 0
+    }
+
+    // ::llvm::Instruction::isIdempotent
+    #[inline(always)]
+    pub unsafe fn Instruction_isIdempotent(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_isIdempotent(inst) != 0
+    }
+
+    // ::llvm::Instruction::isIdenticalTo
+    #[inline(always)]
+    pub unsafe fn Instruction_isIdenticalTo(inst: *const super::llvm_Instruction, Inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_isIdenticalTo(inst, Inst) != 0
+    }
+
+    // ::llvm::Instruction::isIdenticalToWhenDefined
+    #[inline(always)]
+    pub unsafe fn Instruction_isIdenticalToWhenDefined(inst: *const super::llvm_Instruction, Inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_isIdenticalToWhenDefined(inst, Inst) != 0
+    }
+
+    // ::llvm::Instruction::isLogicalShift
+    #[inline(always)]
+    pub unsafe fn Instruction_isLogicalShift(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_isLogicalShift(inst) != 0
+    }
+
+    // ::llvm::Instruction::isNilpotent
+    #[inline(always)]
+    pub unsafe fn Instruction_isNilpotent(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_isNilpotent(inst) != 0
+    }
+
+    // ::llvm::Instruction::isSameOperationAs
+    #[inline(always)]
+    pub unsafe fn Instruction_isSameOperationAs(inst: *const super::llvm_Instruction, Inst: *const super::llvm_Instruction, flags: ::libc::c_uint) -> bool {
+        raw::llvm_Instruction_isSameOperationAs(inst, Inst, flags) != 0
+    }
+
+    // ::llvm::Instruction::isShift
+    #[inline(always)]
+    pub unsafe fn Instruction_isShift(inst: *mut super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_isShift(inst) != 0
+    }
+
+    // ::llvm::Instruction::isTerminator
+    #[inline(always)]
+    pub unsafe fn Instruction_isTerminator(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_isTerminator(inst) != 0
+    }
+
+    // ::llvm::Instruction::isUsedOutsideOfBlock
+    #[inline(always)]
+    pub unsafe fn Instruction_isUsedOutsideOfBlock(inst: *const super::llvm_Instruction, BB: *const super::llvm_BasicBlock) -> bool {
+        raw::llvm_Instruction_isUsedOutsideOfBlock(inst, BB) != 0
+    }
+
+    // ::llvm::Instruction::mayHaveSideEffects
+    #[inline(always)]
+    pub unsafe fn Instruction_mayHaveSideEffects(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_mayHaveSideEffects(inst) != 0
+    }
+
+    // ::llvm::Instruction::mayReadFromMemory
+    #[inline(always)]
+    pub unsafe fn Instruction_mayReadFromMemory(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_mayReadFromMemory(inst) != 0
+    }
+
+    // ::llvm::Instruction::mayReadOrWriteMemory
+    #[inline(always)]
+    pub unsafe fn Instruction_mayReadOrWriteMemory(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_mayReadOrWriteMemory(inst) != 0
+    }
+
+    // ::llvm::Instruction::mayReturn
+    #[inline(always)]
+    pub unsafe fn Instruction_mayReturn(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_mayReturn(inst) != 0
+    }
+
+    // ::llvm::Instruction::mayThrow
+    #[inline(always)]
+    pub unsafe fn Instruction_mayThrow(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_mayThrow(inst) != 0
+    }
+
+    // ::llvm::Instruction::mayWriteToMemory
+    #[inline(always)]
+    pub unsafe fn Instruction_mayWriteToMemory(inst: *const super::llvm_Instruction) -> bool {
+        raw::llvm_Instruction_mayWriteToMemory(inst) != 0
+    }
+
+    // ::llvm::Instruction::moveBefore
+    #[inline(always)]
+    pub unsafe fn Instruction_moveBefore(inst: *mut super::llvm_Instruction, MovePos: *mut super::llvm_Instruction) -> ::libc::c_void {
+        raw::llvm_Instruction_moveBefore(inst, MovePos)
+    }
+
+    // ::llvm::Instruction::removeFromParent
+    #[inline(always)]
+    pub unsafe fn Instruction_removeFromParent(inst: *mut super::llvm_Instruction) -> ::libc::c_void {
+        raw::llvm_Instruction_removeFromParent(inst)
+    }
+
+    // ::llvm::Instruction::setDebugLoc
+    #[inline(always)]
+    pub unsafe fn Instruction_setDebugLoc(inst: *mut super::llvm_Instruction, Loc: *const super::llvm_DebugLoc) -> ::libc::c_void {
+        raw::llvm_Instruction_setDebugLoc(inst, Loc)
+    }
+
+    // ::llvm::Instruction::setHasAllowReciprocal
+    #[inline(always)]
+    pub unsafe fn Instruction_setHasAllowReciprocal(inst: *mut super::llvm_Instruction, Val: bool) -> ::libc::c_void {
+        raw::llvm_Instruction_setHasAllowReciprocal(inst, if Val { 1 } else { 0 })
+    }
+
+    // ::llvm::Instruction::setHasNoInfs
+    #[inline(always)]
+    pub unsafe fn Instruction_setHasNoInfs(inst: *mut super::llvm_Instruction, Val: bool) -> ::libc::c_void {
+        raw::llvm_Instruction_setHasNoInfs(inst, if Val { 1 } else { 0 })
+    }
+
+    // ::llvm::Instruction::setHasNoNaNs
+    #[inline(always)]
+    pub unsafe fn Instruction_setHasNoNaNs(inst: *mut super::llvm_Instruction, Val: bool) -> ::libc::c_void {
+        raw::llvm_Instruction_setHasNoNaNs(inst, if Val { 1 } else { 0 })
+    }
+
+    // ::llvm::Instruction::setHasNoSignedZeros
+    #[inline(always)]
+    pub unsafe fn Instruction_setHasNoSignedZeros(inst: *mut super::llvm_Instruction, Val: bool) -> ::libc::c_void {
+        raw::llvm_Instruction_setHasNoSignedZeros(inst, if Val { 1 } else { 0 })
+    }
+
+    // ::llvm::Instruction::setHasUnsafeAlgebra
+    #[inline(always)]
+    pub unsafe fn Instruction_setHasUnsafeAlgebra(inst: *mut super::llvm_Instruction, Val: bool) -> ::libc::c_void {
+        raw::llvm_Instruction_setHasUnsafeAlgebra(inst, if Val { 1 } else { 0 })
+    }
+
+    // ::llvm::Instruction::setMetadata
+    #[inline(always)]
+    pub unsafe fn Instruction_setMetadata(inst: *mut super::llvm_Instruction, KindID: ::libc::c_uint, Node: *mut super::llvm_MDNode) -> ::libc::c_void {
+        raw::llvm_Instruction_setMetadata(inst, KindID, Node)
+    }
+
+    // ::llvm::Instruction::setMetadataStr
+    #[inline(always)]
+    pub unsafe fn Instruction_setMetadataStr(inst: *mut super::llvm_Instruction, Kind: super::llvm_StringRef, Node: *mut super::llvm_MDNode) -> ::libc::c_void {
+        raw::llvm_Instruction_setMetadataStr(inst, Kind, Node)
+    }
+
+    // ::llvm::Instruction::user_back
+    #[inline(always)]
+    pub unsafe fn Instruction_user_back(inst: *const super::llvm_Instruction) -> *const super::llvm_Instruction {
+        raw::llvm_Instruction_user_back(inst)
+    }
+
+    // ::llvm::Instruction::user_back_mut
+    #[inline(always)]
+    pub unsafe fn Instruction_user_back_mut(inst: *mut super::llvm_Instruction) -> *mut super::llvm_Instruction {
+        raw::llvm_Instruction_user_back_mut(inst)
     }
 
     // ::llvm::IntegerType::classof

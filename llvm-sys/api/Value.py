@@ -11,7 +11,9 @@ Value.modpath = submodpath(['value'])
 Argument = llvm.Class('Argument', Value)
 BasicBlock = llvm.Class('BasicBlock', Value)
 InlineAsm = llvm.Class('InlineAsm', Value)
-MetadataAsValue = llvm.Class('MetadataAsValue', Value)
+MDNode = llvm.Class('MDNode', Value)
+MDString = llvm.Class('MDString', Value)
+# MetadataAsValue = llvm.Class('MetadataAsValue', Value)
 
 @Value.body
 class Value:

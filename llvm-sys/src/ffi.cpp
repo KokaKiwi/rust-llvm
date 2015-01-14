@@ -32,6 +32,10 @@ struct llvm_ArrayRef_llvm_Type_ptr {
     ::llvm::Type* const* data;
     size_t length;
 };
+struct llvm_ArrayRef__libc_c_uint {
+    unsigned int const* data;
+    size_t length;
+};
 struct std_string_const {
     char const* data;
     size_t length;
@@ -530,6 +534,69 @@ extern "C"
 ::llvm::PointerType* llvm_ConstantPointerNull_getType(::llvm::ConstantPointerNull const* inst)
 {
     return inst->getType();
+}
+
+// ::llvm::DebugLoc::dump
+extern "C"
+void llvm_DebugLoc_dump(::llvm::DebugLoc const* inst, ::llvm::LLVMContext const* Ctx)
+{
+    return inst->dump(*Ctx);
+}
+
+// ::llvm::DebugLoc::getAsMDNode
+extern "C"
+::llvm::MDNode* llvm_DebugLoc_getAsMDNode(::llvm::DebugLoc const* inst, ::llvm::LLVMContext const* Ctx)
+{
+    return inst->getAsMDNode(*Ctx);
+}
+
+// ::llvm::DebugLoc::getCol
+extern "C"
+unsigned int llvm_DebugLoc_getCol(::llvm::DebugLoc const* inst)
+{
+    return inst->getCol();
+}
+
+// ::llvm::DebugLoc::getInlinedAt
+extern "C"
+::llvm::MDNode* llvm_DebugLoc_getInlinedAt(::llvm::DebugLoc const* inst, ::llvm::LLVMContext const* Ctx)
+{
+    return inst->getInlinedAt(*Ctx);
+}
+
+// ::llvm::DebugLoc::getLine
+extern "C"
+unsigned int llvm_DebugLoc_getLine(::llvm::DebugLoc const* inst)
+{
+    return inst->getLine();
+}
+
+// ::llvm::DebugLoc::getScope
+extern "C"
+::llvm::MDNode* llvm_DebugLoc_getScope(::llvm::DebugLoc const* inst, ::llvm::LLVMContext const* Ctx)
+{
+    return inst->getScope(*Ctx);
+}
+
+// ::llvm::DebugLoc::getScopeNode
+extern "C"
+::llvm::MDNode* llvm_DebugLoc_getScopeNode(::llvm::DebugLoc const* inst, ::llvm::LLVMContext const* Ctx)
+{
+    return inst->getScopeNode(*Ctx);
+}
+
+// ::llvm::DebugLoc::isUnknown
+extern "C"
+int llvm_DebugLoc_isUnknown(::llvm::DebugLoc const* inst)
+{
+    return (inst->isUnknown() == true ? 1 : 0);
+}
+
+// ::llvm::DebugLoc::new
+extern "C"
+::llvm::DebugLoc* llvm_DebugLoc_new()
+{
+    return new(std::nothrow) ::llvm::DebugLoc();
 }
 
 // ::llvm::Function::Create
@@ -1279,6 +1346,387 @@ extern "C"
 void llvm_GlobalVariable_setInitializer(::llvm::GlobalVariable* inst, ::llvm::Constant* InitVal)
 {
     return inst->setInitializer(InitVal);
+}
+
+// ::llvm::Instruction::clone
+extern "C"
+::llvm::Instruction* llvm_Instruction_clone(::llvm::Instruction const* inst)
+{
+    return inst->clone();
+}
+
+// ::llvm::Instruction::copyFastMathFlags
+extern "C"
+void llvm_Instruction_copyFastMathFlags(::llvm::Instruction* inst, ::llvm::Instruction const* Inst)
+{
+    return inst->copyFastMathFlags(Inst);
+}
+
+// ::llvm::Instruction::delete
+extern "C"
+void llvm_Instruction_delete(::llvm::Instruction* inst)
+{
+    delete inst;
+}
+
+// ::llvm::Instruction::dropUnknownMetadata
+extern "C"
+void llvm_Instruction_dropUnknownMetadata(::llvm::Instruction* inst)
+{
+    return inst->dropUnknownMetadata();
+}
+
+// ::llvm::Instruction::dropUnknownMetadataFromIDS
+extern "C"
+void llvm_Instruction_dropUnknownMetadataFromIDS(::llvm::Instruction* inst, llvm_ArrayRef__libc_c_uint _KnownIDs)
+{
+    auto KnownIDs = ::llvm::ArrayRef<unsigned int>(_KnownIDs.data, _KnownIDs.length);
+    return inst->dropUnknownMetadata(KnownIDs);
+}
+
+// ::llvm::Instruction::eraseFromParent
+extern "C"
+void llvm_Instruction_eraseFromParent(::llvm::Instruction* inst)
+{
+    return inst->eraseFromParent();
+}
+
+// ::llvm::Instruction::getDataLayout
+extern "C"
+::llvm::DataLayout const* llvm_Instruction_getDataLayout(::llvm::Instruction const* inst)
+{
+    return inst->getDataLayout();
+}
+
+// ::llvm::Instruction::getDebugLoc
+extern "C"
+::llvm::DebugLoc const* llvm_Instruction_getDebugLoc(::llvm::Instruction const* inst)
+{
+    return &(inst->getDebugLoc());
+}
+
+// ::llvm::Instruction::getMetadata
+extern "C"
+::llvm::MDNode* llvm_Instruction_getMetadata(::llvm::Instruction const* inst, unsigned int KindID)
+{
+    return inst->getMetadata(KindID);
+}
+
+// ::llvm::Instruction::getMetadataStr
+extern "C"
+::llvm::MDNode* llvm_Instruction_getMetadataStr(::llvm::Instruction const* inst, llvm_StringRef _Kind)
+{
+    auto Kind = ::llvm::StringRef(_Kind.data, _Kind.length);
+    return inst->getMetadata(Kind);
+}
+
+// ::llvm::Instruction::getOpcode
+extern "C"
+unsigned int llvm_Instruction_getOpcode(::llvm::Instruction const* inst)
+{
+    return inst->getOpcode();
+}
+
+// ::llvm::Instruction::getParent
+extern "C"
+::llvm::BasicBlock const* llvm_Instruction_getParent(::llvm::Instruction const* inst)
+{
+    return inst->getParent();
+}
+
+// ::llvm::Instruction::getParentMut
+extern "C"
+::llvm::BasicBlock* llvm_Instruction_getParentMut(::llvm::Instruction* inst)
+{
+    return inst->getParent();
+}
+
+// ::llvm::Instruction::hasAllowReciprocal
+extern "C"
+int llvm_Instruction_hasAllowReciprocal(::llvm::Instruction const* inst)
+{
+    return (inst->hasAllowReciprocal() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::hasMetadata
+extern "C"
+int llvm_Instruction_hasMetadata(::llvm::Instruction const* inst)
+{
+    return (inst->hasMetadata() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::hasMetadataOtherThanDebugLoc
+extern "C"
+int llvm_Instruction_hasMetadataOtherThanDebugLoc(::llvm::Instruction const* inst)
+{
+    return (inst->hasMetadataOtherThanDebugLoc() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::hasNoInfs
+extern "C"
+int llvm_Instruction_hasNoInfs(::llvm::Instruction const* inst)
+{
+    return (inst->hasNoInfs() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::hasNoNaNs
+extern "C"
+int llvm_Instruction_hasNoNaNs(::llvm::Instruction const* inst)
+{
+    return (inst->hasNoNaNs() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::hasNoSignedZeros
+extern "C"
+int llvm_Instruction_hasNoSignedZeros(::llvm::Instruction const* inst)
+{
+    return (inst->hasNoSignedZeros() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::hasUnsafeAlgebra
+extern "C"
+int llvm_Instruction_hasUnsafeAlgebra(::llvm::Instruction const* inst)
+{
+    return (inst->hasUnsafeAlgebra() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::insertAfter
+extern "C"
+void llvm_Instruction_insertAfter(::llvm::Instruction* inst, ::llvm::Instruction* InsertPos)
+{
+    return inst->insertAfter(InsertPos);
+}
+
+// ::llvm::Instruction::insertBefore
+extern "C"
+void llvm_Instruction_insertBefore(::llvm::Instruction* inst, ::llvm::Instruction* InsertPos)
+{
+    return inst->insertBefore(InsertPos);
+}
+
+// ::llvm::Instruction::isArithmeticShift
+extern "C"
+int llvm_Instruction_isArithmeticShift(::llvm::Instruction const* inst)
+{
+    return (inst->isArithmeticShift() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::isAssociative
+extern "C"
+int llvm_Instruction_isAssociative(::llvm::Instruction const* inst)
+{
+    return (inst->isAssociative() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::isBinaryOp
+extern "C"
+int llvm_Instruction_isBinaryOp(::llvm::Instruction const* inst)
+{
+    return (inst->isBinaryOp() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::isCast
+extern "C"
+int llvm_Instruction_isCast(::llvm::Instruction const* inst)
+{
+    return (inst->isCast() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::isCommutative
+extern "C"
+int llvm_Instruction_isCommutative(::llvm::Instruction const* inst)
+{
+    return (inst->isCommutative() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::isIdempotent
+extern "C"
+int llvm_Instruction_isIdempotent(::llvm::Instruction const* inst)
+{
+    return (inst->isIdempotent() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::isIdenticalTo
+extern "C"
+int llvm_Instruction_isIdenticalTo(::llvm::Instruction const* inst, ::llvm::Instruction const* Inst)
+{
+    return (inst->isIdenticalTo(Inst) == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::isIdenticalToWhenDefined
+extern "C"
+int llvm_Instruction_isIdenticalToWhenDefined(::llvm::Instruction const* inst, ::llvm::Instruction const* Inst)
+{
+    return (inst->isIdenticalToWhenDefined(Inst) == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::isLogicalShift
+extern "C"
+int llvm_Instruction_isLogicalShift(::llvm::Instruction const* inst)
+{
+    return (inst->isLogicalShift() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::isNilpotent
+extern "C"
+int llvm_Instruction_isNilpotent(::llvm::Instruction const* inst)
+{
+    return (inst->isNilpotent() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::isSameOperationAs
+extern "C"
+int llvm_Instruction_isSameOperationAs(::llvm::Instruction const* inst, ::llvm::Instruction const* Inst, unsigned int flags)
+{
+    return (inst->isSameOperationAs(Inst, flags) == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::isShift
+extern "C"
+int llvm_Instruction_isShift(::llvm::Instruction* inst)
+{
+    return (inst->isShift() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::isTerminator
+extern "C"
+int llvm_Instruction_isTerminator(::llvm::Instruction const* inst)
+{
+    return (inst->isTerminator() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::isUsedOutsideOfBlock
+extern "C"
+int llvm_Instruction_isUsedOutsideOfBlock(::llvm::Instruction const* inst, ::llvm::BasicBlock const* BB)
+{
+    return (inst->isUsedOutsideOfBlock(BB) == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::mayHaveSideEffects
+extern "C"
+int llvm_Instruction_mayHaveSideEffects(::llvm::Instruction const* inst)
+{
+    return (inst->mayHaveSideEffects() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::mayReadFromMemory
+extern "C"
+int llvm_Instruction_mayReadFromMemory(::llvm::Instruction const* inst)
+{
+    return (inst->mayReadFromMemory() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::mayReadOrWriteMemory
+extern "C"
+int llvm_Instruction_mayReadOrWriteMemory(::llvm::Instruction const* inst)
+{
+    return (inst->mayReadOrWriteMemory() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::mayReturn
+extern "C"
+int llvm_Instruction_mayReturn(::llvm::Instruction const* inst)
+{
+    return (inst->mayReturn() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::mayThrow
+extern "C"
+int llvm_Instruction_mayThrow(::llvm::Instruction const* inst)
+{
+    return (inst->mayThrow() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::mayWriteToMemory
+extern "C"
+int llvm_Instruction_mayWriteToMemory(::llvm::Instruction const* inst)
+{
+    return (inst->mayWriteToMemory() == true ? 1 : 0);
+}
+
+// ::llvm::Instruction::moveBefore
+extern "C"
+void llvm_Instruction_moveBefore(::llvm::Instruction* inst, ::llvm::Instruction* MovePos)
+{
+    return inst->moveBefore(MovePos);
+}
+
+// ::llvm::Instruction::removeFromParent
+extern "C"
+void llvm_Instruction_removeFromParent(::llvm::Instruction* inst)
+{
+    return inst->removeFromParent();
+}
+
+// ::llvm::Instruction::setDebugLoc
+extern "C"
+void llvm_Instruction_setDebugLoc(::llvm::Instruction* inst, ::llvm::DebugLoc const* Loc)
+{
+    return inst->setDebugLoc(*Loc);
+}
+
+// ::llvm::Instruction::setHasAllowReciprocal
+extern "C"
+void llvm_Instruction_setHasAllowReciprocal(::llvm::Instruction* inst, int Val)
+{
+    return inst->setHasAllowReciprocal((Val == 1 ? true : false));
+}
+
+// ::llvm::Instruction::setHasNoInfs
+extern "C"
+void llvm_Instruction_setHasNoInfs(::llvm::Instruction* inst, int Val)
+{
+    return inst->setHasNoInfs((Val == 1 ? true : false));
+}
+
+// ::llvm::Instruction::setHasNoNaNs
+extern "C"
+void llvm_Instruction_setHasNoNaNs(::llvm::Instruction* inst, int Val)
+{
+    return inst->setHasNoNaNs((Val == 1 ? true : false));
+}
+
+// ::llvm::Instruction::setHasNoSignedZeros
+extern "C"
+void llvm_Instruction_setHasNoSignedZeros(::llvm::Instruction* inst, int Val)
+{
+    return inst->setHasNoSignedZeros((Val == 1 ? true : false));
+}
+
+// ::llvm::Instruction::setHasUnsafeAlgebra
+extern "C"
+void llvm_Instruction_setHasUnsafeAlgebra(::llvm::Instruction* inst, int Val)
+{
+    return inst->setHasUnsafeAlgebra((Val == 1 ? true : false));
+}
+
+// ::llvm::Instruction::setMetadata
+extern "C"
+void llvm_Instruction_setMetadata(::llvm::Instruction* inst, unsigned int KindID, ::llvm::MDNode* Node)
+{
+    return inst->setMetadata(KindID, Node);
+}
+
+// ::llvm::Instruction::setMetadataStr
+extern "C"
+void llvm_Instruction_setMetadataStr(::llvm::Instruction* inst, llvm_StringRef _Kind, ::llvm::MDNode* Node)
+{
+    auto Kind = ::llvm::StringRef(_Kind.data, _Kind.length);
+    return inst->setMetadata(Kind, Node);
+}
+
+// ::llvm::Instruction::user_back
+extern "C"
+::llvm::Instruction const* llvm_Instruction_user_back(::llvm::Instruction const* inst)
+{
+    return inst->user_back();
+}
+
+// ::llvm::Instruction::user_back_mut
+extern "C"
+::llvm::Instruction* llvm_Instruction_user_back_mut(::llvm::Instruction* inst)
+{
+    return inst->user_back();
 }
 
 // ::llvm::IntegerType::classof

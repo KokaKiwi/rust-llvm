@@ -28,6 +28,110 @@ impl DataLayout {
     }
 }
 impl Copy for DataLayout {}
+pub type DebugLocInner = ::ffi::llvm_DebugLoc;
+
+pub trait DebugLocExt {
+    #[allow(non_snake_case)]
+    fn inner_llvm_DebugLoc(&self) -> *mut DebugLocInner;
+
+    fn inner(&self) -> *mut DebugLocInner {
+        self.inner_llvm_DebugLoc()
+    }
+
+    fn dump(&self, ctx: &::llvm::LLVMContextExt) {
+        unsafe {
+            ::ffi::llvm::DebugLoc_dump(self.inner_llvm_DebugLoc() as *const ::ffi::llvm_DebugLoc, ctx.inner_llvm_LLVMContext());
+        }
+    }
+
+    fn get_as_md_node(&self, ctx: &::llvm::LLVMContextExt) -> Option<::llvm::value::MDNode> {
+        unsafe {
+            let ret = ::ffi::llvm::DebugLoc_getAsMDNode(self.inner_llvm_DebugLoc() as *const ::ffi::llvm_DebugLoc, ctx.inner_llvm_LLVMContext());
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::MDNode::from_inner(ret, false))
+        }
+    }
+
+    fn get_col(&self) -> u32 {
+        unsafe {
+            let ret = ::ffi::llvm::DebugLoc_getCol(self.inner_llvm_DebugLoc() as *const ::ffi::llvm_DebugLoc) as u32;
+            ret
+        }
+    }
+
+    fn get_inlined_at(&self, ctx: &::llvm::LLVMContextExt) -> Option<::llvm::value::MDNode> {
+        unsafe {
+            let ret = ::ffi::llvm::DebugLoc_getInlinedAt(self.inner_llvm_DebugLoc() as *const ::ffi::llvm_DebugLoc, ctx.inner_llvm_LLVMContext());
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::MDNode::from_inner(ret, false))
+        }
+    }
+
+    fn get_line(&self) -> u32 {
+        unsafe {
+            let ret = ::ffi::llvm::DebugLoc_getLine(self.inner_llvm_DebugLoc() as *const ::ffi::llvm_DebugLoc) as u32;
+            ret
+        }
+    }
+
+    fn get_scope(&self, ctx: &::llvm::LLVMContextExt) -> Option<::llvm::value::MDNode> {
+        unsafe {
+            let ret = ::ffi::llvm::DebugLoc_getScope(self.inner_llvm_DebugLoc() as *const ::ffi::llvm_DebugLoc, ctx.inner_llvm_LLVMContext());
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::MDNode::from_inner(ret, false))
+        }
+    }
+
+    fn get_scope_node(&self, ctx: &::llvm::LLVMContextExt) -> Option<::llvm::value::MDNode> {
+        unsafe {
+            let ret = ::ffi::llvm::DebugLoc_getScopeNode(self.inner_llvm_DebugLoc() as *const ::ffi::llvm_DebugLoc, ctx.inner_llvm_LLVMContext());
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::MDNode::from_inner(ret, false))
+        }
+    }
+
+    fn is_unknown(&self) -> bool {
+        unsafe {
+            let ret = ::ffi::llvm::DebugLoc_isUnknown(self.inner_llvm_DebugLoc() as *const ::ffi::llvm_DebugLoc);
+            ret
+        }
+    }
+}
+
+pub struct DebugLoc {
+    inner: ::core::nonzero::NonZero<*mut DebugLocInner>,
+}
+impl DebugLocExt for DebugLoc {
+    fn inner_llvm_DebugLoc(&self) -> *mut DebugLocInner {
+        *self.inner
+    }
+}
+impl DebugLoc {
+    pub unsafe fn from_inner(inner: *mut DebugLocInner) -> DebugLoc {
+        DebugLoc {
+            inner: ::core::nonzero::NonZero::new(inner),
+        }
+    }
+
+    pub fn new() -> ::llvm::DebugLoc {
+        unsafe {
+            let ret = ::ffi::llvm::DebugLoc_new();
+            if ret.is_null(){
+                panic!("::llvm::DebugLoc::new returned a null pointer!");
+            }
+            ::llvm::DebugLoc::from_inner(ret)
+        }
+    }
+}
+impl Copy for DebugLoc {}
 pub type LLVMContextInner = ::ffi::llvm_LLVMContext;
 
 pub trait LLVMContextExt {
