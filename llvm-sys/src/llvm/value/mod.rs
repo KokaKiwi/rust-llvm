@@ -3,11 +3,7 @@ pub type ArgumentInner = ::ffi::llvm_Argument;
 
 pub trait ArgumentExt: ::llvm::value::ValueExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_Argument(&self) -> *mut ArgumentInner;
-
-    fn inner(&self) -> *mut ArgumentInner {
-        self.inner_llvm_Argument()
-    }
+    fn inner(&self) -> *mut ArgumentInner;
 }
 
 pub struct Argument {
@@ -15,14 +11,14 @@ pub struct Argument {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for Argument {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ArgumentExt for Argument {
-    fn inner_llvm_Argument(&self) -> *mut ArgumentInner {
+    fn inner(&self) -> *mut ArgumentInner {
         *self.inner
     }
 }
@@ -38,7 +34,7 @@ impl Drop for Argument {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner_llvm_Value(self));
+                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
             }
         }
     }
@@ -47,11 +43,7 @@ pub type BasicBlockInner = ::ffi::llvm_BasicBlock;
 
 pub trait BasicBlockExt: ::llvm::value::ValueExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_BasicBlock(&self) -> *mut BasicBlockInner;
-
-    fn inner(&self) -> *mut BasicBlockInner {
-        self.inner_llvm_BasicBlock()
-    }
+    fn inner(&self) -> *mut BasicBlockInner;
 }
 
 pub struct BasicBlock {
@@ -59,14 +51,14 @@ pub struct BasicBlock {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for BasicBlock {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl BasicBlockExt for BasicBlock {
-    fn inner_llvm_BasicBlock(&self) -> *mut BasicBlockInner {
+    fn inner(&self) -> *mut BasicBlockInner {
         *self.inner
     }
 }
@@ -82,7 +74,7 @@ impl Drop for BasicBlock {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner_llvm_Value(self));
+                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
             }
         }
     }
@@ -91,11 +83,7 @@ pub type InlineAsmInner = ::ffi::llvm_InlineAsm;
 
 pub trait InlineAsmExt: ::llvm::value::ValueExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_InlineAsm(&self) -> *mut InlineAsmInner;
-
-    fn inner(&self) -> *mut InlineAsmInner {
-        self.inner_llvm_InlineAsm()
-    }
+    fn inner(&self) -> *mut InlineAsmInner;
 }
 
 pub struct InlineAsm {
@@ -103,14 +91,14 @@ pub struct InlineAsm {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for InlineAsm {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl InlineAsmExt for InlineAsm {
-    fn inner_llvm_InlineAsm(&self) -> *mut InlineAsmInner {
+    fn inner(&self) -> *mut InlineAsmInner {
         *self.inner
     }
 }
@@ -126,7 +114,7 @@ impl Drop for InlineAsm {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner_llvm_Value(self));
+                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
             }
         }
     }
@@ -135,11 +123,7 @@ pub type MDNodeInner = ::ffi::llvm_MDNode;
 
 pub trait MDNodeExt: ::llvm::value::ValueExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_MDNode(&self) -> *mut MDNodeInner;
-
-    fn inner(&self) -> *mut MDNodeInner {
-        self.inner_llvm_MDNode()
-    }
+    fn inner(&self) -> *mut MDNodeInner;
 }
 
 pub struct MDNode {
@@ -147,14 +131,14 @@ pub struct MDNode {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for MDNode {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl MDNodeExt for MDNode {
-    fn inner_llvm_MDNode(&self) -> *mut MDNodeInner {
+    fn inner(&self) -> *mut MDNodeInner {
         *self.inner
     }
 }
@@ -170,7 +154,7 @@ impl Drop for MDNode {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner_llvm_Value(self));
+                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
             }
         }
     }
@@ -179,11 +163,7 @@ pub type MDStringInner = ::ffi::llvm_MDString;
 
 pub trait MDStringExt: ::llvm::value::ValueExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_MDString(&self) -> *mut MDStringInner;
-
-    fn inner(&self) -> *mut MDStringInner {
-        self.inner_llvm_MDString()
-    }
+    fn inner(&self) -> *mut MDStringInner;
 }
 
 pub struct MDString {
@@ -191,14 +171,14 @@ pub struct MDString {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for MDString {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl MDStringExt for MDString {
-    fn inner_llvm_MDString(&self) -> *mut MDStringInner {
+    fn inner(&self) -> *mut MDStringInner {
         *self.inner
     }
 }
@@ -214,7 +194,7 @@ impl Drop for MDString {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner_llvm_Value(self));
+                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
             }
         }
     }
@@ -300,28 +280,24 @@ pub type ValueInner = ::ffi::llvm_Value;
 
 pub trait ValueExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_Value(&self) -> *mut ValueInner;
-
-    fn inner(&self) -> *mut ValueInner {
-        self.inner_llvm_Value()
-    }
+    fn inner(&self) -> *mut ValueInner;
 
     fn dump(&self) {
         unsafe {
-            ::ffi::llvm::Value_dump(self.inner_llvm_Value() as *const ::ffi::llvm_Value);
+            ::ffi::llvm::Value_dump(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value);
         }
     }
 
     fn get_context(&self) -> ::llvm::LLVMContext {
         unsafe {
-            let ret = ::ffi::llvm::Value_getContext(self.inner_llvm_Value() as *const ::ffi::llvm_Value);
+            let ret = ::ffi::llvm::Value_getContext(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value);
             ::llvm::LLVMContext::from_inner(ret)
         }
     }
 
     fn get_name(&self) -> &str {
         unsafe {
-            let ret = ::ffi::llvm::Value_getName(self.inner_llvm_Value() as *const ::ffi::llvm_Value);
+            let ret = ::ffi::llvm::Value_getName(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value);
             let ret = ::core::str::from_utf8_unchecked(::core::mem::transmute(::core::slice::from_raw_buf(&ret.data, ret.length as usize)));
             ret
         }
@@ -329,14 +305,14 @@ pub trait ValueExt {
 
     fn get_num_uses(&self) -> u32 {
         unsafe {
-            let ret = ::ffi::llvm::Value_getNumUses(self.inner_llvm_Value() as *const ::ffi::llvm_Value) as u32;
+            let ret = ::ffi::llvm::Value_getNumUses(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value) as u32;
             ret
         }
     }
 
     fn get_type(&self) -> Option<::llvm::ty::Type> {
         unsafe {
-            let ret = ::ffi::llvm::Value_getType(self.inner_llvm_Value() as *const ::ffi::llvm_Value);
+            let ret = ::ffi::llvm::Value_getType(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value);
             if ret.is_null() {
                 return None;
             }
@@ -346,55 +322,55 @@ pub trait ValueExt {
 
     fn get_value_id(&self) -> u32 {
         unsafe {
-            let ret = ::ffi::llvm::Value_getValueID(self.inner_llvm_Value() as *const ::ffi::llvm_Value) as u32;
+            let ret = ::ffi::llvm::Value_getValueID(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value) as u32;
             ret
         }
     }
 
     fn has_n_uses(&self, n: u32) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Value_hasNUses(self.inner_llvm_Value() as *const ::ffi::llvm_Value, n as ::libc::c_uint);
+            let ret = ::ffi::llvm::Value_hasNUses(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value, n as ::libc::c_uint);
             ret
         }
     }
 
     fn has_n_uses_or_more(&self, n: u32) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Value_hasNUsesOrMore(self.inner_llvm_Value() as *const ::ffi::llvm_Value, n as ::libc::c_uint);
+            let ret = ::ffi::llvm::Value_hasNUsesOrMore(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value, n as ::libc::c_uint);
             ret
         }
     }
 
     fn has_name(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Value_hasName(self.inner_llvm_Value() as *const ::ffi::llvm_Value);
+            let ret = ::ffi::llvm::Value_hasName(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value);
             ret
         }
     }
 
     fn has_one_use(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Value_hasOneUse(self.inner_llvm_Value() as *const ::ffi::llvm_Value);
+            let ret = ::ffi::llvm::Value_hasOneUse(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value);
             ret
         }
     }
 
     fn is_used_in_basic_block(&self, bb: &::llvm::value::BasicBlockExt) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Value_isUsedInBasicBlock(self.inner_llvm_Value() as *const ::ffi::llvm_Value, bb.inner_llvm_BasicBlock());
+            let ret = ::ffi::llvm::Value_isUsedInBasicBlock(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value, ::llvm::value::BasicBlockExt::inner(bb));
             ret
         }
     }
 
     fn mutate_type(&mut self, ty: &::llvm::ty::TypeExt) {
         unsafe {
-            ::ffi::llvm::Value_mutateType(self.inner_llvm_Value(), ty.inner_llvm_Type());
+            ::ffi::llvm::Value_mutateType(::llvm::value::ValueExt::inner(self), ::llvm::ty::TypeExt::inner(ty));
         }
     }
 
     fn replace_all_uses_with(&mut self, value: &::llvm::value::ValueExt) {
         unsafe {
-            ::ffi::llvm::Value_replaceAllUsesWith(self.inner_llvm_Value(), value.inner_llvm_Value());
+            ::ffi::llvm::Value_replaceAllUsesWith(::llvm::value::ValueExt::inner(self), ::llvm::value::ValueExt::inner(value));
         }
     }
 
@@ -404,13 +380,13 @@ pub trait ValueExt {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            ::ffi::llvm::Value_setName(self.inner_llvm_Value(), c_name);
+            ::ffi::llvm::Value_setName(::llvm::value::ValueExt::inner(self), c_name);
         }
     }
 
     fn take_name(&mut self, value: &::llvm::value::ValueExt) {
         unsafe {
-            ::ffi::llvm::Value_takeName(self.inner_llvm_Value(), value.inner_llvm_Value());
+            ::ffi::llvm::Value_takeName(::llvm::value::ValueExt::inner(self), ::llvm::value::ValueExt::inner(value));
         }
     }
 }
@@ -420,7 +396,7 @@ pub struct Value {
     owned: bool,
 }
 impl ValueExt for Value {
-    fn inner_llvm_Value(&self) -> *mut ValueInner {
+    fn inner(&self) -> *mut ValueInner {
         *self.inner
     }
 }
@@ -436,7 +412,7 @@ impl Drop for Value {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner_llvm_Value(self));
+                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
             }
         }
     }

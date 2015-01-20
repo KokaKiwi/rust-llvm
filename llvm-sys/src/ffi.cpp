@@ -9,6 +9,7 @@
 #include "llvm/IR/Instruction.h"
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/Module.h"
+#include "llvm/IR/Operator.h"
 #include "llvm/IR/Type.h"
 #include "llvm/IR/Value.h"
 
@@ -1938,6 +1939,13 @@ void llvm_Module_setTargetTriple(::llvm::Module* inst, llvm_StringRef _Triple)
     return inst->setTargetTriple(Triple);
 }
 
+// ::llvm::Operator::getOpcode
+extern "C"
+unsigned int llvm_Operator_getOpcode(::llvm::Operator const* inst)
+{
+    return inst->getOpcode();
+}
+
 // ::llvm::PointerType::classof
 extern "C"
 int llvm_PointerType_classof(::llvm::Type const* ty)
@@ -2595,6 +2603,55 @@ extern "C"
 int llvm_Type_isX86_MMXTy(::llvm::Type const* inst)
 {
     return (inst->isX86_MMXTy() == true ? 1 : 0);
+}
+
+// ::llvm::Use::get
+extern "C"
+::llvm::Value* llvm_Use_get(::llvm::Use const* inst)
+{
+    return inst->get();
+}
+
+// ::llvm::Use::getNext
+extern "C"
+::llvm::Use* llvm_Use_getNext(::llvm::Use const* inst)
+{
+    return inst->getNext();
+}
+
+// ::llvm::Use::getOperandNo
+extern "C"
+unsigned int llvm_Use_getOperandNo(::llvm::Use const* inst)
+{
+    return inst->getOperandNo();
+}
+
+// ::llvm::Use::getUser
+extern "C"
+::llvm::User* llvm_Use_getUser(::llvm::Use const* inst)
+{
+    return inst->getUser();
+}
+
+// ::llvm::Use::initTags
+extern "C"
+::llvm::Use* llvm_Use_initTags(::llvm::Use* Start, ::llvm::Use* Stop)
+{
+    return ::llvm::Use::initTags(Start, Stop);
+}
+
+// ::llvm::Use::set
+extern "C"
+void llvm_Use_set(::llvm::Use* inst, ::llvm::Value* Val)
+{
+    return inst->set(Val);
+}
+
+// ::llvm::Use::swap
+extern "C"
+void llvm_Use_swap(::llvm::Use* inst, ::llvm::Use* RHS)
+{
+    return inst->swap(*RHS);
 }
 
 // ::llvm::User::classof

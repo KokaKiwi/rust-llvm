@@ -5,18 +5,14 @@ pub type DataLayoutInner = ::ffi::llvm_DataLayout;
 
 pub trait DataLayoutExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_DataLayout(&self) -> *mut DataLayoutInner;
-
-    fn inner(&self) -> *mut DataLayoutInner {
-        self.inner_llvm_DataLayout()
-    }
+    fn inner(&self) -> *mut DataLayoutInner;
 }
 
 pub struct DataLayout {
     inner: ::core::nonzero::NonZero<*mut DataLayoutInner>,
 }
 impl DataLayoutExt for DataLayout {
-    fn inner_llvm_DataLayout(&self) -> *mut DataLayoutInner {
+    fn inner(&self) -> *mut DataLayoutInner {
         *self.inner
     }
 }
@@ -32,21 +28,17 @@ pub type DebugLocInner = ::ffi::llvm_DebugLoc;
 
 pub trait DebugLocExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_DebugLoc(&self) -> *mut DebugLocInner;
-
-    fn inner(&self) -> *mut DebugLocInner {
-        self.inner_llvm_DebugLoc()
-    }
+    fn inner(&self) -> *mut DebugLocInner;
 
     fn dump(&self, ctx: &::llvm::LLVMContextExt) {
         unsafe {
-            ::ffi::llvm::DebugLoc_dump(self.inner_llvm_DebugLoc() as *const ::ffi::llvm_DebugLoc, ctx.inner_llvm_LLVMContext());
+            ::ffi::llvm::DebugLoc_dump(::llvm::DebugLocExt::inner(self) as *const ::ffi::llvm_DebugLoc, ::llvm::LLVMContextExt::inner(ctx));
         }
     }
 
     fn get_as_md_node(&self, ctx: &::llvm::LLVMContextExt) -> Option<::llvm::value::MDNode> {
         unsafe {
-            let ret = ::ffi::llvm::DebugLoc_getAsMDNode(self.inner_llvm_DebugLoc() as *const ::ffi::llvm_DebugLoc, ctx.inner_llvm_LLVMContext());
+            let ret = ::ffi::llvm::DebugLoc_getAsMDNode(::llvm::DebugLocExt::inner(self) as *const ::ffi::llvm_DebugLoc, ::llvm::LLVMContextExt::inner(ctx));
             if ret.is_null() {
                 return None;
             }
@@ -56,14 +48,14 @@ pub trait DebugLocExt {
 
     fn get_col(&self) -> u32 {
         unsafe {
-            let ret = ::ffi::llvm::DebugLoc_getCol(self.inner_llvm_DebugLoc() as *const ::ffi::llvm_DebugLoc) as u32;
+            let ret = ::ffi::llvm::DebugLoc_getCol(::llvm::DebugLocExt::inner(self) as *const ::ffi::llvm_DebugLoc) as u32;
             ret
         }
     }
 
     fn get_inlined_at(&self, ctx: &::llvm::LLVMContextExt) -> Option<::llvm::value::MDNode> {
         unsafe {
-            let ret = ::ffi::llvm::DebugLoc_getInlinedAt(self.inner_llvm_DebugLoc() as *const ::ffi::llvm_DebugLoc, ctx.inner_llvm_LLVMContext());
+            let ret = ::ffi::llvm::DebugLoc_getInlinedAt(::llvm::DebugLocExt::inner(self) as *const ::ffi::llvm_DebugLoc, ::llvm::LLVMContextExt::inner(ctx));
             if ret.is_null() {
                 return None;
             }
@@ -73,14 +65,14 @@ pub trait DebugLocExt {
 
     fn get_line(&self) -> u32 {
         unsafe {
-            let ret = ::ffi::llvm::DebugLoc_getLine(self.inner_llvm_DebugLoc() as *const ::ffi::llvm_DebugLoc) as u32;
+            let ret = ::ffi::llvm::DebugLoc_getLine(::llvm::DebugLocExt::inner(self) as *const ::ffi::llvm_DebugLoc) as u32;
             ret
         }
     }
 
     fn get_scope(&self, ctx: &::llvm::LLVMContextExt) -> Option<::llvm::value::MDNode> {
         unsafe {
-            let ret = ::ffi::llvm::DebugLoc_getScope(self.inner_llvm_DebugLoc() as *const ::ffi::llvm_DebugLoc, ctx.inner_llvm_LLVMContext());
+            let ret = ::ffi::llvm::DebugLoc_getScope(::llvm::DebugLocExt::inner(self) as *const ::ffi::llvm_DebugLoc, ::llvm::LLVMContextExt::inner(ctx));
             if ret.is_null() {
                 return None;
             }
@@ -90,7 +82,7 @@ pub trait DebugLocExt {
 
     fn get_scope_node(&self, ctx: &::llvm::LLVMContextExt) -> Option<::llvm::value::MDNode> {
         unsafe {
-            let ret = ::ffi::llvm::DebugLoc_getScopeNode(self.inner_llvm_DebugLoc() as *const ::ffi::llvm_DebugLoc, ctx.inner_llvm_LLVMContext());
+            let ret = ::ffi::llvm::DebugLoc_getScopeNode(::llvm::DebugLocExt::inner(self) as *const ::ffi::llvm_DebugLoc, ::llvm::LLVMContextExt::inner(ctx));
             if ret.is_null() {
                 return None;
             }
@@ -100,7 +92,7 @@ pub trait DebugLocExt {
 
     fn is_unknown(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::DebugLoc_isUnknown(self.inner_llvm_DebugLoc() as *const ::ffi::llvm_DebugLoc);
+            let ret = ::ffi::llvm::DebugLoc_isUnknown(::llvm::DebugLocExt::inner(self) as *const ::ffi::llvm_DebugLoc);
             ret
         }
     }
@@ -110,7 +102,7 @@ pub struct DebugLoc {
     inner: ::core::nonzero::NonZero<*mut DebugLocInner>,
 }
 impl DebugLocExt for DebugLoc {
-    fn inner_llvm_DebugLoc(&self) -> *mut DebugLocInner {
+    fn inner(&self) -> *mut DebugLocInner {
         *self.inner
     }
 }
@@ -136,18 +128,14 @@ pub type LLVMContextInner = ::ffi::llvm_LLVMContext;
 
 pub trait LLVMContextExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_LLVMContext(&self) -> *mut LLVMContextInner;
-
-    fn inner(&self) -> *mut LLVMContextInner {
-        self.inner_llvm_LLVMContext()
-    }
+    fn inner(&self) -> *mut LLVMContextInner;
 }
 
 pub struct LLVMContext {
     inner: ::core::nonzero::NonZero<*mut LLVMContextInner>,
 }
 impl LLVMContextExt for LLVMContext {
-    fn inner_llvm_LLVMContext(&self) -> *mut LLVMContextInner {
+    fn inner(&self) -> *mut LLVMContextInner {
         *self.inner
     }
 }
@@ -163,11 +151,7 @@ pub type ModuleInner = ::ffi::llvm_Module;
 
 pub trait ModuleExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_Module(&self) -> *mut ModuleInner;
-
-    fn inner(&self) -> *mut ModuleInner {
-        self.inner_llvm_Module()
-    }
+    fn inner(&self) -> *mut ModuleInner;
 
     fn append_module_inline_asm(&mut self, asm: &str) {
         unsafe {
@@ -175,26 +159,26 @@ pub trait ModuleExt {
                 data: asm.as_ptr() as *const ::libc::c_char,
                 length: asm.len() as ::libc::size_t,
             };
-            ::ffi::llvm::Module_appendModuleInlineAsm(self.inner_llvm_Module(), c_asm);
+            ::ffi::llvm::Module_appendModuleInlineAsm(::llvm::ModuleExt::inner(self), c_asm);
         }
     }
 
     fn dump(&self) {
         unsafe {
-            ::ffi::llvm::Module_dump(self.inner_llvm_Module() as *const ::ffi::llvm_Module);
+            ::ffi::llvm::Module_dump(::llvm::ModuleExt::inner(self) as *const ::ffi::llvm_Module);
         }
     }
 
     fn get_context(&self) -> ::llvm::LLVMContext {
         unsafe {
-            let ret = ::ffi::llvm::Module_getContext(self.inner_llvm_Module() as *const ::ffi::llvm_Module);
+            let ret = ::ffi::llvm::Module_getContext(::llvm::ModuleExt::inner(self) as *const ::ffi::llvm_Module);
             ::llvm::LLVMContext::from_inner(ret)
         }
     }
 
     fn get_data_layout(&self) -> Option<::llvm::DataLayout> {
         unsafe {
-            let ret = ::ffi::llvm::Module_getDataLayout(self.inner_llvm_Module() as *const ::ffi::llvm_Module);
+            let ret = ::ffi::llvm::Module_getDataLayout(::llvm::ModuleExt::inner(self) as *const ::ffi::llvm_Module);
             if ret.is_null() {
                 return None;
             }
@@ -204,7 +188,7 @@ pub trait ModuleExt {
 
     fn get_data_layout_str(&self) -> &str {
         unsafe {
-            let ret = ::ffi::llvm::Module_getDataLayoutStr(self.inner_llvm_Module() as *const ::ffi::llvm_Module);
+            let ret = ::ffi::llvm::Module_getDataLayoutStr(::llvm::ModuleExt::inner(self) as *const ::ffi::llvm_Module);
             let ret = ::core::str::from_utf8_unchecked(::core::mem::transmute(::core::slice::from_raw_buf(&ret.data, ret.length as usize)));
             ret
         }
@@ -216,7 +200,7 @@ pub trait ModuleExt {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::Module_getFunction(self.inner_llvm_Module() as *const ::ffi::llvm_Module, c_name);
+            let ret = ::ffi::llvm::Module_getFunction(::llvm::ModuleExt::inner(self) as *const ::ffi::llvm_Module, c_name);
             if ret.is_null() {
                 return None;
             }
@@ -230,14 +214,14 @@ pub trait ModuleExt {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::Module_getMDKindID(self.inner_llvm_Module() as *const ::ffi::llvm_Module, c_name) as u32;
+            let ret = ::ffi::llvm::Module_getMDKindID(::llvm::ModuleExt::inner(self) as *const ::ffi::llvm_Module, c_name) as u32;
             ret
         }
     }
 
     fn get_module_identifier(&self) -> &str {
         unsafe {
-            let ret = ::ffi::llvm::Module_getModuleIdentifier(self.inner_llvm_Module() as *const ::ffi::llvm_Module);
+            let ret = ::ffi::llvm::Module_getModuleIdentifier(::llvm::ModuleExt::inner(self) as *const ::ffi::llvm_Module);
             let ret = ::core::str::from_utf8_unchecked(::core::mem::transmute(::core::slice::from_raw_buf(&ret.data, ret.length as usize)));
             ret
         }
@@ -245,7 +229,7 @@ pub trait ModuleExt {
 
     fn get_module_inline_asm(&self) -> &str {
         unsafe {
-            let ret = ::ffi::llvm::Module_getModuleInlineAsm(self.inner_llvm_Module() as *const ::ffi::llvm_Module);
+            let ret = ::ffi::llvm::Module_getModuleInlineAsm(::llvm::ModuleExt::inner(self) as *const ::ffi::llvm_Module);
             let ret = ::core::str::from_utf8_unchecked(::core::mem::transmute(::core::slice::from_raw_buf(&ret.data, ret.length as usize)));
             ret
         }
@@ -257,7 +241,7 @@ pub trait ModuleExt {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::Module_getNamedValue(self.inner_llvm_Module() as *const ::ffi::llvm_Module, c_name);
+            let ret = ::ffi::llvm::Module_getNamedValue(::llvm::ModuleExt::inner(self) as *const ::ffi::llvm_Module, c_name);
             if ret.is_null() {
                 return None;
             }
@@ -271,14 +255,14 @@ pub trait ModuleExt {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::Module_getOrInsertFunction(self.inner_llvm_Module(), c_name, ty.inner_llvm_FunctionType());
+            let ret = ::ffi::llvm::Module_getOrInsertFunction(::llvm::ModuleExt::inner(self), c_name, ::llvm::ty::FunctionTypeExt::inner(ty));
             ::llvm::value::user::constant::Constant::from_inner(ret, false)
         }
     }
 
     fn get_target_triple(&self) -> &str {
         unsafe {
-            let ret = ::ffi::llvm::Module_getTargetTriple(self.inner_llvm_Module() as *const ::ffi::llvm_Module);
+            let ret = ::ffi::llvm::Module_getTargetTriple(::llvm::ModuleExt::inner(self) as *const ::ffi::llvm_Module);
             let ret = ::core::str::from_utf8_unchecked(::core::mem::transmute(::core::slice::from_raw_buf(&ret.data, ret.length as usize)));
             ret
         }
@@ -290,7 +274,7 @@ pub trait ModuleExt {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::Module_getTypeByName(self.inner_llvm_Module() as *const ::ffi::llvm_Module, c_name);
+            let ret = ::ffi::llvm::Module_getTypeByName(::llvm::ModuleExt::inner(self) as *const ::ffi::llvm_Module, c_name);
             if ret.is_null() {
                 return None;
             }
@@ -300,7 +284,7 @@ pub trait ModuleExt {
 
     fn set_data_layout(&mut self, other: &::llvm::DataLayoutExt) {
         unsafe {
-            ::ffi::llvm::Module_setDataLayout(self.inner_llvm_Module(), other.inner_llvm_DataLayout());
+            ::ffi::llvm::Module_setDataLayout(::llvm::ModuleExt::inner(self), ::llvm::DataLayoutExt::inner(other));
         }
     }
 
@@ -310,7 +294,7 @@ pub trait ModuleExt {
                 data: desc.as_ptr() as *const ::libc::c_char,
                 length: desc.len() as ::libc::size_t,
             };
-            ::ffi::llvm::Module_setDataLayoutStr(self.inner_llvm_Module(), c_desc);
+            ::ffi::llvm::Module_setDataLayoutStr(::llvm::ModuleExt::inner(self), c_desc);
         }
     }
 
@@ -320,7 +304,7 @@ pub trait ModuleExt {
                 data: id.as_ptr() as *const ::libc::c_char,
                 length: id.len() as ::libc::size_t,
             };
-            ::ffi::llvm::Module_setModuleIdentifier(self.inner_llvm_Module(), c_id);
+            ::ffi::llvm::Module_setModuleIdentifier(::llvm::ModuleExt::inner(self), c_id);
         }
     }
 
@@ -330,7 +314,7 @@ pub trait ModuleExt {
                 data: asm.as_ptr() as *const ::libc::c_char,
                 length: asm.len() as ::libc::size_t,
             };
-            ::ffi::llvm::Module_setModuleInlineAsm(self.inner_llvm_Module(), c_asm);
+            ::ffi::llvm::Module_setModuleInlineAsm(::llvm::ModuleExt::inner(self), c_asm);
         }
     }
 
@@ -340,7 +324,7 @@ pub trait ModuleExt {
                 data: triple.as_ptr() as *const ::libc::c_char,
                 length: triple.len() as ::libc::size_t,
             };
-            ::ffi::llvm::Module_setTargetTriple(self.inner_llvm_Module(), c_triple);
+            ::ffi::llvm::Module_setTargetTriple(::llvm::ModuleExt::inner(self), c_triple);
         }
     }
 }
@@ -350,7 +334,7 @@ pub struct Module {
     owned: bool,
 }
 impl ModuleExt for Module {
-    fn inner_llvm_Module(&self) -> *mut ModuleInner {
+    fn inner(&self) -> *mut ModuleInner {
         *self.inner
     }
 }
@@ -368,7 +352,7 @@ impl Module {
                 data: module_id.as_ptr() as *const ::libc::c_char,
                 length: module_id.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::Module_new(c_module_id, context.inner_llvm_LLVMContext());
+            let ret = ::ffi::llvm::Module_new(c_module_id, ::llvm::LLVMContextExt::inner(context));
             if ret.is_null(){
                 panic!("::llvm::Module::new returned a null pointer!");
             }
@@ -380,7 +364,7 @@ impl Drop for Module {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Module_delete(::llvm::ModuleExt::inner_llvm_Module(self));
+                ::ffi::llvm::Module_delete(::llvm::ModuleExt::inner(self));
             }
         }
     }

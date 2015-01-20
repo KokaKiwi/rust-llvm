@@ -281,6 +281,9 @@ pub struct llvm_UndefValue;
 pub struct llvm_UnreachableInst;
 #[repr(C)]
 #[derive(Copy)]
+pub struct llvm_Use;
+#[repr(C)]
+#[derive(Copy)]
 pub struct llvm_User;
 #[repr(C)]
 #[derive(Copy)]
@@ -430,6 +433,7 @@ mod raw {
         pub fn llvm_FunctionType_get(Result: *mut super::llvm_Type, Params: super::llvm_ArrayRef_llvm_Type_ptr, isVarArg: ::libc::c_int) -> *mut super::llvm_FunctionType;
         pub fn llvm_IntegerType_get(ctx: *mut super::llvm_LLVMContext, NumBits: ::libc::c_uint) -> *mut super::llvm_IntegerType;
         pub fn llvm_PointerType_get(ElementType: *mut super::llvm_Type, AddressSpace: ::libc::c_uint) -> *mut super::llvm_PointerType;
+        pub fn llvm_Use_get(inst: *const super::llvm_Use) -> *mut super::llvm_Value;
         pub fn llvm_VectorType_get(ty: *mut super::llvm_Type, NumElements: ::libc::c_uint) -> *mut super::llvm_VectorType;
         pub fn llvm_PointerType_getAddressSpace(inst: *const super::llvm_PointerType) -> ::libc::c_uint;
         pub fn llvm_Constant_getAggregateElement(inst: *const super::llvm_Constant, Elt: ::libc::c_uint) -> *mut super::llvm_Constant;
@@ -507,6 +511,7 @@ mod raw {
         pub fn llvm_Value_getName(inst: *const super::llvm_Value) -> super::llvm_StringRef;
         pub fn llvm_Module_getNamedValue(inst: *const super::llvm_Module, Name: super::llvm_StringRef) -> *mut super::llvm_GlobalValue;
         pub fn llvm_ConstantFP_getNegativeZero(Ty: *mut super::llvm_Type) -> *mut super::llvm_Constant;
+        pub fn llvm_Use_getNext(inst: *const super::llvm_Use) -> *mut super::llvm_Use;
         pub fn llvm_Constant_getNullValue(Ty: *mut super::llvm_Type) -> *mut super::llvm_Constant;
         pub fn llvm_Type_getNumContainedTypes(inst: *const super::llvm_Type) -> ::libc::c_uint;
         pub fn llvm_ArrayType_getNumElements(inst: *const super::llvm_ArrayType) -> ::libc::uint64_t;
@@ -516,7 +521,9 @@ mod raw {
         pub fn llvm_FunctionType_getNumParams(inst: *const super::llvm_FunctionType) -> ::libc::c_uint;
         pub fn llvm_Value_getNumUses(inst: *const super::llvm_Value) -> ::libc::c_uint;
         pub fn llvm_Instruction_getOpcode(inst: *const super::llvm_Instruction) -> ::libc::c_uint;
+        pub fn llvm_Operator_getOpcode(inst: *const super::llvm_Operator) -> ::libc::c_uint;
         pub fn llvm_User_getOperand(inst: *const super::llvm_User, idx: ::libc::c_uint) -> *mut super::llvm_Value;
+        pub fn llvm_Use_getOperandNo(inst: *const super::llvm_Use) -> ::libc::c_uint;
         pub fn llvm_Module_getOrInsertFunction(inst: *mut super::llvm_Module, Name: super::llvm_StringRef, ty: *mut super::llvm_FunctionType) -> *mut super::llvm_Constant;
         pub fn llvm_Type_getPPC_FP128PtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
         pub fn llvm_Type_getPPC_FP128Ty(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
@@ -554,6 +561,7 @@ mod raw {
         pub fn llvm_Module_getTypeByName(inst: *const super::llvm_Module, Name: super::llvm_StringRef) -> *mut super::llvm_StructType;
         pub fn llvm_Type_getTypeID(inst: *const super::llvm_Type) -> super::llvm_Type_TypeID;
         pub fn llvm_PointerType_getUnqual(ElementType: *mut super::llvm_Type) -> *mut super::llvm_PointerType;
+        pub fn llvm_Use_getUser(inst: *const super::llvm_Use) -> *mut super::llvm_User;
         pub fn llvm_Value_getValueID(inst: *const super::llvm_Value) -> ::libc::c_uint;
         pub fn llvm_Type_getVoidTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
         pub fn llvm_Type_getX86_FP80PtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
@@ -601,6 +609,7 @@ mod raw {
         pub fn llvm_GlobalValue_hasWeakLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
         pub fn llvm_GlobalValue_hasWeakODRLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
         pub fn llvm_CompositeType_indexValid(inst: *const super::llvm_CompositeType, idx: ::libc::c_uint) -> ::libc::c_int;
+        pub fn llvm_Use_initTags(Start: *mut super::llvm_Use, Stop: *mut super::llvm_Use) -> *mut super::llvm_Use;
         pub fn llvm_Instruction_insertAfter(inst: *mut super::llvm_Instruction, InsertPos: *mut super::llvm_Instruction) -> ::libc::c_void;
         pub fn llvm_Instruction_insertBefore(inst: *mut super::llvm_Instruction, InsertPos: *mut super::llvm_Instruction) -> ::libc::c_void;
         pub fn llvm_Type_isAggregateType(inst: *const super::llvm_Type) -> ::libc::c_int;
@@ -709,6 +718,7 @@ mod raw {
         pub fn llvm_Instruction_removeFromParent(inst: *mut super::llvm_Instruction) -> ::libc::c_void;
         pub fn llvm_Value_replaceAllUsesWith(inst: *mut super::llvm_Value, Value: *mut super::llvm_Value) -> ::libc::c_void;
         pub fn llvm_User_replaceUsesOfWith(inst: *mut super::llvm_User, From: *mut super::llvm_Value, To: *mut super::llvm_Value) -> ::libc::c_void;
+        pub fn llvm_Use_set(inst: *mut super::llvm_Use, Val: *mut super::llvm_Value) -> ::libc::c_void;
         pub fn llvm_StructType_setBody(inst: *mut super::llvm_StructType, Elements: super::llvm_ArrayRef_llvm_Type_ptr) -> ::libc::c_void;
         pub fn llvm_StructType_setBodyPacked(inst: *mut super::llvm_StructType, Elements: super::llvm_ArrayRef_llvm_Type_ptr, isPacked: ::libc::c_int) -> ::libc::c_void;
         pub fn llvm_Function_setCallingConv(inst: *mut super::llvm_Function, CC: super::llvm_CallingConv_ID) -> ::libc::c_void;
@@ -746,6 +756,7 @@ mod raw {
         pub fn llvm_GlobalValue_setUnnamedAddr(inst: *mut super::llvm_GlobalValue, Val: ::libc::c_int) -> ::libc::c_void;
         pub fn llvm_Constant_stripPointerCasts(inst: *const super::llvm_Constant) -> *const super::llvm_Constant;
         pub fn llvm_Constant_stripPointerCastsMut(inst: *mut super::llvm_Constant) -> *mut super::llvm_Constant;
+        pub fn llvm_Use_swap(inst: *mut super::llvm_Use, RHS: *mut super::llvm_Use) -> ::libc::c_void;
         pub fn llvm_Value_takeName(inst: *mut super::llvm_Value, Value: *mut super::llvm_Value) -> ::libc::c_void;
         pub fn llvm_ConstantInt_uge(inst: *const super::llvm_ConstantInt, Num: ::libc::uint64_t) -> ::libc::c_int;
         pub fn llvm_Instruction_user_back(inst: *const super::llvm_Instruction) -> *const super::llvm_Instruction;
@@ -2350,6 +2361,12 @@ pub mod llvm {
         raw::llvm_Module_setTargetTriple(inst, Triple)
     }
 
+    // ::llvm::Operator::getOpcode
+    #[inline(always)]
+    pub unsafe fn Operator_getOpcode(inst: *const super::llvm_Operator) -> ::libc::c_uint {
+        raw::llvm_Operator_getOpcode(inst)
+    }
+
     // ::llvm::PointerType::classof
     #[inline(always)]
     pub unsafe fn PointerType_classof(ty: *const super::llvm_Type) -> bool {
@@ -2900,6 +2917,48 @@ pub mod llvm {
     #[inline(always)]
     pub unsafe fn Type_isX86_MMXTy(inst: *const super::llvm_Type) -> bool {
         raw::llvm_Type_isX86_MMXTy(inst) != 0
+    }
+
+    // ::llvm::Use::get
+    #[inline(always)]
+    pub unsafe fn Use_get(inst: *const super::llvm_Use) -> *mut super::llvm_Value {
+        raw::llvm_Use_get(inst)
+    }
+
+    // ::llvm::Use::getNext
+    #[inline(always)]
+    pub unsafe fn Use_getNext(inst: *const super::llvm_Use) -> *mut super::llvm_Use {
+        raw::llvm_Use_getNext(inst)
+    }
+
+    // ::llvm::Use::getOperandNo
+    #[inline(always)]
+    pub unsafe fn Use_getOperandNo(inst: *const super::llvm_Use) -> ::libc::c_uint {
+        raw::llvm_Use_getOperandNo(inst)
+    }
+
+    // ::llvm::Use::getUser
+    #[inline(always)]
+    pub unsafe fn Use_getUser(inst: *const super::llvm_Use) -> *mut super::llvm_User {
+        raw::llvm_Use_getUser(inst)
+    }
+
+    // ::llvm::Use::initTags
+    #[inline(always)]
+    pub unsafe fn Use_initTags(Start: *mut super::llvm_Use, Stop: *mut super::llvm_Use) -> *mut super::llvm_Use {
+        raw::llvm_Use_initTags(Start, Stop)
+    }
+
+    // ::llvm::Use::set
+    #[inline(always)]
+    pub unsafe fn Use_set(inst: *mut super::llvm_Use, Val: *mut super::llvm_Value) -> ::libc::c_void {
+        raw::llvm_Use_set(inst, Val)
+    }
+
+    // ::llvm::Use::swap
+    #[inline(always)]
+    pub unsafe fn Use_swap(inst: *mut super::llvm_Use, RHS: *mut super::llvm_Use) -> ::libc::c_void {
+        raw::llvm_Use_swap(inst, RHS)
     }
 
     // ::llvm::User::classof

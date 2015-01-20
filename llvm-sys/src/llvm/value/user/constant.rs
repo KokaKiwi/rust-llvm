@@ -2,21 +2,17 @@ pub type BlockAddressInner = ::ffi::llvm_BlockAddress;
 
 pub trait BlockAddressExt: ::llvm::value::user::constant::ConstantExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_BlockAddress(&self) -> *mut BlockAddressInner;
-
-    fn inner(&self) -> *mut BlockAddressInner {
-        self.inner_llvm_BlockAddress()
-    }
+    fn inner(&self) -> *mut BlockAddressInner;
 
     fn destroy_constant(&mut self) {
         unsafe {
-            ::ffi::llvm::BlockAddress_destroyConstant(self.inner_llvm_BlockAddress());
+            ::ffi::llvm::BlockAddress_destroyConstant(::llvm::value::user::constant::BlockAddressExt::inner(self));
         }
     }
 
     fn get_basic_block(&self) -> Option<::llvm::value::BasicBlock> {
         unsafe {
-            let ret = ::ffi::llvm::BlockAddress_getBasicBlock(self.inner_llvm_BlockAddress() as *const ::ffi::llvm_BlockAddress);
+            let ret = ::ffi::llvm::BlockAddress_getBasicBlock(::llvm::value::user::constant::BlockAddressExt::inner(self) as *const ::ffi::llvm_BlockAddress);
             if ret.is_null() {
                 return None;
             }
@@ -26,7 +22,7 @@ pub trait BlockAddressExt: ::llvm::value::user::constant::ConstantExt {
 
     fn get_function(&self) -> Option<::llvm::value::user::constant::Function> {
         unsafe {
-            let ret = ::ffi::llvm::BlockAddress_getFunction(self.inner_llvm_BlockAddress() as *const ::ffi::llvm_BlockAddress);
+            let ret = ::ffi::llvm::BlockAddress_getFunction(::llvm::value::user::constant::BlockAddressExt::inner(self) as *const ::ffi::llvm_BlockAddress);
             if ret.is_null() {
                 return None;
             }
@@ -40,28 +36,28 @@ pub struct BlockAddress {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for BlockAddress {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for BlockAddress {
-    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::ConstantExt for BlockAddress {
-    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+    fn inner(&self) -> *mut ::ffi::llvm_Constant {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl BlockAddressExt for BlockAddress {
-    fn inner_llvm_BlockAddress(&self) -> *mut BlockAddressInner {
+    fn inner(&self) -> *mut BlockAddressInner {
         *self.inner
     }
 }
@@ -77,7 +73,7 @@ impl Drop for BlockAddress {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
             }
         }
     }
@@ -86,28 +82,24 @@ pub type ConstantInner = ::ffi::llvm_Constant;
 
 pub trait ConstantExt: ::llvm::value::user::UserExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_Constant(&self) -> *mut ConstantInner;
-
-    fn inner(&self) -> *mut ConstantInner {
-        self.inner_llvm_Constant()
-    }
+    fn inner(&self) -> *mut ConstantInner;
 
     fn can_trap(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Constant_canTrap(self.inner_llvm_Constant() as *const ::ffi::llvm_Constant);
+            let ret = ::ffi::llvm::Constant_canTrap(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant);
             ret
         }
     }
 
     fn destroy_constant(&mut self) {
         unsafe {
-            ::ffi::llvm::Constant_destroyConstant(self.inner_llvm_Constant());
+            ::ffi::llvm::Constant_destroyConstant(::llvm::value::user::constant::ConstantExt::inner(self));
         }
     }
 
     fn get_aggregate_element(&self, elt: u32) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
-            let ret = ::ffi::llvm::Constant_getAggregateElement(self.inner_llvm_Constant() as *const ::ffi::llvm_Constant, elt as ::libc::c_uint);
+            let ret = ::ffi::llvm::Constant_getAggregateElement(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant, elt as ::libc::c_uint);
             if ret.is_null() {
                 return None;
             }
@@ -117,7 +109,7 @@ pub trait ConstantExt: ::llvm::value::user::UserExt {
 
     fn get_aggregate_element_constant(&self, elt: &::llvm::value::user::constant::ConstantExt) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
-            let ret = ::ffi::llvm::Constant_getAggregateElementConstant(self.inner_llvm_Constant() as *const ::ffi::llvm_Constant, elt.inner_llvm_Constant());
+            let ret = ::ffi::llvm::Constant_getAggregateElementConstant(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant, ::llvm::value::user::constant::ConstantExt::inner(elt));
             if ret.is_null() {
                 return None;
             }
@@ -127,7 +119,7 @@ pub trait ConstantExt: ::llvm::value::user::UserExt {
 
     fn get_splat_value(&self) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
-            let ret = ::ffi::llvm::Constant_getSplatValue(self.inner_llvm_Constant() as *const ::ffi::llvm_Constant);
+            let ret = ::ffi::llvm::Constant_getSplatValue(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant);
             if ret.is_null() {
                 return None;
             }
@@ -137,69 +129,69 @@ pub trait ConstantExt: ::llvm::value::user::UserExt {
 
     fn is_all_ones_value(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Constant_isAllOnesValue(self.inner_llvm_Constant() as *const ::ffi::llvm_Constant);
+            let ret = ::ffi::llvm::Constant_isAllOnesValue(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant);
             ret
         }
     }
 
     fn is_constant_used(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Constant_isConstantUsed(self.inner_llvm_Constant() as *const ::ffi::llvm_Constant);
+            let ret = ::ffi::llvm::Constant_isConstantUsed(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant);
             ret
         }
     }
 
     fn is_dll_import_dependent(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Constant_isDLLImportDependent(self.inner_llvm_Constant() as *const ::ffi::llvm_Constant);
+            let ret = ::ffi::llvm::Constant_isDLLImportDependent(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant);
             ret
         }
     }
 
     fn is_min_signed_value(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Constant_isMinSignedValue(self.inner_llvm_Constant() as *const ::ffi::llvm_Constant);
+            let ret = ::ffi::llvm::Constant_isMinSignedValue(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant);
             ret
         }
     }
 
     fn is_negative_zero_value(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Constant_isNegativeZeroValue(self.inner_llvm_Constant() as *const ::ffi::llvm_Constant);
+            let ret = ::ffi::llvm::Constant_isNegativeZeroValue(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant);
             ret
         }
     }
 
     fn is_null_value(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Constant_isNullValue(self.inner_llvm_Constant() as *const ::ffi::llvm_Constant);
+            let ret = ::ffi::llvm::Constant_isNullValue(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant);
             ret
         }
     }
 
     fn is_thread_dependent(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Constant_isThreadDependent(self.inner_llvm_Constant() as *const ::ffi::llvm_Constant);
+            let ret = ::ffi::llvm::Constant_isThreadDependent(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant);
             ret
         }
     }
 
     fn is_zero_value(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Constant_isZeroValue(self.inner_llvm_Constant() as *const ::ffi::llvm_Constant);
+            let ret = ::ffi::llvm::Constant_isZeroValue(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant);
             ret
         }
     }
 
     fn remove_dead_constant_users(&self) {
         unsafe {
-            ::ffi::llvm::Constant_removeDeadConstantUsers(self.inner_llvm_Constant() as *const ::ffi::llvm_Constant);
+            ::ffi::llvm::Constant_removeDeadConstantUsers(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant);
         }
     }
 
     fn strip_pointer_casts(&self) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
-            let ret = ::ffi::llvm::Constant_stripPointerCasts(self.inner_llvm_Constant() as *const ::ffi::llvm_Constant);
+            let ret = ::ffi::llvm::Constant_stripPointerCasts(::llvm::value::user::constant::ConstantExt::inner(self) as *const ::ffi::llvm_Constant);
             if ret.is_null() {
                 return None;
             }
@@ -209,7 +201,7 @@ pub trait ConstantExt: ::llvm::value::user::UserExt {
 
     fn strip_pointer_casts_mut(&mut self) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
-            let ret = ::ffi::llvm::Constant_stripPointerCastsMut(self.inner_llvm_Constant());
+            let ret = ::ffi::llvm::Constant_stripPointerCastsMut(::llvm::value::user::constant::ConstantExt::inner(self));
             if ret.is_null() {
                 return None;
             }
@@ -223,21 +215,21 @@ pub struct Constant {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for Constant {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for Constant {
-    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ConstantExt for Constant {
-    fn inner_llvm_Constant(&self) -> *mut ConstantInner {
+    fn inner(&self) -> *mut ConstantInner {
         *self.inner
     }
 }
@@ -251,14 +243,14 @@ impl Constant {
 
     pub fn classof(v: &::llvm::value::ValueExt) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Constant_classof(v.inner_llvm_Value());
+            let ret = ::ffi::llvm::Constant_classof(::llvm::value::ValueExt::inner(v));
             ret
         }
     }
 
     pub fn get_all_ones_value(ty: &::llvm::ty::TypeExt) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
-            let ret = ::ffi::llvm::Constant_getAllOnesValue(ty.inner_llvm_Type());
+            let ret = ::ffi::llvm::Constant_getAllOnesValue(::llvm::ty::TypeExt::inner(ty));
             if ret.is_null() {
                 return None;
             }
@@ -275,7 +267,7 @@ impl Constant {
                 length: value.1.len() as ::libc::size_t,
             },
             };
-            let ret = ::ffi::llvm::Constant_getIntegerValue(ty.inner_llvm_Type(), c_value);
+            let ret = ::ffi::llvm::Constant_getIntegerValue(::llvm::ty::TypeExt::inner(ty), c_value);
             if ret.is_null() {
                 return None;
             }
@@ -285,7 +277,7 @@ impl Constant {
 
     pub fn get_null_value(ty: &::llvm::ty::TypeExt) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
-            let ret = ::ffi::llvm::Constant_getNullValue(ty.inner_llvm_Type());
+            let ret = ::ffi::llvm::Constant_getNullValue(::llvm::ty::TypeExt::inner(ty));
             if ret.is_null() {
                 return None;
             }
@@ -297,7 +289,7 @@ impl Drop for Constant {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
             }
         }
     }
@@ -306,11 +298,7 @@ pub type ConstantAggregateZeroInner = ::ffi::llvm_ConstantAggregateZero;
 
 pub trait ConstantAggregateZeroExt: ::llvm::value::user::constant::ConstantExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_ConstantAggregateZero(&self) -> *mut ConstantAggregateZeroInner;
-
-    fn inner(&self) -> *mut ConstantAggregateZeroInner {
-        self.inner_llvm_ConstantAggregateZero()
-    }
+    fn inner(&self) -> *mut ConstantAggregateZeroInner;
 }
 
 pub struct ConstantAggregateZero {
@@ -318,28 +306,28 @@ pub struct ConstantAggregateZero {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for ConstantAggregateZero {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for ConstantAggregateZero {
-    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::ConstantExt for ConstantAggregateZero {
-    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+    fn inner(&self) -> *mut ::ffi::llvm_Constant {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ConstantAggregateZeroExt for ConstantAggregateZero {
-    fn inner_llvm_ConstantAggregateZero(&self) -> *mut ConstantAggregateZeroInner {
+    fn inner(&self) -> *mut ConstantAggregateZeroInner {
         *self.inner
     }
 }
@@ -355,7 +343,7 @@ impl Drop for ConstantAggregateZero {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
             }
         }
     }
@@ -364,15 +352,11 @@ pub type ConstantArrayInner = ::ffi::llvm_ConstantArray;
 
 pub trait ConstantArrayExt: ::llvm::value::user::constant::ConstantExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_ConstantArray(&self) -> *mut ConstantArrayInner;
-
-    fn inner(&self) -> *mut ConstantArrayInner {
-        self.inner_llvm_ConstantArray()
-    }
+    fn inner(&self) -> *mut ConstantArrayInner;
 
     fn get_type(&self) -> Option<::llvm::ty::Type> {
         unsafe {
-            let ret = ::ffi::llvm::ConstantArray_getType(self.inner_llvm_ConstantArray() as *const ::ffi::llvm_ConstantArray);
+            let ret = ::ffi::llvm::ConstantArray_getType(::llvm::value::user::constant::ConstantArrayExt::inner(self) as *const ::ffi::llvm_ConstantArray);
             if ret.is_null() {
                 return None;
             }
@@ -386,28 +370,28 @@ pub struct ConstantArray {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for ConstantArray {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for ConstantArray {
-    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::ConstantExt for ConstantArray {
-    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+    fn inner(&self) -> *mut ::ffi::llvm_Constant {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ConstantArrayExt for ConstantArray {
-    fn inner_llvm_ConstantArray(&self) -> *mut ConstantArrayInner {
+    fn inner(&self) -> *mut ConstantArrayInner {
         *self.inner
     }
 }
@@ -421,19 +405,19 @@ impl ConstantArray {
 
     pub fn classof(v: &::llvm::value::ValueExt) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::ConstantArray_classof(v.inner_llvm_Value());
+            let ret = ::ffi::llvm::ConstantArray_classof(::llvm::value::ValueExt::inner(v));
             ret
         }
     }
 
     pub fn get(ty: &::llvm::ty::seq::ArrayTypeExt, values: &[&::llvm::value::user::constant::ConstantExt]) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
-            let _tmp_values: Vec<_> = values.iter().map(|&ty| ty.inner_llvm_Constant()).collect();
+            let _tmp_values: Vec<_> = values.iter().map(|&ty| ::llvm::value::user::constant::ConstantExt::inner(ty)).collect();
             let c_values = ::ffi::llvm_ArrayRef_llvm_Constant_ptr {
                 data: _tmp_values.as_ptr(),
                 length: values.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::ConstantArray_get(ty.inner_llvm_ArrayType(), c_values);
+            let ret = ::ffi::llvm::ConstantArray_get(::llvm::ty::seq::ArrayTypeExt::inner(ty), c_values);
             if ret.is_null() {
                 return None;
             }
@@ -445,7 +429,7 @@ impl Drop for ConstantArray {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
             }
         }
     }
@@ -454,11 +438,7 @@ pub type ConstantDataArrayInner = ::ffi::llvm_ConstantDataArray;
 
 pub trait ConstantDataArrayExt: ::llvm::value::user::constant::ConstantDataSequentialExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_ConstantDataArray(&self) -> *mut ConstantDataArrayInner;
-
-    fn inner(&self) -> *mut ConstantDataArrayInner {
-        self.inner_llvm_ConstantDataArray()
-    }
+    fn inner(&self) -> *mut ConstantDataArrayInner;
 }
 
 pub struct ConstantDataArray {
@@ -466,35 +446,35 @@ pub struct ConstantDataArray {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for ConstantDataArray {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for ConstantDataArray {
-    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::ConstantExt for ConstantDataArray {
-    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+    fn inner(&self) -> *mut ::ffi::llvm_Constant {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::ConstantDataSequentialExt for ConstantDataArray {
-    fn inner_llvm_ConstantDataSequential(&self) -> *mut ::ffi::llvm_ConstantDataSequential {
+    fn inner(&self) -> *mut ::ffi::llvm_ConstantDataSequential {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ConstantDataArrayExt for ConstantDataArray {
-    fn inner_llvm_ConstantDataArray(&self) -> *mut ConstantDataArrayInner {
+    fn inner(&self) -> *mut ConstantDataArrayInner {
         *self.inner
     }
 }
@@ -510,7 +490,7 @@ impl Drop for ConstantDataArray {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
             }
         }
     }
@@ -519,11 +499,7 @@ pub type ConstantDataSequentialInner = ::ffi::llvm_ConstantDataSequential;
 
 pub trait ConstantDataSequentialExt: ::llvm::value::user::constant::ConstantExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_ConstantDataSequential(&self) -> *mut ConstantDataSequentialInner;
-
-    fn inner(&self) -> *mut ConstantDataSequentialInner {
-        self.inner_llvm_ConstantDataSequential()
-    }
+    fn inner(&self) -> *mut ConstantDataSequentialInner;
 }
 
 pub struct ConstantDataSequential {
@@ -531,28 +507,28 @@ pub struct ConstantDataSequential {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for ConstantDataSequential {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for ConstantDataSequential {
-    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::ConstantExt for ConstantDataSequential {
-    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+    fn inner(&self) -> *mut ::ffi::llvm_Constant {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ConstantDataSequentialExt for ConstantDataSequential {
-    fn inner_llvm_ConstantDataSequential(&self) -> *mut ConstantDataSequentialInner {
+    fn inner(&self) -> *mut ConstantDataSequentialInner {
         *self.inner
     }
 }
@@ -568,7 +544,7 @@ impl Drop for ConstantDataSequential {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
             }
         }
     }
@@ -577,11 +553,7 @@ pub type ConstantDataVectorInner = ::ffi::llvm_ConstantDataVector;
 
 pub trait ConstantDataVectorExt: ::llvm::value::user::constant::ConstantDataSequentialExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_ConstantDataVector(&self) -> *mut ConstantDataVectorInner;
-
-    fn inner(&self) -> *mut ConstantDataVectorInner {
-        self.inner_llvm_ConstantDataVector()
-    }
+    fn inner(&self) -> *mut ConstantDataVectorInner;
 }
 
 pub struct ConstantDataVector {
@@ -589,35 +561,35 @@ pub struct ConstantDataVector {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for ConstantDataVector {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for ConstantDataVector {
-    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::ConstantExt for ConstantDataVector {
-    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+    fn inner(&self) -> *mut ::ffi::llvm_Constant {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::ConstantDataSequentialExt for ConstantDataVector {
-    fn inner_llvm_ConstantDataSequential(&self) -> *mut ::ffi::llvm_ConstantDataSequential {
+    fn inner(&self) -> *mut ::ffi::llvm_ConstantDataSequential {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ConstantDataVectorExt for ConstantDataVector {
-    fn inner_llvm_ConstantDataVector(&self) -> *mut ConstantDataVectorInner {
+    fn inner(&self) -> *mut ConstantDataVectorInner {
         *self.inner
     }
 }
@@ -633,7 +605,7 @@ impl Drop for ConstantDataVector {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
             }
         }
     }
@@ -642,11 +614,7 @@ pub type ConstantExprInner = ::ffi::llvm_ConstantExpr;
 
 pub trait ConstantExprExt: ::llvm::value::user::constant::ConstantExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_ConstantExpr(&self) -> *mut ConstantExprInner;
-
-    fn inner(&self) -> *mut ConstantExprInner {
-        self.inner_llvm_ConstantExpr()
-    }
+    fn inner(&self) -> *mut ConstantExprInner;
 }
 
 pub struct ConstantExpr {
@@ -654,28 +622,28 @@ pub struct ConstantExpr {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for ConstantExpr {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for ConstantExpr {
-    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::ConstantExt for ConstantExpr {
-    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+    fn inner(&self) -> *mut ::ffi::llvm_Constant {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ConstantExprExt for ConstantExpr {
-    fn inner_llvm_ConstantExpr(&self) -> *mut ConstantExprInner {
+    fn inner(&self) -> *mut ConstantExprInner {
         *self.inner
     }
 }
@@ -691,7 +659,7 @@ impl Drop for ConstantExpr {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
             }
         }
     }
@@ -700,36 +668,32 @@ pub type ConstantFPInner = ::ffi::llvm_ConstantFP;
 
 pub trait ConstantFPExt: ::llvm::value::user::constant::ConstantExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_ConstantFP(&self) -> *mut ConstantFPInner;
-
-    fn inner(&self) -> *mut ConstantFPInner {
-        self.inner_llvm_ConstantFP()
-    }
+    fn inner(&self) -> *mut ConstantFPInner;
 
     fn is_exactly_value_float(&self, val: f64) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::ConstantFP_isExactlyValueFloat(self.inner_llvm_ConstantFP() as *const ::ffi::llvm_ConstantFP, val as ::libc::c_double);
+            let ret = ::ffi::llvm::ConstantFP_isExactlyValueFloat(::llvm::value::user::constant::ConstantFPExt::inner(self) as *const ::ffi::llvm_ConstantFP, val as ::libc::c_double);
             ret
         }
     }
 
     fn is_na_n(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::ConstantFP_isNaN(self.inner_llvm_ConstantFP() as *const ::ffi::llvm_ConstantFP);
+            let ret = ::ffi::llvm::ConstantFP_isNaN(::llvm::value::user::constant::ConstantFPExt::inner(self) as *const ::ffi::llvm_ConstantFP);
             ret
         }
     }
 
     fn is_negative(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::ConstantFP_isNegative(self.inner_llvm_ConstantFP() as *const ::ffi::llvm_ConstantFP);
+            let ret = ::ffi::llvm::ConstantFP_isNegative(::llvm::value::user::constant::ConstantFPExt::inner(self) as *const ::ffi::llvm_ConstantFP);
             ret
         }
     }
 
     fn is_zero(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::ConstantFP_isZero(self.inner_llvm_ConstantFP() as *const ::ffi::llvm_ConstantFP);
+            let ret = ::ffi::llvm::ConstantFP_isZero(::llvm::value::user::constant::ConstantFPExt::inner(self) as *const ::ffi::llvm_ConstantFP);
             ret
         }
     }
@@ -740,28 +704,28 @@ pub struct ConstantFP {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for ConstantFP {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for ConstantFP {
-    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::ConstantExt for ConstantFP {
-    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+    fn inner(&self) -> *mut ::ffi::llvm_Constant {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ConstantFPExt for ConstantFP {
-    fn inner_llvm_ConstantFP(&self) -> *mut ConstantFPInner {
+    fn inner(&self) -> *mut ConstantFPInner {
         *self.inner
     }
 }
@@ -775,7 +739,7 @@ impl ConstantFP {
 
     pub fn classof(v: &::llvm::value::ValueExt) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::ConstantFP_classof(v.inner_llvm_Value());
+            let ret = ::ffi::llvm::ConstantFP_classof(::llvm::value::ValueExt::inner(v));
             ret
         }
     }
@@ -786,7 +750,7 @@ impl ConstantFP {
                 data: val.as_ptr() as *const ::libc::c_char,
                 length: val.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::ConstantFP_fromStr(ty.inner_llvm_Type(), c_val);
+            let ret = ::ffi::llvm::ConstantFP_fromStr(::llvm::ty::TypeExt::inner(ty), c_val);
             if ret.is_null() {
                 return None;
             }
@@ -796,7 +760,7 @@ impl ConstantFP {
 
     pub fn get(ty: &::llvm::ty::TypeExt, val: f64) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
-            let ret = ::ffi::llvm::ConstantFP_get(ty.inner_llvm_Type(), val as ::libc::c_double);
+            let ret = ::ffi::llvm::ConstantFP_get(::llvm::ty::TypeExt::inner(ty), val as ::libc::c_double);
             if ret.is_null() {
                 return None;
             }
@@ -806,7 +770,7 @@ impl ConstantFP {
 
     pub fn get_infinity(ty: &::llvm::ty::TypeExt) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
-            let ret = ::ffi::llvm::ConstantFP_getInfinity(ty.inner_llvm_Type());
+            let ret = ::ffi::llvm::ConstantFP_getInfinity(::llvm::ty::TypeExt::inner(ty));
             if ret.is_null() {
                 return None;
             }
@@ -816,7 +780,7 @@ impl ConstantFP {
 
     pub fn get_negative_zero(ty: &::llvm::ty::TypeExt) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
-            let ret = ::ffi::llvm::ConstantFP_getNegativeZero(ty.inner_llvm_Type());
+            let ret = ::ffi::llvm::ConstantFP_getNegativeZero(::llvm::ty::TypeExt::inner(ty));
             if ret.is_null() {
                 return None;
             }
@@ -826,7 +790,7 @@ impl ConstantFP {
 
     pub fn get_zero_value_for_negation(ty: &::llvm::ty::TypeExt) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
-            let ret = ::ffi::llvm::ConstantFP_getZeroValueForNegation(ty.inner_llvm_Type());
+            let ret = ::ffi::llvm::ConstantFP_getZeroValueForNegation(::llvm::ty::TypeExt::inner(ty));
             if ret.is_null() {
                 return None;
             }
@@ -838,7 +802,7 @@ impl Drop for ConstantFP {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
             }
         }
     }
@@ -847,36 +811,32 @@ pub type ConstantIntInner = ::ffi::llvm_ConstantInt;
 
 pub trait ConstantIntExt: ::llvm::value::user::constant::ConstantExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_ConstantInt(&self) -> *mut ConstantIntInner;
-
-    fn inner(&self) -> *mut ConstantIntInner {
-        self.inner_llvm_ConstantInt()
-    }
+    fn inner(&self) -> *mut ConstantIntInner;
 
     fn equals_int(&self, val: u64) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::ConstantInt_equalsInt(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt, val as ::libc::uint64_t);
+            let ret = ::ffi::llvm::ConstantInt_equalsInt(::llvm::value::user::constant::ConstantIntExt::inner(self) as *const ::ffi::llvm_ConstantInt, val as ::libc::uint64_t);
             ret
         }
     }
 
     fn get_bit_width(&self) -> u32 {
         unsafe {
-            let ret = ::ffi::llvm::ConstantInt_getBitWidth(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt) as u32;
+            let ret = ::ffi::llvm::ConstantInt_getBitWidth(::llvm::value::user::constant::ConstantIntExt::inner(self) as *const ::ffi::llvm_ConstantInt) as u32;
             ret
         }
     }
 
     fn get_s_ext_value(&self) -> i64 {
         unsafe {
-            let ret = ::ffi::llvm::ConstantInt_getSExtValue(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt) as i64;
+            let ret = ::ffi::llvm::ConstantInt_getSExtValue(::llvm::value::user::constant::ConstantIntExt::inner(self) as *const ::ffi::llvm_ConstantInt) as i64;
             ret
         }
     }
 
     fn get_type(&self) -> Option<::llvm::ty::IntegerType> {
         unsafe {
-            let ret = ::ffi::llvm::ConstantInt_getType(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt);
+            let ret = ::ffi::llvm::ConstantInt_getType(::llvm::value::user::constant::ConstantIntExt::inner(self) as *const ::ffi::llvm_ConstantInt);
             if ret.is_null() {
                 return None;
             }
@@ -886,56 +846,56 @@ pub trait ConstantIntExt: ::llvm::value::user::constant::ConstantExt {
 
     fn get_z_ext_value(&self) -> u64 {
         unsafe {
-            let ret = ::ffi::llvm::ConstantInt_getZExtValue(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt) as u64;
+            let ret = ::ffi::llvm::ConstantInt_getZExtValue(::llvm::value::user::constant::ConstantIntExt::inner(self) as *const ::ffi::llvm_ConstantInt) as u64;
             ret
         }
     }
 
     fn is_max_value(&self, is_signed: bool) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::ConstantInt_isMaxValue(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt, is_signed);
+            let ret = ::ffi::llvm::ConstantInt_isMaxValue(::llvm::value::user::constant::ConstantIntExt::inner(self) as *const ::ffi::llvm_ConstantInt, is_signed);
             ret
         }
     }
 
     fn is_min_value(&self, is_signed: bool) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::ConstantInt_isMinValue(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt, is_signed);
+            let ret = ::ffi::llvm::ConstantInt_isMinValue(::llvm::value::user::constant::ConstantIntExt::inner(self) as *const ::ffi::llvm_ConstantInt, is_signed);
             ret
         }
     }
 
     fn is_minus_one(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::ConstantInt_isMinusOne(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt);
+            let ret = ::ffi::llvm::ConstantInt_isMinusOne(::llvm::value::user::constant::ConstantIntExt::inner(self) as *const ::ffi::llvm_ConstantInt);
             ret
         }
     }
 
     fn is_negative(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::ConstantInt_isNegative(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt);
+            let ret = ::ffi::llvm::ConstantInt_isNegative(::llvm::value::user::constant::ConstantIntExt::inner(self) as *const ::ffi::llvm_ConstantInt);
             ret
         }
     }
 
     fn is_one(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::ConstantInt_isOne(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt);
+            let ret = ::ffi::llvm::ConstantInt_isOne(::llvm::value::user::constant::ConstantIntExt::inner(self) as *const ::ffi::llvm_ConstantInt);
             ret
         }
     }
 
     fn is_zero(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::ConstantInt_isZero(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt);
+            let ret = ::ffi::llvm::ConstantInt_isZero(::llvm::value::user::constant::ConstantIntExt::inner(self) as *const ::ffi::llvm_ConstantInt);
             ret
         }
     }
 
     fn uge(&self, num: u64) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::ConstantInt_uge(self.inner_llvm_ConstantInt() as *const ::ffi::llvm_ConstantInt, num as ::libc::uint64_t);
+            let ret = ::ffi::llvm::ConstantInt_uge(::llvm::value::user::constant::ConstantIntExt::inner(self) as *const ::ffi::llvm_ConstantInt, num as ::libc::uint64_t);
             ret
         }
     }
@@ -946,28 +906,28 @@ pub struct ConstantInt {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for ConstantInt {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for ConstantInt {
-    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::ConstantExt for ConstantInt {
-    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+    fn inner(&self) -> *mut ::ffi::llvm_Constant {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ConstantIntExt for ConstantInt {
-    fn inner_llvm_ConstantInt(&self) -> *mut ConstantIntInner {
+    fn inner(&self) -> *mut ConstantIntInner {
         *self.inner
     }
 }
@@ -981,7 +941,7 @@ impl ConstantInt {
 
     pub fn classof(val: &::llvm::value::ValueExt) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::ConstantInt_classof(val.inner_llvm_Value());
+            let ret = ::ffi::llvm::ConstantInt_classof(::llvm::value::ValueExt::inner(val));
             ret
         }
     }
@@ -995,7 +955,7 @@ impl ConstantInt {
                 length: val.1.len() as ::libc::size_t,
             },
             };
-            let ret = ::ffi::llvm::ConstantInt_fromAPInt(context.inner_llvm_LLVMContext(), c_val);
+            let ret = ::ffi::llvm::ConstantInt_fromAPInt(::llvm::LLVMContextExt::inner(context), c_val);
             if ret.is_null() {
                 return None;
             }
@@ -1009,7 +969,7 @@ impl ConstantInt {
                 data: str.as_ptr() as *const ::libc::c_char,
                 length: str.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::ConstantInt_fromStr(ty.inner_llvm_IntegerType(), c_str, radix as ::libc::uint8_t);
+            let ret = ::ffi::llvm::ConstantInt_fromStr(::llvm::ty::IntegerTypeExt::inner(ty), c_str, radix as ::libc::uint8_t);
             if ret.is_null() {
                 return None;
             }
@@ -1019,7 +979,7 @@ impl ConstantInt {
 
     pub fn get(ty: &::llvm::ty::IntegerTypeExt, value: u64) -> Option<::llvm::value::user::constant::ConstantInt> {
         unsafe {
-            let ret = ::ffi::llvm::ConstantInt_get(ty.inner_llvm_IntegerType(), value as ::libc::uint64_t);
+            let ret = ::ffi::llvm::ConstantInt_get(::llvm::ty::IntegerTypeExt::inner(ty), value as ::libc::uint64_t);
             if ret.is_null() {
                 return None;
             }
@@ -1029,7 +989,7 @@ impl ConstantInt {
 
     pub fn get_false(ty: &::llvm::ty::TypeExt) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
-            let ret = ::ffi::llvm::ConstantInt_getFalse(ty.inner_llvm_Type());
+            let ret = ::ffi::llvm::ConstantInt_getFalse(::llvm::ty::TypeExt::inner(ty));
             if ret.is_null() {
                 return None;
             }
@@ -1039,7 +999,7 @@ impl ConstantInt {
 
     pub fn get_false_with_context(context: &::llvm::LLVMContextExt) -> Option<::llvm::value::user::constant::ConstantInt> {
         unsafe {
-            let ret = ::ffi::llvm::ConstantInt_getFalseWithContext(context.inner_llvm_LLVMContext());
+            let ret = ::ffi::llvm::ConstantInt_getFalseWithContext(::llvm::LLVMContextExt::inner(context));
             if ret.is_null() {
                 return None;
             }
@@ -1049,7 +1009,7 @@ impl ConstantInt {
 
     pub fn get_signed(ty: &::llvm::ty::IntegerTypeExt, value: u64, is_signed: bool) -> Option<::llvm::value::user::constant::ConstantInt> {
         unsafe {
-            let ret = ::ffi::llvm::ConstantInt_getSigned(ty.inner_llvm_IntegerType(), value as ::libc::uint64_t, is_signed);
+            let ret = ::ffi::llvm::ConstantInt_getSigned(::llvm::ty::IntegerTypeExt::inner(ty), value as ::libc::uint64_t, is_signed);
             if ret.is_null() {
                 return None;
             }
@@ -1059,7 +1019,7 @@ impl ConstantInt {
 
     pub fn get_true(ty: &::llvm::ty::TypeExt) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
-            let ret = ::ffi::llvm::ConstantInt_getTrue(ty.inner_llvm_Type());
+            let ret = ::ffi::llvm::ConstantInt_getTrue(::llvm::ty::TypeExt::inner(ty));
             if ret.is_null() {
                 return None;
             }
@@ -1069,7 +1029,7 @@ impl ConstantInt {
 
     pub fn get_true_with_context(context: &::llvm::LLVMContextExt) -> Option<::llvm::value::user::constant::ConstantInt> {
         unsafe {
-            let ret = ::ffi::llvm::ConstantInt_getTrueWithContext(context.inner_llvm_LLVMContext());
+            let ret = ::ffi::llvm::ConstantInt_getTrueWithContext(::llvm::LLVMContextExt::inner(context));
             if ret.is_null() {
                 return None;
             }
@@ -1079,14 +1039,14 @@ impl ConstantInt {
 
     pub fn is_signed_value_valid_for_type(ty: &::llvm::ty::TypeExt, val: i64) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::ConstantInt_isSignedValueValidForType(ty.inner_llvm_Type(), val as ::libc::int64_t);
+            let ret = ::ffi::llvm::ConstantInt_isSignedValueValidForType(::llvm::ty::TypeExt::inner(ty), val as ::libc::int64_t);
             ret
         }
     }
 
     pub fn is_value_valid_for_type(ty: &::llvm::ty::TypeExt, val: u64) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::ConstantInt_isValueValidForType(ty.inner_llvm_Type(), val as ::libc::uint64_t);
+            let ret = ::ffi::llvm::ConstantInt_isValueValidForType(::llvm::ty::TypeExt::inner(ty), val as ::libc::uint64_t);
             ret
         }
     }
@@ -1095,7 +1055,7 @@ impl Drop for ConstantInt {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
             }
         }
     }
@@ -1104,21 +1064,17 @@ pub type ConstantPointerNullInner = ::ffi::llvm_ConstantPointerNull;
 
 pub trait ConstantPointerNullExt: ::llvm::value::user::constant::ConstantExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_ConstantPointerNull(&self) -> *mut ConstantPointerNullInner;
-
-    fn inner(&self) -> *mut ConstantPointerNullInner {
-        self.inner_llvm_ConstantPointerNull()
-    }
+    fn inner(&self) -> *mut ConstantPointerNullInner;
 
     fn destroy_constant(&mut self) {
         unsafe {
-            ::ffi::llvm::ConstantPointerNull_destroyConstant(self.inner_llvm_ConstantPointerNull());
+            ::ffi::llvm::ConstantPointerNull_destroyConstant(::llvm::value::user::constant::ConstantPointerNullExt::inner(self));
         }
     }
 
     fn get_type(&self) -> Option<::llvm::ty::seq::PointerType> {
         unsafe {
-            let ret = ::ffi::llvm::ConstantPointerNull_getType(self.inner_llvm_ConstantPointerNull() as *const ::ffi::llvm_ConstantPointerNull);
+            let ret = ::ffi::llvm::ConstantPointerNull_getType(::llvm::value::user::constant::ConstantPointerNullExt::inner(self) as *const ::ffi::llvm_ConstantPointerNull);
             if ret.is_null() {
                 return None;
             }
@@ -1132,28 +1088,28 @@ pub struct ConstantPointerNull {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for ConstantPointerNull {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for ConstantPointerNull {
-    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::ConstantExt for ConstantPointerNull {
-    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+    fn inner(&self) -> *mut ::ffi::llvm_Constant {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ConstantPointerNullExt for ConstantPointerNull {
-    fn inner_llvm_ConstantPointerNull(&self) -> *mut ConstantPointerNullInner {
+    fn inner(&self) -> *mut ConstantPointerNullInner {
         *self.inner
     }
 }
@@ -1167,14 +1123,14 @@ impl ConstantPointerNull {
 
     pub fn classof(val: &::llvm::value::ValueExt) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::ConstantPointerNull_classof(val.inner_llvm_Value());
+            let ret = ::ffi::llvm::ConstantPointerNull_classof(::llvm::value::ValueExt::inner(val));
             ret
         }
     }
 
     pub fn get(ty: &::llvm::ty::seq::PointerTypeExt) -> Option<::llvm::value::user::constant::ConstantPointerNull> {
         unsafe {
-            let ret = ::ffi::llvm::ConstantPointerNull_get(ty.inner_llvm_PointerType());
+            let ret = ::ffi::llvm::ConstantPointerNull_get(::llvm::ty::seq::PointerTypeExt::inner(ty));
             if ret.is_null() {
                 return None;
             }
@@ -1186,7 +1142,7 @@ impl Drop for ConstantPointerNull {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
             }
         }
     }
@@ -1195,11 +1151,7 @@ pub type ConstantStructInner = ::ffi::llvm_ConstantStruct;
 
 pub trait ConstantStructExt: ::llvm::value::user::constant::ConstantExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_ConstantStruct(&self) -> *mut ConstantStructInner;
-
-    fn inner(&self) -> *mut ConstantStructInner {
-        self.inner_llvm_ConstantStruct()
-    }
+    fn inner(&self) -> *mut ConstantStructInner;
 }
 
 pub struct ConstantStruct {
@@ -1207,28 +1159,28 @@ pub struct ConstantStruct {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for ConstantStruct {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for ConstantStruct {
-    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::ConstantExt for ConstantStruct {
-    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+    fn inner(&self) -> *mut ::ffi::llvm_Constant {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ConstantStructExt for ConstantStruct {
-    fn inner_llvm_ConstantStruct(&self) -> *mut ConstantStructInner {
+    fn inner(&self) -> *mut ConstantStructInner {
         *self.inner
     }
 }
@@ -1244,7 +1196,7 @@ impl Drop for ConstantStruct {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
             }
         }
     }
@@ -1253,11 +1205,7 @@ pub type ConstantVectorInner = ::ffi::llvm_ConstantVector;
 
 pub trait ConstantVectorExt: ::llvm::value::user::constant::ConstantExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_ConstantVector(&self) -> *mut ConstantVectorInner;
-
-    fn inner(&self) -> *mut ConstantVectorInner {
-        self.inner_llvm_ConstantVector()
-    }
+    fn inner(&self) -> *mut ConstantVectorInner;
 }
 
 pub struct ConstantVector {
@@ -1265,28 +1213,28 @@ pub struct ConstantVector {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for ConstantVector {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for ConstantVector {
-    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::ConstantExt for ConstantVector {
-    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+    fn inner(&self) -> *mut ::ffi::llvm_Constant {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ConstantVectorExt for ConstantVector {
-    fn inner_llvm_ConstantVector(&self) -> *mut ConstantVectorInner {
+    fn inner(&self) -> *mut ConstantVectorInner {
         *self.inner
     }
 }
@@ -1302,7 +1250,7 @@ impl Drop for ConstantVector {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
             }
         }
     }
@@ -1311,11 +1259,7 @@ pub type FunctionInner = ::ffi::llvm_Function;
 
 pub trait FunctionExt: ::llvm::value::user::constant::GlobalObjectExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_Function(&self) -> *mut FunctionInner;
-
-    fn inner(&self) -> *mut FunctionInner {
-        self.inner_llvm_Function()
-    }
+    fn inner(&self) -> *mut FunctionInner;
 
     fn add_fn_attr(&mut self, kind: &str) {
         unsafe {
@@ -1323,7 +1267,7 @@ pub trait FunctionExt: ::llvm::value::user::constant::GlobalObjectExt {
                 data: kind.as_ptr() as *const ::libc::c_char,
                 length: kind.len() as ::libc::size_t,
             };
-            ::ffi::llvm::Function_addFnAttr(self.inner_llvm_Function(), c_kind);
+            ::ffi::llvm::Function_addFnAttr(::llvm::value::user::constant::FunctionExt::inner(self), c_kind);
         }
     }
 
@@ -1337,107 +1281,107 @@ pub trait FunctionExt: ::llvm::value::user::constant::GlobalObjectExt {
                 data: val.as_ptr() as *const ::libc::c_char,
                 length: val.len() as ::libc::size_t,
             };
-            ::ffi::llvm::Function_addFnAttrWithValue(self.inner_llvm_Function(), c_kind, c_val);
+            ::ffi::llvm::Function_addFnAttrWithValue(::llvm::value::user::constant::FunctionExt::inner(self), c_kind, c_val);
         }
     }
 
     fn cannot_duplicate(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Function_cannotDuplicate(self.inner_llvm_Function() as *const ::ffi::llvm_Function);
+            let ret = ::ffi::llvm::Function_cannotDuplicate(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function);
             ret
         }
     }
 
     fn clear_gc(&mut self) {
         unsafe {
-            ::ffi::llvm::Function_clearGC(self.inner_llvm_Function());
+            ::ffi::llvm::Function_clearGC(::llvm::value::user::constant::FunctionExt::inner(self));
         }
     }
 
     fn copy_attributes_from(&mut self, src: &::llvm::value::user::constant::GlobalValueExt) {
         unsafe {
-            ::ffi::llvm::Function_copyAttributesFrom(self.inner_llvm_Function(), src.inner_llvm_GlobalValue());
+            ::ffi::llvm::Function_copyAttributesFrom(::llvm::value::user::constant::FunctionExt::inner(self), ::llvm::value::user::constant::GlobalValueExt::inner(src));
         }
     }
 
     fn delete_body(&mut self) {
         unsafe {
-            ::ffi::llvm::Function_deleteBody(self.inner_llvm_Function());
+            ::ffi::llvm::Function_deleteBody(::llvm::value::user::constant::FunctionExt::inner(self));
         }
     }
 
     fn does_not_access_memory(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Function_doesNotAccessMemory(self.inner_llvm_Function() as *const ::ffi::llvm_Function);
+            let ret = ::ffi::llvm::Function_doesNotAccessMemory(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function);
             ret
         }
     }
 
     fn does_not_access_memory_param(&self, n: u32) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Function_doesNotAccessMemoryParam(self.inner_llvm_Function() as *const ::ffi::llvm_Function, n as ::libc::c_uint);
+            let ret = ::ffi::llvm::Function_doesNotAccessMemoryParam(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function, n as ::libc::c_uint);
             ret
         }
     }
 
     fn does_not_alias(&self, n: u32) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Function_doesNotAlias(self.inner_llvm_Function() as *const ::ffi::llvm_Function, n as ::libc::c_uint);
+            let ret = ::ffi::llvm::Function_doesNotAlias(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function, n as ::libc::c_uint);
             ret
         }
     }
 
     fn does_not_capture(&self, n: u32) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Function_doesNotCapture(self.inner_llvm_Function() as *const ::ffi::llvm_Function, n as ::libc::c_uint);
+            let ret = ::ffi::llvm::Function_doesNotCapture(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function, n as ::libc::c_uint);
             ret
         }
     }
 
     fn does_not_return(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Function_doesNotReturn(self.inner_llvm_Function() as *const ::ffi::llvm_Function);
+            let ret = ::ffi::llvm::Function_doesNotReturn(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function);
             ret
         }
     }
 
     fn does_not_throw(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Function_doesNotThrow(self.inner_llvm_Function() as *const ::ffi::llvm_Function);
+            let ret = ::ffi::llvm::Function_doesNotThrow(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function);
             ret
         }
     }
 
     fn erase_from_parent(&mut self) {
         unsafe {
-            ::ffi::llvm::Function_eraseFromParent(self.inner_llvm_Function());
+            ::ffi::llvm::Function_eraseFromParent(::llvm::value::user::constant::FunctionExt::inner(self));
         }
     }
 
     fn get_calling_conv(&self) -> ::llvm::calling_conv::ID {
         unsafe {
-            let ret = ::llvm::calling_conv::ID::from_ffi(::ffi::llvm::Function_getCallingConv(self.inner_llvm_Function() as *const ::ffi::llvm_Function));
+            let ret = ::llvm::calling_conv::ID::from_ffi(::ffi::llvm::Function_getCallingConv(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function));
             ret
         }
     }
 
     fn get_context(&self) -> ::llvm::LLVMContext {
         unsafe {
-            let ret = ::ffi::llvm::Function_getContext(self.inner_llvm_Function() as *const ::ffi::llvm_Function);
+            let ret = ::ffi::llvm::Function_getContext(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function);
             ::llvm::LLVMContext::from_inner(ret)
         }
     }
 
     fn get_dereferenceable_bytes(&self, idx: u32) -> u64 {
         unsafe {
-            let ret = ::ffi::llvm::Function_getDereferenceableBytes(self.inner_llvm_Function() as *const ::ffi::llvm_Function, idx as ::libc::c_uint) as u64;
+            let ret = ::ffi::llvm::Function_getDereferenceableBytes(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function, idx as ::libc::c_uint) as u64;
             ret
         }
     }
 
     fn get_function_type(&self) -> Option<::llvm::ty::FunctionType> {
         unsafe {
-            let ret = ::ffi::llvm::Function_getFunctionType(self.inner_llvm_Function() as *const ::ffi::llvm_Function);
+            let ret = ::ffi::llvm::Function_getFunctionType(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function);
             if ret.is_null() {
                 return None;
             }
@@ -1447,21 +1391,21 @@ pub trait FunctionExt: ::llvm::value::user::constant::GlobalObjectExt {
 
     fn get_intrinsic_id(&self) -> u32 {
         unsafe {
-            let ret = ::ffi::llvm::Function_getIntrinsicID(self.inner_llvm_Function() as *const ::ffi::llvm_Function) as u32;
+            let ret = ::ffi::llvm::Function_getIntrinsicID(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function) as u32;
             ret
         }
     }
 
     fn get_param_alignment(&self, idx: u32) -> u32 {
         unsafe {
-            let ret = ::ffi::llvm::Function_getParamAlignment(self.inner_llvm_Function() as *const ::ffi::llvm_Function, idx as ::libc::c_uint) as u32;
+            let ret = ::ffi::llvm::Function_getParamAlignment(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function, idx as ::libc::c_uint) as u32;
             ret
         }
     }
 
     fn get_return_type(&self) -> Option<::llvm::ty::Type> {
         unsafe {
-            let ret = ::ffi::llvm::Function_getReturnType(self.inner_llvm_Function() as *const ::ffi::llvm_Function);
+            let ret = ::ffi::llvm::Function_getReturnType(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function);
             if ret.is_null() {
                 return None;
             }
@@ -1475,136 +1419,136 @@ pub trait FunctionExt: ::llvm::value::user::constant::GlobalObjectExt {
                 data: kind.as_ptr() as *const ::libc::c_char,
                 length: kind.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::Function_hasFnAttr(self.inner_llvm_Function() as *const ::ffi::llvm_Function, c_kind);
+            let ret = ::ffi::llvm::Function_hasFnAttr(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function, c_kind);
             ret
         }
     }
 
     fn has_gc(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Function_hasGC(self.inner_llvm_Function() as *const ::ffi::llvm_Function);
+            let ret = ::ffi::llvm::Function_hasGC(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function);
             ret
         }
     }
 
     fn has_struct_ret_attr(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Function_hasStructRetAttr(self.inner_llvm_Function() as *const ::ffi::llvm_Function);
+            let ret = ::ffi::llvm::Function_hasStructRetAttr(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function);
             ret
         }
     }
 
     fn has_uw_table(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Function_hasUWTable(self.inner_llvm_Function() as *const ::ffi::llvm_Function);
+            let ret = ::ffi::llvm::Function_hasUWTable(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function);
             ret
         }
     }
 
     fn is_intrinsic(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Function_isIntrinsic(self.inner_llvm_Function() as *const ::ffi::llvm_Function);
+            let ret = ::ffi::llvm::Function_isIntrinsic(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function);
             ret
         }
     }
 
     fn is_var_arg(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Function_isVarArg(self.inner_llvm_Function() as *const ::ffi::llvm_Function);
+            let ret = ::ffi::llvm::Function_isVarArg(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function);
             ret
         }
     }
 
     fn needs_unwind_table_entry(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Function_needsUnwindTableEntry(self.inner_llvm_Function() as *const ::ffi::llvm_Function);
+            let ret = ::ffi::llvm::Function_needsUnwindTableEntry(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function);
             ret
         }
     }
 
     fn only_reads_memory(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Function_onlyReadsMemory(self.inner_llvm_Function() as *const ::ffi::llvm_Function);
+            let ret = ::ffi::llvm::Function_onlyReadsMemory(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function);
             ret
         }
     }
 
     fn only_reads_memory_param(&self, n: u32) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Function_onlyReadsMemoryParam(self.inner_llvm_Function() as *const ::ffi::llvm_Function, n as ::libc::c_uint);
+            let ret = ::ffi::llvm::Function_onlyReadsMemoryParam(::llvm::value::user::constant::FunctionExt::inner(self) as *const ::ffi::llvm_Function, n as ::libc::c_uint);
             ret
         }
     }
 
     fn remove_from_parent(&mut self) {
         unsafe {
-            ::ffi::llvm::Function_removeFromParent(self.inner_llvm_Function());
+            ::ffi::llvm::Function_removeFromParent(::llvm::value::user::constant::FunctionExt::inner(self));
         }
     }
 
     fn set_calling_conv(&mut self, cc: ::llvm::calling_conv::ID) {
         unsafe {
-            ::ffi::llvm::Function_setCallingConv(self.inner_llvm_Function(), cc.to_ffi());
+            ::ffi::llvm::Function_setCallingConv(::llvm::value::user::constant::FunctionExt::inner(self), cc.to_ffi());
         }
     }
 
     fn set_cannot_duplicate(&mut self) {
         unsafe {
-            ::ffi::llvm::Function_setCannotDuplicate(self.inner_llvm_Function());
+            ::ffi::llvm::Function_setCannotDuplicate(::llvm::value::user::constant::FunctionExt::inner(self));
         }
     }
 
     fn set_does_not_access_memory(&mut self) {
         unsafe {
-            ::ffi::llvm::Function_setDoesNotAccessMemory(self.inner_llvm_Function());
+            ::ffi::llvm::Function_setDoesNotAccessMemory(::llvm::value::user::constant::FunctionExt::inner(self));
         }
     }
 
     fn set_does_not_access_memory_param(&mut self, n: u32) {
         unsafe {
-            ::ffi::llvm::Function_setDoesNotAccessMemoryParam(self.inner_llvm_Function(), n as ::libc::c_uint);
+            ::ffi::llvm::Function_setDoesNotAccessMemoryParam(::llvm::value::user::constant::FunctionExt::inner(self), n as ::libc::c_uint);
         }
     }
 
     fn set_does_not_alias(&mut self, n: u32) {
         unsafe {
-            ::ffi::llvm::Function_setDoesNotAlias(self.inner_llvm_Function(), n as ::libc::c_uint);
+            ::ffi::llvm::Function_setDoesNotAlias(::llvm::value::user::constant::FunctionExt::inner(self), n as ::libc::c_uint);
         }
     }
 
     fn set_does_not_capture(&mut self, n: u32) {
         unsafe {
-            ::ffi::llvm::Function_setDoesNotCapture(self.inner_llvm_Function(), n as ::libc::c_uint);
+            ::ffi::llvm::Function_setDoesNotCapture(::llvm::value::user::constant::FunctionExt::inner(self), n as ::libc::c_uint);
         }
     }
 
     fn set_does_not_return(&mut self) {
         unsafe {
-            ::ffi::llvm::Function_setDoesNotReturn(self.inner_llvm_Function());
+            ::ffi::llvm::Function_setDoesNotReturn(::llvm::value::user::constant::FunctionExt::inner(self));
         }
     }
 
     fn set_does_not_throw(&mut self) {
         unsafe {
-            ::ffi::llvm::Function_setDoesNotThrow(self.inner_llvm_Function());
+            ::ffi::llvm::Function_setDoesNotThrow(::llvm::value::user::constant::FunctionExt::inner(self));
         }
     }
 
     fn set_has_uw_table(&mut self) {
         unsafe {
-            ::ffi::llvm::Function_setHasUWTable(self.inner_llvm_Function());
+            ::ffi::llvm::Function_setHasUWTable(::llvm::value::user::constant::FunctionExt::inner(self));
         }
     }
 
     fn set_only_reads_memory(&mut self) {
         unsafe {
-            ::ffi::llvm::Function_setOnlyReadsMemory(self.inner_llvm_Function());
+            ::ffi::llvm::Function_setOnlyReadsMemory(::llvm::value::user::constant::FunctionExt::inner(self));
         }
     }
 
     fn set_only_reads_memory_param(&mut self, n: u32) {
         unsafe {
-            ::ffi::llvm::Function_setOnlyReadsMemoryParam(self.inner_llvm_Function(), n as ::libc::c_uint);
+            ::ffi::llvm::Function_setOnlyReadsMemoryParam(::llvm::value::user::constant::FunctionExt::inner(self), n as ::libc::c_uint);
         }
     }
 }
@@ -1614,42 +1558,42 @@ pub struct Function {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for Function {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for Function {
-    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::ConstantExt for Function {
-    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+    fn inner(&self) -> *mut ::ffi::llvm_Constant {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::GlobalValueExt for Function {
-    fn inner_llvm_GlobalValue(&self) -> *mut ::ffi::llvm_GlobalValue {
+    fn inner(&self) -> *mut ::ffi::llvm_GlobalValue {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::GlobalObjectExt for Function {
-    fn inner_llvm_GlobalObject(&self) -> *mut ::ffi::llvm_GlobalObject {
+    fn inner(&self) -> *mut ::ffi::llvm_GlobalObject {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl FunctionExt for Function {
-    fn inner_llvm_Function(&self) -> *mut FunctionInner {
+    fn inner(&self) -> *mut FunctionInner {
         *self.inner
     }
 }
@@ -1663,7 +1607,7 @@ impl Function {
 
     pub fn create(ty: &::llvm::ty::FunctionTypeExt, linkage: ::llvm::value::user::constant::LinkageTypes) -> Option<::llvm::value::user::constant::Function> {
         unsafe {
-            let ret = ::ffi::llvm::Function_Create(ty.inner_llvm_FunctionType(), linkage.to_ffi());
+            let ret = ::ffi::llvm::Function_Create(::llvm::ty::FunctionTypeExt::inner(ty), linkage.to_ffi());
             if ret.is_null() {
                 return None;
             }
@@ -1677,7 +1621,7 @@ impl Function {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::Function_CreateWithName(ty.inner_llvm_FunctionType(), linkage.to_ffi(), c_name);
+            let ret = ::ffi::llvm::Function_CreateWithName(::llvm::ty::FunctionTypeExt::inner(ty), linkage.to_ffi(), c_name);
             if ret.is_null() {
                 return None;
             }
@@ -1687,7 +1631,7 @@ impl Function {
 
     pub fn classof(val: &::llvm::value::ValueExt) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Function_classof(val.inner_llvm_Value());
+            let ret = ::ffi::llvm::Function_classof(::llvm::value::ValueExt::inner(val));
             ret
         }
     }
@@ -1696,7 +1640,7 @@ impl Drop for Function {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Function_delete(::llvm::value::user::constant::FunctionExt::inner_llvm_Function(self));
+                ::ffi::llvm::Function_delete(::llvm::value::user::constant::FunctionExt::inner(self));
             }
         }
     }
@@ -1705,11 +1649,7 @@ pub type GlobalAliasInner = ::ffi::llvm_GlobalAlias;
 
 pub trait GlobalAliasExt: ::llvm::value::user::constant::GlobalValueExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_GlobalAlias(&self) -> *mut GlobalAliasInner;
-
-    fn inner(&self) -> *mut GlobalAliasInner {
-        self.inner_llvm_GlobalAlias()
-    }
+    fn inner(&self) -> *mut GlobalAliasInner;
 }
 
 pub struct GlobalAlias {
@@ -1717,35 +1657,35 @@ pub struct GlobalAlias {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for GlobalAlias {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for GlobalAlias {
-    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::ConstantExt for GlobalAlias {
-    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+    fn inner(&self) -> *mut ::ffi::llvm_Constant {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::GlobalValueExt for GlobalAlias {
-    fn inner_llvm_GlobalValue(&self) -> *mut ::ffi::llvm_GlobalValue {
+    fn inner(&self) -> *mut ::ffi::llvm_GlobalValue {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl GlobalAliasExt for GlobalAlias {
-    fn inner_llvm_GlobalAlias(&self) -> *mut GlobalAliasInner {
+    fn inner(&self) -> *mut GlobalAliasInner {
         *self.inner
     }
 }
@@ -1761,7 +1701,7 @@ impl Drop for GlobalAlias {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::GlobalValue_delete(::llvm::value::user::constant::GlobalValueExt::inner_llvm_GlobalValue(self));
+                ::ffi::llvm::GlobalValue_delete(::llvm::value::user::constant::GlobalValueExt::inner(self));
             }
         }
     }
@@ -1770,11 +1710,7 @@ pub type GlobalObjectInner = ::ffi::llvm_GlobalObject;
 
 pub trait GlobalObjectExt: ::llvm::value::user::constant::GlobalValueExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_GlobalObject(&self) -> *mut GlobalObjectInner;
-
-    fn inner(&self) -> *mut GlobalObjectInner {
-        self.inner_llvm_GlobalObject()
-    }
+    fn inner(&self) -> *mut GlobalObjectInner;
 
     fn set_section(&mut self, s: &str) {
         unsafe {
@@ -1782,7 +1718,7 @@ pub trait GlobalObjectExt: ::llvm::value::user::constant::GlobalValueExt {
                 data: s.as_ptr() as *const ::libc::c_char,
                 length: s.len() as ::libc::size_t,
             };
-            ::ffi::llvm::GlobalObject_setSection(self.inner_llvm_GlobalObject(), c_s);
+            ::ffi::llvm::GlobalObject_setSection(::llvm::value::user::constant::GlobalObjectExt::inner(self), c_s);
         }
     }
 }
@@ -1792,35 +1728,35 @@ pub struct GlobalObject {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for GlobalObject {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for GlobalObject {
-    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::ConstantExt for GlobalObject {
-    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+    fn inner(&self) -> *mut ::ffi::llvm_Constant {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::GlobalValueExt for GlobalObject {
-    fn inner_llvm_GlobalValue(&self) -> *mut ::ffi::llvm_GlobalValue {
+    fn inner(&self) -> *mut ::ffi::llvm_GlobalValue {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl GlobalObjectExt for GlobalObject {
-    fn inner_llvm_GlobalObject(&self) -> *mut GlobalObjectInner {
+    fn inner(&self) -> *mut GlobalObjectInner {
         *self.inner
     }
 }
@@ -1836,7 +1772,7 @@ impl Drop for GlobalObject {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::GlobalValue_delete(::llvm::value::user::constant::GlobalValueExt::inner_llvm_GlobalValue(self));
+                ::ffi::llvm::GlobalValue_delete(::llvm::value::user::constant::GlobalValueExt::inner(self));
             }
         }
     }
@@ -1891,40 +1827,36 @@ pub type GlobalValueInner = ::ffi::llvm_GlobalValue;
 
 pub trait GlobalValueExt: ::llvm::value::user::constant::ConstantExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_GlobalValue(&self) -> *mut GlobalValueInner;
-
-    fn inner(&self) -> *mut GlobalValueInner {
-        self.inner_llvm_GlobalValue()
-    }
+    fn inner(&self) -> *mut GlobalValueInner;
 
     fn copy_attributes_from(&mut self, src: &::llvm::value::user::constant::GlobalValueExt) {
         unsafe {
-            ::ffi::llvm::GlobalValue_copyAttributesFrom(self.inner_llvm_GlobalValue(), src.inner_llvm_GlobalValue());
+            ::ffi::llvm::GlobalValue_copyAttributesFrom(::llvm::value::user::constant::GlobalValueExt::inner(self), ::llvm::value::user::constant::GlobalValueExt::inner(src));
         }
     }
 
     fn destroy_constant(&mut self) {
         unsafe {
-            ::ffi::llvm::GlobalValue_destroyConstant(self.inner_llvm_GlobalValue());
+            ::ffi::llvm::GlobalValue_destroyConstant(::llvm::value::user::constant::GlobalValueExt::inner(self));
         }
     }
 
     fn erase_from_parent(&mut self) {
         unsafe {
-            ::ffi::llvm::GlobalValue_eraseFromParent(self.inner_llvm_GlobalValue());
+            ::ffi::llvm::GlobalValue_eraseFromParent(::llvm::value::user::constant::GlobalValueExt::inner(self));
         }
     }
 
     fn get_alignment(&self) -> u32 {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_getAlignment(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue) as u32;
+            let ret = ::ffi::llvm::GlobalValue_getAlignment(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue) as u32;
             ret
         }
     }
 
     fn get_data_layout(&self) -> Option<::llvm::DataLayout> {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_getDataLayout(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_getDataLayout(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             if ret.is_null() {
                 return None;
             }
@@ -1934,7 +1866,7 @@ pub trait GlobalValueExt: ::llvm::value::user::constant::ConstantExt {
 
     fn get_parent(&self) -> Option<::llvm::Module> {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_getParent(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_getParent(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             if ret.is_null() {
                 return None;
             }
@@ -1944,7 +1876,7 @@ pub trait GlobalValueExt: ::llvm::value::user::constant::ConstantExt {
 
     fn get_parent_mut(&mut self) -> Option<::llvm::Module> {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_getParentMut(self.inner_llvm_GlobalValue());
+            let ret = ::ffi::llvm::GlobalValue_getParentMut(::llvm::value::user::constant::GlobalValueExt::inner(self));
             if ret.is_null() {
                 return None;
             }
@@ -1954,7 +1886,7 @@ pub trait GlobalValueExt: ::llvm::value::user::constant::ConstantExt {
 
     fn get_type(&self) -> Option<::llvm::ty::seq::PointerType> {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_getType(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_getType(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             if ret.is_null() {
                 return None;
             }
@@ -1964,187 +1896,187 @@ pub trait GlobalValueExt: ::llvm::value::user::constant::ConstantExt {
 
     fn has_appending_linkage(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_hasAppendingLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_hasAppendingLinkage(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn has_available_externally_linkage(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_hasAvailableExternallyLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_hasAvailableExternallyLinkage(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn has_common_linkage(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_hasCommonLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_hasCommonLinkage(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn has_dll_export_storage_class(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_hasDLLExportStorageClass(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_hasDLLExportStorageClass(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn has_dll_import_storage_class(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_hasDLLImportStorageClass(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_hasDLLImportStorageClass(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn has_default_visibility(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_hasDefaultVisibility(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_hasDefaultVisibility(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn has_external_linkage(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_hasExternalLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_hasExternalLinkage(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn has_external_weak_linkage(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_hasExternalWeakLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_hasExternalWeakLinkage(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn has_hidden_visibility(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_hasHiddenVisibility(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_hasHiddenVisibility(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn has_internal_linkage(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_hasInternalLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_hasInternalLinkage(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn has_link_once_linkage(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_hasLinkOnceLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_hasLinkOnceLinkage(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn has_local_linkage(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_hasLocalLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_hasLocalLinkage(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn has_private_linkage(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_hasPrivateLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_hasPrivateLinkage(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn has_protected_visibility(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_hasProtectedVisibility(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_hasProtectedVisibility(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn has_section(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_hasSection(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_hasSection(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn has_unnamed_addr(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_hasUnnamedAddr(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_hasUnnamedAddr(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn has_weak_any_linkage(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_hasWeakAnyLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_hasWeakAnyLinkage(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn has_weak_linkage(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_hasWeakLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_hasWeakLinkage(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn has_weak_odr_linkage(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_hasWeakODRLinkage(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_hasWeakODRLinkage(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn is_declaration(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_isDeclaration(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_isDeclaration(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn is_discardable_if_unused(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_isDiscardableIfUnused(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_isDiscardableIfUnused(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn is_thread_local(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_isThreadLocal(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_isThreadLocal(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn is_weak_for_linker(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_isWeakForLinker(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_isWeakForLinker(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn may_be_overridden(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalValue_mayBeOverridden(self.inner_llvm_GlobalValue() as *const ::ffi::llvm_GlobalValue);
+            let ret = ::ffi::llvm::GlobalValue_mayBeOverridden(::llvm::value::user::constant::GlobalValueExt::inner(self) as *const ::ffi::llvm_GlobalValue);
             ret
         }
     }
 
     fn remove_from_parent(&mut self) {
         unsafe {
-            ::ffi::llvm::GlobalValue_removeFromParent(self.inner_llvm_GlobalValue());
+            ::ffi::llvm::GlobalValue_removeFromParent(::llvm::value::user::constant::GlobalValueExt::inner(self));
         }
     }
 
     fn set_thread_local(&mut self, val: bool) {
         unsafe {
-            ::ffi::llvm::GlobalValue_setThreadLocal(self.inner_llvm_GlobalValue(), val);
+            ::ffi::llvm::GlobalValue_setThreadLocal(::llvm::value::user::constant::GlobalValueExt::inner(self), val);
         }
     }
 
     fn set_unnamed_addr(&mut self, val: bool) {
         unsafe {
-            ::ffi::llvm::GlobalValue_setUnnamedAddr(self.inner_llvm_GlobalValue(), val);
+            ::ffi::llvm::GlobalValue_setUnnamedAddr(::llvm::value::user::constant::GlobalValueExt::inner(self), val);
         }
     }
 }
@@ -2154,28 +2086,28 @@ pub struct GlobalValue {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for GlobalValue {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for GlobalValue {
-    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::ConstantExt for GlobalValue {
-    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+    fn inner(&self) -> *mut ::ffi::llvm_Constant {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl GlobalValueExt for GlobalValue {
-    fn inner_llvm_GlobalValue(&self) -> *mut GlobalValueInner {
+    fn inner(&self) -> *mut GlobalValueInner {
         *self.inner
     }
 }
@@ -2191,7 +2123,7 @@ impl Drop for GlobalValue {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::GlobalValue_delete(::llvm::value::user::constant::GlobalValueExt::inner_llvm_GlobalValue(self));
+                ::ffi::llvm::GlobalValue_delete(::llvm::value::user::constant::GlobalValueExt::inner(self));
             }
         }
     }
@@ -2200,27 +2132,23 @@ pub type GlobalVariableInner = ::ffi::llvm_GlobalVariable;
 
 pub trait GlobalVariableExt: ::llvm::value::user::constant::GlobalObjectExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_GlobalVariable(&self) -> *mut GlobalVariableInner;
-
-    fn inner(&self) -> *mut GlobalVariableInner {
-        self.inner_llvm_GlobalVariable()
-    }
+    fn inner(&self) -> *mut GlobalVariableInner;
 
     fn copy_attributes_from(&mut self, src: &::llvm::value::user::constant::GlobalValueExt) {
         unsafe {
-            ::ffi::llvm::GlobalVariable_copyAttributesFrom(self.inner_llvm_GlobalVariable(), src.inner_llvm_GlobalValue());
+            ::ffi::llvm::GlobalVariable_copyAttributesFrom(::llvm::value::user::constant::GlobalVariableExt::inner(self), ::llvm::value::user::constant::GlobalValueExt::inner(src));
         }
     }
 
     fn erase_from_parent(&mut self) {
         unsafe {
-            ::ffi::llvm::GlobalVariable_eraseFromParent(self.inner_llvm_GlobalVariable());
+            ::ffi::llvm::GlobalVariable_eraseFromParent(::llvm::value::user::constant::GlobalVariableExt::inner(self));
         }
     }
 
     fn get_initializer(&self) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
-            let ret = ::ffi::llvm::GlobalVariable_getInitializer(self.inner_llvm_GlobalVariable() as *const ::ffi::llvm_GlobalVariable);
+            let ret = ::ffi::llvm::GlobalVariable_getInitializer(::llvm::value::user::constant::GlobalVariableExt::inner(self) as *const ::ffi::llvm_GlobalVariable);
             if ret.is_null() {
                 return None;
             }
@@ -2230,7 +2158,7 @@ pub trait GlobalVariableExt: ::llvm::value::user::constant::GlobalObjectExt {
 
     fn get_initializer_mut(&mut self) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
-            let ret = ::ffi::llvm::GlobalVariable_getInitializerMut(self.inner_llvm_GlobalVariable());
+            let ret = ::ffi::llvm::GlobalVariable_getInitializerMut(::llvm::value::user::constant::GlobalVariableExt::inner(self));
             if ret.is_null() {
                 return None;
             }
@@ -2240,60 +2168,60 @@ pub trait GlobalVariableExt: ::llvm::value::user::constant::GlobalObjectExt {
 
     fn has_definitive_initializer(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalVariable_hasDefinitiveInitializer(self.inner_llvm_GlobalVariable() as *const ::ffi::llvm_GlobalVariable);
+            let ret = ::ffi::llvm::GlobalVariable_hasDefinitiveInitializer(::llvm::value::user::constant::GlobalVariableExt::inner(self) as *const ::ffi::llvm_GlobalVariable);
             ret
         }
     }
 
     fn has_initializer(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalVariable_hasInitializer(self.inner_llvm_GlobalVariable() as *const ::ffi::llvm_GlobalVariable);
+            let ret = ::ffi::llvm::GlobalVariable_hasInitializer(::llvm::value::user::constant::GlobalVariableExt::inner(self) as *const ::ffi::llvm_GlobalVariable);
             ret
         }
     }
 
     fn has_unique_initializer(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalVariable_hasUniqueInitializer(self.inner_llvm_GlobalVariable() as *const ::ffi::llvm_GlobalVariable);
+            let ret = ::ffi::llvm::GlobalVariable_hasUniqueInitializer(::llvm::value::user::constant::GlobalVariableExt::inner(self) as *const ::ffi::llvm_GlobalVariable);
             ret
         }
     }
 
     fn is_constant(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalVariable_isConstant(self.inner_llvm_GlobalVariable() as *const ::ffi::llvm_GlobalVariable);
+            let ret = ::ffi::llvm::GlobalVariable_isConstant(::llvm::value::user::constant::GlobalVariableExt::inner(self) as *const ::ffi::llvm_GlobalVariable);
             ret
         }
     }
 
     fn is_externally_initialized(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::GlobalVariable_isExternallyInitialized(self.inner_llvm_GlobalVariable() as *const ::ffi::llvm_GlobalVariable);
+            let ret = ::ffi::llvm::GlobalVariable_isExternallyInitialized(::llvm::value::user::constant::GlobalVariableExt::inner(self) as *const ::ffi::llvm_GlobalVariable);
             ret
         }
     }
 
     fn remove_from_parent(&mut self) {
         unsafe {
-            ::ffi::llvm::GlobalVariable_removeFromParent(self.inner_llvm_GlobalVariable());
+            ::ffi::llvm::GlobalVariable_removeFromParent(::llvm::value::user::constant::GlobalVariableExt::inner(self));
         }
     }
 
     fn set_constant(&mut self, val: bool) {
         unsafe {
-            ::ffi::llvm::GlobalVariable_setConstant(self.inner_llvm_GlobalVariable(), val);
+            ::ffi::llvm::GlobalVariable_setConstant(::llvm::value::user::constant::GlobalVariableExt::inner(self), val);
         }
     }
 
     fn set_externally_initialized(&mut self, val: bool) {
         unsafe {
-            ::ffi::llvm::GlobalVariable_setExternallyInitialized(self.inner_llvm_GlobalVariable(), val);
+            ::ffi::llvm::GlobalVariable_setExternallyInitialized(::llvm::value::user::constant::GlobalVariableExt::inner(self), val);
         }
     }
 
     fn set_initializer(&mut self, init_val: &::llvm::value::user::constant::ConstantExt) {
         unsafe {
-            ::ffi::llvm::GlobalVariable_setInitializer(self.inner_llvm_GlobalVariable(), init_val.inner_llvm_Constant());
+            ::ffi::llvm::GlobalVariable_setInitializer(::llvm::value::user::constant::GlobalVariableExt::inner(self), ::llvm::value::user::constant::ConstantExt::inner(init_val));
         }
     }
 }
@@ -2303,42 +2231,42 @@ pub struct GlobalVariable {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for GlobalVariable {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for GlobalVariable {
-    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::ConstantExt for GlobalVariable {
-    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+    fn inner(&self) -> *mut ::ffi::llvm_Constant {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::GlobalValueExt for GlobalVariable {
-    fn inner_llvm_GlobalValue(&self) -> *mut ::ffi::llvm_GlobalValue {
+    fn inner(&self) -> *mut ::ffi::llvm_GlobalValue {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::GlobalObjectExt for GlobalVariable {
-    fn inner_llvm_GlobalObject(&self) -> *mut ::ffi::llvm_GlobalObject {
+    fn inner(&self) -> *mut ::ffi::llvm_GlobalObject {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl GlobalVariableExt for GlobalVariable {
-    fn inner_llvm_GlobalVariable(&self) -> *mut GlobalVariableInner {
+    fn inner(&self) -> *mut GlobalVariableInner {
         *self.inner
     }
 }
@@ -2352,7 +2280,7 @@ impl GlobalVariable {
 
     pub fn new(ty: &::llvm::ty::TypeExt, is_constant: bool, linkage: ::llvm::value::user::constant::LinkageTypes) -> ::llvm::value::user::constant::GlobalVariable {
         unsafe {
-            let ret = ::ffi::llvm::GlobalVariable_new(ty.inner_llvm_Type(), is_constant, linkage.to_ffi());
+            let ret = ::ffi::llvm::GlobalVariable_new(::llvm::ty::TypeExt::inner(ty), is_constant, linkage.to_ffi());
             if ret.is_null(){
                 panic!("::llvm::GlobalVariable::new returned a null pointer!");
             }
@@ -2362,7 +2290,7 @@ impl GlobalVariable {
 
     pub fn new_with_module(module: &::llvm::ModuleExt, ty: &::llvm::ty::TypeExt, is_constant: bool, linkage: ::llvm::value::user::constant::LinkageTypes, initializer: &::llvm::value::user::constant::ConstantExt) -> ::llvm::value::user::constant::GlobalVariable {
         unsafe {
-            let ret = ::ffi::llvm::GlobalVariable_newWithModule(module.inner_llvm_Module(), ty.inner_llvm_Type(), is_constant, linkage.to_ffi(), initializer.inner_llvm_Constant());
+            let ret = ::ffi::llvm::GlobalVariable_newWithModule(::llvm::ModuleExt::inner(module), ::llvm::ty::TypeExt::inner(ty), is_constant, linkage.to_ffi(), ::llvm::value::user::constant::ConstantExt::inner(initializer));
             if ret.is_null(){
                 panic!("::llvm::GlobalVariable::newWithModule returned a null pointer!");
             }
@@ -2374,7 +2302,7 @@ impl Drop for GlobalVariable {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::GlobalVariable_delete(::llvm::value::user::constant::GlobalVariableExt::inner_llvm_GlobalVariable(self));
+                ::ffi::llvm::GlobalVariable_delete(::llvm::value::user::constant::GlobalVariableExt::inner(self));
             }
         }
     }
@@ -2383,11 +2311,7 @@ pub type UndefValueInner = ::ffi::llvm_UndefValue;
 
 pub trait UndefValueExt: ::llvm::value::user::constant::ConstantExt {
     #[allow(non_snake_case)]
-    fn inner_llvm_UndefValue(&self) -> *mut UndefValueInner;
-
-    fn inner(&self) -> *mut UndefValueInner {
-        self.inner_llvm_UndefValue()
-    }
+    fn inner(&self) -> *mut UndefValueInner;
 }
 
 pub struct UndefValue {
@@ -2395,28 +2319,28 @@ pub struct UndefValue {
     owned: bool,
 }
 impl ::llvm::value::ValueExt for UndefValue {
-    fn inner_llvm_Value(&self) -> *mut ::ffi::llvm_Value {
+    fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::UserExt for UndefValue {
-    fn inner_llvm_User(&self) -> *mut ::ffi::llvm_User {
+    fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ::llvm::value::user::constant::ConstantExt for UndefValue {
-    fn inner_llvm_Constant(&self) -> *mut ::ffi::llvm_Constant {
+    fn inner(&self) -> *mut ::ffi::llvm_Constant {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl UndefValueExt for UndefValue {
-    fn inner_llvm_UndefValue(&self) -> *mut UndefValueInner {
+    fn inner(&self) -> *mut UndefValueInner {
         *self.inner
     }
 }
@@ -2432,7 +2356,7 @@ impl Drop for UndefValue {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner_llvm_User(self));
+                ::ffi::llvm::User_delete(::llvm::value::user::UserExt::inner(self));
             }
         }
     }

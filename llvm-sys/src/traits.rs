@@ -61,6 +61,7 @@ pub use ::llvm::value::user::inst::UnaryInstructionExt;
 pub use ::llvm::value::user::inst::UnreachableInstExt;
 pub use ::llvm::value::user::inst::VAArgInstExt;
 pub use ::llvm::value::user::OperatorExt;
+pub use ::llvm::value::user::UseExt;
 pub use ::llvm::value::user::UserExt;
 pub use ::llvm::value::ArgumentExt;
 pub use ::llvm::value::BasicBlockExt;
