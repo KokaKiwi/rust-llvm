@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/mnt/opensuse-home/hervie_g/epitest/projects/rust/llvm/llvm-sys/src/ffi.rs`.">
+    <meta name="description" content="Source to the Rust file `llvm-sys/src/ffi.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>ffi.rs.html -- source</title>
@@ -3148,6 +3148,65 @@
 <span id="3106">3106</span>
 <span id="3107">3107</span>
 <span id="3108">3108</span>
+<span id="3109">3109</span>
+<span id="3110">3110</span>
+<span id="3111">3111</span>
+<span id="3112">3112</span>
+<span id="3113">3113</span>
+<span id="3114">3114</span>
+<span id="3115">3115</span>
+<span id="3116">3116</span>
+<span id="3117">3117</span>
+<span id="3118">3118</span>
+<span id="3119">3119</span>
+<span id="3120">3120</span>
+<span id="3121">3121</span>
+<span id="3122">3122</span>
+<span id="3123">3123</span>
+<span id="3124">3124</span>
+<span id="3125">3125</span>
+<span id="3126">3126</span>
+<span id="3127">3127</span>
+<span id="3128">3128</span>
+<span id="3129">3129</span>
+<span id="3130">3130</span>
+<span id="3131">3131</span>
+<span id="3132">3132</span>
+<span id="3133">3133</span>
+<span id="3134">3134</span>
+<span id="3135">3135</span>
+<span id="3136">3136</span>
+<span id="3137">3137</span>
+<span id="3138">3138</span>
+<span id="3139">3139</span>
+<span id="3140">3140</span>
+<span id="3141">3141</span>
+<span id="3142">3142</span>
+<span id="3143">3143</span>
+<span id="3144">3144</span>
+<span id="3145">3145</span>
+<span id="3146">3146</span>
+<span id="3147">3147</span>
+<span id="3148">3148</span>
+<span id="3149">3149</span>
+<span id="3150">3150</span>
+<span id="3151">3151</span>
+<span id="3152">3152</span>
+<span id="3153">3153</span>
+<span id="3154">3154</span>
+<span id="3155">3155</span>
+<span id="3156">3156</span>
+<span id="3157">3157</span>
+<span id="3158">3158</span>
+<span id="3159">3159</span>
+<span id="3160">3160</span>
+<span id="3161">3161</span>
+<span id="3162">3162</span>
+<span id="3163">3163</span>
+<span id="3164">3164</span>
+<span id="3165">3165</span>
+<span id="3166">3166</span>
+<span id="3167">3167</span>
 </pre><pre class='rust '>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>allow</span>(<span class='ident'>non_camel_case_types</span>, <span class='ident'>non_snake_case</span>, <span class='ident'>unstable</span>)]</span>
 
@@ -3432,6 +3491,9 @@
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_UnreachableInst</span>;
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_Use</span>;
+<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>llvm_User</span>;
 <span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Copy</span>)]</span>
@@ -3581,6 +3643,7 @@
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_FunctionType_get</span>(<span class='prelude-ty'>Result</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Type</span>, <span class='ident'>Params</span>: <span class='ident'>super</span>::<span class='ident'>llvm_ArrayRef_llvm_Type_ptr</span>, <span class='ident'>isVarArg</span>: ::<span class='ident'>libc</span>::<span class='ident'>c_int</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_FunctionType</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_IntegerType_get</span>(<span class='ident'>ctx</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_LLVMContext</span>, <span class='ident'>NumBits</span>: ::<span class='ident'>libc</span>::<span class='ident'>c_uint</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_IntegerType</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_PointerType_get</span>(<span class='ident'>ElementType</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Type</span>, <span class='ident'>AddressSpace</span>: ::<span class='ident'>libc</span>::<span class='ident'>c_uint</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_PointerType</span>;
+        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Use_get</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Value</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_VectorType_get</span>(<span class='ident'>ty</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Type</span>, <span class='ident'>NumElements</span>: ::<span class='ident'>libc</span>::<span class='ident'>c_uint</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_VectorType</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_PointerType_getAddressSpace</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_PointerType</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_uint</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Constant_getAggregateElement</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Constant</span>, <span class='ident'>Elt</span>: ::<span class='ident'>libc</span>::<span class='ident'>c_uint</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Constant</span>;
@@ -3658,6 +3721,7 @@
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Value_getName</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Value</span>) <span class='op'>-&gt;</span> <span class='ident'>super</span>::<span class='ident'>llvm_StringRef</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Module_getNamedValue</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Module</span>, <span class='ident'>Name</span>: <span class='ident'>super</span>::<span class='ident'>llvm_StringRef</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_GlobalValue</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_ConstantFP_getNegativeZero</span>(<span class='ident'>Ty</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Type</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Constant</span>;
+        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Use_getNext</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Constant_getNullValue</span>(<span class='ident'>Ty</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Type</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Constant</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Type_getNumContainedTypes</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Type</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_uint</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_ArrayType_getNumElements</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_ArrayType</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>uint64_t</span>;
@@ -3667,7 +3731,9 @@
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_FunctionType_getNumParams</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_FunctionType</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_uint</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Value_getNumUses</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Value</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_uint</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Instruction_getOpcode</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Instruction</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_uint</span>;
+        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Operator_getOpcode</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Operator</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_uint</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_User_getOperand</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_User</span>, <span class='ident'>idx</span>: ::<span class='ident'>libc</span>::<span class='ident'>c_uint</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Value</span>;
+        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Use_getOperandNo</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_uint</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Module_getOrInsertFunction</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Module</span>, <span class='ident'>Name</span>: <span class='ident'>super</span>::<span class='ident'>llvm_StringRef</span>, <span class='ident'>ty</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_FunctionType</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Constant</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Type_getPPC_FP128PtrTy</span>(<span class='ident'>ctx</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_LLVMContext</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_PointerType</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Type_getPPC_FP128Ty</span>(<span class='ident'>ctx</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_LLVMContext</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Type</span>;
@@ -3705,6 +3771,7 @@
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Module_getTypeByName</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Module</span>, <span class='ident'>Name</span>: <span class='ident'>super</span>::<span class='ident'>llvm_StringRef</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_StructType</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Type_getTypeID</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Type</span>) <span class='op'>-&gt;</span> <span class='ident'>super</span>::<span class='ident'>llvm_Type_TypeID</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_PointerType_getUnqual</span>(<span class='ident'>ElementType</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Type</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_PointerType</span>;
+        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Use_getUser</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_User</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Value_getValueID</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Value</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_uint</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Type_getVoidTy</span>(<span class='ident'>ctx</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_LLVMContext</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Type</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Type_getX86_FP80PtrTy</span>(<span class='ident'>ctx</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_LLVMContext</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_PointerType</span>;
@@ -3752,6 +3819,7 @@
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_GlobalValue_hasWeakLinkage</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_GlobalValue</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_int</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_GlobalValue_hasWeakODRLinkage</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_GlobalValue</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_int</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_CompositeType_indexValid</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_CompositeType</span>, <span class='ident'>idx</span>: ::<span class='ident'>libc</span>::<span class='ident'>c_uint</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_int</span>;
+        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Use_initTags</span>(<span class='ident'>Start</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span>, <span class='ident'>Stop</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Instruction_insertAfter</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Instruction</span>, <span class='ident'>InsertPos</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Instruction</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_void</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Instruction_insertBefore</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Instruction</span>, <span class='ident'>InsertPos</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Instruction</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_void</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Type_isAggregateType</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Type</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_int</span>;
@@ -3860,6 +3928,7 @@
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Instruction_removeFromParent</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Instruction</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_void</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Value_replaceAllUsesWith</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Value</span>, <span class='ident'>Value</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Value</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_void</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_User_replaceUsesOfWith</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_User</span>, <span class='ident'>From</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Value</span>, <span class='ident'>To</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Value</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_void</span>;
+        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Use_set</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span>, <span class='ident'>Val</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Value</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_void</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_StructType_setBody</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_StructType</span>, <span class='ident'>Elements</span>: <span class='ident'>super</span>::<span class='ident'>llvm_ArrayRef_llvm_Type_ptr</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_void</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_StructType_setBodyPacked</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_StructType</span>, <span class='ident'>Elements</span>: <span class='ident'>super</span>::<span class='ident'>llvm_ArrayRef_llvm_Type_ptr</span>, <span class='ident'>isPacked</span>: ::<span class='ident'>libc</span>::<span class='ident'>c_int</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_void</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Function_setCallingConv</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Function</span>, <span class='ident'>CC</span>: <span class='ident'>super</span>::<span class='ident'>llvm_CallingConv_ID</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_void</span>;
@@ -3897,6 +3966,7 @@
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_GlobalValue_setUnnamedAddr</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_GlobalValue</span>, <span class='ident'>Val</span>: ::<span class='ident'>libc</span>::<span class='ident'>c_int</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_void</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Constant_stripPointerCasts</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Constant</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Constant</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Constant_stripPointerCastsMut</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Constant</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Constant</span>;
+        <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Use_swap</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span>, <span class='ident'>RHS</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_void</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Value_takeName</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Value</span>, <span class='ident'>Value</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Value</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_void</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_ConstantInt_uge</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_ConstantInt</span>, <span class='ident'>Num</span>: ::<span class='ident'>libc</span>::<span class='ident'>uint64_t</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_int</span>;
         <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>llvm_Instruction_user_back</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Instruction</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Instruction</span>;
@@ -5501,6 +5571,12 @@
         <span class='ident'>raw</span>::<span class='ident'>llvm_Module_setTargetTriple</span>(<span class='ident'>inst</span>, <span class='ident'>Triple</span>)
     }
 
+    <span class='comment'>// ::llvm::Operator::getOpcode</span>
+    <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>Operator_getOpcode</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Operator</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_uint</span> {
+        <span class='ident'>raw</span>::<span class='ident'>llvm_Operator_getOpcode</span>(<span class='ident'>inst</span>)
+    }
+
     <span class='comment'>// ::llvm::PointerType::classof</span>
     <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
     <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>PointerType_classof</span>(<span class='ident'>ty</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Type</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
@@ -6051,6 +6127,48 @@
     <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
     <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>Type_isX86_MMXTy</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Type</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
         <span class='ident'>raw</span>::<span class='ident'>llvm_Type_isX86_MMXTy</span>(<span class='ident'>inst</span>) <span class='op'>!=</span> <span class='number'>0</span>
+    }
+
+    <span class='comment'>// ::llvm::Use::get</span>
+    <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>Use_get</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Value</span> {
+        <span class='ident'>raw</span>::<span class='ident'>llvm_Use_get</span>(<span class='ident'>inst</span>)
+    }
+
+    <span class='comment'>// ::llvm::Use::getNext</span>
+    <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>Use_getNext</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span> {
+        <span class='ident'>raw</span>::<span class='ident'>llvm_Use_getNext</span>(<span class='ident'>inst</span>)
+    }
+
+    <span class='comment'>// ::llvm::Use::getOperandNo</span>
+    <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>Use_getOperandNo</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_uint</span> {
+        <span class='ident'>raw</span>::<span class='ident'>llvm_Use_getOperandNo</span>(<span class='ident'>inst</span>)
+    }
+
+    <span class='comment'>// ::llvm::Use::getUser</span>
+    <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>Use_getUser</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_User</span> {
+        <span class='ident'>raw</span>::<span class='ident'>llvm_Use_getUser</span>(<span class='ident'>inst</span>)
+    }
+
+    <span class='comment'>// ::llvm::Use::initTags</span>
+    <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>Use_initTags</span>(<span class='ident'>Start</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span>, <span class='ident'>Stop</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span> {
+        <span class='ident'>raw</span>::<span class='ident'>llvm_Use_initTags</span>(<span class='ident'>Start</span>, <span class='ident'>Stop</span>)
+    }
+
+    <span class='comment'>// ::llvm::Use::set</span>
+    <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>Use_set</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span>, <span class='ident'>Val</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Value</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_void</span> {
+        <span class='ident'>raw</span>::<span class='ident'>llvm_Use_set</span>(<span class='ident'>inst</span>, <span class='ident'>Val</span>)
+    }
+
+    <span class='comment'>// ::llvm::Use::swap</span>
+    <span class='attribute'>#[<span class='ident'>inline</span>(<span class='ident'>always</span>)]</span>
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>Use_swap</span>(<span class='ident'>inst</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span>, <span class='ident'>RHS</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>super</span>::<span class='ident'>llvm_Use</span>) <span class='op'>-&gt;</span> ::<span class='ident'>libc</span>::<span class='ident'>c_void</span> {
+        <span class='ident'>raw</span>::<span class='ident'>llvm_Use_swap</span>(<span class='ident'>inst</span>, <span class='ident'>RHS</span>)
     }
 
     <span class='comment'>// ::llvm::User::classof</span>
