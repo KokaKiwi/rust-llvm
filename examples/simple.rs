@@ -7,14 +7,14 @@ use llvm::api::ty::{Type, FunctionType};
 use llvm::traits::*;
 
 fn create_main_fntype(ctx: &LLVMContextExt) -> FunctionType {
-    let ret_ty = Type::get_int32_ty(ctx);
+    let ret_ty = Type::get_int32_ty(ctx).unwrap();
 
     let arg_tys = [
-        &Type::get_int32_ty(ctx) as &TypeExt,
-        &Type::get_int8_ptr_ty(ctx) as &TypeExt,
+        &Type::get_int32_ty(ctx).unwrap() as &TypeExt,
+        &Type::get_int8_ptr_ty(ctx).unwrap() as &TypeExt,
     ];
 
-    FunctionType::get(&ret_ty, &arg_tys, false)
+    FunctionType::get(&ret_ty, &arg_tys, false).unwrap()
 }
 
 fn main() {
