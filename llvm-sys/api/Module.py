@@ -1,13 +1,11 @@
 from bindgen.ast.objects import *
 from .ns import llvm
+from .defs import *
 from .ADT.StringRef import StringRef
-from .Constant import Constant, GlobalValue, GlobalVariable
-from .DataLayout import DataLayout
-from .Function import Function
-from .LLVMContext import LLVMContext
-from .Type import Type, FunctionType, StructType
 
-Module = llvm.Class('Module')
+@llvm.body
+class llvm_body:
+    verifyModule = fn(Bool, (ref(Module, const=True), 'Module'))
 
 @Module.body
 class Module:
@@ -42,15 +40,5 @@ class Module:
     getTypeByName = Method(ptr(StructType), (StringRef, 'Name'), const=True)
 
     getOrInsertFunction = Method(ptr(Constant, null=None), (StringRef, 'Name'), (ptr(FunctionType), 'ty'))
+
     getFunction = Method(ptr(Function), (StringRef, 'Name'), const=True)
-
-@GlobalValue.body
-class GlobalValue:
-    getParent = Method(ptr(Module, const=True), const=True)
-    getParentMut = Method(ptr(Module)).with_call_name('getParent')
-
-    getDataLayout = Method(ptr(DataLayout, const=True), const=True)
-
-@GlobalVariable.body
-class GlobalVariable:
-    newWithModule = Constructor((ref(Module), 'Module'), (ptr(Type), 'Ty'), (Bool, 'isConstant'), (GlobalValue.LinkageTypes, 'Linkage'), (ptr(Constant), 'Initializer'), null=None)

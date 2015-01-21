@@ -1,7 +1,6 @@
 from bindgen.ast.objects import *
 from .ns import llvm
-
-DataLayout = llvm.Class('DataLayout')
+from .defs import *
 
 @DataLayout.body
 class DataLayout:

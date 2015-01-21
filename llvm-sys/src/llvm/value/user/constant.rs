@@ -1605,27 +1605,18 @@ impl Function {
         }
     }
 
-    pub fn create(ty: &::llvm::ty::FunctionTypeExt, linkage: ::llvm::value::user::constant::LinkageTypes) -> Option<::llvm::value::user::constant::Function> {
+    pub fn create(ty: &::llvm::ty::FunctionTypeExt, linkage: ::llvm::value::user::constant::LinkageTypes, name: Option<&str>, module: Option<&::llvm::ModuleExt>) -> ::llvm::value::user::constant::Function {
         unsafe {
-            let ret = ::ffi::llvm::Function_Create(::llvm::ty::FunctionTypeExt::inner(ty), linkage.to_ffi());
-            if ret.is_null() {
-                return None;
-            }
-            Some(::llvm::value::user::constant::Function::from_inner(ret, false))
-        }
-    }
-
-    pub fn create_with_name(ty: &::llvm::ty::FunctionTypeExt, linkage: ::llvm::value::user::constant::LinkageTypes, name: &str) -> Option<::llvm::value::user::constant::Function> {
-        unsafe {
-            let c_name = ::ffi::llvm_StringRef {
-                data: name.as_ptr() as *const ::libc::c_char,
+            let name = name.unwrap_or("");
+            let c_name = ::ffi::std_string {
+                data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::Function_CreateWithName(::llvm::ty::FunctionTypeExt::inner(ty), linkage.to_ffi(), c_name);
+            let ret = ::ffi::llvm::Function_Create(::llvm::ty::FunctionTypeExt::inner(ty), linkage.to_ffi(), c_name, module.map(|module| ::llvm::ModuleExt::inner(module)).unwrap_or(::std::ptr::null_mut()));
             if ret.is_null() {
-                return None;
+                panic!("::llvm::Function::Create returned a null pointer!");
             }
-            Some(::llvm::value::user::constant::Function::from_inner(ret, false))
+            ::llvm::value::user::constant::Function::from_inner(ret, false)
         }
     }
 

@@ -132,6 +132,13 @@ pub struct llvm_ConstantStruct;
 #[derive(Copy)]
 pub struct llvm_ConstantVector;
 #[repr(C)]
+#[allow(raw_pointer_derive)]
+pub struct std_string {
+    pub data: *mut ::libc::c_char,
+    pub length: ::libc::size_t,
+}
+impl Copy for std_string {}
+#[repr(C)]
 #[derive(Copy)]
 pub enum llvm_GlobalValue_LinkageTypes {
     ExternalLinkage = 0,
@@ -146,13 +153,6 @@ pub enum llvm_GlobalValue_LinkageTypes {
     ExternalWeakLinkage,
     CommonLinkage,
 }
-#[repr(C)]
-#[allow(raw_pointer_derive)]
-pub struct std_string {
-    pub data: *mut ::libc::c_char,
-    pub length: ::libc::size_t,
-}
-impl Copy for std_string {}
 #[repr(C)]
 #[allow(raw_pointer_derive)]
 pub struct llvm_ArrayRef_llvm_Value_ptr {
@@ -455,6 +455,9 @@ pub struct llvm_VAArgInst;
 pub struct llvm_Value;
 #[repr(C)]
 #[derive(Copy)]
+pub struct llvm_ValueSymbolTable;
+#[repr(C)]
+#[derive(Copy)]
 pub enum llvm_Value_ValueTy {
     ArgumentVal,
     BasicBlockVal,
@@ -511,7 +514,8 @@ impl Copy for llvm_ArrayRef__libc_uint64_t {}
 mod raw {
     extern "C" {
         pub fn llvm_IRBuilderBase_ClearInsertionPoint(inst: *mut super::llvm_IRBuilderBase) -> ::libc::c_void;
-        pub fn llvm_Function_Create(Ty: *mut super::llvm_FunctionType, Linkage: super::llvm_GlobalValue_LinkageTypes) -> *mut super::llvm_Function;
+        pub fn llvm_BasicBlock_Create(Context: *mut super::llvm_LLVMContext, Name: super::std_string, Parent: *mut super::llvm_Function, InsertBefore: *mut super::llvm_BasicBlock) -> *mut super::llvm_BasicBlock;
+        pub fn llvm_Function_Create(Ty: *mut super::llvm_FunctionType, Linkage: super::llvm_GlobalValue_LinkageTypes, Name: super::std_string, Module: *mut super::llvm_Module) -> *mut super::llvm_Function;
         pub fn llvm_IRBuilder_CreateAShr(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
         pub fn llvm_IRBuilder_CreateAShrByValue(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: ::libc::uint64_t, Name: super::std_string) -> *mut super::llvm_Value;
         pub fn llvm_IRBuilder_CreateAdd(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
@@ -637,7 +641,6 @@ mod raw {
         pub fn llvm_IRBuilder_CreateUnreachable(inst: *mut super::llvm_IRBuilder) -> *mut super::llvm_UnreachableInst;
         pub fn llvm_IRBuilder_CreateVAArg(inst: *mut super::llvm_IRBuilder, List: *mut super::llvm_Value, Ty: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_VAArgInst;
         pub fn llvm_IRBuilder_CreateVectorSplat(inst: *mut super::llvm_IRBuilder, NumElements: ::libc::c_uint, Value: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
-        pub fn llvm_Function_CreateWithName(Ty: *mut super::llvm_FunctionType, Linkage: super::llvm_GlobalValue_LinkageTypes, Name: super::llvm_StringRef) -> *mut super::llvm_Function;
         pub fn llvm_IRBuilder_CreateXor(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
         pub fn llvm_IRBuilder_CreateXorByValue(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: ::libc::uint64_t, Name: super::std_string) -> *mut super::llvm_Value;
         pub fn llvm_IRBuilder_CreateZExt(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
@@ -655,6 +658,7 @@ mod raw {
         pub fn llvm_Constant_canTrap(inst: *const super::llvm_Constant) -> ::libc::c_int;
         pub fn llvm_Function_cannotDuplicate(inst: *const super::llvm_Function) -> ::libc::c_int;
         pub fn llvm_ArrayType_classof(ty: *const super::llvm_Type) -> ::libc::c_int;
+        pub fn llvm_BasicBlock_classof(Val: *const super::llvm_Value) -> ::libc::c_int;
         pub fn llvm_CompositeType_classof(ty: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Constant_classof(V: *const super::llvm_Value) -> ::libc::c_int;
         pub fn llvm_ConstantArray_classof(V: *const super::llvm_Value) -> ::libc::c_int;
@@ -677,14 +681,17 @@ mod raw {
         pub fn llvm_Instruction_copyFastMathFlags(inst: *mut super::llvm_Instruction, Inst: *const super::llvm_Instruction) -> ::libc::c_void;
         pub fn llvm_StructType_create(ctx: *mut super::llvm_LLVMContext, Elements: super::llvm_ArrayRef_llvm_Type_ptr, Name: super::llvm_StringRef) -> *mut super::llvm_StructType;
         pub fn llvm_StructType_createPacked(ctx: *mut super::llvm_LLVMContext, Elements: super::llvm_ArrayRef_llvm_Type_ptr, Name: super::llvm_StringRef, isPacked: ::libc::c_int) -> *mut super::llvm_StructType;
+        pub fn llvm_BasicBlock_delete(inst: *mut super::llvm_BasicBlock) -> ::libc::c_void;
         pub fn llvm_Function_delete(inst: *mut super::llvm_Function) -> ::libc::c_void;
         pub fn llvm_GlobalValue_delete(inst: *mut super::llvm_GlobalValue) -> ::libc::c_void;
         pub fn llvm_GlobalVariable_delete(inst: *mut super::llvm_GlobalVariable) -> ::libc::c_void;
         pub fn llvm_IRBuilder_delete(inst: *mut super::llvm_IRBuilder) -> ::libc::c_void;
         pub fn llvm_Instruction_delete(inst: *mut super::llvm_Instruction) -> ::libc::c_void;
+        pub fn llvm_LLVMContext_delete() -> *mut super::llvm_LLVMContext;
         pub fn llvm_Module_delete(inst: *mut super::llvm_Module) -> ::libc::c_void;
         pub fn llvm_User_delete(inst: *mut super::llvm_User) -> ::libc::c_void;
         pub fn llvm_Value_delete(inst: *mut super::llvm_Value) -> ::libc::c_void;
+        pub fn llvm_ValueSymbolTable_delete() -> *mut super::llvm_ValueSymbolTable;
         pub fn llvm_Function_deleteBody(inst: *mut super::llvm_Function) -> ::libc::c_void;
         pub fn llvm_BlockAddress_destroyConstant(inst: *mut super::llvm_BlockAddress) -> ::libc::c_void;
         pub fn llvm_Constant_destroyConstant(inst: *mut super::llvm_Constant) -> ::libc::c_void;
@@ -696,6 +703,7 @@ mod raw {
         pub fn llvm_Function_doesNotCapture(inst: *const super::llvm_Function, n: ::libc::c_uint) -> ::libc::c_int;
         pub fn llvm_Function_doesNotReturn(inst: *const super::llvm_Function) -> ::libc::c_int;
         pub fn llvm_Function_doesNotThrow(inst: *const super::llvm_Function) -> ::libc::c_int;
+        pub fn llvm_BasicBlock_dropAllReferences(inst: *mut super::llvm_BasicBlock) -> ::libc::c_void;
         pub fn llvm_User_dropAllReferences(inst: *mut super::llvm_User) -> ::libc::c_void;
         pub fn llvm_Instruction_dropUnknownMetadata(inst: *mut super::llvm_Instruction) -> ::libc::c_void;
         pub fn llvm_Instruction_dropUnknownMetadataFromIDS(inst: *mut super::llvm_Instruction, KnownIDs: super::llvm_ArrayRef__libc_c_uint) -> ::libc::c_void;
@@ -703,7 +711,10 @@ mod raw {
         pub fn llvm_Module_dump(inst: *const super::llvm_Module) -> ::libc::c_void;
         pub fn llvm_Type_dump(inst: *const super::llvm_Type) -> ::libc::c_void;
         pub fn llvm_Value_dump(inst: *const super::llvm_Value) -> ::libc::c_void;
+        pub fn llvm_ValueSymbolTable_dump(inst: *const super::llvm_ValueSymbolTable) -> ::libc::c_void;
+        pub fn llvm_ValueSymbolTable_empty(inst: *const super::llvm_ValueSymbolTable) -> ::libc::c_int;
         pub fn llvm_ConstantInt_equalsInt(inst: *const super::llvm_ConstantInt, Val: ::libc::uint64_t) -> ::libc::c_int;
+        pub fn llvm_BasicBlock_eraseFromParent(inst: *mut super::llvm_BasicBlock) -> ::libc::c_void;
         pub fn llvm_Function_eraseFromParent(inst: *mut super::llvm_Function) -> ::libc::c_void;
         pub fn llvm_GlobalValue_eraseFromParent(inst: *mut super::llvm_GlobalValue) -> ::libc::c_void;
         pub fn llvm_GlobalVariable_eraseFromParent(inst: *mut super::llvm_GlobalVariable) -> ::libc::c_void;
@@ -741,6 +752,7 @@ mod raw {
         pub fn llvm_Type_getContext(inst: *const super::llvm_Type) -> *mut super::llvm_LLVMContext;
         pub fn llvm_Value_getContext(inst: *const super::llvm_Value) -> *mut super::llvm_LLVMContext;
         pub fn llvm_IRBuilderBase_getCurrentFunctionReturnType(inst: *const super::llvm_IRBuilderBase) -> *mut super::llvm_Type;
+        pub fn llvm_BasicBlock_getDataLayout(inst: *const super::llvm_BasicBlock) -> *const super::llvm_DataLayout;
         pub fn llvm_GlobalValue_getDataLayout(inst: *const super::llvm_GlobalValue) -> *const super::llvm_DataLayout;
         pub fn llvm_Instruction_getDataLayout(inst: *const super::llvm_Instruction) -> *const super::llvm_DataLayout;
         pub fn llvm_Module_getDataLayout(inst: *const super::llvm_Module) -> *const super::llvm_DataLayout;
@@ -760,6 +772,12 @@ mod raw {
         pub fn llvm_ConstantInt_getFalse(Ty: *mut super::llvm_Type) -> *mut super::llvm_Constant;
         pub fn llvm_IRBuilderBase_getFalse(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_ConstantInt;
         pub fn llvm_ConstantInt_getFalseWithContext(Context: *mut super::llvm_LLVMContext) -> *mut super::llvm_ConstantInt;
+        pub fn llvm_BasicBlock_getFirstNonPHI(inst: *const super::llvm_BasicBlock) -> *const super::llvm_Instruction;
+        pub fn llvm_BasicBlock_getFirstNonPHIMut(inst: *mut super::llvm_BasicBlock) -> *mut super::llvm_Instruction;
+        pub fn llvm_BasicBlock_getFirstNonPHIOrDbg(inst: *const super::llvm_BasicBlock) -> *const super::llvm_Instruction;
+        pub fn llvm_BasicBlock_getFirstNonPHIOrDbgMut(inst: *mut super::llvm_BasicBlock) -> *mut super::llvm_Instruction;
+        pub fn llvm_BasicBlock_getFirstNonPHIOrDbgOrLifetime(inst: *const super::llvm_BasicBlock) -> *const super::llvm_Instruction;
+        pub fn llvm_BasicBlock_getFirstNonPHIOrDbgOrLifetimeMut(inst: *mut super::llvm_BasicBlock) -> *mut super::llvm_Instruction;
         pub fn llvm_Type_getFloatPtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
         pub fn llvm_IRBuilderBase_getFloatTy(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_Type;
         pub fn llvm_Type_getFloatTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
@@ -808,6 +826,8 @@ mod raw {
         pub fn llvm_Constant_getIntegerValue(Ty: *mut super::llvm_Type, Value: super::llvm_APInt) -> *mut super::llvm_Constant;
         pub fn llvm_Function_getIntrinsicID(inst: *const super::llvm_Function) -> ::libc::c_uint;
         pub fn llvm_Type_getLabelTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
+        pub fn llvm_BasicBlock_getLandingPadInst(inst: *const super::llvm_BasicBlock) -> *const super::llvm_LandingPadInst;
+        pub fn llvm_BasicBlock_getLandingPadInstMut(inst: *mut super::llvm_BasicBlock) -> *mut super::llvm_LandingPadInst;
         pub fn llvm_DebugLoc_getLine(inst: *const super::llvm_DebugLoc) -> ::libc::c_uint;
         pub fn llvm_Module_getMDKindID(inst: *const super::llvm_Module, Name: super::llvm_StringRef) -> ::libc::c_uint;
         pub fn llvm_Instruction_getMetadata(inst: *const super::llvm_Instruction, KindID: ::libc::c_uint) -> *mut super::llvm_MDNode;
@@ -837,8 +857,10 @@ mod raw {
         pub fn llvm_Type_getPPC_FP128Ty(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
         pub fn llvm_Function_getParamAlignment(inst: *const super::llvm_Function, idx: ::libc::c_uint) -> ::libc::c_uint;
         pub fn llvm_FunctionType_getParamType(inst: *const super::llvm_FunctionType, idx: ::libc::c_uint) -> *mut super::llvm_Type;
+        pub fn llvm_BasicBlock_getParent(inst: *const super::llvm_BasicBlock) -> *const super::llvm_Function;
         pub fn llvm_GlobalValue_getParent(inst: *const super::llvm_GlobalValue) -> *const super::llvm_Module;
         pub fn llvm_Instruction_getParent(inst: *const super::llvm_Instruction) -> *const super::llvm_BasicBlock;
+        pub fn llvm_BasicBlock_getParentMut(inst: *mut super::llvm_BasicBlock) -> *mut super::llvm_Function;
         pub fn llvm_GlobalValue_getParentMut(inst: *mut super::llvm_GlobalValue) -> *mut super::llvm_Module;
         pub fn llvm_Instruction_getParentMut(inst: *mut super::llvm_Instruction) -> *mut super::llvm_BasicBlock;
         pub fn llvm_Type_getPointerAddressSpace(inst: *const super::llvm_Type) -> ::libc::c_uint;
@@ -852,11 +874,15 @@ mod raw {
         pub fn llvm_Type_getSequentialElementType(inst: *const super::llvm_Type) -> *mut super::llvm_Type;
         pub fn llvm_IntegerType_getSignBit(inst: *const super::llvm_IntegerType) -> ::libc::uint64_t;
         pub fn llvm_ConstantInt_getSigned(Ty: *mut super::llvm_IntegerType, Value: ::libc::uint64_t, isSigned: ::libc::c_int) -> *mut super::llvm_ConstantInt;
+        pub fn llvm_BasicBlock_getSinglePredecessor(inst: *const super::llvm_BasicBlock) -> *const super::llvm_BasicBlock;
+        pub fn llvm_BasicBlock_getSinglePredecessorMut(inst: *mut super::llvm_BasicBlock) -> *mut super::llvm_BasicBlock;
         pub fn llvm_Constant_getSplatValue(inst: *const super::llvm_Constant) -> *mut super::llvm_Constant;
         pub fn llvm_Type_getStructElementType(inst: *const super::llvm_Type, idx: ::libc::c_uint) -> *mut super::llvm_Type;
         pub fn llvm_Type_getStructName(inst: *const super::llvm_Type) -> super::llvm_StringRef;
         pub fn llvm_Type_getStructNumElements(inst: *const super::llvm_Type) -> ::libc::c_uint;
         pub fn llvm_Module_getTargetTriple(inst: *const super::llvm_Module) -> super::std_string_const;
+        pub fn llvm_BasicBlock_getTerminator(inst: *const super::llvm_BasicBlock) -> *const super::llvm_TerminatorInst;
+        pub fn llvm_BasicBlock_getTerminatorMut(inst: *mut super::llvm_BasicBlock) -> *mut super::llvm_TerminatorInst;
         pub fn llvm_ConstantInt_getTrue(Ty: *mut super::llvm_Type) -> *mut super::llvm_Constant;
         pub fn llvm_IRBuilderBase_getTrue(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_ConstantInt;
         pub fn llvm_ConstantInt_getTrueWithContext(Context: *mut super::llvm_LLVMContext) -> *mut super::llvm_ConstantInt;
@@ -869,9 +895,12 @@ mod raw {
         pub fn llvm_CompositeType_getTypeAtIndex(inst: *mut super::llvm_CompositeType, idx: ::libc::c_uint) -> *mut super::llvm_Type;
         pub fn llvm_Module_getTypeByName(inst: *const super::llvm_Module, Name: super::llvm_StringRef) -> *mut super::llvm_StructType;
         pub fn llvm_Type_getTypeID(inst: *const super::llvm_Type) -> super::llvm_Type_TypeID;
+        pub fn llvm_BasicBlock_getUniquePredecessor(inst: *const super::llvm_BasicBlock) -> *const super::llvm_BasicBlock;
+        pub fn llvm_BasicBlock_getUniquePredecessorMut(inst: *mut super::llvm_BasicBlock) -> *mut super::llvm_BasicBlock;
         pub fn llvm_PointerType_getUnqual(ElementType: *mut super::llvm_Type) -> *mut super::llvm_PointerType;
         pub fn llvm_Use_getUser(inst: *const super::llvm_Use) -> *mut super::llvm_User;
         pub fn llvm_Value_getValueID(inst: *const super::llvm_Value) -> ::libc::c_uint;
+        pub fn llvm_BasicBlock_getValueSymbolTable(inst: *mut super::llvm_BasicBlock) -> *mut super::llvm_ValueSymbolTable;
         pub fn llvm_IRBuilderBase_getVoidTy(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_Type;
         pub fn llvm_Type_getVoidTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
         pub fn llvm_Type_getX86_FP80PtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
@@ -880,6 +909,7 @@ mod raw {
         pub fn llvm_Type_getX86_MMXTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
         pub fn llvm_ConstantInt_getZExtValue(inst: *const super::llvm_ConstantInt) -> ::libc::uint64_t;
         pub fn llvm_ConstantFP_getZeroValueForNegation(Ty: *mut super::llvm_Type) -> *mut super::llvm_Constant;
+        pub fn llvm_BasicBlock_hasAddressTaken(inst: *const super::llvm_BasicBlock) -> ::libc::c_int;
         pub fn llvm_Instruction_hasAllowReciprocal(inst: *const super::llvm_Instruction) -> ::libc::c_int;
         pub fn llvm_GlobalValue_hasAppendingLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
         pub fn llvm_GlobalValue_hasAvailableExternallyLinkage(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
@@ -954,6 +984,7 @@ mod raw {
         pub fn llvm_Type_isIntegerTy(inst: *const super::llvm_Type) -> ::libc::c_int;
         pub fn llvm_Function_isIntrinsic(inst: *const super::llvm_Function) -> ::libc::c_int;
         pub fn llvm_Type_isLabelTy(inst: *const super::llvm_Type) -> ::libc::c_int;
+        pub fn llvm_BasicBlock_isLandingPad(inst: *const super::llvm_BasicBlock) -> ::libc::c_int;
         pub fn llvm_StructType_isLayoutIdentical(inst: *const super::llvm_StructType, Other: *mut super::llvm_StructType) -> ::libc::c_int;
         pub fn llvm_StructType_isLiteral(inst: *const super::llvm_StructType) -> ::libc::c_int;
         pub fn llvm_Instruction_isLogicalShift(inst: *const super::llvm_Instruction) -> ::libc::c_int;
@@ -1006,6 +1037,7 @@ mod raw {
         pub fn llvm_ConstantFP_isZero(inst: *const super::llvm_ConstantFP) -> ::libc::c_int;
         pub fn llvm_ConstantInt_isZero(inst: *const super::llvm_ConstantInt) -> ::libc::c_int;
         pub fn llvm_Constant_isZeroValue(inst: *const super::llvm_Constant) -> ::libc::c_int;
+        pub fn llvm_ValueSymbolTable_lookup(inst: *const super::llvm_ValueSymbolTable, Name: super::llvm_StringRef) -> *mut super::llvm_Value;
         pub fn llvm_GlobalValue_mayBeOverridden(inst: *const super::llvm_GlobalValue) -> ::libc::c_int;
         pub fn llvm_Instruction_mayHaveSideEffects(inst: *const super::llvm_Instruction) -> ::libc::c_int;
         pub fn llvm_Instruction_mayReadFromMemory(inst: *const super::llvm_Instruction) -> ::libc::c_int;
@@ -1013,6 +1045,8 @@ mod raw {
         pub fn llvm_Instruction_mayReturn(inst: *const super::llvm_Instruction) -> ::libc::c_int;
         pub fn llvm_Instruction_mayThrow(inst: *const super::llvm_Instruction) -> ::libc::c_int;
         pub fn llvm_Instruction_mayWriteToMemory(inst: *const super::llvm_Instruction) -> ::libc::c_int;
+        pub fn llvm_BasicBlock_moveAfter(inst: *mut super::llvm_BasicBlock, MovePos: *mut super::llvm_BasicBlock) -> ::libc::c_void;
+        pub fn llvm_BasicBlock_moveBefore(inst: *mut super::llvm_BasicBlock, MovePos: *mut super::llvm_BasicBlock) -> ::libc::c_void;
         pub fn llvm_Instruction_moveBefore(inst: *mut super::llvm_Instruction, MovePos: *mut super::llvm_Instruction) -> ::libc::c_void;
         pub fn llvm_Value_mutateType(inst: *mut super::llvm_Value, ty: *mut super::llvm_Type) -> ::libc::c_void;
         pub fn llvm_Function_needsUnwindTableEntry(inst: *const super::llvm_Function) -> ::libc::c_int;
@@ -1020,17 +1054,22 @@ mod raw {
         pub fn llvm_GlobalVariable_new(Ty: *mut super::llvm_Type, isConstant: ::libc::c_int, Linkage: super::llvm_GlobalValue_LinkageTypes) -> *mut super::llvm_GlobalVariable;
         pub fn llvm_IRBuilder_new(Context: *mut super::llvm_LLVMContext) -> *mut super::llvm_IRBuilder;
         pub fn llvm_IRBuilderBase_new(Context: *mut super::llvm_LLVMContext) -> *mut super::llvm_IRBuilderBase;
+        pub fn llvm_LLVMContext_new() -> *mut super::llvm_LLVMContext;
         pub fn llvm_Module_new(ModuleID: super::llvm_StringRef, Context: *mut super::llvm_LLVMContext) -> *mut super::llvm_Module;
+        pub fn llvm_ValueSymbolTable_new() -> *mut super::llvm_ValueSymbolTable;
         pub fn llvm_GlobalVariable_newWithModule(Module: *mut super::llvm_Module, Ty: *mut super::llvm_Type, isConstant: ::libc::c_int, Linkage: super::llvm_GlobalValue_LinkageTypes, Initializer: *mut super::llvm_Constant) -> *mut super::llvm_GlobalVariable;
         pub fn llvm_IRBuilder_new_in_block(BB: *mut super::llvm_BasicBlock) -> *mut super::llvm_IRBuilder;
         pub fn llvm_Function_onlyReadsMemory(inst: *const super::llvm_Function) -> ::libc::c_int;
         pub fn llvm_Function_onlyReadsMemoryParam(inst: *const super::llvm_Function, n: ::libc::c_uint) -> ::libc::c_int;
         pub fn llvm_Constant_removeDeadConstantUsers(inst: *const super::llvm_Constant) -> ::libc::c_void;
+        pub fn llvm_BasicBlock_removeFromParent(inst: *mut super::llvm_BasicBlock) -> ::libc::c_void;
         pub fn llvm_Function_removeFromParent(inst: *mut super::llvm_Function) -> ::libc::c_void;
         pub fn llvm_GlobalValue_removeFromParent(inst: *mut super::llvm_GlobalValue) -> ::libc::c_void;
         pub fn llvm_GlobalVariable_removeFromParent(inst: *mut super::llvm_GlobalVariable) -> ::libc::c_void;
         pub fn llvm_Instruction_removeFromParent(inst: *mut super::llvm_Instruction) -> ::libc::c_void;
+        pub fn llvm_BasicBlock_removePredecessor(inst: *mut super::llvm_BasicBlock, Pred: *mut super::llvm_BasicBlock, DontDeleteUselessPHIs: ::libc::c_int) -> ::libc::c_void;
         pub fn llvm_Value_replaceAllUsesWith(inst: *mut super::llvm_Value, Value: *mut super::llvm_Value) -> ::libc::c_void;
+        pub fn llvm_BasicBlock_replaceSuccessorsPhiUsesWith(inst: *mut super::llvm_BasicBlock, New: *mut super::llvm_BasicBlock) -> ::libc::c_void;
         pub fn llvm_User_replaceUsesOfWith(inst: *mut super::llvm_User, From: *mut super::llvm_Value, To: *mut super::llvm_Value) -> ::libc::c_void;
         pub fn llvm_Use_set(inst: *mut super::llvm_Use, Val: *mut super::llvm_Value) -> ::libc::c_void;
         pub fn llvm_StructType_setBody(inst: *mut super::llvm_StructType, Elements: super::llvm_ArrayRef_llvm_Type_ptr) -> ::libc::c_void;
@@ -1068,6 +1107,7 @@ mod raw {
         pub fn llvm_Module_setTargetTriple(inst: *mut super::llvm_Module, Triple: super::llvm_StringRef) -> ::libc::c_void;
         pub fn llvm_GlobalValue_setThreadLocal(inst: *mut super::llvm_GlobalValue, Val: ::libc::c_int) -> ::libc::c_void;
         pub fn llvm_GlobalValue_setUnnamedAddr(inst: *mut super::llvm_GlobalValue, Val: ::libc::c_int) -> ::libc::c_void;
+        pub fn llvm_ValueSymbolTable_size(inst: *const super::llvm_ValueSymbolTable) -> ::libc::c_uint;
         pub fn llvm_Constant_stripPointerCasts(inst: *const super::llvm_Constant) -> *const super::llvm_Constant;
         pub fn llvm_Constant_stripPointerCastsMut(inst: *mut super::llvm_Constant) -> *mut super::llvm_Constant;
         pub fn llvm_Use_swap(inst: *mut super::llvm_Use, RHS: *mut super::llvm_Use) -> ::libc::c_void;
@@ -1075,6 +1115,8 @@ mod raw {
         pub fn llvm_ConstantInt_uge(inst: *const super::llvm_ConstantInt, Num: ::libc::uint64_t) -> ::libc::c_int;
         pub fn llvm_Instruction_user_back(inst: *const super::llvm_Instruction) -> *const super::llvm_Instruction;
         pub fn llvm_Instruction_user_back_mut(inst: *mut super::llvm_Instruction) -> *mut super::llvm_Instruction;
+        pub fn llvm_verifyFunction(Function: *const super::llvm_Function) -> ::libc::c_int;
+        pub fn llvm_verifyModule(Module: *const super::llvm_Module) -> ::libc::c_int;
     }
 }
 
@@ -1103,6 +1145,186 @@ pub mod llvm {
     #[inline(always)]
     pub unsafe fn ArrayType_isValidElementType(ty: *mut super::llvm_Type) -> bool {
         raw::llvm_ArrayType_isValidElementType(ty) != 0
+    }
+
+    // ::llvm::BasicBlock::Create
+    #[inline(always)]
+    pub unsafe fn BasicBlock_Create(Context: *mut super::llvm_LLVMContext, Name: super::std_string, Parent: *mut super::llvm_Function, InsertBefore: *mut super::llvm_BasicBlock) -> *mut super::llvm_BasicBlock {
+        raw::llvm_BasicBlock_Create(Context, Name, Parent, InsertBefore)
+    }
+
+    // ::llvm::BasicBlock::classof
+    #[inline(always)]
+    pub unsafe fn BasicBlock_classof(Val: *const super::llvm_Value) -> bool {
+        raw::llvm_BasicBlock_classof(Val) != 0
+    }
+
+    // ::llvm::BasicBlock::delete
+    #[inline(always)]
+    pub unsafe fn BasicBlock_delete(inst: *mut super::llvm_BasicBlock) -> ::libc::c_void {
+        raw::llvm_BasicBlock_delete(inst)
+    }
+
+    // ::llvm::BasicBlock::dropAllReferences
+    #[inline(always)]
+    pub unsafe fn BasicBlock_dropAllReferences(inst: *mut super::llvm_BasicBlock) -> ::libc::c_void {
+        raw::llvm_BasicBlock_dropAllReferences(inst)
+    }
+
+    // ::llvm::BasicBlock::eraseFromParent
+    #[inline(always)]
+    pub unsafe fn BasicBlock_eraseFromParent(inst: *mut super::llvm_BasicBlock) -> ::libc::c_void {
+        raw::llvm_BasicBlock_eraseFromParent(inst)
+    }
+
+    // ::llvm::BasicBlock::getDataLayout
+    #[inline(always)]
+    pub unsafe fn BasicBlock_getDataLayout(inst: *const super::llvm_BasicBlock) -> *const super::llvm_DataLayout {
+        raw::llvm_BasicBlock_getDataLayout(inst)
+    }
+
+    // ::llvm::BasicBlock::getFirstNonPHI
+    #[inline(always)]
+    pub unsafe fn BasicBlock_getFirstNonPHI(inst: *const super::llvm_BasicBlock) -> *const super::llvm_Instruction {
+        raw::llvm_BasicBlock_getFirstNonPHI(inst)
+    }
+
+    // ::llvm::BasicBlock::getFirstNonPHIMut
+    #[inline(always)]
+    pub unsafe fn BasicBlock_getFirstNonPHIMut(inst: *mut super::llvm_BasicBlock) -> *mut super::llvm_Instruction {
+        raw::llvm_BasicBlock_getFirstNonPHIMut(inst)
+    }
+
+    // ::llvm::BasicBlock::getFirstNonPHIOrDbg
+    #[inline(always)]
+    pub unsafe fn BasicBlock_getFirstNonPHIOrDbg(inst: *const super::llvm_BasicBlock) -> *const super::llvm_Instruction {
+        raw::llvm_BasicBlock_getFirstNonPHIOrDbg(inst)
+    }
+
+    // ::llvm::BasicBlock::getFirstNonPHIOrDbgMut
+    #[inline(always)]
+    pub unsafe fn BasicBlock_getFirstNonPHIOrDbgMut(inst: *mut super::llvm_BasicBlock) -> *mut super::llvm_Instruction {
+        raw::llvm_BasicBlock_getFirstNonPHIOrDbgMut(inst)
+    }
+
+    // ::llvm::BasicBlock::getFirstNonPHIOrDbgOrLifetime
+    #[inline(always)]
+    pub unsafe fn BasicBlock_getFirstNonPHIOrDbgOrLifetime(inst: *const super::llvm_BasicBlock) -> *const super::llvm_Instruction {
+        raw::llvm_BasicBlock_getFirstNonPHIOrDbgOrLifetime(inst)
+    }
+
+    // ::llvm::BasicBlock::getFirstNonPHIOrDbgOrLifetimeMut
+    #[inline(always)]
+    pub unsafe fn BasicBlock_getFirstNonPHIOrDbgOrLifetimeMut(inst: *mut super::llvm_BasicBlock) -> *mut super::llvm_Instruction {
+        raw::llvm_BasicBlock_getFirstNonPHIOrDbgOrLifetimeMut(inst)
+    }
+
+    // ::llvm::BasicBlock::getLandingPadInst
+    #[inline(always)]
+    pub unsafe fn BasicBlock_getLandingPadInst(inst: *const super::llvm_BasicBlock) -> *const super::llvm_LandingPadInst {
+        raw::llvm_BasicBlock_getLandingPadInst(inst)
+    }
+
+    // ::llvm::BasicBlock::getLandingPadInstMut
+    #[inline(always)]
+    pub unsafe fn BasicBlock_getLandingPadInstMut(inst: *mut super::llvm_BasicBlock) -> *mut super::llvm_LandingPadInst {
+        raw::llvm_BasicBlock_getLandingPadInstMut(inst)
+    }
+
+    // ::llvm::BasicBlock::getParent
+    #[inline(always)]
+    pub unsafe fn BasicBlock_getParent(inst: *const super::llvm_BasicBlock) -> *const super::llvm_Function {
+        raw::llvm_BasicBlock_getParent(inst)
+    }
+
+    // ::llvm::BasicBlock::getParentMut
+    #[inline(always)]
+    pub unsafe fn BasicBlock_getParentMut(inst: *mut super::llvm_BasicBlock) -> *mut super::llvm_Function {
+        raw::llvm_BasicBlock_getParentMut(inst)
+    }
+
+    // ::llvm::BasicBlock::getSinglePredecessor
+    #[inline(always)]
+    pub unsafe fn BasicBlock_getSinglePredecessor(inst: *const super::llvm_BasicBlock) -> *const super::llvm_BasicBlock {
+        raw::llvm_BasicBlock_getSinglePredecessor(inst)
+    }
+
+    // ::llvm::BasicBlock::getSinglePredecessorMut
+    #[inline(always)]
+    pub unsafe fn BasicBlock_getSinglePredecessorMut(inst: *mut super::llvm_BasicBlock) -> *mut super::llvm_BasicBlock {
+        raw::llvm_BasicBlock_getSinglePredecessorMut(inst)
+    }
+
+    // ::llvm::BasicBlock::getTerminator
+    #[inline(always)]
+    pub unsafe fn BasicBlock_getTerminator(inst: *const super::llvm_BasicBlock) -> *const super::llvm_TerminatorInst {
+        raw::llvm_BasicBlock_getTerminator(inst)
+    }
+
+    // ::llvm::BasicBlock::getTerminatorMut
+    #[inline(always)]
+    pub unsafe fn BasicBlock_getTerminatorMut(inst: *mut super::llvm_BasicBlock) -> *mut super::llvm_TerminatorInst {
+        raw::llvm_BasicBlock_getTerminatorMut(inst)
+    }
+
+    // ::llvm::BasicBlock::getUniquePredecessor
+    #[inline(always)]
+    pub unsafe fn BasicBlock_getUniquePredecessor(inst: *const super::llvm_BasicBlock) -> *const super::llvm_BasicBlock {
+        raw::llvm_BasicBlock_getUniquePredecessor(inst)
+    }
+
+    // ::llvm::BasicBlock::getUniquePredecessorMut
+    #[inline(always)]
+    pub unsafe fn BasicBlock_getUniquePredecessorMut(inst: *mut super::llvm_BasicBlock) -> *mut super::llvm_BasicBlock {
+        raw::llvm_BasicBlock_getUniquePredecessorMut(inst)
+    }
+
+    // ::llvm::BasicBlock::getValueSymbolTable
+    #[inline(always)]
+    pub unsafe fn BasicBlock_getValueSymbolTable(inst: *mut super::llvm_BasicBlock) -> *mut super::llvm_ValueSymbolTable {
+        raw::llvm_BasicBlock_getValueSymbolTable(inst)
+    }
+
+    // ::llvm::BasicBlock::hasAddressTaken
+    #[inline(always)]
+    pub unsafe fn BasicBlock_hasAddressTaken(inst: *const super::llvm_BasicBlock) -> bool {
+        raw::llvm_BasicBlock_hasAddressTaken(inst) != 0
+    }
+
+    // ::llvm::BasicBlock::isLandingPad
+    #[inline(always)]
+    pub unsafe fn BasicBlock_isLandingPad(inst: *const super::llvm_BasicBlock) -> bool {
+        raw::llvm_BasicBlock_isLandingPad(inst) != 0
+    }
+
+    // ::llvm::BasicBlock::moveAfter
+    #[inline(always)]
+    pub unsafe fn BasicBlock_moveAfter(inst: *mut super::llvm_BasicBlock, MovePos: *mut super::llvm_BasicBlock) -> ::libc::c_void {
+        raw::llvm_BasicBlock_moveAfter(inst, MovePos)
+    }
+
+    // ::llvm::BasicBlock::moveBefore
+    #[inline(always)]
+    pub unsafe fn BasicBlock_moveBefore(inst: *mut super::llvm_BasicBlock, MovePos: *mut super::llvm_BasicBlock) -> ::libc::c_void {
+        raw::llvm_BasicBlock_moveBefore(inst, MovePos)
+    }
+
+    // ::llvm::BasicBlock::removeFromParent
+    #[inline(always)]
+    pub unsafe fn BasicBlock_removeFromParent(inst: *mut super::llvm_BasicBlock) -> ::libc::c_void {
+        raw::llvm_BasicBlock_removeFromParent(inst)
+    }
+
+    // ::llvm::BasicBlock::removePredecessor
+    #[inline(always)]
+    pub unsafe fn BasicBlock_removePredecessor(inst: *mut super::llvm_BasicBlock, Pred: *mut super::llvm_BasicBlock, DontDeleteUselessPHIs: bool) -> ::libc::c_void {
+        raw::llvm_BasicBlock_removePredecessor(inst, Pred, if DontDeleteUselessPHIs { 1 } else { 0 })
+    }
+
+    // ::llvm::BasicBlock::replaceSuccessorsPhiUsesWith
+    #[inline(always)]
+    pub unsafe fn BasicBlock_replaceSuccessorsPhiUsesWith(inst: *mut super::llvm_BasicBlock, New: *mut super::llvm_BasicBlock) -> ::libc::c_void {
+        raw::llvm_BasicBlock_replaceSuccessorsPhiUsesWith(inst, New)
     }
 
     // ::llvm::BlockAddress::destroyConstant
@@ -1561,14 +1783,8 @@ pub mod llvm {
 
     // ::llvm::Function::Create
     #[inline(always)]
-    pub unsafe fn Function_Create(Ty: *mut super::llvm_FunctionType, Linkage: super::llvm_GlobalValue_LinkageTypes) -> *mut super::llvm_Function {
-        raw::llvm_Function_Create(Ty, Linkage)
-    }
-
-    // ::llvm::Function::CreateWithName
-    #[inline(always)]
-    pub unsafe fn Function_CreateWithName(Ty: *mut super::llvm_FunctionType, Linkage: super::llvm_GlobalValue_LinkageTypes, Name: super::llvm_StringRef) -> *mut super::llvm_Function {
-        raw::llvm_Function_CreateWithName(Ty, Linkage, Name)
+    pub unsafe fn Function_Create(Ty: *mut super::llvm_FunctionType, Linkage: super::llvm_GlobalValue_LinkageTypes, Name: super::std_string, Module: *mut super::llvm_Module) -> *mut super::llvm_Function {
+        raw::llvm_Function_Create(Ty, Linkage, Name, Module)
     }
 
     // ::llvm::Function::addFnAttr
@@ -3549,6 +3765,18 @@ pub mod llvm {
         raw::llvm_IntegerType_isPowerOf2ByteWidth(inst) != 0
     }
 
+    // ::llvm::LLVMContext::delete
+    #[inline(always)]
+    pub unsafe fn LLVMContext_delete() -> *mut super::llvm_LLVMContext {
+        raw::llvm_LLVMContext_delete()
+    }
+
+    // ::llvm::LLVMContext::new
+    #[inline(always)]
+    pub unsafe fn LLVMContext_new() -> *mut super::llvm_LLVMContext {
+        raw::llvm_LLVMContext_new()
+    }
+
     // ::llvm::Module::appendModuleInlineAsm
     #[inline(always)]
     pub unsafe fn Module_appendModuleInlineAsm(inst: *mut super::llvm_Module, Asm: super::llvm_StringRef) -> ::libc::c_void {
@@ -4407,6 +4635,42 @@ pub mod llvm {
         raw::llvm_Value_takeName(inst, Value)
     }
 
+    // ::llvm::ValueSymbolTable::delete
+    #[inline(always)]
+    pub unsafe fn ValueSymbolTable_delete() -> *mut super::llvm_ValueSymbolTable {
+        raw::llvm_ValueSymbolTable_delete()
+    }
+
+    // ::llvm::ValueSymbolTable::dump
+    #[inline(always)]
+    pub unsafe fn ValueSymbolTable_dump(inst: *const super::llvm_ValueSymbolTable) -> ::libc::c_void {
+        raw::llvm_ValueSymbolTable_dump(inst)
+    }
+
+    // ::llvm::ValueSymbolTable::empty
+    #[inline(always)]
+    pub unsafe fn ValueSymbolTable_empty(inst: *const super::llvm_ValueSymbolTable) -> bool {
+        raw::llvm_ValueSymbolTable_empty(inst) != 0
+    }
+
+    // ::llvm::ValueSymbolTable::lookup
+    #[inline(always)]
+    pub unsafe fn ValueSymbolTable_lookup(inst: *const super::llvm_ValueSymbolTable, Name: super::llvm_StringRef) -> *mut super::llvm_Value {
+        raw::llvm_ValueSymbolTable_lookup(inst, Name)
+    }
+
+    // ::llvm::ValueSymbolTable::new
+    #[inline(always)]
+    pub unsafe fn ValueSymbolTable_new() -> *mut super::llvm_ValueSymbolTable {
+        raw::llvm_ValueSymbolTable_new()
+    }
+
+    // ::llvm::ValueSymbolTable::size
+    #[inline(always)]
+    pub unsafe fn ValueSymbolTable_size(inst: *const super::llvm_ValueSymbolTable) -> ::libc::c_uint {
+        raw::llvm_ValueSymbolTable_size(inst)
+    }
+
     // ::llvm::VectorType::classof
     #[inline(always)]
     pub unsafe fn VectorType_classof(ty: *const super::llvm_Type) -> bool {
@@ -4471,5 +4735,17 @@ pub mod llvm {
     #[inline(always)]
     pub unsafe fn getGlobalContext() -> *mut super::llvm_LLVMContext {
         raw::llvm_getGlobalContext()
+    }
+
+    // ::llvm::verifyFunction
+    #[inline(always)]
+    pub unsafe fn verifyFunction(Function: *const super::llvm_Function) -> bool {
+        raw::llvm_verifyFunction(Function) != 0
+    }
+
+    // ::llvm::verifyModule
+    #[inline(always)]
+    pub unsafe fn verifyModule(Module: *const super::llvm_Module) -> bool {
+        raw::llvm_verifyModule(Module) != 0
     }
 }

@@ -1,16 +1,12 @@
 from bindgen.ast.objects import *
 from bindgen.ast.utils import submodpath
 from .ns import llvm
+from .defs import *
 from .ADT.StringRef import StringRef
-from .Constant import BlockAddress, GlobalObject, GlobalValue
-from .LLVMContext import LLVMContext
-from .Type import Type, FunctionType
-from .Value import Value
 
-CallingConv = llvm.Namespace('CallingConv')
-CallingConv.modpath = submodpath(['calling_conv'])
-
-Function = llvm.Class('Function', GlobalObject)
+@llvm.body
+class llvm_body:
+    verifyFunction = fn(Bool, (ref(Function, const=True), 'Function'))
 
 @CallingConv.body
 class CallingConv:
@@ -26,6 +22,11 @@ class CallingConv:
 @Function.body
 class Function:
     delete = Destructor()
+
+    # We panic if this method return null, as it's like a constructor.
+    Create = StaticMethod(ptr(Function, null=Pointer.Null.panic), (ptr(FunctionType), 'Ty'), (GlobalValue.LinkageTypes, 'Linkage'), (OptionString(), 'Name'), (Option(ptr(Module)), 'Module'))
+
+    classof = StaticMethod(Bool, (ptr(Value, const=True), 'Val'))
 
     getReturnType = Method(ptr(Type), const=True)
     getFunctionType = Method(ptr(FunctionType), const=True)
@@ -88,12 +89,3 @@ class Function:
     deleteBody = Method()
     removeFromParent = Method()
     eraseFromParent = Method()
-
-    Create = StaticMethod(ptr(Function), (ptr(FunctionType), 'Ty'), (GlobalValue.LinkageTypes, 'Linkage'))
-    CreateWithName = StaticMethod(ptr(Function), (ptr(FunctionType), 'Ty'), (GlobalValue.LinkageTypes, 'Linkage'), (StringRef, 'Name')).with_call_name('Create')
-
-    classof = StaticMethod(Bool, (ptr(Value, const=True), 'Val'))
-
-@BlockAddress.body
-class BlockAddress:
-    getFunction = Method(ptr(Function), const=True)

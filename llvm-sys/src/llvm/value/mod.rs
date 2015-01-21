@@ -44,6 +44,243 @@ pub type BasicBlockInner = ::ffi::llvm_BasicBlock;
 pub trait BasicBlockExt: ::llvm::value::ValueExt {
     #[allow(non_snake_case)]
     fn inner(&self) -> *mut BasicBlockInner;
+
+    fn drop_all_references(&mut self) {
+        unsafe {
+            ::ffi::llvm::BasicBlock_dropAllReferences(::llvm::value::BasicBlockExt::inner(self));
+        }
+    }
+
+    fn erase_from_parent(&mut self) {
+        unsafe {
+            ::ffi::llvm::BasicBlock_eraseFromParent(::llvm::value::BasicBlockExt::inner(self));
+        }
+    }
+
+    fn get_data_layout(&self) -> Option<::llvm::DataLayout> {
+        unsafe {
+            let ret = ::ffi::llvm::BasicBlock_getDataLayout(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::DataLayout::from_inner(ret as *mut ::ffi::llvm_DataLayout))
+        }
+    }
+
+    fn get_first_non_phi(&self) -> Option<::llvm::value::user::inst::Instruction> {
+        unsafe {
+            let ret = ::ffi::llvm::BasicBlock_getFirstNonPHI(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::user::inst::Instruction::from_inner(ret as *mut ::ffi::llvm_Instruction, false))
+        }
+    }
+
+    fn get_first_non_phi_mut(&mut self) -> Option<::llvm::value::user::inst::Instruction> {
+        unsafe {
+            let ret = ::ffi::llvm::BasicBlock_getFirstNonPHIMut(::llvm::value::BasicBlockExt::inner(self));
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::user::inst::Instruction::from_inner(ret, false))
+        }
+    }
+
+    fn get_first_non_phi_or_dbg(&self) -> Option<::llvm::value::user::inst::Instruction> {
+        unsafe {
+            let ret = ::ffi::llvm::BasicBlock_getFirstNonPHIOrDbg(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::user::inst::Instruction::from_inner(ret as *mut ::ffi::llvm_Instruction, false))
+        }
+    }
+
+    fn get_first_non_phi_or_dbg_mut(&mut self) -> Option<::llvm::value::user::inst::Instruction> {
+        unsafe {
+            let ret = ::ffi::llvm::BasicBlock_getFirstNonPHIOrDbgMut(::llvm::value::BasicBlockExt::inner(self));
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::user::inst::Instruction::from_inner(ret, false))
+        }
+    }
+
+    fn get_first_non_phi_or_dbg_or_lifetime(&self) -> Option<::llvm::value::user::inst::Instruction> {
+        unsafe {
+            let ret = ::ffi::llvm::BasicBlock_getFirstNonPHIOrDbgOrLifetime(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::user::inst::Instruction::from_inner(ret as *mut ::ffi::llvm_Instruction, false))
+        }
+    }
+
+    fn get_first_non_phi_or_dbg_or_lifetime_mut(&mut self) -> Option<::llvm::value::user::inst::Instruction> {
+        unsafe {
+            let ret = ::ffi::llvm::BasicBlock_getFirstNonPHIOrDbgOrLifetimeMut(::llvm::value::BasicBlockExt::inner(self));
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::user::inst::Instruction::from_inner(ret, false))
+        }
+    }
+
+    fn get_landing_pad_inst(&self) -> Option<::llvm::value::user::inst::LandingPadInst> {
+        unsafe {
+            let ret = ::ffi::llvm::BasicBlock_getLandingPadInst(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::user::inst::LandingPadInst::from_inner(ret as *mut ::ffi::llvm_LandingPadInst, false))
+        }
+    }
+
+    fn get_landing_pad_inst_mut(&mut self) -> Option<::llvm::value::user::inst::LandingPadInst> {
+        unsafe {
+            let ret = ::ffi::llvm::BasicBlock_getLandingPadInstMut(::llvm::value::BasicBlockExt::inner(self));
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::user::inst::LandingPadInst::from_inner(ret, false))
+        }
+    }
+
+    fn get_parent(&self) -> Option<::llvm::value::user::constant::Function> {
+        unsafe {
+            let ret = ::ffi::llvm::BasicBlock_getParent(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::user::constant::Function::from_inner(ret as *mut ::ffi::llvm_Function, false))
+        }
+    }
+
+    fn get_parent_mut(&mut self) -> Option<::llvm::value::user::constant::Function> {
+        unsafe {
+            let ret = ::ffi::llvm::BasicBlock_getParentMut(::llvm::value::BasicBlockExt::inner(self));
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::user::constant::Function::from_inner(ret, false))
+        }
+    }
+
+    fn get_single_predecessor(&self) -> Option<::llvm::value::BasicBlock> {
+        unsafe {
+            let ret = ::ffi::llvm::BasicBlock_getSinglePredecessor(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::BasicBlock::from_inner(ret as *mut ::ffi::llvm_BasicBlock, false))
+        }
+    }
+
+    fn get_single_predecessor_mut(&mut self) -> Option<::llvm::value::BasicBlock> {
+        unsafe {
+            let ret = ::ffi::llvm::BasicBlock_getSinglePredecessorMut(::llvm::value::BasicBlockExt::inner(self));
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::BasicBlock::from_inner(ret, false))
+        }
+    }
+
+    fn get_terminator(&self) -> Option<::llvm::value::user::inst::TerminatorInst> {
+        unsafe {
+            let ret = ::ffi::llvm::BasicBlock_getTerminator(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::user::inst::TerminatorInst::from_inner(ret as *mut ::ffi::llvm_TerminatorInst, false))
+        }
+    }
+
+    fn get_terminator_mut(&mut self) -> Option<::llvm::value::user::inst::TerminatorInst> {
+        unsafe {
+            let ret = ::ffi::llvm::BasicBlock_getTerminatorMut(::llvm::value::BasicBlockExt::inner(self));
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::user::inst::TerminatorInst::from_inner(ret, false))
+        }
+    }
+
+    fn get_unique_predecessor(&self) -> Option<::llvm::value::BasicBlock> {
+        unsafe {
+            let ret = ::ffi::llvm::BasicBlock_getUniquePredecessor(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::BasicBlock::from_inner(ret as *mut ::ffi::llvm_BasicBlock, false))
+        }
+    }
+
+    fn get_unique_predecessor_mut(&mut self) -> Option<::llvm::value::BasicBlock> {
+        unsafe {
+            let ret = ::ffi::llvm::BasicBlock_getUniquePredecessorMut(::llvm::value::BasicBlockExt::inner(self));
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::BasicBlock::from_inner(ret, false))
+        }
+    }
+
+    fn get_value_symbol_table(&mut self) -> Option<::llvm::ValueSymbolTable> {
+        unsafe {
+            let ret = ::ffi::llvm::BasicBlock_getValueSymbolTable(::llvm::value::BasicBlockExt::inner(self));
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::ValueSymbolTable::from_inner(ret))
+        }
+    }
+
+    fn has_address_taken(&self) -> bool {
+        unsafe {
+            let ret = ::ffi::llvm::BasicBlock_hasAddressTaken(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            ret
+        }
+    }
+
+    fn is_landing_pad(&self) -> bool {
+        unsafe {
+            let ret = ::ffi::llvm::BasicBlock_isLandingPad(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            ret
+        }
+    }
+
+    fn move_after(&mut self, move_pos: &::llvm::value::BasicBlockExt) {
+        unsafe {
+            ::ffi::llvm::BasicBlock_moveAfter(::llvm::value::BasicBlockExt::inner(self), ::llvm::value::BasicBlockExt::inner(move_pos));
+        }
+    }
+
+    fn move_before(&mut self, move_pos: &::llvm::value::BasicBlockExt) {
+        unsafe {
+            ::ffi::llvm::BasicBlock_moveBefore(::llvm::value::BasicBlockExt::inner(self), ::llvm::value::BasicBlockExt::inner(move_pos));
+        }
+    }
+
+    fn remove_from_parent(&mut self) {
+        unsafe {
+            ::ffi::llvm::BasicBlock_removeFromParent(::llvm::value::BasicBlockExt::inner(self));
+        }
+    }
+
+    fn remove_predecessor(&mut self, pred: &::llvm::value::BasicBlockExt, dont_delete_useless_ph_is: Option<bool>) {
+        unsafe {
+            let dont_delete_useless_ph_is = dont_delete_useless_ph_is.unwrap_or(false);
+            ::ffi::llvm::BasicBlock_removePredecessor(::llvm::value::BasicBlockExt::inner(self), ::llvm::value::BasicBlockExt::inner(pred), dont_delete_useless_ph_is);
+        }
+    }
+
+    fn replace_successors_phi_uses_with(&mut self, new: &::llvm::value::BasicBlockExt) {
+        unsafe {
+            ::ffi::llvm::BasicBlock_replaceSuccessorsPhiUsesWith(::llvm::value::BasicBlockExt::inner(self), ::llvm::value::BasicBlockExt::inner(new));
+        }
+    }
 }
 
 pub struct BasicBlock {
@@ -69,12 +306,34 @@ impl BasicBlock {
             owned: owned,
         }
     }
+
+    pub fn create(context: &::llvm::LLVMContextExt, name: Option<&str>, parent: Option<&::llvm::value::user::constant::FunctionExt>, insert_before: Option<&::llvm::value::BasicBlockExt>) -> ::llvm::value::BasicBlock {
+        unsafe {
+            let name = name.unwrap_or("");
+            let c_name = ::ffi::std_string {
+                data: name.as_ptr() as *mut ::libc::c_char,
+                length: name.len() as ::libc::size_t,
+            };
+            let ret = ::ffi::llvm::BasicBlock_Create(::llvm::LLVMContextExt::inner(context), c_name, parent.map(|parent| ::llvm::value::user::constant::FunctionExt::inner(parent)).unwrap_or(::std::ptr::null_mut()), insert_before.map(|insert_before| ::llvm::value::BasicBlockExt::inner(insert_before)).unwrap_or(::std::ptr::null_mut()));
+            if ret.is_null() {
+                panic!("::llvm::BasicBlock::Create returned a null pointer!");
+            }
+            ::llvm::value::BasicBlock::from_inner(ret, false)
+        }
+    }
+
+    pub fn classof(val: &::llvm::value::ValueExt) -> bool {
+        unsafe {
+            let ret = ::ffi::llvm::BasicBlock_classof(::llvm::value::ValueExt::inner(val));
+            ret
+        }
+    }
 }
 impl Drop for BasicBlock {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+                ::ffi::llvm::BasicBlock_delete(::llvm::value::BasicBlockExt::inner(self));
             }
         }
     }

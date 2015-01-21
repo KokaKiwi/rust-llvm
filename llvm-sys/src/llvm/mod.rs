@@ -1,6 +1,6 @@
-pub mod ty;
 pub mod value;
 pub mod calling_conv;
+pub mod ty;
 pub enum AtomicOrdering {
     NotAtomic,
     Unordered,
@@ -2052,6 +2052,26 @@ impl LLVMContext {
             inner: ::core::nonzero::NonZero::new(inner),
         }
     }
+
+    pub fn delete() -> ::llvm::LLVMContext {
+        unsafe {
+            let ret = ::ffi::llvm::LLVMContext_delete();
+            if ret.is_null() {
+                panic!("::llvm::LLVMContext::delete returned a null pointer!");
+            }
+            ::llvm::LLVMContext::from_inner(ret)
+        }
+    }
+
+    pub fn new() -> ::llvm::LLVMContext {
+        unsafe {
+            let ret = ::ffi::llvm::LLVMContext_new();
+            if ret.is_null() {
+                panic!("::llvm::LLVMContext::new returned a null pointer!");
+            }
+            ::llvm::LLVMContext::from_inner(ret)
+        }
+    }
 }
 impl Copy for LLVMContext {}
 pub type ModuleInner = ::ffi::llvm_Module;
@@ -2276,10 +2296,101 @@ impl Drop for Module {
         }
     }
 }
+pub type ValueSymbolTableInner = ::ffi::llvm_ValueSymbolTable;
+
+pub trait ValueSymbolTableExt {
+    #[allow(non_snake_case)]
+    fn inner(&self) -> *mut ValueSymbolTableInner;
+
+    fn dump(&self) {
+        unsafe {
+            ::ffi::llvm::ValueSymbolTable_dump(::llvm::ValueSymbolTableExt::inner(self) as *const ::ffi::llvm_ValueSymbolTable);
+        }
+    }
+
+    fn empty(&self) -> bool {
+        unsafe {
+            let ret = ::ffi::llvm::ValueSymbolTable_empty(::llvm::ValueSymbolTableExt::inner(self) as *const ::ffi::llvm_ValueSymbolTable);
+            ret
+        }
+    }
+
+    fn lookup(&self, name: &str) -> Option<::llvm::value::Value> {
+        unsafe {
+            let c_name = ::ffi::llvm_StringRef {
+                data: name.as_ptr() as *const ::libc::c_char,
+                length: name.len() as ::libc::size_t,
+            };
+            let ret = ::ffi::llvm::ValueSymbolTable_lookup(::llvm::ValueSymbolTableExt::inner(self) as *const ::ffi::llvm_ValueSymbolTable, c_name);
+            if ret.is_null() {
+                return None;
+            }
+            Some(::llvm::value::Value::from_inner(ret, false))
+        }
+    }
+
+    fn size(&self) -> u32 {
+        unsafe {
+            let ret = ::ffi::llvm::ValueSymbolTable_size(::llvm::ValueSymbolTableExt::inner(self) as *const ::ffi::llvm_ValueSymbolTable) as u32;
+            ret
+        }
+    }
+}
+
+pub struct ValueSymbolTable {
+    inner: ::core::nonzero::NonZero<*mut ValueSymbolTableInner>,
+}
+impl ValueSymbolTableExt for ValueSymbolTable {
+    fn inner(&self) -> *mut ValueSymbolTableInner {
+        *self.inner
+    }
+}
+impl ValueSymbolTable {
+    pub unsafe fn from_inner(inner: *mut ValueSymbolTableInner) -> ValueSymbolTable {
+        ValueSymbolTable {
+            inner: ::core::nonzero::NonZero::new(inner),
+        }
+    }
+
+    pub fn delete() -> ::llvm::ValueSymbolTable {
+        unsafe {
+            let ret = ::ffi::llvm::ValueSymbolTable_delete();
+            if ret.is_null() {
+                panic!("::llvm::ValueSymbolTable::delete returned a null pointer!");
+            }
+            ::llvm::ValueSymbolTable::from_inner(ret)
+        }
+    }
+
+    pub fn new() -> ::llvm::ValueSymbolTable {
+        unsafe {
+            let ret = ::ffi::llvm::ValueSymbolTable_new();
+            if ret.is_null() {
+                panic!("::llvm::ValueSymbolTable::new returned a null pointer!");
+            }
+            ::llvm::ValueSymbolTable::from_inner(ret)
+        }
+    }
+}
+impl Copy for ValueSymbolTable {}
 
 pub fn get_global_context() -> ::llvm::LLVMContext {
     unsafe {
         let ret = ::ffi::llvm::getGlobalContext();
         ::llvm::LLVMContext::from_inner(ret)
+    }
+}
+
+pub fn verify_function(function: &::llvm::value::user::constant::FunctionExt) -> bool {
+    unsafe {
+        let ret = ::ffi::llvm::verifyFunction(::llvm::value::user::constant::FunctionExt::inner(function));
+        ret
+    }
+}
+
+pub fn verify_module(module: &::llvm::ModuleExt) -> bool {
+    unsafe {
+        let ret = ::ffi::llvm::verifyModule(::llvm::ModuleExt::inner(module));
+        ret
     }
 }

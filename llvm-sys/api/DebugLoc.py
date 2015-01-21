@@ -1,9 +1,6 @@
 from bindgen.ast.objects import *
 from .ns import llvm
-from .Value import MDNode
-from .LLVMContext import LLVMContext
-
-DebugLoc = llvm.Class('DebugLoc')
+from .defs import *
 
 @DebugLoc.body
 class DebugLoc:

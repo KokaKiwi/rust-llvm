@@ -1,19 +1,8 @@
 from bindgen.ast.objects import *
 from bindgen.ast.utils import submodpath
 from .ns import llvm
+from .defs import *
 from .ADT.StringRef import StringRef
-from .LLVMContext import LLVMContext
-from .Type import Type
-
-Value = llvm.Class('Value')
-Value.modpath = submodpath(['value'])
-
-Argument = llvm.Class('Argument', Value)
-BasicBlock = llvm.Class('BasicBlock', Value)
-InlineAsm = llvm.Class('InlineAsm', Value)
-MDNode = llvm.Class('MDNode', Value)
-MDString = llvm.Class('MDString', Value)
-# MetadataAsValue = llvm.Class('MetadataAsValue', Value)
 
 @Value.body
 class Value:
@@ -45,9 +34,10 @@ class Value:
     hasOneUse = Method(Bool, const=True)
     hasNUses = Method(Bool, (UnsignedInt, 'N'), const=True)
     hasNUsesOrMore = Method(Bool, (UnsignedInt, 'N'), const=True)
-    isUsedInBasicBlock = Method(Bool, (ptr(BasicBlock, const=True), 'BB'), const=True)
     getNumUses = Method(UnsignedInt, const=True)
 
     getValueID = Method(UnsignedInt, const=True)
 
     mutateType = Method(Void, (ptr(Type), 'ty'))
+
+    isUsedInBasicBlock = Method(Bool, (ptr(BasicBlock, const=True), 'BB'), const=True)

@@ -14,9 +14,15 @@
 #include "llvm/IR/Operator.h"
 #include "llvm/IR/Type.h"
 #include "llvm/IR/Value.h"
+#include "llvm/IR/ValueSymbolTable.h"
+#include "llvm/IR/Verifier.h"
 
 struct llvm_ArrayRef__libc_uint64_t {
     uint64_t const* data;
+    size_t length;
+};
+struct std_string {
+    char* data;
     size_t length;
 };
 struct llvm_APInt {
@@ -33,10 +39,6 @@ struct llvm_StringRef {
 };
 struct llvm_ArrayRef_llvm_Type_ptr {
     ::llvm::Type* const* data;
-    size_t length;
-};
-struct std_string {
-    char* data;
     size_t length;
 };
 struct llvm_ArrayRef_llvm_Value_ptr {
@@ -78,6 +80,217 @@ extern "C"
 int llvm_ArrayType_isValidElementType(::llvm::Type* ty)
 {
     return (::llvm::ArrayType::isValidElementType(ty) == true ? 1 : 0);
+}
+
+// ::llvm::BasicBlock::Create
+extern "C"
+::llvm::BasicBlock* llvm_BasicBlock_Create(::llvm::LLVMContext* Context, std_string _Name, ::llvm::Function* Parent, ::llvm::BasicBlock* InsertBefore)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return ::llvm::BasicBlock::Create(*Context, Name, Parent, InsertBefore);
+}
+
+// ::llvm::BasicBlock::classof
+extern "C"
+int llvm_BasicBlock_classof(::llvm::Value const* Val)
+{
+    return (::llvm::BasicBlock::classof(Val) == true ? 1 : 0);
+}
+
+// ::llvm::BasicBlock::delete
+extern "C"
+void llvm_BasicBlock_delete(::llvm::BasicBlock* inst)
+{
+    delete inst;
+}
+
+// ::llvm::BasicBlock::dropAllReferences
+extern "C"
+void llvm_BasicBlock_dropAllReferences(::llvm::BasicBlock* inst)
+{
+    return inst->dropAllReferences();
+}
+
+// ::llvm::BasicBlock::eraseFromParent
+extern "C"
+void llvm_BasicBlock_eraseFromParent(::llvm::BasicBlock* inst)
+{
+    return inst->eraseFromParent();
+}
+
+// ::llvm::BasicBlock::getDataLayout
+extern "C"
+::llvm::DataLayout const* llvm_BasicBlock_getDataLayout(::llvm::BasicBlock const* inst)
+{
+    return inst->getDataLayout();
+}
+
+// ::llvm::BasicBlock::getFirstNonPHI
+extern "C"
+::llvm::Instruction const* llvm_BasicBlock_getFirstNonPHI(::llvm::BasicBlock const* inst)
+{
+    return inst->getFirstNonPHI();
+}
+
+// ::llvm::BasicBlock::getFirstNonPHIMut
+extern "C"
+::llvm::Instruction* llvm_BasicBlock_getFirstNonPHIMut(::llvm::BasicBlock* inst)
+{
+    return inst->getFirstNonPHI();
+}
+
+// ::llvm::BasicBlock::getFirstNonPHIOrDbg
+extern "C"
+::llvm::Instruction const* llvm_BasicBlock_getFirstNonPHIOrDbg(::llvm::BasicBlock const* inst)
+{
+    return inst->getFirstNonPHIOrDbg();
+}
+
+// ::llvm::BasicBlock::getFirstNonPHIOrDbgMut
+extern "C"
+::llvm::Instruction* llvm_BasicBlock_getFirstNonPHIOrDbgMut(::llvm::BasicBlock* inst)
+{
+    return inst->getFirstNonPHIOrDbg();
+}
+
+// ::llvm::BasicBlock::getFirstNonPHIOrDbgOrLifetime
+extern "C"
+::llvm::Instruction const* llvm_BasicBlock_getFirstNonPHIOrDbgOrLifetime(::llvm::BasicBlock const* inst)
+{
+    return inst->getFirstNonPHIOrDbgOrLifetime();
+}
+
+// ::llvm::BasicBlock::getFirstNonPHIOrDbgOrLifetimeMut
+extern "C"
+::llvm::Instruction* llvm_BasicBlock_getFirstNonPHIOrDbgOrLifetimeMut(::llvm::BasicBlock* inst)
+{
+    return inst->getFirstNonPHIOrDbgOrLifetime();
+}
+
+// ::llvm::BasicBlock::getLandingPadInst
+extern "C"
+::llvm::LandingPadInst const* llvm_BasicBlock_getLandingPadInst(::llvm::BasicBlock const* inst)
+{
+    return inst->getLandingPadInst();
+}
+
+// ::llvm::BasicBlock::getLandingPadInstMut
+extern "C"
+::llvm::LandingPadInst* llvm_BasicBlock_getLandingPadInstMut(::llvm::BasicBlock* inst)
+{
+    return inst->getLandingPadInst();
+}
+
+// ::llvm::BasicBlock::getParent
+extern "C"
+::llvm::Function const* llvm_BasicBlock_getParent(::llvm::BasicBlock const* inst)
+{
+    return inst->getParent();
+}
+
+// ::llvm::BasicBlock::getParentMut
+extern "C"
+::llvm::Function* llvm_BasicBlock_getParentMut(::llvm::BasicBlock* inst)
+{
+    return inst->getParent();
+}
+
+// ::llvm::BasicBlock::getSinglePredecessor
+extern "C"
+::llvm::BasicBlock const* llvm_BasicBlock_getSinglePredecessor(::llvm::BasicBlock const* inst)
+{
+    return inst->getSinglePredecessor();
+}
+
+// ::llvm::BasicBlock::getSinglePredecessorMut
+extern "C"
+::llvm::BasicBlock* llvm_BasicBlock_getSinglePredecessorMut(::llvm::BasicBlock* inst)
+{
+    return inst->getSinglePredecessor();
+}
+
+// ::llvm::BasicBlock::getTerminator
+extern "C"
+::llvm::TerminatorInst const* llvm_BasicBlock_getTerminator(::llvm::BasicBlock const* inst)
+{
+    return inst->getTerminator();
+}
+
+// ::llvm::BasicBlock::getTerminatorMut
+extern "C"
+::llvm::TerminatorInst* llvm_BasicBlock_getTerminatorMut(::llvm::BasicBlock* inst)
+{
+    return inst->getTerminator();
+}
+
+// ::llvm::BasicBlock::getUniquePredecessor
+extern "C"
+::llvm::BasicBlock const* llvm_BasicBlock_getUniquePredecessor(::llvm::BasicBlock const* inst)
+{
+    return inst->getUniquePredecessor();
+}
+
+// ::llvm::BasicBlock::getUniquePredecessorMut
+extern "C"
+::llvm::BasicBlock* llvm_BasicBlock_getUniquePredecessorMut(::llvm::BasicBlock* inst)
+{
+    return inst->getUniquePredecessor();
+}
+
+// ::llvm::BasicBlock::getValueSymbolTable
+extern "C"
+::llvm::ValueSymbolTable* llvm_BasicBlock_getValueSymbolTable(::llvm::BasicBlock* inst)
+{
+    return inst->getValueSymbolTable();
+}
+
+// ::llvm::BasicBlock::hasAddressTaken
+extern "C"
+int llvm_BasicBlock_hasAddressTaken(::llvm::BasicBlock const* inst)
+{
+    return (inst->hasAddressTaken() == true ? 1 : 0);
+}
+
+// ::llvm::BasicBlock::isLandingPad
+extern "C"
+int llvm_BasicBlock_isLandingPad(::llvm::BasicBlock const* inst)
+{
+    return (inst->isLandingPad() == true ? 1 : 0);
+}
+
+// ::llvm::BasicBlock::moveAfter
+extern "C"
+void llvm_BasicBlock_moveAfter(::llvm::BasicBlock* inst, ::llvm::BasicBlock* MovePos)
+{
+    return inst->moveAfter(MovePos);
+}
+
+// ::llvm::BasicBlock::moveBefore
+extern "C"
+void llvm_BasicBlock_moveBefore(::llvm::BasicBlock* inst, ::llvm::BasicBlock* MovePos)
+{
+    return inst->moveBefore(MovePos);
+}
+
+// ::llvm::BasicBlock::removeFromParent
+extern "C"
+void llvm_BasicBlock_removeFromParent(::llvm::BasicBlock* inst)
+{
+    return inst->removeFromParent();
+}
+
+// ::llvm::BasicBlock::removePredecessor
+extern "C"
+void llvm_BasicBlock_removePredecessor(::llvm::BasicBlock* inst, ::llvm::BasicBlock* Pred, int DontDeleteUselessPHIs)
+{
+    return inst->removePredecessor(Pred, (DontDeleteUselessPHIs == 1 ? true : false));
+}
+
+// ::llvm::BasicBlock::replaceSuccessorsPhiUsesWith
+extern "C"
+void llvm_BasicBlock_replaceSuccessorsPhiUsesWith(::llvm::BasicBlock* inst, ::llvm::BasicBlock* New)
+{
+    return inst->replaceSuccessorsPhiUsesWith(New);
 }
 
 // ::llvm::BlockAddress::destroyConstant
@@ -612,17 +825,10 @@ extern "C"
 
 // ::llvm::Function::Create
 extern "C"
-::llvm::Function* llvm_Function_Create(::llvm::FunctionType* Ty, ::llvm::GlobalValue::LinkageTypes Linkage)
+::llvm::Function* llvm_Function_Create(::llvm::FunctionType* Ty, ::llvm::GlobalValue::LinkageTypes Linkage, std_string _Name, ::llvm::Module* Module)
 {
-    return ::llvm::Function::Create(Ty, Linkage);
-}
-
-// ::llvm::Function::CreateWithName
-extern "C"
-::llvm::Function* llvm_Function_CreateWithName(::llvm::FunctionType* Ty, ::llvm::GlobalValue::LinkageTypes Linkage, llvm_StringRef _Name)
-{
-    auto Name = ::llvm::StringRef(_Name.data, _Name.length);
-    return ::llvm::Function::Create(Ty, Linkage, Name);
+    auto Name = std::string(_Name.data, _Name.length);
+    return ::llvm::Function::Create(Ty, Linkage, Name, Module);
 }
 
 // ::llvm::Function::addFnAttr
@@ -3067,6 +3273,20 @@ int llvm_IntegerType_isPowerOf2ByteWidth(::llvm::IntegerType const* inst)
     return (inst->isPowerOf2ByteWidth() == true ? 1 : 0);
 }
 
+// ::llvm::LLVMContext::delete
+extern "C"
+::llvm::LLVMContext* llvm_LLVMContext_delete()
+{
+    return new(std::nothrow) ::llvm::LLVMContext();
+}
+
+// ::llvm::LLVMContext::new
+extern "C"
+::llvm::LLVMContext* llvm_LLVMContext_new()
+{
+    return new(std::nothrow) ::llvm::LLVMContext();
+}
+
 // ::llvm::Module::appendModuleInlineAsm
 extern "C"
 void llvm_Module_appendModuleInlineAsm(::llvm::Module* inst, llvm_StringRef _Asm)
@@ -4115,6 +4335,49 @@ void llvm_Value_takeName(::llvm::Value* inst, ::llvm::Value* Value)
     return inst->takeName(Value);
 }
 
+// ::llvm::ValueSymbolTable::delete
+extern "C"
+::llvm::ValueSymbolTable* llvm_ValueSymbolTable_delete()
+{
+    return new(std::nothrow) ::llvm::ValueSymbolTable();
+}
+
+// ::llvm::ValueSymbolTable::dump
+extern "C"
+void llvm_ValueSymbolTable_dump(::llvm::ValueSymbolTable const* inst)
+{
+    return inst->dump();
+}
+
+// ::llvm::ValueSymbolTable::empty
+extern "C"
+int llvm_ValueSymbolTable_empty(::llvm::ValueSymbolTable const* inst)
+{
+    return (inst->empty() == true ? 1 : 0);
+}
+
+// ::llvm::ValueSymbolTable::lookup
+extern "C"
+::llvm::Value* llvm_ValueSymbolTable_lookup(::llvm::ValueSymbolTable const* inst, llvm_StringRef _Name)
+{
+    auto Name = ::llvm::StringRef(_Name.data, _Name.length);
+    return inst->lookup(Name);
+}
+
+// ::llvm::ValueSymbolTable::new
+extern "C"
+::llvm::ValueSymbolTable* llvm_ValueSymbolTable_new()
+{
+    return new(std::nothrow) ::llvm::ValueSymbolTable();
+}
+
+// ::llvm::ValueSymbolTable::size
+extern "C"
+unsigned int llvm_ValueSymbolTable_size(::llvm::ValueSymbolTable const* inst)
+{
+    return inst->size();
+}
+
 // ::llvm::VectorType::classof
 extern "C"
 int llvm_VectorType_classof(::llvm::Type const* ty)
@@ -4190,4 +4453,18 @@ extern "C"
 ::llvm::LLVMContext* llvm_getGlobalContext()
 {
     return &(::llvm::getGlobalContext());
+}
+
+// ::llvm::verifyFunction
+extern "C"
+int llvm_verifyFunction(::llvm::Function const* Function)
+{
+    return (::llvm::verifyFunction(*Function) == true ? 1 : 0);
+}
+
+// ::llvm::verifyModule
+extern "C"
+int llvm_verifyModule(::llvm::Module const* Module)
+{
+    return (::llvm::verifyModule(*Module) == true ? 1 : 0);
 }

@@ -1,15 +1,7 @@
 from bindgen.ast.objects import *
 from bindgen.ast.utils import submodpath, copymodpath
 from .ns import llvm
-from .Value import Value
-
-User = llvm.Class('User', Value)
-User.modpath = submodpath(['user'])
-
-Use = llvm.Class('Use')
-Use.modpath = copymodpath(User)
-
-Operator = llvm.Class('Operator', User)
+from .defs import *
 
 @User.body
 class User:

@@ -1,41 +1,14 @@
 from bindgen.ast.objects import *
 from bindgen.ast.utils import submodpath
 from .ns import llvm
+from .defs import *
 from .ADT.APInt import APInt
 from .ADT.ArrayRef import ArrayRef
 from .ADT.StringRef import StringRef
-from .LLVMContext import LLVMContext
-from .Type import Type, ArrayType, PointerType, IntegerType
-from .User import User
-from .Value import BasicBlock, Value
 
 @llvm.body
 class llvm_body:
     _includes_ = ['llvm/IR/Constants.h']
-
-Constant = llvm.Class('Constant', User)
-Constant.modpath = submodpath(['constant'])
-
-BlockAddress = llvm.Class('BlockAddress', Constant)
-ConstantAggregateZero = llvm.Class('ConstantAggregateZero', Constant)
-ConstantArray = llvm.Class('ConstantArray', Constant)
-ConstantDataSequential = llvm.Class('ConstantDataSequential', Constant)
-ConstantExpr = llvm.Class('ConstantExpr', Constant)
-ConstantFP = llvm.Class('ConstantFP', Constant)
-ConstantInt = llvm.Class('ConstantInt', Constant)
-ConstantPointerNull = llvm.Class('ConstantPointerNull', Constant)
-ConstantStruct = llvm.Class('ConstantStruct', Constant)
-ConstantVector = llvm.Class('ConstantVector', Constant)
-GlobalValue = llvm.Class('GlobalValue', Constant)
-UndefValue = llvm.Class('UndefValue', Constant)
-
-ConstantDataArray = llvm.Class('ConstantDataArray', ConstantDataSequential)
-ConstantDataVector = llvm.Class('ConstantDataVector', ConstantDataSequential)
-
-GlobalAlias = llvm.Class('GlobalAlias', GlobalValue)
-GlobalObject = llvm.Class('GlobalObject', GlobalValue)
-
-GlobalVariable = llvm.Class('GlobalVariable', GlobalObject)
 
 @Constant.body
 class Constant:
@@ -75,6 +48,7 @@ class BlockAddress:
     destroyConstant = Method()
 
     getBasicBlock = Method(ptr(BasicBlock), const=True)
+    getFunction = Method(ptr(Function), const=True)
 
 @ConstantArray.body
 class ConstantArray:
@@ -208,6 +182,11 @@ class GlobalValue:
     removeFromParent = Method()
     eraseFromParent = Method()
 
+    getParent = Method(ptr(Module, const=True), const=True)
+    getParentMut = Method(ptr(Module)).with_call_name('getParent')
+
+    getDataLayout = Method(ptr(DataLayout, const=True), const=True)
+
 @GlobalObject.body
 class GlobalObject:
     setSection = Method(Void, (StringRef, 'S'))
@@ -217,6 +196,7 @@ class GlobalVariable:
     delete = Destructor()
 
     new = Constructor((ptr(Type), 'Ty'), (Bool, 'isConstant'), (GlobalValue.LinkageTypes, 'Linkage'), null=None)
+    newWithModule = Constructor((ref(Module), 'Module'), (ptr(Type), 'Ty'), (Bool, 'isConstant'), (GlobalValue.LinkageTypes, 'Linkage'), (ptr(Constant), 'Initializer'), null=None)
 
     hasInitializer = Method(Bool, const=True)
     hasDefinitiveInitializer = Method(Bool, const=True)

@@ -1,18 +1,10 @@
 from bindgen.ast.objects import *
 from .ns import llvm
+from .defs import *
 from .ADT.APInt import APInt
 from .ADT.ArrayRef import ArrayRef
 from .ADT.StringRef import StringRef
-from .Constant import ConstantInt
-from .DataLayout import DataLayout
-from .DebugLoc import DebugLoc
-from .Instruction import *
-from .LLVMContext import LLVMContext
-from .Type import Type, IntegerType, PointerType
-from .Value import BasicBlock, Value, MDNode
-
-IRBuilderBase = llvm.Class('IRBuilderBase')
-IRBuilder = llvm.Class('IRBuilder', IRBuilderBase)
+from . import Instruction as inst
 
 class CreateAggregateRet(RawMethod):
     @property

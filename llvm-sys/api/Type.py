@@ -1,24 +1,9 @@
 from bindgen.ast.objects import *
 from bindgen.ast.utils import submodpath
 from .ns import llvm
-from .LLVMContext import LLVMContext
-from .ADT.StringRef import StringRef
+from .defs import *
 from .ADT.ArrayRef import ArrayRef
-
-Type = llvm.Class('Type')
-Type.modpath = submodpath(['ty'])
-
-CompositeType = llvm.Class('CompositeType', Type)
-FunctionType = llvm.Class('FunctionType', Type)
-IntegerType = llvm.Class('IntegerType', Type)
-
-SequentialType = llvm.Class('SequentialType', CompositeType)
-SequentialType.modpath = submodpath(['seq'])
-StructType = llvm.Class('StructType', CompositeType)
-
-ArrayType = llvm.Class('ArrayType', SequentialType)
-PointerType = llvm.Class('PointerType', SequentialType)
-VectorType = llvm.Class('VectorType', SequentialType)
+from .ADT.StringRef import StringRef
 
 @Type.body
 class Type:
