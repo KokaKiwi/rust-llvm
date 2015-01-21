@@ -2281,7 +2281,7 @@ impl GlobalVariable {
     pub fn new(ty: &::llvm::ty::TypeExt, is_constant: bool, linkage: ::llvm::value::user::constant::LinkageTypes) -> ::llvm::value::user::constant::GlobalVariable {
         unsafe {
             let ret = ::ffi::llvm::GlobalVariable_new(::llvm::ty::TypeExt::inner(ty), is_constant, linkage.to_ffi());
-            if ret.is_null(){
+            if ret.is_null() {
                 panic!("::llvm::GlobalVariable::new returned a null pointer!");
             }
             ::llvm::value::user::constant::GlobalVariable::from_inner(ret, true)
@@ -2291,7 +2291,7 @@ impl GlobalVariable {
     pub fn new_with_module(module: &::llvm::ModuleExt, ty: &::llvm::ty::TypeExt, is_constant: bool, linkage: ::llvm::value::user::constant::LinkageTypes, initializer: &::llvm::value::user::constant::ConstantExt) -> ::llvm::value::user::constant::GlobalVariable {
         unsafe {
             let ret = ::ffi::llvm::GlobalVariable_newWithModule(::llvm::ModuleExt::inner(module), ::llvm::ty::TypeExt::inner(ty), is_constant, linkage.to_ffi(), ::llvm::value::user::constant::ConstantExt::inner(initializer));
-            if ret.is_null(){
+            if ret.is_null() {
                 panic!("::llvm::GlobalVariable::newWithModule returned a null pointer!");
             }
             ::llvm::value::user::constant::GlobalVariable::from_inner(ret, true)

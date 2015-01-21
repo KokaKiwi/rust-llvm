@@ -533,6 +533,111 @@ impl Drop for CastInst {
         }
     }
 }
+pub enum Predicate {
+    FCMPFALSE,
+    FCMPOEQ,
+    FCMPOGT,
+    FCMPOGE,
+    FCMPOLT,
+    FCMPOLE,
+    FCMPONE,
+    FCMPORD,
+    FCMPUNO,
+    FCMPUEQ,
+    FCMPUGT,
+    FCMPUGE,
+    FCMPULT,
+    FCMPULE,
+    FCMPUNE,
+    FCMPTRUE,
+    FIRSTFCMPPREDICATE,
+    LASTFCMPPREDICATE,
+    BADFCMPPREDICATE,
+    ICMPEQ,
+    ICMPNE,
+    ICMPUGT,
+    ICMPUGE,
+    ICMPULT,
+    ICMPULE,
+    ICMPSGT,
+    ICMPSGE,
+    ICMPSLT,
+    ICMPSLE,
+    FIRSTICMPPREDICATE,
+    LASTICMPPREDICATE,
+    BADICMPPREDICATE,
+}
+impl Predicate {
+    pub fn from_ffi(value: ::ffi::llvm_CmpInst_Predicate) -> Predicate {
+        match value {
+            ::ffi::llvm_CmpInst_Predicate::FCMP_FALSE => Predicate::FCMPFALSE,
+            ::ffi::llvm_CmpInst_Predicate::FCMP_OEQ => Predicate::FCMPOEQ,
+            ::ffi::llvm_CmpInst_Predicate::FCMP_OGT => Predicate::FCMPOGT,
+            ::ffi::llvm_CmpInst_Predicate::FCMP_OGE => Predicate::FCMPOGE,
+            ::ffi::llvm_CmpInst_Predicate::FCMP_OLT => Predicate::FCMPOLT,
+            ::ffi::llvm_CmpInst_Predicate::FCMP_OLE => Predicate::FCMPOLE,
+            ::ffi::llvm_CmpInst_Predicate::FCMP_ONE => Predicate::FCMPONE,
+            ::ffi::llvm_CmpInst_Predicate::FCMP_ORD => Predicate::FCMPORD,
+            ::ffi::llvm_CmpInst_Predicate::FCMP_UNO => Predicate::FCMPUNO,
+            ::ffi::llvm_CmpInst_Predicate::FCMP_UEQ => Predicate::FCMPUEQ,
+            ::ffi::llvm_CmpInst_Predicate::FCMP_UGT => Predicate::FCMPUGT,
+            ::ffi::llvm_CmpInst_Predicate::FCMP_UGE => Predicate::FCMPUGE,
+            ::ffi::llvm_CmpInst_Predicate::FCMP_ULT => Predicate::FCMPULT,
+            ::ffi::llvm_CmpInst_Predicate::FCMP_ULE => Predicate::FCMPULE,
+            ::ffi::llvm_CmpInst_Predicate::FCMP_UNE => Predicate::FCMPUNE,
+            ::ffi::llvm_CmpInst_Predicate::FCMP_TRUE => Predicate::FCMPTRUE,
+            ::ffi::llvm_CmpInst_Predicate::BAD_FCMP_PREDICATE => Predicate::BADFCMPPREDICATE,
+            ::ffi::llvm_CmpInst_Predicate::ICMP_EQ => Predicate::ICMPEQ,
+            ::ffi::llvm_CmpInst_Predicate::ICMP_NE => Predicate::ICMPNE,
+            ::ffi::llvm_CmpInst_Predicate::ICMP_UGT => Predicate::ICMPUGT,
+            ::ffi::llvm_CmpInst_Predicate::ICMP_UGE => Predicate::ICMPUGE,
+            ::ffi::llvm_CmpInst_Predicate::ICMP_ULT => Predicate::ICMPULT,
+            ::ffi::llvm_CmpInst_Predicate::ICMP_ULE => Predicate::ICMPULE,
+            ::ffi::llvm_CmpInst_Predicate::ICMP_SGT => Predicate::ICMPSGT,
+            ::ffi::llvm_CmpInst_Predicate::ICMP_SGE => Predicate::ICMPSGE,
+            ::ffi::llvm_CmpInst_Predicate::ICMP_SLT => Predicate::ICMPSLT,
+            ::ffi::llvm_CmpInst_Predicate::ICMP_SLE => Predicate::ICMPSLE,
+            ::ffi::llvm_CmpInst_Predicate::BAD_ICMP_PREDICATE => Predicate::BADICMPPREDICATE,
+        }
+    }
+    pub fn to_ffi(self) -> ::ffi::llvm_CmpInst_Predicate {
+        match self {
+            Predicate::FCMPFALSE => ::ffi::llvm_CmpInst_Predicate::FCMP_FALSE,
+            Predicate::FCMPOEQ => ::ffi::llvm_CmpInst_Predicate::FCMP_OEQ,
+            Predicate::FCMPOGT => ::ffi::llvm_CmpInst_Predicate::FCMP_OGT,
+            Predicate::FCMPOGE => ::ffi::llvm_CmpInst_Predicate::FCMP_OGE,
+            Predicate::FCMPOLT => ::ffi::llvm_CmpInst_Predicate::FCMP_OLT,
+            Predicate::FCMPOLE => ::ffi::llvm_CmpInst_Predicate::FCMP_OLE,
+            Predicate::FCMPONE => ::ffi::llvm_CmpInst_Predicate::FCMP_ONE,
+            Predicate::FCMPORD => ::ffi::llvm_CmpInst_Predicate::FCMP_ORD,
+            Predicate::FCMPUNO => ::ffi::llvm_CmpInst_Predicate::FCMP_UNO,
+            Predicate::FCMPUEQ => ::ffi::llvm_CmpInst_Predicate::FCMP_UEQ,
+            Predicate::FCMPUGT => ::ffi::llvm_CmpInst_Predicate::FCMP_UGT,
+            Predicate::FCMPUGE => ::ffi::llvm_CmpInst_Predicate::FCMP_UGE,
+            Predicate::FCMPULT => ::ffi::llvm_CmpInst_Predicate::FCMP_ULT,
+            Predicate::FCMPULE => ::ffi::llvm_CmpInst_Predicate::FCMP_ULE,
+            Predicate::FCMPUNE => ::ffi::llvm_CmpInst_Predicate::FCMP_UNE,
+            Predicate::FCMPTRUE => ::ffi::llvm_CmpInst_Predicate::FCMP_TRUE,
+            Predicate::FIRSTFCMPPREDICATE => ::ffi::llvm_CmpInst_Predicate::FCMP_FALSE,
+            Predicate::LASTFCMPPREDICATE => ::ffi::llvm_CmpInst_Predicate::FCMP_TRUE,
+            Predicate::BADFCMPPREDICATE => ::ffi::llvm_CmpInst_Predicate::BAD_FCMP_PREDICATE,
+            Predicate::ICMPEQ => ::ffi::llvm_CmpInst_Predicate::ICMP_EQ,
+            Predicate::ICMPNE => ::ffi::llvm_CmpInst_Predicate::ICMP_NE,
+            Predicate::ICMPUGT => ::ffi::llvm_CmpInst_Predicate::ICMP_UGT,
+            Predicate::ICMPUGE => ::ffi::llvm_CmpInst_Predicate::ICMP_UGE,
+            Predicate::ICMPULT => ::ffi::llvm_CmpInst_Predicate::ICMP_ULT,
+            Predicate::ICMPULE => ::ffi::llvm_CmpInst_Predicate::ICMP_ULE,
+            Predicate::ICMPSGT => ::ffi::llvm_CmpInst_Predicate::ICMP_SGT,
+            Predicate::ICMPSGE => ::ffi::llvm_CmpInst_Predicate::ICMP_SGE,
+            Predicate::ICMPSLT => ::ffi::llvm_CmpInst_Predicate::ICMP_SLT,
+            Predicate::ICMPSLE => ::ffi::llvm_CmpInst_Predicate::ICMP_SLE,
+            Predicate::FIRSTICMPPREDICATE => ::ffi::llvm_CmpInst_Predicate::ICMP_EQ,
+            Predicate::LASTICMPPREDICATE => ::ffi::llvm_CmpInst_Predicate::ICMP_SLE,
+            Predicate::BADICMPPREDICATE => ::ffi::llvm_CmpInst_Predicate::BAD_ICMP_PREDICATE,
+        }
+    }
+}
+impl Copy for Predicate {}
 pub type CmpInstInner = ::ffi::llvm_CmpInst;
 
 pub trait CmpInstExt: ::llvm::value::user::inst::InstructionExt {
@@ -1115,6 +1220,248 @@ impl Drop for InsertValueInst {
         }
     }
 }
+pub enum BinaryOps {
+    Add,
+    FAdd,
+    Sub,
+    FSub,
+    Mul,
+    FMul,
+    UDiv,
+    SDiv,
+    FDiv,
+    URem,
+    SRem,
+    FRem,
+    Shl,
+    LShr,
+    AShr,
+    And,
+    Or,
+    Xor,
+}
+impl BinaryOps {
+    pub fn from_ffi(value: ::ffi::llvm_Instruction_BinaryOps) -> BinaryOps {
+        match value {
+            ::ffi::llvm_Instruction_BinaryOps::Add => BinaryOps::Add,
+            ::ffi::llvm_Instruction_BinaryOps::FAdd => BinaryOps::FAdd,
+            ::ffi::llvm_Instruction_BinaryOps::Sub => BinaryOps::Sub,
+            ::ffi::llvm_Instruction_BinaryOps::FSub => BinaryOps::FSub,
+            ::ffi::llvm_Instruction_BinaryOps::Mul => BinaryOps::Mul,
+            ::ffi::llvm_Instruction_BinaryOps::FMul => BinaryOps::FMul,
+            ::ffi::llvm_Instruction_BinaryOps::UDiv => BinaryOps::UDiv,
+            ::ffi::llvm_Instruction_BinaryOps::SDiv => BinaryOps::SDiv,
+            ::ffi::llvm_Instruction_BinaryOps::FDiv => BinaryOps::FDiv,
+            ::ffi::llvm_Instruction_BinaryOps::URem => BinaryOps::URem,
+            ::ffi::llvm_Instruction_BinaryOps::SRem => BinaryOps::SRem,
+            ::ffi::llvm_Instruction_BinaryOps::FRem => BinaryOps::FRem,
+            ::ffi::llvm_Instruction_BinaryOps::Shl => BinaryOps::Shl,
+            ::ffi::llvm_Instruction_BinaryOps::LShr => BinaryOps::LShr,
+            ::ffi::llvm_Instruction_BinaryOps::AShr => BinaryOps::AShr,
+            ::ffi::llvm_Instruction_BinaryOps::And => BinaryOps::And,
+            ::ffi::llvm_Instruction_BinaryOps::Or => BinaryOps::Or,
+            ::ffi::llvm_Instruction_BinaryOps::Xor => BinaryOps::Xor,
+        }
+    }
+    pub fn to_ffi(self) -> ::ffi::llvm_Instruction_BinaryOps {
+        match self {
+            BinaryOps::Add => ::ffi::llvm_Instruction_BinaryOps::Add,
+            BinaryOps::FAdd => ::ffi::llvm_Instruction_BinaryOps::FAdd,
+            BinaryOps::Sub => ::ffi::llvm_Instruction_BinaryOps::Sub,
+            BinaryOps::FSub => ::ffi::llvm_Instruction_BinaryOps::FSub,
+            BinaryOps::Mul => ::ffi::llvm_Instruction_BinaryOps::Mul,
+            BinaryOps::FMul => ::ffi::llvm_Instruction_BinaryOps::FMul,
+            BinaryOps::UDiv => ::ffi::llvm_Instruction_BinaryOps::UDiv,
+            BinaryOps::SDiv => ::ffi::llvm_Instruction_BinaryOps::SDiv,
+            BinaryOps::FDiv => ::ffi::llvm_Instruction_BinaryOps::FDiv,
+            BinaryOps::URem => ::ffi::llvm_Instruction_BinaryOps::URem,
+            BinaryOps::SRem => ::ffi::llvm_Instruction_BinaryOps::SRem,
+            BinaryOps::FRem => ::ffi::llvm_Instruction_BinaryOps::FRem,
+            BinaryOps::Shl => ::ffi::llvm_Instruction_BinaryOps::Shl,
+            BinaryOps::LShr => ::ffi::llvm_Instruction_BinaryOps::LShr,
+            BinaryOps::AShr => ::ffi::llvm_Instruction_BinaryOps::AShr,
+            BinaryOps::And => ::ffi::llvm_Instruction_BinaryOps::And,
+            BinaryOps::Or => ::ffi::llvm_Instruction_BinaryOps::Or,
+            BinaryOps::Xor => ::ffi::llvm_Instruction_BinaryOps::Xor,
+        }
+    }
+}
+impl Copy for BinaryOps {}
+pub enum CastOps {
+    Trunc,
+    ZExt,
+    SExt,
+    FPToUI,
+    FPToSI,
+    UIToFP,
+    SIToFP,
+    FPTrunc,
+    FPExt,
+    PtrToInt,
+    IntToPtr,
+    BitCast,
+    AddrSpaceCast,
+}
+impl CastOps {
+    pub fn from_ffi(value: ::ffi::llvm_Instruction_CastOps) -> CastOps {
+        match value {
+            ::ffi::llvm_Instruction_CastOps::Trunc => CastOps::Trunc,
+            ::ffi::llvm_Instruction_CastOps::ZExt => CastOps::ZExt,
+            ::ffi::llvm_Instruction_CastOps::SExt => CastOps::SExt,
+            ::ffi::llvm_Instruction_CastOps::FPToUI => CastOps::FPToUI,
+            ::ffi::llvm_Instruction_CastOps::FPToSI => CastOps::FPToSI,
+            ::ffi::llvm_Instruction_CastOps::UIToFP => CastOps::UIToFP,
+            ::ffi::llvm_Instruction_CastOps::SIToFP => CastOps::SIToFP,
+            ::ffi::llvm_Instruction_CastOps::FPTrunc => CastOps::FPTrunc,
+            ::ffi::llvm_Instruction_CastOps::FPExt => CastOps::FPExt,
+            ::ffi::llvm_Instruction_CastOps::PtrToInt => CastOps::PtrToInt,
+            ::ffi::llvm_Instruction_CastOps::IntToPtr => CastOps::IntToPtr,
+            ::ffi::llvm_Instruction_CastOps::BitCast => CastOps::BitCast,
+            ::ffi::llvm_Instruction_CastOps::AddrSpaceCast => CastOps::AddrSpaceCast,
+        }
+    }
+    pub fn to_ffi(self) -> ::ffi::llvm_Instruction_CastOps {
+        match self {
+            CastOps::Trunc => ::ffi::llvm_Instruction_CastOps::Trunc,
+            CastOps::ZExt => ::ffi::llvm_Instruction_CastOps::ZExt,
+            CastOps::SExt => ::ffi::llvm_Instruction_CastOps::SExt,
+            CastOps::FPToUI => ::ffi::llvm_Instruction_CastOps::FPToUI,
+            CastOps::FPToSI => ::ffi::llvm_Instruction_CastOps::FPToSI,
+            CastOps::UIToFP => ::ffi::llvm_Instruction_CastOps::UIToFP,
+            CastOps::SIToFP => ::ffi::llvm_Instruction_CastOps::SIToFP,
+            CastOps::FPTrunc => ::ffi::llvm_Instruction_CastOps::FPTrunc,
+            CastOps::FPExt => ::ffi::llvm_Instruction_CastOps::FPExt,
+            CastOps::PtrToInt => ::ffi::llvm_Instruction_CastOps::PtrToInt,
+            CastOps::IntToPtr => ::ffi::llvm_Instruction_CastOps::IntToPtr,
+            CastOps::BitCast => ::ffi::llvm_Instruction_CastOps::BitCast,
+            CastOps::AddrSpaceCast => ::ffi::llvm_Instruction_CastOps::AddrSpaceCast,
+        }
+    }
+}
+impl Copy for CastOps {}
+pub enum MemoryOps {
+    Alloca,
+    Load,
+    Store,
+    GetElementPtr,
+    Fence,
+    AtomicCmpXchg,
+    AtomicRMW,
+}
+impl MemoryOps {
+    pub fn from_ffi(value: ::ffi::llvm_Instruction_MemoryOps) -> MemoryOps {
+        match value {
+            ::ffi::llvm_Instruction_MemoryOps::Alloca => MemoryOps::Alloca,
+            ::ffi::llvm_Instruction_MemoryOps::Load => MemoryOps::Load,
+            ::ffi::llvm_Instruction_MemoryOps::Store => MemoryOps::Store,
+            ::ffi::llvm_Instruction_MemoryOps::GetElementPtr => MemoryOps::GetElementPtr,
+            ::ffi::llvm_Instruction_MemoryOps::Fence => MemoryOps::Fence,
+            ::ffi::llvm_Instruction_MemoryOps::AtomicCmpXchg => MemoryOps::AtomicCmpXchg,
+            ::ffi::llvm_Instruction_MemoryOps::AtomicRMW => MemoryOps::AtomicRMW,
+        }
+    }
+    pub fn to_ffi(self) -> ::ffi::llvm_Instruction_MemoryOps {
+        match self {
+            MemoryOps::Alloca => ::ffi::llvm_Instruction_MemoryOps::Alloca,
+            MemoryOps::Load => ::ffi::llvm_Instruction_MemoryOps::Load,
+            MemoryOps::Store => ::ffi::llvm_Instruction_MemoryOps::Store,
+            MemoryOps::GetElementPtr => ::ffi::llvm_Instruction_MemoryOps::GetElementPtr,
+            MemoryOps::Fence => ::ffi::llvm_Instruction_MemoryOps::Fence,
+            MemoryOps::AtomicCmpXchg => ::ffi::llvm_Instruction_MemoryOps::AtomicCmpXchg,
+            MemoryOps::AtomicRMW => ::ffi::llvm_Instruction_MemoryOps::AtomicRMW,
+        }
+    }
+}
+impl Copy for MemoryOps {}
+pub enum OtherOps {
+    ICmp,
+    FCmp,
+    PHI,
+    Call,
+    Select,
+    UserOp1,
+    UserOp2,
+    VAArg,
+    ExtractElement,
+    InsertElement,
+    ShuffleVector,
+    ExtractValue,
+    InsertValue,
+    LandingPad,
+}
+impl OtherOps {
+    pub fn from_ffi(value: ::ffi::llvm_Instruction_OtherOps) -> OtherOps {
+        match value {
+            ::ffi::llvm_Instruction_OtherOps::ICmp => OtherOps::ICmp,
+            ::ffi::llvm_Instruction_OtherOps::FCmp => OtherOps::FCmp,
+            ::ffi::llvm_Instruction_OtherOps::PHI => OtherOps::PHI,
+            ::ffi::llvm_Instruction_OtherOps::Call => OtherOps::Call,
+            ::ffi::llvm_Instruction_OtherOps::Select => OtherOps::Select,
+            ::ffi::llvm_Instruction_OtherOps::UserOp1 => OtherOps::UserOp1,
+            ::ffi::llvm_Instruction_OtherOps::UserOp2 => OtherOps::UserOp2,
+            ::ffi::llvm_Instruction_OtherOps::VAArg => OtherOps::VAArg,
+            ::ffi::llvm_Instruction_OtherOps::ExtractElement => OtherOps::ExtractElement,
+            ::ffi::llvm_Instruction_OtherOps::InsertElement => OtherOps::InsertElement,
+            ::ffi::llvm_Instruction_OtherOps::ShuffleVector => OtherOps::ShuffleVector,
+            ::ffi::llvm_Instruction_OtherOps::ExtractValue => OtherOps::ExtractValue,
+            ::ffi::llvm_Instruction_OtherOps::InsertValue => OtherOps::InsertValue,
+            ::ffi::llvm_Instruction_OtherOps::LandingPad => OtherOps::LandingPad,
+        }
+    }
+    pub fn to_ffi(self) -> ::ffi::llvm_Instruction_OtherOps {
+        match self {
+            OtherOps::ICmp => ::ffi::llvm_Instruction_OtherOps::ICmp,
+            OtherOps::FCmp => ::ffi::llvm_Instruction_OtherOps::FCmp,
+            OtherOps::PHI => ::ffi::llvm_Instruction_OtherOps::PHI,
+            OtherOps::Call => ::ffi::llvm_Instruction_OtherOps::Call,
+            OtherOps::Select => ::ffi::llvm_Instruction_OtherOps::Select,
+            OtherOps::UserOp1 => ::ffi::llvm_Instruction_OtherOps::UserOp1,
+            OtherOps::UserOp2 => ::ffi::llvm_Instruction_OtherOps::UserOp2,
+            OtherOps::VAArg => ::ffi::llvm_Instruction_OtherOps::VAArg,
+            OtherOps::ExtractElement => ::ffi::llvm_Instruction_OtherOps::ExtractElement,
+            OtherOps::InsertElement => ::ffi::llvm_Instruction_OtherOps::InsertElement,
+            OtherOps::ShuffleVector => ::ffi::llvm_Instruction_OtherOps::ShuffleVector,
+            OtherOps::ExtractValue => ::ffi::llvm_Instruction_OtherOps::ExtractValue,
+            OtherOps::InsertValue => ::ffi::llvm_Instruction_OtherOps::InsertValue,
+            OtherOps::LandingPad => ::ffi::llvm_Instruction_OtherOps::LandingPad,
+        }
+    }
+}
+impl Copy for OtherOps {}
+pub enum TermOps {
+    Ret,
+    Br,
+    Switch,
+    IndirectBr,
+    Invoke,
+    Resume,
+    Unreachable,
+}
+impl TermOps {
+    pub fn from_ffi(value: ::ffi::llvm_Instruction_TermOps) -> TermOps {
+        match value {
+            ::ffi::llvm_Instruction_TermOps::Ret => TermOps::Ret,
+            ::ffi::llvm_Instruction_TermOps::Br => TermOps::Br,
+            ::ffi::llvm_Instruction_TermOps::Switch => TermOps::Switch,
+            ::ffi::llvm_Instruction_TermOps::IndirectBr => TermOps::IndirectBr,
+            ::ffi::llvm_Instruction_TermOps::Invoke => TermOps::Invoke,
+            ::ffi::llvm_Instruction_TermOps::Resume => TermOps::Resume,
+            ::ffi::llvm_Instruction_TermOps::Unreachable => TermOps::Unreachable,
+        }
+    }
+    pub fn to_ffi(self) -> ::ffi::llvm_Instruction_TermOps {
+        match self {
+            TermOps::Ret => ::ffi::llvm_Instruction_TermOps::Ret,
+            TermOps::Br => ::ffi::llvm_Instruction_TermOps::Br,
+            TermOps::Switch => ::ffi::llvm_Instruction_TermOps::Switch,
+            TermOps::IndirectBr => ::ffi::llvm_Instruction_TermOps::IndirectBr,
+            TermOps::Invoke => ::ffi::llvm_Instruction_TermOps::Invoke,
+            TermOps::Resume => ::ffi::llvm_Instruction_TermOps::Resume,
+            TermOps::Unreachable => ::ffi::llvm_Instruction_TermOps::Unreachable,
+        }
+    }
+}
+impl Copy for TermOps {}
 pub type InstructionInner = ::ffi::llvm_Instruction;
 
 pub trait InstructionExt: ::llvm::value::user::UserExt {

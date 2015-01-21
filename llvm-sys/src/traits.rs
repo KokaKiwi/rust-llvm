@@ -71,5 +71,7 @@ pub use ::llvm::value::MDStringExt;
 pub use ::llvm::value::ValueExt;
 pub use ::llvm::DataLayoutExt;
 pub use ::llvm::DebugLocExt;
+pub use ::llvm::IRBuilderExt;
+pub use ::llvm::IRBuilderBaseExt;
 pub use ::llvm::LLVMContextExt;
 pub use ::llvm::ModuleExt;

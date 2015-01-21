@@ -17,6 +17,17 @@ pub struct llvm_ArrayType;
 pub struct llvm_AtomicCmpXchgInst;
 #[repr(C)]
 #[derive(Copy)]
+pub enum llvm_AtomicOrdering {
+    NotAtomic = 0,
+    Unordered = 1,
+    Monotonic = 2,
+    Acquire = 4,
+    Release = 5,
+    AcquireRelease = 6,
+    SequentiallyConsistent = 7,
+}
+#[repr(C)]
+#[derive(Copy)]
 pub struct llvm_AtomicRMWInst;
 #[repr(C)]
 #[derive(Copy)]
@@ -24,6 +35,28 @@ pub struct llvm_BasicBlock;
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_BinaryOperator;
+#[repr(C)]
+#[derive(Copy)]
+pub enum llvm_Instruction_BinaryOps {
+    Add = 8,
+    FAdd = 9,
+    Sub = 10,
+    FSub = 11,
+    Mul = 12,
+    FMul = 13,
+    UDiv = 14,
+    SDiv = 15,
+    FDiv = 16,
+    URem = 17,
+    SRem = 18,
+    FRem = 19,
+    Shl = 20,
+    LShr = 21,
+    AShr = 22,
+    And = 23,
+    Or = 24,
+    Xor = 25,
+}
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_BitCastInst;
@@ -39,6 +72,23 @@ pub struct llvm_CallInst;
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_CastInst;
+#[repr(C)]
+#[derive(Copy)]
+pub enum llvm_Instruction_CastOps {
+    Trunc = 33,
+    ZExt = 34,
+    SExt = 35,
+    FPToUI = 36,
+    FPToSI = 37,
+    UIToFP = 38,
+    SIToFP = 39,
+    FPTrunc = 40,
+    FPExt = 41,
+    PtrToInt = 42,
+    IntToPtr = 43,
+    BitCast = 44,
+    AddrSpaceCast = 45,
+}
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_CmpInst;
@@ -98,11 +148,77 @@ pub enum llvm_GlobalValue_LinkageTypes {
 }
 #[repr(C)]
 #[allow(raw_pointer_derive)]
+pub struct std_string {
+    pub data: *mut ::libc::c_char,
+    pub length: ::libc::size_t,
+}
+impl Copy for std_string {}
+#[repr(C)]
+#[allow(raw_pointer_derive)]
+pub struct llvm_ArrayRef_llvm_Value_ptr {
+    pub data: *const *mut llvm_Value,
+    pub length: ::libc::size_t,
+}
+impl Copy for llvm_ArrayRef_llvm_Value_ptr {}
+#[repr(C)]
+#[allow(raw_pointer_derive)]
+pub struct llvm_ArrayRef__libc_c_uint {
+    pub data: *const ::libc::c_uint,
+    pub length: ::libc::size_t,
+}
+impl Copy for llvm_ArrayRef__libc_c_uint {}
+#[repr(C)]
+#[derive(Copy)]
+pub enum llvm_CmpInst_Predicate {
+    FCMP_FALSE = 0,
+    FCMP_OEQ = 1,
+    FCMP_OGT = 2,
+    FCMP_OGE = 3,
+    FCMP_OLT = 4,
+    FCMP_OLE = 5,
+    FCMP_ONE = 6,
+    FCMP_ORD = 7,
+    FCMP_UNO = 8,
+    FCMP_UEQ = 9,
+    FCMP_UGT = 10,
+    FCMP_UGE = 11,
+    FCMP_ULT = 12,
+    FCMP_ULE = 13,
+    FCMP_UNE = 14,
+    FCMP_TRUE = 15,
+    BAD_FCMP_PREDICATE = 16,
+    ICMP_EQ = 32,
+    ICMP_NE = 33,
+    ICMP_UGT = 34,
+    ICMP_UGE = 35,
+    ICMP_ULT = 36,
+    ICMP_ULE = 37,
+    ICMP_SGT = 38,
+    ICMP_SGE = 39,
+    ICMP_SLT = 40,
+    ICMP_SLE = 41,
+    BAD_ICMP_PREDICATE = 42,
+}
+#[repr(C)]
+#[derive(Copy)]
+pub enum llvm_SynchronizationScope {
+    SingleThread = 0,
+    CrossThread = 1,
+}
+#[repr(C)]
+#[allow(raw_pointer_derive)]
 pub struct llvm_StringRef {
     pub data: *const ::libc::c_char,
     pub length: ::libc::size_t,
 }
 impl Copy for llvm_StringRef {}
+#[repr(C)]
+#[allow(raw_pointer_derive)]
+pub struct std_string_const {
+    pub data: *const ::libc::c_char,
+    pub length: ::libc::size_t,
+}
+impl Copy for std_string_const {}
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_DataLayout;
@@ -174,6 +290,12 @@ pub enum llvm_CallingConv_ID {
 }
 #[repr(C)]
 #[derive(Copy)]
+pub struct llvm_IRBuilder;
+#[repr(C)]
+#[derive(Copy)]
+pub struct llvm_IRBuilderBase;
+#[repr(C)]
+#[derive(Copy)]
 pub struct llvm_IndirectBrInst;
 #[repr(C)]
 #[derive(Copy)]
@@ -210,10 +332,39 @@ pub struct llvm_MDNode;
 pub struct llvm_MDString;
 #[repr(C)]
 #[derive(Copy)]
+pub enum llvm_Instruction_MemoryOps {
+    Alloca = 26,
+    Load = 27,
+    Store = 28,
+    GetElementPtr = 29,
+    Fence = 30,
+    AtomicCmpXchg = 31,
+    AtomicRMW = 32,
+}
+#[repr(C)]
+#[derive(Copy)]
 pub struct llvm_Module;
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_Operator;
+#[repr(C)]
+#[derive(Copy)]
+pub enum llvm_Instruction_OtherOps {
+    ICmp = 46,
+    FCmp = 47,
+    PHI = 48,
+    Call = 49,
+    Select = 50,
+    UserOp1 = 51,
+    UserOp2 = 52,
+    VAArg = 53,
+    ExtractElement = 54,
+    InsertElement = 55,
+    ShuffleVector = 56,
+    ExtractValue = 57,
+    InsertValue = 58,
+    LandingPad = 59,
+}
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_PHINode;
@@ -244,6 +395,17 @@ pub struct llvm_StructType;
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_SwitchInst;
+#[repr(C)]
+#[derive(Copy)]
+pub enum llvm_Instruction_TermOps {
+    Ret = 1,
+    Br = 2,
+    Switch = 3,
+    IndirectBr = 4,
+    Invoke = 5,
+    Resume = 6,
+    Unreachable = 7,
+}
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_TerminatorInst;
@@ -326,13 +488,6 @@ pub struct llvm_ArrayRef_llvm_Type_ptr {
 }
 impl Copy for llvm_ArrayRef_llvm_Type_ptr {}
 #[repr(C)]
-#[allow(raw_pointer_derive)]
-pub struct llvm_ArrayRef__libc_c_uint {
-    pub data: *const ::libc::c_uint,
-    pub length: ::libc::size_t,
-}
-impl Copy for llvm_ArrayRef__libc_c_uint {}
-#[repr(C)]
 #[derive(Copy)]
 pub struct llvm_APInt {
     pub num_bits: ::libc::c_uint,
@@ -347,13 +502,6 @@ pub struct llvm_ArrayRef_llvm_Constant_ptr {
 impl Copy for llvm_ArrayRef_llvm_Constant_ptr {}
 #[repr(C)]
 #[allow(raw_pointer_derive)]
-pub struct std_string_const {
-    pub data: *const ::libc::c_char,
-    pub length: ::libc::size_t,
-}
-impl Copy for std_string_const {}
-#[repr(C)]
-#[allow(raw_pointer_derive)]
 pub struct llvm_ArrayRef__libc_uint64_t {
     pub data: *const ::libc::uint64_t,
     pub length: ::libc::size_t,
@@ -362,8 +510,145 @@ impl Copy for llvm_ArrayRef__libc_uint64_t {}
 
 mod raw {
     extern "C" {
+        pub fn llvm_IRBuilderBase_ClearInsertionPoint(inst: *mut super::llvm_IRBuilderBase) -> ::libc::c_void;
         pub fn llvm_Function_Create(Ty: *mut super::llvm_FunctionType, Linkage: super::llvm_GlobalValue_LinkageTypes) -> *mut super::llvm_Function;
+        pub fn llvm_IRBuilder_CreateAShr(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateAShrByValue(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: ::libc::uint64_t, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateAdd(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateAddrSpaceCast(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateAggregateRet(inst: *mut super::llvm_IRBuilder, retVals: *const *mut super::llvm_Value, N: ::libc::c_uint) -> *mut super::llvm_ReturnInst;
+        pub fn llvm_IRBuilder_CreateAlignedLoad(inst: *mut super::llvm_IRBuilder, Ptr: *mut super::llvm_Value, Align: ::libc::c_uint, Name: super::std_string) -> *mut super::llvm_LoadInst;
+        pub fn llvm_IRBuilder_CreateAlignedLoadVolatile(inst: *mut super::llvm_IRBuilder, Ptr: *mut super::llvm_Value, Align: ::libc::c_uint, isVolatile: ::libc::c_int, Name: super::std_string) -> *mut super::llvm_LoadInst;
+        pub fn llvm_IRBuilder_CreateAlignedStore(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, Ptr: *mut super::llvm_Value, Align: ::libc::c_uint, isVolatile: ::libc::c_int) -> *mut super::llvm_StoreInst;
+        pub fn llvm_IRBuilder_CreateAlloca(inst: *mut super::llvm_IRBuilder, Ty: *mut super::llvm_Type, ArraySize: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_AllocaInst;
+        pub fn llvm_IRBuilder_CreateAnd(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateAndByValue(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: ::libc::uint64_t, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateBinOp(inst: *mut super::llvm_IRBuilder, Opcode: super::llvm_Instruction_BinaryOps, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateBitCast(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateBr(inst: *mut super::llvm_IRBuilder, Dest: *mut super::llvm_BasicBlock) -> *mut super::llvm_BranchInst;
+        pub fn llvm_IRBuilder_CreateCall(inst: *mut super::llvm_IRBuilder, Callee: *mut super::llvm_Value, Args: super::llvm_ArrayRef_llvm_Value_ptr, Name: super::std_string) -> *mut super::llvm_CallInst;
+        pub fn llvm_IRBuilder_CreateCast(inst: *mut super::llvm_IRBuilder, Opcode: super::llvm_Instruction_CastOps, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateCondBr(inst: *mut super::llvm_IRBuilder, Cond: *mut super::llvm_Value, TrueBlock: *mut super::llvm_BasicBlock, FalseBlock: *mut super::llvm_BasicBlock) -> *mut super::llvm_BranchInst;
+        pub fn llvm_IRBuilder_CreateExactSDiv(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateExactUDiv(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateExtractElement(inst: *mut super::llvm_IRBuilder, Vec: *mut super::llvm_Value, Idx: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateExtractInteger(inst: *mut super::llvm_IRBuilder, DL: *const super::llvm_DataLayout, From: *mut super::llvm_Value, ExtractedTy: *mut super::llvm_IntegerType, Offset: ::libc::uint64_t, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateExtractValue(inst: *mut super::llvm_IRBuilder, Agg: *mut super::llvm_Value, Indexes: super::llvm_ArrayRef__libc_c_uint, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFAdd(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFCmp(inst: *mut super::llvm_IRBuilder, Pred: super::llvm_CmpInst_Predicate, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFCmpOEQ(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFCmpOGE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFCmpOGT(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFCmpOLE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFCmpOLT(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFCmpONE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFCmpORD(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFCmpUEQ(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFCmpUGE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFCmpUGT(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFCmpULE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFCmpULT(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFCmpUNE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFCmpUNO(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFDiv(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFMul(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFNeg(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFPCast(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFPExt(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFPToSI(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFPToUI(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFPTrunc(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFRem(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFSub(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateFence(inst: *mut super::llvm_IRBuilder, Ordering: super::llvm_AtomicOrdering, SynchScope: super::llvm_SynchronizationScope, Name: super::std_string) -> *mut super::llvm_FenceInst;
+        pub fn llvm_IRBuilder_CreateGEP(inst: *mut super::llvm_IRBuilder, Ptr: *mut super::llvm_Value, Indexes: super::llvm_ArrayRef_llvm_Value_ptr, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilderBase_CreateGlobalString(inst: *mut super::llvm_IRBuilderBase, Str: super::llvm_StringRef, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateGlobalStringPtr(inst: *mut super::llvm_IRBuilder, Str: super::llvm_StringRef, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateICmp(inst: *mut super::llvm_IRBuilder, Pred: super::llvm_CmpInst_Predicate, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateICmpEQ(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateICmpNE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateICmpSGE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateICmpSGT(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateICmpSLE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateICmpSLT(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateICmpUGE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateICmpUGT(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateICmpULE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateICmpULT(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateInBoundsGEP(inst: *mut super::llvm_IRBuilder, Ptr: *mut super::llvm_Value, Indexes: super::llvm_ArrayRef_llvm_Value_ptr, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateIndirectBr(inst: *mut super::llvm_IRBuilder, Addr: *mut super::llvm_Value, NumCases: ::libc::c_uint) -> *mut super::llvm_IndirectBrInst;
+        pub fn llvm_IRBuilder_CreateInsertElement(inst: *mut super::llvm_IRBuilder, Vec: *mut super::llvm_Value, NewElt: *mut super::llvm_Value, Idx: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateInsertValue(inst: *mut super::llvm_IRBuilder, Agg: *mut super::llvm_Value, Value: *mut super::llvm_Value, Indexes: super::llvm_ArrayRef__libc_c_uint, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateIntCast(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, isSigned: ::libc::c_int, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateIntToPtr(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateInvoke(inst: *mut super::llvm_IRBuilder, Callee: *mut super::llvm_Value, NormalDest: *mut super::llvm_BasicBlock, UnwindDest: *mut super::llvm_BasicBlock, Args: super::llvm_ArrayRef_llvm_Value_ptr, Name: super::std_string_const) -> *mut super::llvm_InvokeInst;
+        pub fn llvm_IRBuilder_CreateIsNotNull(inst: *mut super::llvm_IRBuilder, Arg: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateIsNull(inst: *mut super::llvm_IRBuilder, Arg: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateLShr(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateLShrByValue(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: ::libc::uint64_t, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateLandingPad(inst: *mut super::llvm_IRBuilder, Ty: *mut super::llvm_Type, PersFn: *mut super::llvm_Value, NumClauses: ::libc::c_uint, Name: super::std_string) -> *mut super::llvm_LandingPadInst;
+        pub fn llvm_IRBuilderBase_CreateLifetimeEnd(inst: *mut super::llvm_IRBuilderBase, Ptr: *mut super::llvm_Value, Size: *mut super::llvm_ConstantInt) -> *mut super::llvm_CallInst;
+        pub fn llvm_IRBuilderBase_CreateLifetimeStart(inst: *mut super::llvm_IRBuilderBase, Ptr: *mut super::llvm_Value, Size: *mut super::llvm_ConstantInt) -> *mut super::llvm_CallInst;
+        pub fn llvm_IRBuilder_CreateLoad(inst: *mut super::llvm_IRBuilder, Ptr: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_LoadInst;
+        pub fn llvm_IRBuilder_CreateLoadVolatile(inst: *mut super::llvm_IRBuilder, Ptr: *mut super::llvm_Value, isVolatile: ::libc::c_int, Name: super::std_string) -> *mut super::llvm_LoadInst;
+        pub fn llvm_IRBuilderBase_CreateMemCpy(inst: *mut super::llvm_IRBuilderBase, Dst: *mut super::llvm_Value, Src: *mut super::llvm_Value, Size: *mut super::llvm_Value, Align: ::libc::c_uint, isVolatile: ::libc::c_int) -> *mut super::llvm_CallInst;
+        pub fn llvm_IRBuilderBase_CreateMemMove(inst: *mut super::llvm_IRBuilderBase, Dst: *mut super::llvm_Value, Src: *mut super::llvm_Value, Size: *mut super::llvm_Value, Align: ::libc::c_uint, isVolatile: ::libc::c_int) -> *mut super::llvm_CallInst;
+        pub fn llvm_IRBuilderBase_CreateMemSet(inst: *mut super::llvm_IRBuilderBase, Ptr: *mut super::llvm_Value, Value: *mut super::llvm_Value, Size: *mut super::llvm_Value, Align: ::libc::c_uint, isVolatile: ::libc::c_int) -> *mut super::llvm_CallInst;
+        pub fn llvm_IRBuilder_CreateMul(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateNSWAdd(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateNSWMul(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateNSWNeg(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateNSWSub(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateNUWAdd(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateNUWMul(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateNUWNeg(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateNUWSub(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateNeg(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateNot(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateOr(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateOrByValue(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: ::libc::uint64_t, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreatePHI(inst: *mut super::llvm_IRBuilder, Ty: *mut super::llvm_Type, NumReservedValues: ::libc::c_uint, Name: super::std_string) -> *mut super::llvm_PHINode;
+        pub fn llvm_IRBuilder_CreatePointerBitCastOrAddrSpaceCast(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreatePointerCast(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreatePtrDiff(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreatePtrToInt(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateResume(inst: *mut super::llvm_IRBuilder, Exn: *mut super::llvm_Value) -> *mut super::llvm_ResumeInst;
+        pub fn llvm_IRBuilder_CreateRet(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value) -> *mut super::llvm_ReturnInst;
+        pub fn llvm_IRBuilder_CreateRetVoid(inst: *mut super::llvm_IRBuilder) -> *mut super::llvm_ReturnInst;
+        pub fn llvm_IRBuilder_CreateSDiv(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateSExt(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateSExtOrBitCast(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateSExtOrTrunc(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateSIToFP(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateSRem(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateSelect(inst: *mut super::llvm_IRBuilder, C: *mut super::llvm_Value, TrueValue: *mut super::llvm_Value, FalseValue: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateShl(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateShlByValue(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: ::libc::uint64_t, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateShuffleVector(inst: *mut super::llvm_IRBuilder, V1: *mut super::llvm_Value, P2: *mut super::llvm_Value, Mask: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateStore(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, Ptr: *mut super::llvm_Value, isVolatile: ::libc::c_int) -> *mut super::llvm_StoreInst;
+        pub fn llvm_IRBuilder_CreateStructGEP(inst: *mut super::llvm_IRBuilder, Ptr: *mut super::llvm_Value, Index: ::libc::c_uint, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateSub(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateSwitch(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, Dest: *mut super::llvm_BasicBlock, NumCases: ::libc::c_uint) -> *mut super::llvm_SwitchInst;
+        pub fn llvm_IRBuilder_CreateTrunc(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateTruncOrBitCast(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateUDiv(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateUIToFP(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateURem(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateUnreachable(inst: *mut super::llvm_IRBuilder) -> *mut super::llvm_UnreachableInst;
+        pub fn llvm_IRBuilder_CreateVAArg(inst: *mut super::llvm_IRBuilder, List: *mut super::llvm_Value, Ty: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_VAArgInst;
+        pub fn llvm_IRBuilder_CreateVectorSplat(inst: *mut super::llvm_IRBuilder, NumElements: ::libc::c_uint, Value: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
         pub fn llvm_Function_CreateWithName(Ty: *mut super::llvm_FunctionType, Linkage: super::llvm_GlobalValue_LinkageTypes, Name: super::llvm_StringRef) -> *mut super::llvm_Function;
+        pub fn llvm_IRBuilder_CreateXor(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateXorByValue(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: ::libc::uint64_t, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateZExt(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateZExtOrBitCast(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilder_CreateZExtOrTrunc(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value;
+        pub fn llvm_IRBuilderBase_GetInsertBlock(inst: *const super::llvm_IRBuilderBase) -> *mut super::llvm_BasicBlock;
+        pub fn llvm_IRBuilderBase_SetCurrentDebugLocation(inst: *mut super::llvm_IRBuilderBase, Loc: *const super::llvm_DebugLoc) -> ::libc::c_void;
+        pub fn llvm_IRBuilderBase_SetDefaultFPMathTag(inst: *mut super::llvm_IRBuilderBase, FPMathTag: *mut super::llvm_MDNode) -> ::libc::c_void;
+        pub fn llvm_IRBuilderBase_SetInsertPoint(inst: *mut super::llvm_IRBuilderBase, BB: *mut super::llvm_BasicBlock) -> ::libc::c_void;
+        pub fn llvm_IRBuilderBase_SetInsertPointAtInst(inst: *mut super::llvm_IRBuilderBase, Inst: *mut super::llvm_Instruction) -> ::libc::c_void;
+        pub fn llvm_IRBuilderBase_SetInstDebugLocation(inst: *const super::llvm_IRBuilderBase, Inst: *mut super::llvm_Instruction) -> ::libc::c_void;
         pub fn llvm_Function_addFnAttr(inst: *mut super::llvm_Function, Kind: super::llvm_StringRef) -> ::libc::c_void;
         pub fn llvm_Function_addFnAttrWithValue(inst: *mut super::llvm_Function, Kind: super::llvm_StringRef, Val: super::llvm_StringRef) -> ::libc::c_void;
         pub fn llvm_Module_appendModuleInlineAsm(inst: *mut super::llvm_Module, Asm: super::llvm_StringRef) -> ::libc::c_void;
@@ -395,6 +680,7 @@ mod raw {
         pub fn llvm_Function_delete(inst: *mut super::llvm_Function) -> ::libc::c_void;
         pub fn llvm_GlobalValue_delete(inst: *mut super::llvm_GlobalValue) -> ::libc::c_void;
         pub fn llvm_GlobalVariable_delete(inst: *mut super::llvm_GlobalVariable) -> ::libc::c_void;
+        pub fn llvm_IRBuilder_delete(inst: *mut super::llvm_IRBuilder) -> ::libc::c_void;
         pub fn llvm_Instruction_delete(inst: *mut super::llvm_Instruction) -> ::libc::c_void;
         pub fn llvm_Module_delete(inst: *mut super::llvm_Module) -> ::libc::c_void;
         pub fn llvm_User_delete(inst: *mut super::llvm_User) -> ::libc::c_void;
@@ -450,17 +736,21 @@ mod raw {
         pub fn llvm_DebugLoc_getCol(inst: *const super::llvm_DebugLoc) -> ::libc::c_uint;
         pub fn llvm_Type_getContainedType(inst: *const super::llvm_Type, idx: ::libc::c_uint) -> *mut super::llvm_Type;
         pub fn llvm_Function_getContext(inst: *const super::llvm_Function) -> *mut super::llvm_LLVMContext;
+        pub fn llvm_IRBuilderBase_getContext(inst: *const super::llvm_IRBuilderBase) -> *mut super::llvm_LLVMContext;
         pub fn llvm_Module_getContext(inst: *const super::llvm_Module) -> *mut super::llvm_LLVMContext;
         pub fn llvm_Type_getContext(inst: *const super::llvm_Type) -> *mut super::llvm_LLVMContext;
         pub fn llvm_Value_getContext(inst: *const super::llvm_Value) -> *mut super::llvm_LLVMContext;
+        pub fn llvm_IRBuilderBase_getCurrentFunctionReturnType(inst: *const super::llvm_IRBuilderBase) -> *mut super::llvm_Type;
         pub fn llvm_GlobalValue_getDataLayout(inst: *const super::llvm_GlobalValue) -> *const super::llvm_DataLayout;
         pub fn llvm_Instruction_getDataLayout(inst: *const super::llvm_Instruction) -> *const super::llvm_DataLayout;
         pub fn llvm_Module_getDataLayout(inst: *const super::llvm_Module) -> *const super::llvm_DataLayout;
         pub fn llvm_Module_getDataLayoutStr(inst: *const super::llvm_Module) -> super::std_string_const;
         pub fn llvm_Instruction_getDebugLoc(inst: *const super::llvm_Instruction) -> *const super::llvm_DebugLoc;
+        pub fn llvm_IRBuilderBase_getDefaultFPMathTag(inst: *const super::llvm_IRBuilderBase) -> *mut super::llvm_MDNode;
         pub fn llvm_Function_getDereferenceableBytes(inst: *const super::llvm_Function, idx: ::libc::c_uint) -> ::libc::uint64_t;
         pub fn llvm_VectorType_getDoubleElementsVectorType(ty: *mut super::llvm_VectorType) -> *mut super::llvm_VectorType;
         pub fn llvm_Type_getDoublePtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
+        pub fn llvm_IRBuilderBase_getDoubleTy(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_Type;
         pub fn llvm_Type_getDoubleTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
         pub fn llvm_SequentialType_getElementType(inst: *const super::llvm_SequentialType) -> *mut super::llvm_Type;
         pub fn llvm_StructType_getElementType(inst: *const super::llvm_StructType, idx: ::libc::c_uint) -> *mut super::llvm_Type;
@@ -468,8 +758,10 @@ mod raw {
         pub fn llvm_Type_getFP128PtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
         pub fn llvm_Type_getFP128Ty(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
         pub fn llvm_ConstantInt_getFalse(Ty: *mut super::llvm_Type) -> *mut super::llvm_Constant;
+        pub fn llvm_IRBuilderBase_getFalse(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_ConstantInt;
         pub fn llvm_ConstantInt_getFalseWithContext(Context: *mut super::llvm_LLVMContext) -> *mut super::llvm_ConstantInt;
         pub fn llvm_Type_getFloatPtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
+        pub fn llvm_IRBuilderBase_getFloatTy(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_Type;
         pub fn llvm_Type_getFloatTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
         pub fn llvm_BlockAddress_getFunction(inst: *const super::llvm_BlockAddress) -> *mut super::llvm_Function;
         pub fn llvm_Module_getFunction(inst: *const super::llvm_Module, Name: super::llvm_StringRef) -> *mut super::llvm_Function;
@@ -479,23 +771,39 @@ mod raw {
         pub fn llvm_getGlobalContext() -> *mut super::llvm_LLVMContext;
         pub fn llvm_VectorType_getHalfElementsVectorType(ty: *mut super::llvm_VectorType) -> *mut super::llvm_VectorType;
         pub fn llvm_Type_getHalfPtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
+        pub fn llvm_IRBuilderBase_getHalfTy(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_Type;
         pub fn llvm_Type_getHalfTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
         pub fn llvm_ConstantFP_getInfinity(Ty: *mut super::llvm_Type) -> *mut super::llvm_Constant;
         pub fn llvm_GlobalVariable_getInitializer(inst: *const super::llvm_GlobalVariable) -> *const super::llvm_Constant;
         pub fn llvm_GlobalVariable_getInitializerMut(inst: *mut super::llvm_GlobalVariable) -> *mut super::llvm_Constant;
         pub fn llvm_DebugLoc_getInlinedAt(inst: *const super::llvm_DebugLoc, Ctx: *const super::llvm_LLVMContext) -> *mut super::llvm_MDNode;
+        pub fn llvm_IRBuilderBase_getInt(inst: *mut super::llvm_IRBuilderBase, Value: super::llvm_APInt) -> *mut super::llvm_ConstantInt;
+        pub fn llvm_IRBuilderBase_getInt1(inst: *mut super::llvm_IRBuilderBase, Value: ::libc::c_int) -> *mut super::llvm_ConstantInt;
+        pub fn llvm_IRBuilderBase_getInt16(inst: *mut super::llvm_IRBuilderBase, Value: ::libc::uint16_t) -> *mut super::llvm_ConstantInt;
         pub fn llvm_Type_getInt16PtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
+        pub fn llvm_IRBuilderBase_getInt16Ty(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_IntegerType;
         pub fn llvm_Type_getInt16Ty(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_IntegerType;
         pub fn llvm_Type_getInt1PtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
+        pub fn llvm_IRBuilderBase_getInt1Ty(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_IntegerType;
         pub fn llvm_Type_getInt1Ty(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_IntegerType;
+        pub fn llvm_IRBuilderBase_getInt32(inst: *mut super::llvm_IRBuilderBase, Value: ::libc::uint32_t) -> *mut super::llvm_ConstantInt;
         pub fn llvm_Type_getInt32PtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
+        pub fn llvm_IRBuilderBase_getInt32Ty(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_IntegerType;
         pub fn llvm_Type_getInt32Ty(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_IntegerType;
+        pub fn llvm_IRBuilderBase_getInt64(inst: *mut super::llvm_IRBuilderBase, Value: ::libc::uint64_t) -> *mut super::llvm_ConstantInt;
         pub fn llvm_Type_getInt64PtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
+        pub fn llvm_IRBuilderBase_getInt64Ty(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_IntegerType;
         pub fn llvm_Type_getInt64Ty(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_IntegerType;
+        pub fn llvm_IRBuilderBase_getInt8(inst: *mut super::llvm_IRBuilderBase, Value: ::libc::uint8_t) -> *mut super::llvm_ConstantInt;
+        pub fn llvm_IRBuilderBase_getInt8PtrTy(inst: *mut super::llvm_IRBuilderBase, AddrSpace: ::libc::c_uint) -> *mut super::llvm_PointerType;
         pub fn llvm_Type_getInt8PtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
+        pub fn llvm_IRBuilderBase_getInt8Ty(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_IntegerType;
         pub fn llvm_Type_getInt8Ty(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_IntegerType;
+        pub fn llvm_IRBuilderBase_getIntN(inst: *mut super::llvm_IRBuilderBase, NumBits: ::libc::c_uint, Value: ::libc::uint64_t) -> *mut super::llvm_ConstantInt;
         pub fn llvm_Type_getIntNPtrTy(ctx: *mut super::llvm_LLVMContext, size: ::libc::c_uint) -> *mut super::llvm_PointerType;
+        pub fn llvm_IRBuilderBase_getIntNTy(inst: *mut super::llvm_IRBuilderBase, NumBits: ::libc::c_uint) -> *mut super::llvm_IntegerType;
         pub fn llvm_Type_getIntNTy(ctx: *mut super::llvm_LLVMContext, size: ::libc::c_uint) -> *mut super::llvm_IntegerType;
+        pub fn llvm_IRBuilderBase_getIntPtrTy(inst: *mut super::llvm_IRBuilderBase, DL: *const super::llvm_DataLayout, AddrSpace: ::libc::c_uint) -> *mut super::llvm_IntegerType;
         pub fn llvm_VectorType_getInteger(ty: *mut super::llvm_VectorType) -> *mut super::llvm_VectorType;
         pub fn llvm_Constant_getIntegerValue(Ty: *mut super::llvm_Type, Value: super::llvm_APInt) -> *mut super::llvm_Constant;
         pub fn llvm_Function_getIntrinsicID(inst: *const super::llvm_Function) -> ::libc::c_uint;
@@ -550,6 +858,7 @@ mod raw {
         pub fn llvm_Type_getStructNumElements(inst: *const super::llvm_Type) -> ::libc::c_uint;
         pub fn llvm_Module_getTargetTriple(inst: *const super::llvm_Module) -> super::std_string_const;
         pub fn llvm_ConstantInt_getTrue(Ty: *mut super::llvm_Type) -> *mut super::llvm_Constant;
+        pub fn llvm_IRBuilderBase_getTrue(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_ConstantInt;
         pub fn llvm_ConstantInt_getTrueWithContext(Context: *mut super::llvm_LLVMContext) -> *mut super::llvm_ConstantInt;
         pub fn llvm_VectorType_getTruncatedElementVectorType(ty: *mut super::llvm_VectorType) -> *mut super::llvm_VectorType;
         pub fn llvm_ConstantArray_getType(inst: *const super::llvm_ConstantArray) -> *mut super::llvm_Type;
@@ -563,6 +872,7 @@ mod raw {
         pub fn llvm_PointerType_getUnqual(ElementType: *mut super::llvm_Type) -> *mut super::llvm_PointerType;
         pub fn llvm_Use_getUser(inst: *const super::llvm_Use) -> *mut super::llvm_User;
         pub fn llvm_Value_getValueID(inst: *const super::llvm_Value) -> ::libc::c_uint;
+        pub fn llvm_IRBuilderBase_getVoidTy(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_Type;
         pub fn llvm_Type_getVoidTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
         pub fn llvm_Type_getX86_FP80PtrTy(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_PointerType;
         pub fn llvm_Type_getX86_FP80Ty(ctx: *mut super::llvm_LLVMContext) -> *mut super::llvm_Type;
@@ -653,6 +963,7 @@ mod raw {
         pub fn llvm_ConstantInt_isMinValue(inst: *const super::llvm_ConstantInt, isSigned: ::libc::c_int) -> ::libc::c_int;
         pub fn llvm_ConstantInt_isMinusOne(inst: *const super::llvm_ConstantInt) -> ::libc::c_int;
         pub fn llvm_ConstantFP_isNaN(inst: *const super::llvm_ConstantFP) -> ::libc::c_int;
+        pub fn llvm_IRBuilder_isNamePreserving(inst: *const super::llvm_IRBuilder) -> ::libc::c_int;
         pub fn llvm_ConstantFP_isNegative(inst: *const super::llvm_ConstantFP) -> ::libc::c_int;
         pub fn llvm_ConstantInt_isNegative(inst: *const super::llvm_ConstantInt) -> ::libc::c_int;
         pub fn llvm_Constant_isNegativeZeroValue(inst: *const super::llvm_Constant) -> ::libc::c_int;
@@ -707,8 +1018,11 @@ mod raw {
         pub fn llvm_Function_needsUnwindTableEntry(inst: *const super::llvm_Function) -> ::libc::c_int;
         pub fn llvm_DebugLoc_new() -> *mut super::llvm_DebugLoc;
         pub fn llvm_GlobalVariable_new(Ty: *mut super::llvm_Type, isConstant: ::libc::c_int, Linkage: super::llvm_GlobalValue_LinkageTypes) -> *mut super::llvm_GlobalVariable;
+        pub fn llvm_IRBuilder_new(Context: *mut super::llvm_LLVMContext) -> *mut super::llvm_IRBuilder;
+        pub fn llvm_IRBuilderBase_new(Context: *mut super::llvm_LLVMContext) -> *mut super::llvm_IRBuilderBase;
         pub fn llvm_Module_new(ModuleID: super::llvm_StringRef, Context: *mut super::llvm_LLVMContext) -> *mut super::llvm_Module;
         pub fn llvm_GlobalVariable_newWithModule(Module: *mut super::llvm_Module, Ty: *mut super::llvm_Type, isConstant: ::libc::c_int, Linkage: super::llvm_GlobalValue_LinkageTypes, Initializer: *mut super::llvm_Constant) -> *mut super::llvm_GlobalVariable;
+        pub fn llvm_IRBuilder_new_in_block(BB: *mut super::llvm_BasicBlock) -> *mut super::llvm_IRBuilder;
         pub fn llvm_Function_onlyReadsMemory(inst: *const super::llvm_Function) -> ::libc::c_int;
         pub fn llvm_Function_onlyReadsMemoryParam(inst: *const super::llvm_Function, n: ::libc::c_uint) -> ::libc::c_int;
         pub fn llvm_Constant_removeDeadConstantUsers(inst: *const super::llvm_Constant) -> ::libc::c_void;
@@ -1879,6 +2193,1000 @@ pub mod llvm {
     #[inline(always)]
     pub unsafe fn GlobalVariable_setInitializer(inst: *mut super::llvm_GlobalVariable, InitVal: *mut super::llvm_Constant) -> ::libc::c_void {
         raw::llvm_GlobalVariable_setInitializer(inst, InitVal)
+    }
+
+    // ::llvm::IRBuilder::CreateAShr
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateAShr(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateAShr(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateAShrByValue
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateAShrByValue(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: ::libc::uint64_t, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateAShrByValue(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateAdd
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateAdd(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateAdd(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateAddrSpaceCast
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateAddrSpaceCast(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateAddrSpaceCast(inst, Value, DestTy, Name)
+    }
+
+    pub unsafe fn IRBuilder_CreateAggregateRet(inst: *mut super::llvm_IRBuilder, values: &[*mut super::llvm_Value]) -> *mut super::llvm_ReturnInst {
+        raw::llvm_IRBuilder_CreateAggregateRet(inst, values.as_ptr(), values.len() as ::libc::c_uint)
+    }
+
+    // ::llvm::IRBuilder::CreateAlignedLoad
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateAlignedLoad(inst: *mut super::llvm_IRBuilder, Ptr: *mut super::llvm_Value, Align: ::libc::c_uint, Name: super::std_string) -> *mut super::llvm_LoadInst {
+        raw::llvm_IRBuilder_CreateAlignedLoad(inst, Ptr, Align, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateAlignedLoadVolatile
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateAlignedLoadVolatile(inst: *mut super::llvm_IRBuilder, Ptr: *mut super::llvm_Value, Align: ::libc::c_uint, isVolatile: bool, Name: super::std_string) -> *mut super::llvm_LoadInst {
+        raw::llvm_IRBuilder_CreateAlignedLoadVolatile(inst, Ptr, Align, if isVolatile { 1 } else { 0 }, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateAlignedStore
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateAlignedStore(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, Ptr: *mut super::llvm_Value, Align: ::libc::c_uint, isVolatile: bool) -> *mut super::llvm_StoreInst {
+        raw::llvm_IRBuilder_CreateAlignedStore(inst, Value, Ptr, Align, if isVolatile { 1 } else { 0 })
+    }
+
+    // ::llvm::IRBuilder::CreateAlloca
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateAlloca(inst: *mut super::llvm_IRBuilder, Ty: *mut super::llvm_Type, ArraySize: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_AllocaInst {
+        raw::llvm_IRBuilder_CreateAlloca(inst, Ty, ArraySize, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateAnd
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateAnd(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateAnd(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateAndByValue
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateAndByValue(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: ::libc::uint64_t, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateAndByValue(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateBinOp
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateBinOp(inst: *mut super::llvm_IRBuilder, Opcode: super::llvm_Instruction_BinaryOps, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateBinOp(inst, Opcode, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateBitCast
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateBitCast(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateBitCast(inst, Value, DestTy, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateBr
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateBr(inst: *mut super::llvm_IRBuilder, Dest: *mut super::llvm_BasicBlock) -> *mut super::llvm_BranchInst {
+        raw::llvm_IRBuilder_CreateBr(inst, Dest)
+    }
+
+    // ::llvm::IRBuilder::CreateCall
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateCall(inst: *mut super::llvm_IRBuilder, Callee: *mut super::llvm_Value, Args: super::llvm_ArrayRef_llvm_Value_ptr, Name: super::std_string) -> *mut super::llvm_CallInst {
+        raw::llvm_IRBuilder_CreateCall(inst, Callee, Args, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateCast
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateCast(inst: *mut super::llvm_IRBuilder, Opcode: super::llvm_Instruction_CastOps, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateCast(inst, Opcode, Value, DestTy, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateCondBr
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateCondBr(inst: *mut super::llvm_IRBuilder, Cond: *mut super::llvm_Value, TrueBlock: *mut super::llvm_BasicBlock, FalseBlock: *mut super::llvm_BasicBlock) -> *mut super::llvm_BranchInst {
+        raw::llvm_IRBuilder_CreateCondBr(inst, Cond, TrueBlock, FalseBlock)
+    }
+
+    // ::llvm::IRBuilder::CreateExactSDiv
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateExactSDiv(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateExactSDiv(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateExactUDiv
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateExactUDiv(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateExactUDiv(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateExtractElement
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateExtractElement(inst: *mut super::llvm_IRBuilder, Vec: *mut super::llvm_Value, Idx: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateExtractElement(inst, Vec, Idx, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateExtractInteger
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateExtractInteger(inst: *mut super::llvm_IRBuilder, DL: *const super::llvm_DataLayout, From: *mut super::llvm_Value, ExtractedTy: *mut super::llvm_IntegerType, Offset: ::libc::uint64_t, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateExtractInteger(inst, DL, From, ExtractedTy, Offset, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateExtractValue
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateExtractValue(inst: *mut super::llvm_IRBuilder, Agg: *mut super::llvm_Value, Indexes: super::llvm_ArrayRef__libc_c_uint, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateExtractValue(inst, Agg, Indexes, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFAdd
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFAdd(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFAdd(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFCmp
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFCmp(inst: *mut super::llvm_IRBuilder, Pred: super::llvm_CmpInst_Predicate, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFCmp(inst, Pred, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFCmpOEQ
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFCmpOEQ(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFCmpOEQ(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFCmpOGE
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFCmpOGE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFCmpOGE(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFCmpOGT
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFCmpOGT(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFCmpOGT(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFCmpOLE
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFCmpOLE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFCmpOLE(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFCmpOLT
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFCmpOLT(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFCmpOLT(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFCmpONE
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFCmpONE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFCmpONE(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFCmpORD
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFCmpORD(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFCmpORD(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFCmpUEQ
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFCmpUEQ(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFCmpUEQ(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFCmpUGE
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFCmpUGE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFCmpUGE(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFCmpUGT
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFCmpUGT(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFCmpUGT(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFCmpULE
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFCmpULE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFCmpULE(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFCmpULT
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFCmpULT(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFCmpULT(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFCmpUNE
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFCmpUNE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFCmpUNE(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFCmpUNO
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFCmpUNO(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFCmpUNO(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFDiv
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFDiv(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFDiv(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFMul
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFMul(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFMul(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFNeg
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFNeg(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFNeg(inst, Value, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFPCast
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFPCast(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFPCast(inst, Value, DestTy, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFPExt
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFPExt(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFPExt(inst, Value, DestTy, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFPToSI
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFPToSI(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFPToSI(inst, Value, DestTy, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFPToUI
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFPToUI(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFPToUI(inst, Value, DestTy, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFPTrunc
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFPTrunc(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFPTrunc(inst, Value, DestTy, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFRem
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFRem(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFRem(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFSub
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFSub(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateFSub(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateFence
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateFence(inst: *mut super::llvm_IRBuilder, Ordering: super::llvm_AtomicOrdering, SynchScope: super::llvm_SynchronizationScope, Name: super::std_string) -> *mut super::llvm_FenceInst {
+        raw::llvm_IRBuilder_CreateFence(inst, Ordering, SynchScope, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateGEP
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateGEP(inst: *mut super::llvm_IRBuilder, Ptr: *mut super::llvm_Value, Indexes: super::llvm_ArrayRef_llvm_Value_ptr, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateGEP(inst, Ptr, Indexes, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateGlobalStringPtr
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateGlobalStringPtr(inst: *mut super::llvm_IRBuilder, Str: super::llvm_StringRef, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateGlobalStringPtr(inst, Str, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateICmp
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateICmp(inst: *mut super::llvm_IRBuilder, Pred: super::llvm_CmpInst_Predicate, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateICmp(inst, Pred, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateICmpEQ
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateICmpEQ(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateICmpEQ(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateICmpNE
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateICmpNE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateICmpNE(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateICmpSGE
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateICmpSGE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateICmpSGE(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateICmpSGT
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateICmpSGT(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateICmpSGT(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateICmpSLE
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateICmpSLE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateICmpSLE(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateICmpSLT
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateICmpSLT(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateICmpSLT(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateICmpUGE
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateICmpUGE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateICmpUGE(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateICmpUGT
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateICmpUGT(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateICmpUGT(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateICmpULE
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateICmpULE(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateICmpULE(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateICmpULT
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateICmpULT(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateICmpULT(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateInBoundsGEP
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateInBoundsGEP(inst: *mut super::llvm_IRBuilder, Ptr: *mut super::llvm_Value, Indexes: super::llvm_ArrayRef_llvm_Value_ptr, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateInBoundsGEP(inst, Ptr, Indexes, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateIndirectBr
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateIndirectBr(inst: *mut super::llvm_IRBuilder, Addr: *mut super::llvm_Value, NumCases: ::libc::c_uint) -> *mut super::llvm_IndirectBrInst {
+        raw::llvm_IRBuilder_CreateIndirectBr(inst, Addr, NumCases)
+    }
+
+    // ::llvm::IRBuilder::CreateInsertElement
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateInsertElement(inst: *mut super::llvm_IRBuilder, Vec: *mut super::llvm_Value, NewElt: *mut super::llvm_Value, Idx: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateInsertElement(inst, Vec, NewElt, Idx, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateInsertValue
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateInsertValue(inst: *mut super::llvm_IRBuilder, Agg: *mut super::llvm_Value, Value: *mut super::llvm_Value, Indexes: super::llvm_ArrayRef__libc_c_uint, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateInsertValue(inst, Agg, Value, Indexes, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateIntCast
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateIntCast(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, isSigned: bool, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateIntCast(inst, Value, DestTy, if isSigned { 1 } else { 0 }, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateIntToPtr
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateIntToPtr(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateIntToPtr(inst, Value, DestTy, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateInvoke
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateInvoke(inst: *mut super::llvm_IRBuilder, Callee: *mut super::llvm_Value, NormalDest: *mut super::llvm_BasicBlock, UnwindDest: *mut super::llvm_BasicBlock, Args: super::llvm_ArrayRef_llvm_Value_ptr, Name: super::std_string_const) -> *mut super::llvm_InvokeInst {
+        raw::llvm_IRBuilder_CreateInvoke(inst, Callee, NormalDest, UnwindDest, Args, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateIsNotNull
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateIsNotNull(inst: *mut super::llvm_IRBuilder, Arg: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateIsNotNull(inst, Arg, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateIsNull
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateIsNull(inst: *mut super::llvm_IRBuilder, Arg: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateIsNull(inst, Arg, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateLShr
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateLShr(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateLShr(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateLShrByValue
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateLShrByValue(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: ::libc::uint64_t, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateLShrByValue(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateLandingPad
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateLandingPad(inst: *mut super::llvm_IRBuilder, Ty: *mut super::llvm_Type, PersFn: *mut super::llvm_Value, NumClauses: ::libc::c_uint, Name: super::std_string) -> *mut super::llvm_LandingPadInst {
+        raw::llvm_IRBuilder_CreateLandingPad(inst, Ty, PersFn, NumClauses, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateLoad
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateLoad(inst: *mut super::llvm_IRBuilder, Ptr: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_LoadInst {
+        raw::llvm_IRBuilder_CreateLoad(inst, Ptr, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateLoadVolatile
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateLoadVolatile(inst: *mut super::llvm_IRBuilder, Ptr: *mut super::llvm_Value, isVolatile: bool, Name: super::std_string) -> *mut super::llvm_LoadInst {
+        raw::llvm_IRBuilder_CreateLoadVolatile(inst, Ptr, if isVolatile { 1 } else { 0 }, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateMul
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateMul(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateMul(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateNSWAdd
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateNSWAdd(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateNSWAdd(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateNSWMul
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateNSWMul(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateNSWMul(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateNSWNeg
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateNSWNeg(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateNSWNeg(inst, Value, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateNSWSub
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateNSWSub(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateNSWSub(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateNUWAdd
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateNUWAdd(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateNUWAdd(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateNUWMul
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateNUWMul(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateNUWMul(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateNUWNeg
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateNUWNeg(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateNUWNeg(inst, Value, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateNUWSub
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateNUWSub(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateNUWSub(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateNeg
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateNeg(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateNeg(inst, Value, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateNot
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateNot(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateNot(inst, Value, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateOr
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateOr(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateOr(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateOrByValue
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateOrByValue(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: ::libc::uint64_t, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateOrByValue(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreatePHI
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreatePHI(inst: *mut super::llvm_IRBuilder, Ty: *mut super::llvm_Type, NumReservedValues: ::libc::c_uint, Name: super::std_string) -> *mut super::llvm_PHINode {
+        raw::llvm_IRBuilder_CreatePHI(inst, Ty, NumReservedValues, Name)
+    }
+
+    // ::llvm::IRBuilder::CreatePointerBitCastOrAddrSpaceCast
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreatePointerBitCastOrAddrSpaceCast(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreatePointerBitCastOrAddrSpaceCast(inst, Value, DestTy, Name)
+    }
+
+    // ::llvm::IRBuilder::CreatePointerCast
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreatePointerCast(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreatePointerCast(inst, Value, DestTy, Name)
+    }
+
+    // ::llvm::IRBuilder::CreatePtrDiff
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreatePtrDiff(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreatePtrDiff(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreatePtrToInt
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreatePtrToInt(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreatePtrToInt(inst, Value, DestTy, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateResume
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateResume(inst: *mut super::llvm_IRBuilder, Exn: *mut super::llvm_Value) -> *mut super::llvm_ResumeInst {
+        raw::llvm_IRBuilder_CreateResume(inst, Exn)
+    }
+
+    // ::llvm::IRBuilder::CreateRet
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateRet(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value) -> *mut super::llvm_ReturnInst {
+        raw::llvm_IRBuilder_CreateRet(inst, Value)
+    }
+
+    // ::llvm::IRBuilder::CreateRetVoid
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateRetVoid(inst: *mut super::llvm_IRBuilder) -> *mut super::llvm_ReturnInst {
+        raw::llvm_IRBuilder_CreateRetVoid(inst)
+    }
+
+    // ::llvm::IRBuilder::CreateSDiv
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateSDiv(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateSDiv(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateSExt
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateSExt(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateSExt(inst, Value, DestTy, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateSExtOrBitCast
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateSExtOrBitCast(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateSExtOrBitCast(inst, Value, DestTy, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateSExtOrTrunc
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateSExtOrTrunc(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateSExtOrTrunc(inst, Value, DestTy, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateSIToFP
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateSIToFP(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateSIToFP(inst, Value, DestTy, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateSRem
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateSRem(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateSRem(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateSelect
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateSelect(inst: *mut super::llvm_IRBuilder, C: *mut super::llvm_Value, TrueValue: *mut super::llvm_Value, FalseValue: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateSelect(inst, C, TrueValue, FalseValue, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateShl
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateShl(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateShl(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateShlByValue
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateShlByValue(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: ::libc::uint64_t, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateShlByValue(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateShuffleVector
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateShuffleVector(inst: *mut super::llvm_IRBuilder, V1: *mut super::llvm_Value, P2: *mut super::llvm_Value, Mask: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateShuffleVector(inst, V1, P2, Mask, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateStore
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateStore(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, Ptr: *mut super::llvm_Value, isVolatile: bool) -> *mut super::llvm_StoreInst {
+        raw::llvm_IRBuilder_CreateStore(inst, Value, Ptr, if isVolatile { 1 } else { 0 })
+    }
+
+    // ::llvm::IRBuilder::CreateStructGEP
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateStructGEP(inst: *mut super::llvm_IRBuilder, Ptr: *mut super::llvm_Value, Index: ::libc::c_uint, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateStructGEP(inst, Ptr, Index, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateSub
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateSub(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateSub(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateSwitch
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateSwitch(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, Dest: *mut super::llvm_BasicBlock, NumCases: ::libc::c_uint) -> *mut super::llvm_SwitchInst {
+        raw::llvm_IRBuilder_CreateSwitch(inst, Value, Dest, NumCases)
+    }
+
+    // ::llvm::IRBuilder::CreateTrunc
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateTrunc(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateTrunc(inst, Value, DestTy, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateTruncOrBitCast
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateTruncOrBitCast(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateTruncOrBitCast(inst, Value, DestTy, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateUDiv
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateUDiv(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateUDiv(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateUIToFP
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateUIToFP(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateUIToFP(inst, Value, DestTy, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateURem
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateURem(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateURem(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateUnreachable
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateUnreachable(inst: *mut super::llvm_IRBuilder) -> *mut super::llvm_UnreachableInst {
+        raw::llvm_IRBuilder_CreateUnreachable(inst)
+    }
+
+    // ::llvm::IRBuilder::CreateVAArg
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateVAArg(inst: *mut super::llvm_IRBuilder, List: *mut super::llvm_Value, Ty: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_VAArgInst {
+        raw::llvm_IRBuilder_CreateVAArg(inst, List, Ty, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateVectorSplat
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateVectorSplat(inst: *mut super::llvm_IRBuilder, NumElements: ::libc::c_uint, Value: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateVectorSplat(inst, NumElements, Value, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateXor
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateXor(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: *mut super::llvm_Value, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateXor(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateXorByValue
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateXorByValue(inst: *mut super::llvm_IRBuilder, LHS: *mut super::llvm_Value, RHS: ::libc::uint64_t, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateXorByValue(inst, LHS, RHS, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateZExt
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateZExt(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateZExt(inst, Value, DestTy, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateZExtOrBitCast
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateZExtOrBitCast(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateZExtOrBitCast(inst, Value, DestTy, Name)
+    }
+
+    // ::llvm::IRBuilder::CreateZExtOrTrunc
+    #[inline(always)]
+    pub unsafe fn IRBuilder_CreateZExtOrTrunc(inst: *mut super::llvm_IRBuilder, Value: *mut super::llvm_Value, DestTy: *mut super::llvm_Type, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilder_CreateZExtOrTrunc(inst, Value, DestTy, Name)
+    }
+
+    // ::llvm::IRBuilder::delete
+    #[inline(always)]
+    pub unsafe fn IRBuilder_delete(inst: *mut super::llvm_IRBuilder) -> ::libc::c_void {
+        raw::llvm_IRBuilder_delete(inst)
+    }
+
+    // ::llvm::IRBuilder::isNamePreserving
+    #[inline(always)]
+    pub unsafe fn IRBuilder_isNamePreserving(inst: *const super::llvm_IRBuilder) -> bool {
+        raw::llvm_IRBuilder_isNamePreserving(inst) != 0
+    }
+
+    // ::llvm::IRBuilder::new
+    #[inline(always)]
+    pub unsafe fn IRBuilder_new(Context: *mut super::llvm_LLVMContext) -> *mut super::llvm_IRBuilder {
+        raw::llvm_IRBuilder_new(Context)
+    }
+
+    // ::llvm::IRBuilder::new_in_block
+    #[inline(always)]
+    pub unsafe fn IRBuilder_new_in_block(BB: *mut super::llvm_BasicBlock) -> *mut super::llvm_IRBuilder {
+        raw::llvm_IRBuilder_new_in_block(BB)
+    }
+
+    // ::llvm::IRBuilderBase::ClearInsertionPoint
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_ClearInsertionPoint(inst: *mut super::llvm_IRBuilderBase) -> ::libc::c_void {
+        raw::llvm_IRBuilderBase_ClearInsertionPoint(inst)
+    }
+
+    // ::llvm::IRBuilderBase::CreateGlobalString
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_CreateGlobalString(inst: *mut super::llvm_IRBuilderBase, Str: super::llvm_StringRef, Name: super::std_string) -> *mut super::llvm_Value {
+        raw::llvm_IRBuilderBase_CreateGlobalString(inst, Str, Name)
+    }
+
+    // ::llvm::IRBuilderBase::CreateLifetimeEnd
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_CreateLifetimeEnd(inst: *mut super::llvm_IRBuilderBase, Ptr: *mut super::llvm_Value, Size: *mut super::llvm_ConstantInt) -> *mut super::llvm_CallInst {
+        raw::llvm_IRBuilderBase_CreateLifetimeEnd(inst, Ptr, Size)
+    }
+
+    // ::llvm::IRBuilderBase::CreateLifetimeStart
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_CreateLifetimeStart(inst: *mut super::llvm_IRBuilderBase, Ptr: *mut super::llvm_Value, Size: *mut super::llvm_ConstantInt) -> *mut super::llvm_CallInst {
+        raw::llvm_IRBuilderBase_CreateLifetimeStart(inst, Ptr, Size)
+    }
+
+    // ::llvm::IRBuilderBase::CreateMemCpy
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_CreateMemCpy(inst: *mut super::llvm_IRBuilderBase, Dst: *mut super::llvm_Value, Src: *mut super::llvm_Value, Size: *mut super::llvm_Value, Align: ::libc::c_uint, isVolatile: bool) -> *mut super::llvm_CallInst {
+        raw::llvm_IRBuilderBase_CreateMemCpy(inst, Dst, Src, Size, Align, if isVolatile { 1 } else { 0 })
+    }
+
+    // ::llvm::IRBuilderBase::CreateMemMove
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_CreateMemMove(inst: *mut super::llvm_IRBuilderBase, Dst: *mut super::llvm_Value, Src: *mut super::llvm_Value, Size: *mut super::llvm_Value, Align: ::libc::c_uint, isVolatile: bool) -> *mut super::llvm_CallInst {
+        raw::llvm_IRBuilderBase_CreateMemMove(inst, Dst, Src, Size, Align, if isVolatile { 1 } else { 0 })
+    }
+
+    // ::llvm::IRBuilderBase::CreateMemSet
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_CreateMemSet(inst: *mut super::llvm_IRBuilderBase, Ptr: *mut super::llvm_Value, Value: *mut super::llvm_Value, Size: *mut super::llvm_Value, Align: ::libc::c_uint, isVolatile: bool) -> *mut super::llvm_CallInst {
+        raw::llvm_IRBuilderBase_CreateMemSet(inst, Ptr, Value, Size, Align, if isVolatile { 1 } else { 0 })
+    }
+
+    // ::llvm::IRBuilderBase::GetInsertBlock
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_GetInsertBlock(inst: *const super::llvm_IRBuilderBase) -> *mut super::llvm_BasicBlock {
+        raw::llvm_IRBuilderBase_GetInsertBlock(inst)
+    }
+
+    // ::llvm::IRBuilderBase::SetCurrentDebugLocation
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_SetCurrentDebugLocation(inst: *mut super::llvm_IRBuilderBase, Loc: *const super::llvm_DebugLoc) -> ::libc::c_void {
+        raw::llvm_IRBuilderBase_SetCurrentDebugLocation(inst, Loc)
+    }
+
+    // ::llvm::IRBuilderBase::SetDefaultFPMathTag
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_SetDefaultFPMathTag(inst: *mut super::llvm_IRBuilderBase, FPMathTag: *mut super::llvm_MDNode) -> ::libc::c_void {
+        raw::llvm_IRBuilderBase_SetDefaultFPMathTag(inst, FPMathTag)
+    }
+
+    // ::llvm::IRBuilderBase::SetInsertPoint
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_SetInsertPoint(inst: *mut super::llvm_IRBuilderBase, BB: *mut super::llvm_BasicBlock) -> ::libc::c_void {
+        raw::llvm_IRBuilderBase_SetInsertPoint(inst, BB)
+    }
+
+    // ::llvm::IRBuilderBase::SetInsertPointAtInst
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_SetInsertPointAtInst(inst: *mut super::llvm_IRBuilderBase, Inst: *mut super::llvm_Instruction) -> ::libc::c_void {
+        raw::llvm_IRBuilderBase_SetInsertPointAtInst(inst, Inst)
+    }
+
+    // ::llvm::IRBuilderBase::SetInstDebugLocation
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_SetInstDebugLocation(inst: *const super::llvm_IRBuilderBase, Inst: *mut super::llvm_Instruction) -> ::libc::c_void {
+        raw::llvm_IRBuilderBase_SetInstDebugLocation(inst, Inst)
+    }
+
+    // ::llvm::IRBuilderBase::getContext
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getContext(inst: *const super::llvm_IRBuilderBase) -> *mut super::llvm_LLVMContext {
+        raw::llvm_IRBuilderBase_getContext(inst)
+    }
+
+    // ::llvm::IRBuilderBase::getCurrentFunctionReturnType
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getCurrentFunctionReturnType(inst: *const super::llvm_IRBuilderBase) -> *mut super::llvm_Type {
+        raw::llvm_IRBuilderBase_getCurrentFunctionReturnType(inst)
+    }
+
+    // ::llvm::IRBuilderBase::getDefaultFPMathTag
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getDefaultFPMathTag(inst: *const super::llvm_IRBuilderBase) -> *mut super::llvm_MDNode {
+        raw::llvm_IRBuilderBase_getDefaultFPMathTag(inst)
+    }
+
+    // ::llvm::IRBuilderBase::getDoubleTy
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getDoubleTy(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_Type {
+        raw::llvm_IRBuilderBase_getDoubleTy(inst)
+    }
+
+    // ::llvm::IRBuilderBase::getFalse
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getFalse(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_ConstantInt {
+        raw::llvm_IRBuilderBase_getFalse(inst)
+    }
+
+    // ::llvm::IRBuilderBase::getFloatTy
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getFloatTy(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_Type {
+        raw::llvm_IRBuilderBase_getFloatTy(inst)
+    }
+
+    // ::llvm::IRBuilderBase::getHalfTy
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getHalfTy(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_Type {
+        raw::llvm_IRBuilderBase_getHalfTy(inst)
+    }
+
+    // ::llvm::IRBuilderBase::getInt
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getInt(inst: *mut super::llvm_IRBuilderBase, Value: super::llvm_APInt) -> *mut super::llvm_ConstantInt {
+        raw::llvm_IRBuilderBase_getInt(inst, Value)
+    }
+
+    // ::llvm::IRBuilderBase::getInt1
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getInt1(inst: *mut super::llvm_IRBuilderBase, Value: bool) -> *mut super::llvm_ConstantInt {
+        raw::llvm_IRBuilderBase_getInt1(inst, if Value { 1 } else { 0 })
+    }
+
+    // ::llvm::IRBuilderBase::getInt16
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getInt16(inst: *mut super::llvm_IRBuilderBase, Value: ::libc::uint16_t) -> *mut super::llvm_ConstantInt {
+        raw::llvm_IRBuilderBase_getInt16(inst, Value)
+    }
+
+    // ::llvm::IRBuilderBase::getInt16Ty
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getInt16Ty(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_IntegerType {
+        raw::llvm_IRBuilderBase_getInt16Ty(inst)
+    }
+
+    // ::llvm::IRBuilderBase::getInt1Ty
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getInt1Ty(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_IntegerType {
+        raw::llvm_IRBuilderBase_getInt1Ty(inst)
+    }
+
+    // ::llvm::IRBuilderBase::getInt32
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getInt32(inst: *mut super::llvm_IRBuilderBase, Value: ::libc::uint32_t) -> *mut super::llvm_ConstantInt {
+        raw::llvm_IRBuilderBase_getInt32(inst, Value)
+    }
+
+    // ::llvm::IRBuilderBase::getInt32Ty
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getInt32Ty(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_IntegerType {
+        raw::llvm_IRBuilderBase_getInt32Ty(inst)
+    }
+
+    // ::llvm::IRBuilderBase::getInt64
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getInt64(inst: *mut super::llvm_IRBuilderBase, Value: ::libc::uint64_t) -> *mut super::llvm_ConstantInt {
+        raw::llvm_IRBuilderBase_getInt64(inst, Value)
+    }
+
+    // ::llvm::IRBuilderBase::getInt64Ty
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getInt64Ty(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_IntegerType {
+        raw::llvm_IRBuilderBase_getInt64Ty(inst)
+    }
+
+    // ::llvm::IRBuilderBase::getInt8
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getInt8(inst: *mut super::llvm_IRBuilderBase, Value: ::libc::uint8_t) -> *mut super::llvm_ConstantInt {
+        raw::llvm_IRBuilderBase_getInt8(inst, Value)
+    }
+
+    // ::llvm::IRBuilderBase::getInt8PtrTy
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getInt8PtrTy(inst: *mut super::llvm_IRBuilderBase, AddrSpace: ::libc::c_uint) -> *mut super::llvm_PointerType {
+        raw::llvm_IRBuilderBase_getInt8PtrTy(inst, AddrSpace)
+    }
+
+    // ::llvm::IRBuilderBase::getInt8Ty
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getInt8Ty(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_IntegerType {
+        raw::llvm_IRBuilderBase_getInt8Ty(inst)
+    }
+
+    // ::llvm::IRBuilderBase::getIntN
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getIntN(inst: *mut super::llvm_IRBuilderBase, NumBits: ::libc::c_uint, Value: ::libc::uint64_t) -> *mut super::llvm_ConstantInt {
+        raw::llvm_IRBuilderBase_getIntN(inst, NumBits, Value)
+    }
+
+    // ::llvm::IRBuilderBase::getIntNTy
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getIntNTy(inst: *mut super::llvm_IRBuilderBase, NumBits: ::libc::c_uint) -> *mut super::llvm_IntegerType {
+        raw::llvm_IRBuilderBase_getIntNTy(inst, NumBits)
+    }
+
+    // ::llvm::IRBuilderBase::getIntPtrTy
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getIntPtrTy(inst: *mut super::llvm_IRBuilderBase, DL: *const super::llvm_DataLayout, AddrSpace: ::libc::c_uint) -> *mut super::llvm_IntegerType {
+        raw::llvm_IRBuilderBase_getIntPtrTy(inst, DL, AddrSpace)
+    }
+
+    // ::llvm::IRBuilderBase::getTrue
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getTrue(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_ConstantInt {
+        raw::llvm_IRBuilderBase_getTrue(inst)
+    }
+
+    // ::llvm::IRBuilderBase::getVoidTy
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_getVoidTy(inst: *mut super::llvm_IRBuilderBase) -> *mut super::llvm_Type {
+        raw::llvm_IRBuilderBase_getVoidTy(inst)
+    }
+
+    // ::llvm::IRBuilderBase::new
+    #[inline(always)]
+    pub unsafe fn IRBuilderBase_new(Context: *mut super::llvm_LLVMContext) -> *mut super::llvm_IRBuilderBase {
+        raw::llvm_IRBuilderBase_new(Context)
     }
 
     // ::llvm::Instruction::clone

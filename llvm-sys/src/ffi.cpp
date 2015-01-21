@@ -6,7 +6,9 @@
 #include "llvm/IR/Constants.h"
 #include "llvm/IR/DataLayout.h"
 #include "llvm/IR/DerivedTypes.h"
+#include "llvm/IR/IRBuilder.h"
 #include "llvm/IR/Instruction.h"
+#include "llvm/IR/Instructions.h"
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Operator.h"
@@ -31,6 +33,14 @@ struct llvm_StringRef {
 };
 struct llvm_ArrayRef_llvm_Type_ptr {
     ::llvm::Type* const* data;
+    size_t length;
+};
+struct std_string {
+    char* data;
+    size_t length;
+};
+struct llvm_ArrayRef_llvm_Value_ptr {
+    ::llvm::Value* const* data;
     size_t length;
 };
 struct llvm_ArrayRef__libc_c_uint {
@@ -1347,6 +1357,1291 @@ extern "C"
 void llvm_GlobalVariable_setInitializer(::llvm::GlobalVariable* inst, ::llvm::Constant* InitVal)
 {
     return inst->setInitializer(InitVal);
+}
+
+// ::llvm::IRBuilder::CreateAShr
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateAShr(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateAShr(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateAShrByValue
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateAShrByValue(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, uint64_t RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateAShr(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateAdd
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateAdd(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateAdd(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateAddrSpaceCast
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateAddrSpaceCast(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateAddrSpaceCast(Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::CreateAggregateRet
+extern "C"
+::llvm::ReturnInst* llvm_IRBuilder_CreateAggregateRet(::llvm::IRBuilder<>* inst, ::llvm::Value* const* retVals, unsigned int N)
+{
+    return inst->CreateAggregateRet(retVals, N);
+}
+
+// ::llvm::IRBuilder::CreateAlignedLoad
+extern "C"
+::llvm::LoadInst* llvm_IRBuilder_CreateAlignedLoad(::llvm::IRBuilder<>* inst, ::llvm::Value* Ptr, unsigned int Align, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateAlignedLoad(Ptr, Align, Name);
+}
+
+// ::llvm::IRBuilder::CreateAlignedLoadVolatile
+extern "C"
+::llvm::LoadInst* llvm_IRBuilder_CreateAlignedLoadVolatile(::llvm::IRBuilder<>* inst, ::llvm::Value* Ptr, unsigned int Align, int isVolatile, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateAlignedLoad(Ptr, Align, (isVolatile == 1 ? true : false), Name);
+}
+
+// ::llvm::IRBuilder::CreateAlignedStore
+extern "C"
+::llvm::StoreInst* llvm_IRBuilder_CreateAlignedStore(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Value* Ptr, unsigned int Align, int isVolatile)
+{
+    return inst->CreateAlignedStore(Value, Ptr, Align, (isVolatile == 1 ? true : false));
+}
+
+// ::llvm::IRBuilder::CreateAlloca
+extern "C"
+::llvm::AllocaInst* llvm_IRBuilder_CreateAlloca(::llvm::IRBuilder<>* inst, ::llvm::Type* Ty, ::llvm::Value* ArraySize, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateAlloca(Ty, ArraySize, Name);
+}
+
+// ::llvm::IRBuilder::CreateAnd
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateAnd(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateAnd(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateAndByValue
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateAndByValue(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, uint64_t RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateAnd(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateBinOp
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateBinOp(::llvm::IRBuilder<>* inst, ::llvm::Instruction::BinaryOps Opcode, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateBinOp(Opcode, LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateBitCast
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateBitCast(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateBitCast(Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::CreateBr
+extern "C"
+::llvm::BranchInst* llvm_IRBuilder_CreateBr(::llvm::IRBuilder<>* inst, ::llvm::BasicBlock* Dest)
+{
+    return inst->CreateBr(Dest);
+}
+
+// ::llvm::IRBuilder::CreateCall
+extern "C"
+::llvm::CallInst* llvm_IRBuilder_CreateCall(::llvm::IRBuilder<>* inst, ::llvm::Value* Callee, llvm_ArrayRef_llvm_Value_ptr _Args, std_string _Name)
+{
+    auto Args = ::llvm::ArrayRef<::llvm::Value*>(_Args.data, _Args.length);
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateCall(Callee, Args, Name);
+}
+
+// ::llvm::IRBuilder::CreateCast
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateCast(::llvm::IRBuilder<>* inst, ::llvm::Instruction::CastOps Opcode, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateCast(Opcode, Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::CreateCondBr
+extern "C"
+::llvm::BranchInst* llvm_IRBuilder_CreateCondBr(::llvm::IRBuilder<>* inst, ::llvm::Value* Cond, ::llvm::BasicBlock* TrueBlock, ::llvm::BasicBlock* FalseBlock)
+{
+    return inst->CreateCondBr(Cond, TrueBlock, FalseBlock);
+}
+
+// ::llvm::IRBuilder::CreateExactSDiv
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateExactSDiv(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateExactSDiv(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateExactUDiv
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateExactUDiv(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateExactUDiv(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateExtractElement
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateExtractElement(::llvm::IRBuilder<>* inst, ::llvm::Value* Vec, ::llvm::Value* Idx, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateExtractElement(Vec, Idx, Name);
+}
+
+// ::llvm::IRBuilder::CreateExtractInteger
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateExtractInteger(::llvm::IRBuilder<>* inst, ::llvm::DataLayout const* DL, ::llvm::Value* From, ::llvm::IntegerType* ExtractedTy, uint64_t Offset, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateExtractInteger(*DL, From, ExtractedTy, Offset, Name);
+}
+
+// ::llvm::IRBuilder::CreateExtractValue
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateExtractValue(::llvm::IRBuilder<>* inst, ::llvm::Value* Agg, llvm_ArrayRef__libc_c_uint _Indexes, std_string _Name)
+{
+    auto Indexes = ::llvm::ArrayRef<unsigned int>(_Indexes.data, _Indexes.length);
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateExtractValue(Agg, Indexes, Name);
+}
+
+// ::llvm::IRBuilder::CreateFAdd
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFAdd(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFAdd(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateFCmp
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFCmp(::llvm::IRBuilder<>* inst, ::llvm::CmpInst::Predicate Pred, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFCmp(Pred, LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateFCmpOEQ
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFCmpOEQ(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFCmpOEQ(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateFCmpOGE
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFCmpOGE(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFCmpOGE(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateFCmpOGT
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFCmpOGT(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFCmpOGT(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateFCmpOLE
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFCmpOLE(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFCmpOLE(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateFCmpOLT
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFCmpOLT(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFCmpOLT(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateFCmpONE
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFCmpONE(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFCmpONE(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateFCmpORD
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFCmpORD(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFCmpORD(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateFCmpUEQ
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFCmpUEQ(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFCmpUEQ(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateFCmpUGE
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFCmpUGE(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFCmpUGE(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateFCmpUGT
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFCmpUGT(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFCmpUGT(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateFCmpULE
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFCmpULE(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFCmpULE(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateFCmpULT
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFCmpULT(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFCmpULT(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateFCmpUNE
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFCmpUNE(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFCmpUNE(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateFCmpUNO
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFCmpUNO(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFCmpUNO(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateFDiv
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFDiv(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFDiv(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateFMul
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFMul(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFMul(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateFNeg
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFNeg(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFNeg(Value, Name);
+}
+
+// ::llvm::IRBuilder::CreateFPCast
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFPCast(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFPCast(Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::CreateFPExt
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFPExt(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFPExt(Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::CreateFPToSI
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFPToSI(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFPToSI(Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::CreateFPToUI
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFPToUI(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFPToUI(Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::CreateFPTrunc
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFPTrunc(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFPTrunc(Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::CreateFRem
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFRem(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFRem(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateFSub
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateFSub(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFSub(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateFence
+extern "C"
+::llvm::FenceInst* llvm_IRBuilder_CreateFence(::llvm::IRBuilder<>* inst, ::llvm::AtomicOrdering Ordering, ::llvm::SynchronizationScope SynchScope, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateFence(Ordering, SynchScope, Name);
+}
+
+// ::llvm::IRBuilder::CreateGEP
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateGEP(::llvm::IRBuilder<>* inst, ::llvm::Value* Ptr, llvm_ArrayRef_llvm_Value_ptr _Indexes, std_string _Name)
+{
+    auto Indexes = ::llvm::ArrayRef<::llvm::Value*>(_Indexes.data, _Indexes.length);
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateGEP(Ptr, Indexes, Name);
+}
+
+// ::llvm::IRBuilder::CreateGlobalStringPtr
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateGlobalStringPtr(::llvm::IRBuilder<>* inst, llvm_StringRef _Str, std_string _Name)
+{
+    auto Str = ::llvm::StringRef(_Str.data, _Str.length);
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateGlobalStringPtr(Str, Name);
+}
+
+// ::llvm::IRBuilder::CreateICmp
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateICmp(::llvm::IRBuilder<>* inst, ::llvm::CmpInst::Predicate Pred, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateICmp(Pred, LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateICmpEQ
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateICmpEQ(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateICmpEQ(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateICmpNE
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateICmpNE(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateICmpNE(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateICmpSGE
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateICmpSGE(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateICmpSGE(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateICmpSGT
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateICmpSGT(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateICmpSGT(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateICmpSLE
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateICmpSLE(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateICmpSLE(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateICmpSLT
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateICmpSLT(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateICmpSLT(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateICmpUGE
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateICmpUGE(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateICmpUGE(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateICmpUGT
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateICmpUGT(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateICmpUGT(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateICmpULE
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateICmpULE(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateICmpULE(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateICmpULT
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateICmpULT(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateICmpULT(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateInBoundsGEP
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateInBoundsGEP(::llvm::IRBuilder<>* inst, ::llvm::Value* Ptr, llvm_ArrayRef_llvm_Value_ptr _Indexes, std_string _Name)
+{
+    auto Indexes = ::llvm::ArrayRef<::llvm::Value*>(_Indexes.data, _Indexes.length);
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateInBoundsGEP(Ptr, Indexes, Name);
+}
+
+// ::llvm::IRBuilder::CreateIndirectBr
+extern "C"
+::llvm::IndirectBrInst* llvm_IRBuilder_CreateIndirectBr(::llvm::IRBuilder<>* inst, ::llvm::Value* Addr, unsigned int NumCases)
+{
+    return inst->CreateIndirectBr(Addr, NumCases);
+}
+
+// ::llvm::IRBuilder::CreateInsertElement
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateInsertElement(::llvm::IRBuilder<>* inst, ::llvm::Value* Vec, ::llvm::Value* NewElt, ::llvm::Value* Idx, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateInsertElement(Vec, NewElt, Idx, Name);
+}
+
+// ::llvm::IRBuilder::CreateInsertValue
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateInsertValue(::llvm::IRBuilder<>* inst, ::llvm::Value* Agg, ::llvm::Value* Value, llvm_ArrayRef__libc_c_uint _Indexes, std_string _Name)
+{
+    auto Indexes = ::llvm::ArrayRef<unsigned int>(_Indexes.data, _Indexes.length);
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateInsertValue(Agg, Value, Indexes, Name);
+}
+
+// ::llvm::IRBuilder::CreateIntCast
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateIntCast(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, int isSigned, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateIntCast(Value, DestTy, (isSigned == 1 ? true : false), Name);
+}
+
+// ::llvm::IRBuilder::CreateIntToPtr
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateIntToPtr(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateIntToPtr(Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::CreateInvoke
+extern "C"
+::llvm::InvokeInst* llvm_IRBuilder_CreateInvoke(::llvm::IRBuilder<>* inst, ::llvm::Value* Callee, ::llvm::BasicBlock* NormalDest, ::llvm::BasicBlock* UnwindDest, llvm_ArrayRef_llvm_Value_ptr _Args, std_string_const _Name)
+{
+    auto Args = ::llvm::ArrayRef<::llvm::Value*>(_Args.data, _Args.length);
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateInvoke(Callee, NormalDest, UnwindDest, Args, Name);
+}
+
+// ::llvm::IRBuilder::CreateIsNotNull
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateIsNotNull(::llvm::IRBuilder<>* inst, ::llvm::Value* Arg, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateIsNotNull(Arg, Name);
+}
+
+// ::llvm::IRBuilder::CreateIsNull
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateIsNull(::llvm::IRBuilder<>* inst, ::llvm::Value* Arg, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateIsNull(Arg, Name);
+}
+
+// ::llvm::IRBuilder::CreateLShr
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateLShr(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateLShr(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateLShrByValue
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateLShrByValue(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, uint64_t RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateLShr(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateLandingPad
+extern "C"
+::llvm::LandingPadInst* llvm_IRBuilder_CreateLandingPad(::llvm::IRBuilder<>* inst, ::llvm::Type* Ty, ::llvm::Value* PersFn, unsigned int NumClauses, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateLandingPad(Ty, PersFn, NumClauses, Name);
+}
+
+// ::llvm::IRBuilder::CreateLoad
+extern "C"
+::llvm::LoadInst* llvm_IRBuilder_CreateLoad(::llvm::IRBuilder<>* inst, ::llvm::Value* Ptr, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateLoad(Ptr, Name);
+}
+
+// ::llvm::IRBuilder::CreateLoadVolatile
+extern "C"
+::llvm::LoadInst* llvm_IRBuilder_CreateLoadVolatile(::llvm::IRBuilder<>* inst, ::llvm::Value* Ptr, int isVolatile, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateLoad(Ptr, (isVolatile == 1 ? true : false), Name);
+}
+
+// ::llvm::IRBuilder::CreateMul
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateMul(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateMul(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateNSWAdd
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateNSWAdd(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateNSWAdd(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateNSWMul
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateNSWMul(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateNSWMul(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateNSWNeg
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateNSWNeg(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateNSWNeg(Value, Name);
+}
+
+// ::llvm::IRBuilder::CreateNSWSub
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateNSWSub(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateNSWSub(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateNUWAdd
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateNUWAdd(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateNUWAdd(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateNUWMul
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateNUWMul(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateNUWMul(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateNUWNeg
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateNUWNeg(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateNUWNeg(Value, Name);
+}
+
+// ::llvm::IRBuilder::CreateNUWSub
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateNUWSub(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateNUWSub(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateNeg
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateNeg(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateNeg(Value, Name);
+}
+
+// ::llvm::IRBuilder::CreateNot
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateNot(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateNot(Value, Name);
+}
+
+// ::llvm::IRBuilder::CreateOr
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateOr(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateOr(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateOrByValue
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateOrByValue(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, uint64_t RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateOr(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreatePHI
+extern "C"
+::llvm::PHINode* llvm_IRBuilder_CreatePHI(::llvm::IRBuilder<>* inst, ::llvm::Type* Ty, unsigned int NumReservedValues, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreatePHI(Ty, NumReservedValues, Name);
+}
+
+// ::llvm::IRBuilder::CreatePointerBitCastOrAddrSpaceCast
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreatePointerBitCastOrAddrSpaceCast(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreatePointerBitCastOrAddrSpaceCast(Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::CreatePointerCast
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreatePointerCast(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreatePointerCast(Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::CreatePtrDiff
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreatePtrDiff(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreatePtrDiff(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreatePtrToInt
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreatePtrToInt(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreatePtrToInt(Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::CreateResume
+extern "C"
+::llvm::ResumeInst* llvm_IRBuilder_CreateResume(::llvm::IRBuilder<>* inst, ::llvm::Value* Exn)
+{
+    return inst->CreateResume(Exn);
+}
+
+// ::llvm::IRBuilder::CreateRet
+extern "C"
+::llvm::ReturnInst* llvm_IRBuilder_CreateRet(::llvm::IRBuilder<>* inst, ::llvm::Value* Value)
+{
+    return inst->CreateRet(Value);
+}
+
+// ::llvm::IRBuilder::CreateRetVoid
+extern "C"
+::llvm::ReturnInst* llvm_IRBuilder_CreateRetVoid(::llvm::IRBuilder<>* inst)
+{
+    return inst->CreateRetVoid();
+}
+
+// ::llvm::IRBuilder::CreateSDiv
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateSDiv(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateSDiv(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateSExt
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateSExt(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateSExt(Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::CreateSExtOrBitCast
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateSExtOrBitCast(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateSExtOrBitCast(Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::CreateSExtOrTrunc
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateSExtOrTrunc(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateSExtOrTrunc(Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::CreateSIToFP
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateSIToFP(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateSIToFP(Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::CreateSRem
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateSRem(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateSRem(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateSelect
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateSelect(::llvm::IRBuilder<>* inst, ::llvm::Value* C, ::llvm::Value* TrueValue, ::llvm::Value* FalseValue, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateSelect(C, TrueValue, FalseValue, Name);
+}
+
+// ::llvm::IRBuilder::CreateShl
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateShl(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateShl(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateShlByValue
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateShlByValue(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, uint64_t RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateShl(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateShuffleVector
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateShuffleVector(::llvm::IRBuilder<>* inst, ::llvm::Value* V1, ::llvm::Value* P2, ::llvm::Value* Mask, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateShuffleVector(V1, P2, Mask, Name);
+}
+
+// ::llvm::IRBuilder::CreateStore
+extern "C"
+::llvm::StoreInst* llvm_IRBuilder_CreateStore(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Value* Ptr, int isVolatile)
+{
+    return inst->CreateStore(Value, Ptr, (isVolatile == 1 ? true : false));
+}
+
+// ::llvm::IRBuilder::CreateStructGEP
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateStructGEP(::llvm::IRBuilder<>* inst, ::llvm::Value* Ptr, unsigned int Index, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateStructGEP(Ptr, Index, Name);
+}
+
+// ::llvm::IRBuilder::CreateSub
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateSub(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateSub(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateSwitch
+extern "C"
+::llvm::SwitchInst* llvm_IRBuilder_CreateSwitch(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::BasicBlock* Dest, unsigned int NumCases)
+{
+    return inst->CreateSwitch(Value, Dest, NumCases);
+}
+
+// ::llvm::IRBuilder::CreateTrunc
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateTrunc(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateTrunc(Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::CreateTruncOrBitCast
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateTruncOrBitCast(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateTruncOrBitCast(Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::CreateUDiv
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateUDiv(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateUDiv(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateUIToFP
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateUIToFP(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateUIToFP(Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::CreateURem
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateURem(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateURem(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateUnreachable
+extern "C"
+::llvm::UnreachableInst* llvm_IRBuilder_CreateUnreachable(::llvm::IRBuilder<>* inst)
+{
+    return inst->CreateUnreachable();
+}
+
+// ::llvm::IRBuilder::CreateVAArg
+extern "C"
+::llvm::VAArgInst* llvm_IRBuilder_CreateVAArg(::llvm::IRBuilder<>* inst, ::llvm::Value* List, ::llvm::Type* Ty, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateVAArg(List, Ty, Name);
+}
+
+// ::llvm::IRBuilder::CreateVectorSplat
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateVectorSplat(::llvm::IRBuilder<>* inst, unsigned int NumElements, ::llvm::Value* Value, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateVectorSplat(NumElements, Value, Name);
+}
+
+// ::llvm::IRBuilder::CreateXor
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateXor(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, ::llvm::Value* RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateXor(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateXorByValue
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateXorByValue(::llvm::IRBuilder<>* inst, ::llvm::Value* LHS, uint64_t RHS, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateXor(LHS, RHS, Name);
+}
+
+// ::llvm::IRBuilder::CreateZExt
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateZExt(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateZExt(Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::CreateZExtOrBitCast
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateZExtOrBitCast(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateZExtOrBitCast(Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::CreateZExtOrTrunc
+extern "C"
+::llvm::Value* llvm_IRBuilder_CreateZExtOrTrunc(::llvm::IRBuilder<>* inst, ::llvm::Value* Value, ::llvm::Type* DestTy, std_string _Name)
+{
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateZExtOrTrunc(Value, DestTy, Name);
+}
+
+// ::llvm::IRBuilder::delete
+extern "C"
+void llvm_IRBuilder_delete(::llvm::IRBuilder<>* inst)
+{
+    delete inst;
+}
+
+// ::llvm::IRBuilder::isNamePreserving
+extern "C"
+int llvm_IRBuilder_isNamePreserving(::llvm::IRBuilder<> const* inst)
+{
+    return (inst->isNamePreserving() == true ? 1 : 0);
+}
+
+// ::llvm::IRBuilder::new
+extern "C"
+::llvm::IRBuilder<>* llvm_IRBuilder_new(::llvm::LLVMContext* Context)
+{
+    return new(std::nothrow) ::llvm::IRBuilder<>(*Context);
+}
+
+// ::llvm::IRBuilder::new_in_block
+extern "C"
+::llvm::IRBuilder<>* llvm_IRBuilder_new_in_block(::llvm::BasicBlock* BB)
+{
+    return new(std::nothrow) ::llvm::IRBuilder<>(BB);
+}
+
+// ::llvm::IRBuilderBase::ClearInsertionPoint
+extern "C"
+void llvm_IRBuilderBase_ClearInsertionPoint(::llvm::IRBuilderBase* inst)
+{
+    return inst->ClearInsertionPoint();
+}
+
+// ::llvm::IRBuilderBase::CreateGlobalString
+extern "C"
+::llvm::Value* llvm_IRBuilderBase_CreateGlobalString(::llvm::IRBuilderBase* inst, llvm_StringRef _Str, std_string _Name)
+{
+    auto Str = ::llvm::StringRef(_Str.data, _Str.length);
+    auto Name = std::string(_Name.data, _Name.length);
+    return inst->CreateGlobalString(Str, Name);
+}
+
+// ::llvm::IRBuilderBase::CreateLifetimeEnd
+extern "C"
+::llvm::CallInst* llvm_IRBuilderBase_CreateLifetimeEnd(::llvm::IRBuilderBase* inst, ::llvm::Value* Ptr, ::llvm::ConstantInt* Size)
+{
+    return inst->CreateLifetimeEnd(Ptr, Size);
+}
+
+// ::llvm::IRBuilderBase::CreateLifetimeStart
+extern "C"
+::llvm::CallInst* llvm_IRBuilderBase_CreateLifetimeStart(::llvm::IRBuilderBase* inst, ::llvm::Value* Ptr, ::llvm::ConstantInt* Size)
+{
+    return inst->CreateLifetimeStart(Ptr, Size);
+}
+
+// ::llvm::IRBuilderBase::CreateMemCpy
+extern "C"
+::llvm::CallInst* llvm_IRBuilderBase_CreateMemCpy(::llvm::IRBuilderBase* inst, ::llvm::Value* Dst, ::llvm::Value* Src, ::llvm::Value* Size, unsigned int Align, int isVolatile)
+{
+    return inst->CreateMemCpy(Dst, Src, Size, Align, (isVolatile == 1 ? true : false));
+}
+
+// ::llvm::IRBuilderBase::CreateMemMove
+extern "C"
+::llvm::CallInst* llvm_IRBuilderBase_CreateMemMove(::llvm::IRBuilderBase* inst, ::llvm::Value* Dst, ::llvm::Value* Src, ::llvm::Value* Size, unsigned int Align, int isVolatile)
+{
+    return inst->CreateMemMove(Dst, Src, Size, Align, (isVolatile == 1 ? true : false));
+}
+
+// ::llvm::IRBuilderBase::CreateMemSet
+extern "C"
+::llvm::CallInst* llvm_IRBuilderBase_CreateMemSet(::llvm::IRBuilderBase* inst, ::llvm::Value* Ptr, ::llvm::Value* Value, ::llvm::Value* Size, unsigned int Align, int isVolatile)
+{
+    return inst->CreateMemSet(Ptr, Value, Size, Align, (isVolatile == 1 ? true : false));
+}
+
+// ::llvm::IRBuilderBase::GetInsertBlock
+extern "C"
+::llvm::BasicBlock* llvm_IRBuilderBase_GetInsertBlock(::llvm::IRBuilderBase const* inst)
+{
+    return inst->GetInsertBlock();
+}
+
+// ::llvm::IRBuilderBase::SetCurrentDebugLocation
+extern "C"
+void llvm_IRBuilderBase_SetCurrentDebugLocation(::llvm::IRBuilderBase* inst, ::llvm::DebugLoc const* Loc)
+{
+    return inst->SetCurrentDebugLocation(*Loc);
+}
+
+// ::llvm::IRBuilderBase::SetDefaultFPMathTag
+extern "C"
+void llvm_IRBuilderBase_SetDefaultFPMathTag(::llvm::IRBuilderBase* inst, ::llvm::MDNode* FPMathTag)
+{
+    return inst->SetDefaultFPMathTag(FPMathTag);
+}
+
+// ::llvm::IRBuilderBase::SetInsertPoint
+extern "C"
+void llvm_IRBuilderBase_SetInsertPoint(::llvm::IRBuilderBase* inst, ::llvm::BasicBlock* BB)
+{
+    return inst->SetInsertPoint(BB);
+}
+
+// ::llvm::IRBuilderBase::SetInsertPointAtInst
+extern "C"
+void llvm_IRBuilderBase_SetInsertPointAtInst(::llvm::IRBuilderBase* inst, ::llvm::Instruction* Inst)
+{
+    return inst->SetInsertPoint(Inst);
+}
+
+// ::llvm::IRBuilderBase::SetInstDebugLocation
+extern "C"
+void llvm_IRBuilderBase_SetInstDebugLocation(::llvm::IRBuilderBase const* inst, ::llvm::Instruction* Inst)
+{
+    return inst->SetInstDebugLocation(Inst);
+}
+
+// ::llvm::IRBuilderBase::getContext
+extern "C"
+::llvm::LLVMContext* llvm_IRBuilderBase_getContext(::llvm::IRBuilderBase const* inst)
+{
+    return &(inst->getContext());
+}
+
+// ::llvm::IRBuilderBase::getCurrentFunctionReturnType
+extern "C"
+::llvm::Type* llvm_IRBuilderBase_getCurrentFunctionReturnType(::llvm::IRBuilderBase const* inst)
+{
+    return inst->getCurrentFunctionReturnType();
+}
+
+// ::llvm::IRBuilderBase::getDefaultFPMathTag
+extern "C"
+::llvm::MDNode* llvm_IRBuilderBase_getDefaultFPMathTag(::llvm::IRBuilderBase const* inst)
+{
+    return inst->getDefaultFPMathTag();
+}
+
+// ::llvm::IRBuilderBase::getDoubleTy
+extern "C"
+::llvm::Type* llvm_IRBuilderBase_getDoubleTy(::llvm::IRBuilderBase* inst)
+{
+    return inst->getDoubleTy();
+}
+
+// ::llvm::IRBuilderBase::getFalse
+extern "C"
+::llvm::ConstantInt* llvm_IRBuilderBase_getFalse(::llvm::IRBuilderBase* inst)
+{
+    return inst->getFalse();
+}
+
+// ::llvm::IRBuilderBase::getFloatTy
+extern "C"
+::llvm::Type* llvm_IRBuilderBase_getFloatTy(::llvm::IRBuilderBase* inst)
+{
+    return inst->getFloatTy();
+}
+
+// ::llvm::IRBuilderBase::getHalfTy
+extern "C"
+::llvm::Type* llvm_IRBuilderBase_getHalfTy(::llvm::IRBuilderBase* inst)
+{
+    return inst->getHalfTy();
+}
+
+// ::llvm::IRBuilderBase::getInt
+extern "C"
+::llvm::ConstantInt* llvm_IRBuilderBase_getInt(::llvm::IRBuilderBase* inst, llvm_APInt _Value)
+{
+    auto Value = ::llvm::APInt(_Value.num_bits, ::llvm::ArrayRef<uint64_t>(_Value.value.data, _Value.value.length));
+    return inst->getInt(Value);
+}
+
+// ::llvm::IRBuilderBase::getInt1
+extern "C"
+::llvm::ConstantInt* llvm_IRBuilderBase_getInt1(::llvm::IRBuilderBase* inst, int Value)
+{
+    return inst->getInt1((Value == 1 ? true : false));
+}
+
+// ::llvm::IRBuilderBase::getInt16
+extern "C"
+::llvm::ConstantInt* llvm_IRBuilderBase_getInt16(::llvm::IRBuilderBase* inst, uint16_t Value)
+{
+    return inst->getInt16(Value);
+}
+
+// ::llvm::IRBuilderBase::getInt16Ty
+extern "C"
+::llvm::IntegerType* llvm_IRBuilderBase_getInt16Ty(::llvm::IRBuilderBase* inst)
+{
+    return inst->getInt16Ty();
+}
+
+// ::llvm::IRBuilderBase::getInt1Ty
+extern "C"
+::llvm::IntegerType* llvm_IRBuilderBase_getInt1Ty(::llvm::IRBuilderBase* inst)
+{
+    return inst->getInt1Ty();
+}
+
+// ::llvm::IRBuilderBase::getInt32
+extern "C"
+::llvm::ConstantInt* llvm_IRBuilderBase_getInt32(::llvm::IRBuilderBase* inst, uint32_t Value)
+{
+    return inst->getInt32(Value);
+}
+
+// ::llvm::IRBuilderBase::getInt32Ty
+extern "C"
+::llvm::IntegerType* llvm_IRBuilderBase_getInt32Ty(::llvm::IRBuilderBase* inst)
+{
+    return inst->getInt32Ty();
+}
+
+// ::llvm::IRBuilderBase::getInt64
+extern "C"
+::llvm::ConstantInt* llvm_IRBuilderBase_getInt64(::llvm::IRBuilderBase* inst, uint64_t Value)
+{
+    return inst->getInt64(Value);
+}
+
+// ::llvm::IRBuilderBase::getInt64Ty
+extern "C"
+::llvm::IntegerType* llvm_IRBuilderBase_getInt64Ty(::llvm::IRBuilderBase* inst)
+{
+    return inst->getInt64Ty();
+}
+
+// ::llvm::IRBuilderBase::getInt8
+extern "C"
+::llvm::ConstantInt* llvm_IRBuilderBase_getInt8(::llvm::IRBuilderBase* inst, uint8_t Value)
+{
+    return inst->getInt8(Value);
+}
+
+// ::llvm::IRBuilderBase::getInt8PtrTy
+extern "C"
+::llvm::PointerType* llvm_IRBuilderBase_getInt8PtrTy(::llvm::IRBuilderBase* inst, unsigned int AddrSpace)
+{
+    return inst->getInt8PtrTy(AddrSpace);
+}
+
+// ::llvm::IRBuilderBase::getInt8Ty
+extern "C"
+::llvm::IntegerType* llvm_IRBuilderBase_getInt8Ty(::llvm::IRBuilderBase* inst)
+{
+    return inst->getInt8Ty();
+}
+
+// ::llvm::IRBuilderBase::getIntN
+extern "C"
+::llvm::ConstantInt* llvm_IRBuilderBase_getIntN(::llvm::IRBuilderBase* inst, unsigned int NumBits, uint64_t Value)
+{
+    return inst->getIntN(NumBits, Value);
+}
+
+// ::llvm::IRBuilderBase::getIntNTy
+extern "C"
+::llvm::IntegerType* llvm_IRBuilderBase_getIntNTy(::llvm::IRBuilderBase* inst, unsigned int NumBits)
+{
+    return inst->getIntNTy(NumBits);
+}
+
+// ::llvm::IRBuilderBase::getIntPtrTy
+extern "C"
+::llvm::IntegerType* llvm_IRBuilderBase_getIntPtrTy(::llvm::IRBuilderBase* inst, ::llvm::DataLayout const* DL, unsigned int AddrSpace)
+{
+    return inst->getIntPtrTy(DL, AddrSpace);
+}
+
+// ::llvm::IRBuilderBase::getTrue
+extern "C"
+::llvm::ConstantInt* llvm_IRBuilderBase_getTrue(::llvm::IRBuilderBase* inst)
+{
+    return inst->getTrue();
+}
+
+// ::llvm::IRBuilderBase::getVoidTy
+extern "C"
+::llvm::Type* llvm_IRBuilderBase_getVoidTy(::llvm::IRBuilderBase* inst)
+{
+    return inst->getVoidTy();
+}
+
+// ::llvm::IRBuilderBase::new
+extern "C"
+::llvm::IRBuilderBase* llvm_IRBuilderBase_new(::llvm::LLVMContext* Context)
+{
+    return new(std::nothrow) ::llvm::IRBuilderBase(*Context);
 }
 
 // ::llvm::Instruction::clone
