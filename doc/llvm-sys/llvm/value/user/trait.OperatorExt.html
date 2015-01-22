@@ -26,7 +26,7 @@
 
     <section class="sidebar">
         
-        <p class='location'><a href='../../../index.html'>llvm-sys</a>::<wbr><a href='../../index.html'>llvm</a>::<wbr><a href='../index.html'>value</a>::<wbr><a href='index.html'>user</a></p><div class='block mod'><h2>Modules</h2><a class='mod ' href='constant/index.html'>constant</a><a class='mod ' href='inst/index.html'>inst</a></div><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.Operator.html'>Operator</a><a class='struct ' href='struct.Use.html'>Use</a><a class='struct ' href='struct.User.html'>User</a></div><div class='block trait'><h2>Traits</h2><a class='trait current' href='trait.OperatorExt.html'>OperatorExt</a><a class='trait ' href='trait.UseExt.html'>UseExt</a><a class='trait ' href='trait.UserExt.html'>UserExt</a></div>
+        <p class='location'><a href='../../../index.html'>llvm-sys</a>::<wbr><a href='../../index.html'>llvm</a>::<wbr><a href='../index.html'>value</a>::<wbr><a href='index.html'>user</a></p><div class='block mod'><h2>Modules</h2><a class='mod ' href='constant/index.html'>constant</a><a class='mod ' href='inst/index.html'>inst</a></div><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.Operator.html'>Operator</a><a class='struct ' href='struct.Use.html'>Use</a><a class='struct ' href='struct.User.html'>User</a></div><div class='block trait'><h2>Traits</h2><a class='trait current' href='trait.OperatorExt.html'>OperatorExt</a><a class='trait ' href='trait.OperatorObj.html'>OperatorObj</a><a class='trait ' href='trait.UseExt.html'>UseExt</a><a class='trait ' href='trait.UseObj.html'>UseObj</a><a class='trait ' href='trait.UserExt.html'>UserExt</a><a class='trait ' href='trait.UserObj.html'>UserObj</a></div>
     </section>
 
     <nav class="sub">
@@ -44,21 +44,16 @@
 <h1 class='fqn'><span class='in-band'>Trait <a href='../../../index.html'>llvm-sys</a>::<wbr><a href='../../index.html'>llvm</a>::<wbr><a href='../index.html'>value</a>::<wbr><a href='index.html'>user</a>::<wbr><a class='trait' href=''>OperatorExt</a><wbr><a class='stability Experimental' title=''>Experimental</a></span><span class='out-of-band'><span id='render-detail'>
             <a id="collapse-all" href="#">[-]
             </a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-36143' href='../../../../src/llvm-sys/llvm/value/user/mod.rs.html#5-15'>[src]</a></span></h1>
-<pre class='rust trait'>pub trait OperatorExt: <a class='trait' href='../../../../llvm-sys/llvm/value/user/trait.UserExt.html' title='llvm-sys::llvm::value::user::UserExt'>UserExt</a> {
-    fn <a href='#tymethod.inner' class='fnname'>inner</a>(&amp;self) -&gt; *mut <a class='type' href='../../../../llvm-sys/llvm/value/user/type.OperatorInner.html' title='llvm-sys::llvm::value::user::OperatorInner'>OperatorInner</a>;
-
+        </span><a id='src-38697' href='../../../../src/llvm-sys/llvm/value/user/mod.rs.html#9-17'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait OperatorExt: <a class='trait' href='../../../../llvm-sys/llvm/value/user/trait.OperatorObj.html' title='llvm-sys::llvm::value::user::OperatorObj'>OperatorObj</a> {
     fn <a href='#method.get_opcode' class='fnname'>get_opcode</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a> { ... }
 }</pre>
-            <h2 id='required-methods'>Required Methods</h2>
-            <div class='methods'>
-        <h3 id='tymethod.inner' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.inner' class='fnname'>inner</a>(&amp;self) -&gt; *mut <a class='type' href='../../../../llvm-sys/llvm/value/user/type.OperatorInner.html' title='llvm-sys::llvm::value::user::OperatorInner'>OperatorInner</a></code></h3></div>
             <h2 id='provided-methods'>Provided Methods</h2>
             <div class='methods'>
         <h3 id='method.get_opcode' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.get_opcode' class='fnname'>get_opcode</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h3></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm-sys/llvm/value/user/trait.OperatorExt.html' title='llvm-sys::llvm::value::user::OperatorExt'>OperatorExt</a> for <a class='struct' href='../../../../llvm-sys/llvm/value/user/struct.Operator.html' title='llvm-sys::llvm::value::user::Operator'>Operator</a></code></li>
+    <li><a class='stability Experimental' title='Experimental'></a><code>impl&lt;T&gt; <a class='trait' href='../../../../llvm-sys/llvm/value/user/trait.OperatorExt.html' title='llvm-sys::llvm::value::user::OperatorExt'>OperatorExt</a> for T <span class='where'>where T: <a class='trait' href='../../../../llvm-sys/llvm/value/user/trait.OperatorObj.html' title='llvm-sys::llvm::value::user::OperatorObj'>OperatorObj</a></span></code></li>
 </ul><script type="text/javascript" async
                               src="../../../../implementors/llvm-sys/llvm/value/user/trait.OperatorExt.js">
                       </script></section>

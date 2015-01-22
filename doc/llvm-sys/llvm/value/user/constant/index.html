@@ -26,7 +26,7 @@
 
     <section class="sidebar">
         
-        <p class='location'><a href='../../../../index.html'>llvm-sys</a>::<wbr><a href='../../../index.html'>llvm</a>::<wbr><a href='../../index.html'>value</a>::<wbr><a href='../index.html'>user</a></p><div class='block mod'><h2>Modules</h2><a class='mod current' href='../constant/index.html'>constant</a><a class='mod ' href='../inst/index.html'>inst</a></div><div class='block struct'><h2>Structs</h2><a class='struct ' href='../struct.Operator.html'>Operator</a><a class='struct ' href='../struct.Use.html'>Use</a><a class='struct ' href='../struct.User.html'>User</a></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='../trait.OperatorExt.html'>OperatorExt</a><a class='trait ' href='../trait.UseExt.html'>UseExt</a><a class='trait ' href='../trait.UserExt.html'>UserExt</a></div>
+        <p class='location'><a href='../../../../index.html'>llvm-sys</a>::<wbr><a href='../../../index.html'>llvm</a>::<wbr><a href='../../index.html'>value</a>::<wbr><a href='../index.html'>user</a></p><div class='block mod'><h2>Modules</h2><a class='mod current' href='../constant/index.html'>constant</a><a class='mod ' href='../inst/index.html'>inst</a></div><div class='block struct'><h2>Structs</h2><a class='struct ' href='../struct.Operator.html'>Operator</a><a class='struct ' href='../struct.Use.html'>Use</a><a class='struct ' href='../struct.User.html'>User</a></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='../trait.OperatorExt.html'>OperatorExt</a><a class='trait ' href='../trait.OperatorObj.html'>OperatorObj</a><a class='trait ' href='../trait.UseExt.html'>UseExt</a><a class='trait ' href='../trait.UseObj.html'>UseObj</a><a class='trait ' href='../trait.UserExt.html'>UserExt</a><a class='trait ' href='../trait.UserObj.html'>UserObj</a></div>
     </section>
 
     <nav class="sub">
@@ -44,7 +44,7 @@
 <h1 class='fqn'><span class='in-band'>Module <a href='../../../../index.html'>llvm-sys</a>::<wbr><a href='../../../index.html'>llvm</a>::<wbr><a href='../../index.html'>value</a>::<wbr><a href='../index.html'>user</a>::<wbr><a class='mod' href=''>constant</a><wbr><a class='stability Experimental' title=''>Experimental</a></span><span class='out-of-band'><span id='render-detail'>
             <a id="collapse-all" href="#">[-]
             </a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-21015' href='../../../../../src/llvm-sys/llvm/value/user/constant.rs.html#1-2354'>[src]</a></span></h1>
+        </span><a id='src-22826' href='../../../../../src/llvm-sys/llvm/value/user/constant.rs.html#1-2411'>[src]</a></span></h1>
 <h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                     <tr>
@@ -176,8 +176,20 @@
                     </tr>
                 
                     <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.BlockAddressObj.html'
+                               title='llvm-sys::llvm::value::user::constant::BlockAddressObj'>BlockAddressObj</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
                         <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantAggregateZeroExt.html'
                                title='llvm-sys::llvm::value::user::constant::ConstantAggregateZeroExt'>ConstantAggregateZeroExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantAggregateZeroObj.html'
+                               title='llvm-sys::llvm::value::user::constant::ConstantAggregateZeroObj'>ConstantAggregateZeroObj</a></td>
                         <td class='docblock short'></td>
                     </tr>
                 
@@ -188,8 +200,20 @@
                     </tr>
                 
                     <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantArrayObj.html'
+                               title='llvm-sys::llvm::value::user::constant::ConstantArrayObj'>ConstantArrayObj</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
                         <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantDataArrayExt.html'
                                title='llvm-sys::llvm::value::user::constant::ConstantDataArrayExt'>ConstantDataArrayExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantDataArrayObj.html'
+                               title='llvm-sys::llvm::value::user::constant::ConstantDataArrayObj'>ConstantDataArrayObj</a></td>
                         <td class='docblock short'></td>
                     </tr>
                 
@@ -200,14 +224,32 @@
                     </tr>
                 
                     <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantDataSequentialObj.html'
+                               title='llvm-sys::llvm::value::user::constant::ConstantDataSequentialObj'>ConstantDataSequentialObj</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
                         <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantDataVectorExt.html'
                                title='llvm-sys::llvm::value::user::constant::ConstantDataVectorExt'>ConstantDataVectorExt</a></td>
                         <td class='docblock short'></td>
                     </tr>
                 
                     <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantDataVectorObj.html'
+                               title='llvm-sys::llvm::value::user::constant::ConstantDataVectorObj'>ConstantDataVectorObj</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
                         <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantExprExt.html'
                                title='llvm-sys::llvm::value::user::constant::ConstantExprExt'>ConstantExprExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantExprObj.html'
+                               title='llvm-sys::llvm::value::user::constant::ConstantExprObj'>ConstantExprObj</a></td>
                         <td class='docblock short'></td>
                     </tr>
                 
@@ -224,8 +266,26 @@
                     </tr>
                 
                     <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantFPObj.html'
+                               title='llvm-sys::llvm::value::user::constant::ConstantFPObj'>ConstantFPObj</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
                         <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantIntExt.html'
                                title='llvm-sys::llvm::value::user::constant::ConstantIntExt'>ConstantIntExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantIntObj.html'
+                               title='llvm-sys::llvm::value::user::constant::ConstantIntObj'>ConstantIntObj</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantObj.html'
+                               title='llvm-sys::llvm::value::user::constant::ConstantObj'>ConstantObj</a></td>
                         <td class='docblock short'></td>
                     </tr>
                 
@@ -236,8 +296,20 @@
                     </tr>
                 
                     <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantPointerNullObj.html'
+                               title='llvm-sys::llvm::value::user::constant::ConstantPointerNullObj'>ConstantPointerNullObj</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
                         <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantStructExt.html'
                                title='llvm-sys::llvm::value::user::constant::ConstantStructExt'>ConstantStructExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantStructObj.html'
+                               title='llvm-sys::llvm::value::user::constant::ConstantStructObj'>ConstantStructObj</a></td>
                         <td class='docblock short'></td>
                     </tr>
                 
@@ -248,8 +320,20 @@
                     </tr>
                 
                     <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ConstantVectorObj.html'
+                               title='llvm-sys::llvm::value::user::constant::ConstantVectorObj'>ConstantVectorObj</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
                         <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.FunctionExt.html'
                                title='llvm-sys::llvm::value::user::constant::FunctionExt'>FunctionExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.FunctionObj.html'
+                               title='llvm-sys::llvm::value::user::constant::FunctionObj'>FunctionObj</a></td>
                         <td class='docblock short'></td>
                     </tr>
                 
@@ -260,8 +344,20 @@
                     </tr>
                 
                     <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.GlobalAliasObj.html'
+                               title='llvm-sys::llvm::value::user::constant::GlobalAliasObj'>GlobalAliasObj</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
                         <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.GlobalObjectExt.html'
                                title='llvm-sys::llvm::value::user::constant::GlobalObjectExt'>GlobalObjectExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.GlobalObjectObj.html'
+                               title='llvm-sys::llvm::value::user::constant::GlobalObjectObj'>GlobalObjectObj</a></td>
                         <td class='docblock short'></td>
                     </tr>
                 
@@ -272,14 +368,32 @@
                     </tr>
                 
                     <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.GlobalValueObj.html'
+                               title='llvm-sys::llvm::value::user::constant::GlobalValueObj'>GlobalValueObj</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
                         <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.GlobalVariableExt.html'
                                title='llvm-sys::llvm::value::user::constant::GlobalVariableExt'>GlobalVariableExt</a></td>
                         <td class='docblock short'></td>
                     </tr>
                 
                     <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.GlobalVariableObj.html'
+                               title='llvm-sys::llvm::value::user::constant::GlobalVariableObj'>GlobalVariableObj</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
                         <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.UndefValueExt.html'
                                title='llvm-sys::llvm::value::user::constant::UndefValueExt'>UndefValueExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.UndefValueObj.html'
+                               title='llvm-sys::llvm::value::user::constant::UndefValueObj'>UndefValueObj</a></td>
                         <td class='docblock short'></td>
                     </tr>
                 </table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>

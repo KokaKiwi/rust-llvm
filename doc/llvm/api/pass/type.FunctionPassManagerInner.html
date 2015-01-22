@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `FunctionPassManagerInner` type in crate `llvm`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, FunctionPassManagerInner">
+
+    <title>llvm::api::pass::FunctionPassManagerInner - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>llvm</a>::<wbr><a href='../index.html'>api</a>::<wbr><a href='index.html'>pass</a></p><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.BasicBlockPass.html'>BasicBlockPass</a><a class='struct ' href='struct.CallGraphSCCPass.html'>CallGraphSCCPass</a><a class='struct ' href='struct.FunctionPass.html'>FunctionPass</a><a class='struct ' href='struct.FunctionPassManager.html'>FunctionPassManager</a><a class='struct ' href='struct.LoopPass.html'>LoopPass</a><a class='struct ' href='struct.ModulePass.html'>ModulePass</a><a class='struct ' href='struct.Pass.html'>Pass</a><a class='struct ' href='struct.PassManager.html'>PassManager</a><a class='struct ' href='struct.RegionPass.html'>RegionPass</a></div><div class='block enum'><h2>Enums</h2><a class='enum ' href='enum.PassKind.html'>PassKind</a><a class='enum ' href='enum.PassManagerType.html'>PassManagerType</a></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='trait.BasicBlockPassExt.html'>BasicBlockPassExt</a><a class='trait ' href='trait.BasicBlockPassObj.html'>BasicBlockPassObj</a><a class='trait ' href='trait.CallGraphSCCPassExt.html'>CallGraphSCCPassExt</a><a class='trait ' href='trait.CallGraphSCCPassObj.html'>CallGraphSCCPassObj</a><a class='trait ' href='trait.FunctionPassExt.html'>FunctionPassExt</a><a class='trait ' href='trait.FunctionPassManagerExt.html'>FunctionPassManagerExt</a><a class='trait ' href='trait.FunctionPassManagerObj.html'>FunctionPassManagerObj</a><a class='trait ' href='trait.FunctionPassObj.html'>FunctionPassObj</a><a class='trait ' href='trait.LoopPassExt.html'>LoopPassExt</a><a class='trait ' href='trait.LoopPassObj.html'>LoopPassObj</a><a class='trait ' href='trait.ModulePassExt.html'>ModulePassExt</a><a class='trait ' href='trait.ModulePassObj.html'>ModulePassObj</a><a class='trait ' href='trait.PassExt.html'>PassExt</a><a class='trait ' href='trait.PassManagerExt.html'>PassManagerExt</a><a class='trait ' href='trait.PassManagerObj.html'>PassManagerObj</a><a class='trait ' href='trait.PassObj.html'>PassObj</a><a class='trait ' href='trait.RegionPassExt.html'>RegionPassExt</a><a class='trait ' href='trait.RegionPassObj.html'>RegionPassObj</a></div><div class='block fn'><h2>Functions</h2><a class='fn ' href='fn.create_add_discriminators_pass.html'>create_add_discriminators_pass</a><a class='fn ' href='fn.create_address_sanitizer_function_pass.html'>create_address_sanitizer_function_pass</a><a class='fn ' href='fn.create_address_sanitizer_module_pass.html'>create_address_sanitizer_module_pass</a><a class='fn ' href='fn.create_aggressive_dce_pass.html'>create_aggressive_dce_pass</a><a class='fn ' href='fn.create_always_inliner_pass.html'>create_always_inliner_pass</a><a class='fn ' href='fn.create_argument_promotion_pass.html'>create_argument_promotion_pass</a><a class='fn ' href='fn.create_barrier_noop_pass.html'>create_barrier_noop_pass</a><a class='fn ' href='fn.create_block_extractor_pass.html'>create_block_extractor_pass</a><a class='fn ' href='fn.create_bounds_checking_pass.html'>create_bounds_checking_pass</a><a class='fn ' href='fn.create_break_critical_edges_pass.html'>create_break_critical_edges_pass</a><a class='fn ' href='fn.create_cfg_simplification_pass.html'>create_cfg_simplification_pass</a><a class='fn ' href='fn.create_constant_hoisting_pass.html'>create_constant_hoisting_pass</a><a class='fn ' href='fn.create_constant_merge_pass.html'>create_constant_merge_pass</a><a class='fn ' href='fn.create_constant_propagation_pass.html'>create_constant_propagation_pass</a><a class='fn ' href='fn.create_correlated_value_propagation_pass.html'>create_correlated_value_propagation_pass</a><a class='fn ' href='fn.create_data_flow_sanitizer_pass.html'>create_data_flow_sanitizer_pass</a><a class='fn ' href='fn.create_dead_arg_elimination_pass.html'>create_dead_arg_elimination_pass</a><a class='fn ' href='fn.create_dead_arg_hacking_pass.html'>create_dead_arg_hacking_pass</a><a class='fn ' href='fn.create_dead_code_elimination_pass.html'>create_dead_code_elimination_pass</a><a class='fn ' href='fn.create_dead_inst_elimination_pass.html'>create_dead_inst_elimination_pass</a><a class='fn ' href='fn.create_dead_store_elimination_pass.html'>create_dead_store_elimination_pass</a><a class='fn ' href='fn.create_debug_ir_pass.html'>create_debug_ir_pass</a><a class='fn ' href='fn.create_demote_register_to_memory_pass.html'>create_demote_register_to_memory_pass</a><a class='fn ' href='fn.create_early_cse_pass.html'>create_early_cse_pass</a><a class='fn ' href='fn.create_flatten_cfg_pass.html'>create_flatten_cfg_pass</a><a class='fn ' href='fn.create_function_attrs_pass.html'>create_function_attrs_pass</a><a class='fn ' href='fn.create_function_inlining_pass.html'>create_function_inlining_pass</a><a class='fn ' href='fn.create_gcov_profiler_pass.html'>create_gcov_profiler_pass</a><a class='fn ' href='fn.create_global_dce_pass.html'>create_global_dce_pass</a><a class='fn ' href='fn.create_global_merge_pass.html'>create_global_merge_pass</a><a class='fn ' href='fn.create_global_optimizer_pass.html'>create_global_optimizer_pass</a><a class='fn ' href='fn.create_gvn_pass.html'>create_gvn_pass</a><a class='fn ' href='fn.create_ind_var_simplify_pass.html'>create_ind_var_simplify_pass</a><a class='fn ' href='fn.create_instruction_combining_pass.html'>create_instruction_combining_pass</a><a class='fn ' href='fn.create_instruction_namer_pass.html'>create_instruction_namer_pass</a><a class='fn ' href='fn.create_instruction_simplifier_pass.html'>create_instruction_simplifier_pass</a><a class='fn ' href='fn.create_internalize_pass.html'>create_internalize_pass</a><a class='fn ' href='fn.create_ip_constant_propagation_pass.html'>create_ip_constant_propagation_pass</a><a class='fn ' href='fn.create_ipsccp_pass.html'>create_ipsccp_pass</a><a class='fn ' href='fn.create_jump_threading_pass.html'>create_jump_threading_pass</a><a class='fn ' href='fn.create_lcssa_pass.html'>create_lcssa_pass</a><a class='fn ' href='fn.create_licm_pass.html'>create_licm_pass</a><a class='fn ' href='fn.create_load_combine_pass.html'>create_load_combine_pass</a><a class='fn ' href='fn.create_loop_deletion_pass.html'>create_loop_deletion_pass</a><a class='fn ' href='fn.create_loop_extractor_pass.html'>create_loop_extractor_pass</a><a class='fn ' href='fn.create_loop_idiom_pass.html'>create_loop_idiom_pass</a><a class='fn ' href='fn.create_loop_inst_simplify_pass.html'>create_loop_inst_simplify_pass</a><a class='fn ' href='fn.create_loop_reroll_pass.html'>create_loop_reroll_pass</a><a class='fn ' href='fn.create_loop_rotate_pass.html'>create_loop_rotate_pass</a><a class='fn ' href='fn.create_loop_simplify_pass.html'>create_loop_simplify_pass</a><a class='fn ' href='fn.create_loop_strength_reduce_pass.html'>create_loop_strength_reduce_pass</a><a class='fn ' href='fn.create_loop_unroll_pass.html'>create_loop_unroll_pass</a><a class='fn ' href='fn.create_loop_unswitch_pass.html'>create_loop_unswitch_pass</a><a class='fn ' href='fn.create_lower_atomic_pass.html'>create_lower_atomic_pass</a><a class='fn ' href='fn.create_lower_expect_intrinsic_pass.html'>create_lower_expect_intrinsic_pass</a><a class='fn ' href='fn.create_lower_invoke_pass.html'>create_lower_invoke_pass</a><a class='fn ' href='fn.create_lower_switch_pass.html'>create_lower_switch_pass</a><a class='fn ' href='fn.create_mem_cpy_opt_pass.html'>create_mem_cpy_opt_pass</a><a class='fn ' href='fn.create_memory_sanitizer_pass.html'>create_memory_sanitizer_pass</a><a class='fn ' href='fn.create_merge_functions_pass.html'>create_merge_functions_pass</a><a class='fn ' href='fn.create_merged_load_store_motion_pass.html'>create_merged_load_store_motion_pass</a><a class='fn ' href='fn.create_meta_renamer_pass.html'>create_meta_renamer_pass</a><a class='fn ' href='fn.create_obj_carc_contract_pass.html'>create_obj_carc_contract_pass</a><a class='fn ' href='fn.create_obj_carc_expand_pass.html'>create_obj_carc_expand_pass</a><a class='fn ' href='fn.create_obj_carc_opt_pass.html'>create_obj_carc_opt_pass</a><a class='fn ' href='fn.create_obj_carcap_elim_pass.html'>create_obj_carcap_elim_pass</a><a class='fn ' href='fn.create_partial_inlining_pass.html'>create_partial_inlining_pass</a><a class='fn ' href='fn.create_partially_inline_lib_calls_pass.html'>create_partially_inline_lib_calls_pass</a><a class='fn ' href='fn.create_promote_memory_to_register_pass.html'>create_promote_memory_to_register_pass</a><a class='fn ' href='fn.create_prune_eh_pass.html'>create_prune_eh_pass</a><a class='fn ' href='fn.create_reassociate_pass.html'>create_reassociate_pass</a><a class='fn ' href='fn.create_sample_profile_loader_pass.html'>create_sample_profile_loader_pass</a><a class='fn ' href='fn.create_scalar_repl_aggregates_pass.html'>create_scalar_repl_aggregates_pass</a><a class='fn ' href='fn.create_scalarizer_pass.html'>create_scalarizer_pass</a><a class='fn ' href='fn.create_sccp_pass.html'>create_sccp_pass</a><a class='fn ' href='fn.create_separate_const_offset_from_gep_pass.html'>create_separate_const_offset_from_gep_pass</a><a class='fn ' href='fn.create_simple_loop_unroll_pass.html'>create_simple_loop_unroll_pass</a><a class='fn ' href='fn.create_single_loop_extractor_pass.html'>create_single_loop_extractor_pass</a><a class='fn ' href='fn.create_sinking_pass.html'>create_sinking_pass</a><a class='fn ' href='fn.create_sroa_pass.html'>create_sroa_pass</a><a class='fn ' href='fn.create_strip_dead_debug_info_pass.html'>create_strip_dead_debug_info_pass</a><a class='fn ' href='fn.create_strip_dead_prototypes_pass.html'>create_strip_dead_prototypes_pass</a><a class='fn ' href='fn.create_strip_debug_declare_pass.html'>create_strip_debug_declare_pass</a><a class='fn ' href='fn.create_strip_non_debug_symbols_pass.html'>create_strip_non_debug_symbols_pass</a><a class='fn ' href='fn.create_strip_symbols_pass.html'>create_strip_symbols_pass</a><a class='fn ' href='fn.create_structurize_cfg_pass.html'>create_structurize_cfg_pass</a><a class='fn ' href='fn.create_tail_call_elimination_pass.html'>create_tail_call_elimination_pass</a><a class='fn ' href='fn.create_thread_sanitizer_pass.html'>create_thread_sanitizer_pass</a></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content type">
+<h1 class='fqn'><span class='in-band'><a href='../../index.html'>llvm</a>::<wbr><a href='../index.html'>api</a>::<wbr><a href='index.html'>pass</a>::<wbr><a class='type' href=''>FunctionPassManagerInner</a><wbr><a class='stability Experimental' title=''>Experimental</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]
+            </a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-47550' href='../../../llvm-sys/llvm/pass/type.FunctionPassManagerInner.html?gotosrc=47550'>[src]</a></span></h1>
+<pre class='rust typedef'>type FunctionPassManagerInner = <a class='struct' href='../../../llvm-sys/ffi/struct.llvm_FunctionPassManager.html' title='llvm-sys::ffi::llvm_FunctionPassManager'>llvm_FunctionPassManager</a>;</pre></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "llvm";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

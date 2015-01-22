@@ -26,7 +26,7 @@
 
     <section class="sidebar">
         
-        <p class='location'><a href='../../index.html'>llvm-sys</a>::<wbr><a href='../index.html'>llvm</a>::<wbr><a href='index.html'>value</a></p><div class='block mod'><h2>Modules</h2><a class='mod ' href='user/index.html'>user</a></div><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.Argument.html'>Argument</a><a class='struct ' href='struct.BasicBlock.html'>BasicBlock</a><a class='struct ' href='struct.InlineAsm.html'>InlineAsm</a><a class='struct ' href='struct.MDNode.html'>MDNode</a><a class='struct ' href='struct.MDString.html'>MDString</a><a class='struct ' href='struct.Value.html'>Value</a></div><div class='block enum'><h2>Enums</h2><a class='enum ' href='enum.ValueTy.html'>ValueTy</a></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='trait.ArgumentExt.html'>ArgumentExt</a><a class='trait ' href='trait.BasicBlockExt.html'>BasicBlockExt</a><a class='trait ' href='trait.InlineAsmExt.html'>InlineAsmExt</a><a class='trait current' href='trait.MDNodeExt.html'>MDNodeExt</a><a class='trait ' href='trait.MDStringExt.html'>MDStringExt</a><a class='trait ' href='trait.ValueExt.html'>ValueExt</a></div>
+        <p class='location'><a href='../../index.html'>llvm-sys</a>::<wbr><a href='../index.html'>llvm</a>::<wbr><a href='index.html'>value</a></p><div class='block mod'><h2>Modules</h2><a class='mod ' href='user/index.html'>user</a></div><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.Argument.html'>Argument</a><a class='struct ' href='struct.BasicBlock.html'>BasicBlock</a><a class='struct ' href='struct.InlineAsm.html'>InlineAsm</a><a class='struct ' href='struct.MDNode.html'>MDNode</a><a class='struct ' href='struct.MDString.html'>MDString</a><a class='struct ' href='struct.Value.html'>Value</a></div><div class='block enum'><h2>Enums</h2><a class='enum ' href='enum.ValueTy.html'>ValueTy</a></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='trait.ArgumentExt.html'>ArgumentExt</a><a class='trait ' href='trait.ArgumentObj.html'>ArgumentObj</a><a class='trait ' href='trait.BasicBlockExt.html'>BasicBlockExt</a><a class='trait ' href='trait.BasicBlockObj.html'>BasicBlockObj</a><a class='trait ' href='trait.InlineAsmExt.html'>InlineAsmExt</a><a class='trait ' href='trait.InlineAsmObj.html'>InlineAsmObj</a><a class='trait current' href='trait.MDNodeExt.html'>MDNodeExt</a><a class='trait ' href='trait.MDNodeObj.html'>MDNodeObj</a><a class='trait ' href='trait.MDStringExt.html'>MDStringExt</a><a class='trait ' href='trait.MDStringObj.html'>MDStringObj</a><a class='trait ' href='trait.ValueExt.html'>ValueExt</a><a class='trait ' href='trait.ValueObj.html'>ValueObj</a></div>
     </section>
 
     <nav class="sub">
@@ -44,16 +44,11 @@
 <h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>llvm-sys</a>::<wbr><a href='../index.html'>llvm</a>::<wbr><a href='index.html'>value</a>::<wbr><a class='trait' href=''>MDNodeExt</a><wbr><a class='stability Experimental' title=''>Experimental</a></span><span class='out-of-band'><span id='render-detail'>
             <a id="collapse-all" href="#">[-]
             </a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-38220' href='../../../src/llvm-sys/llvm/value/mod.rs.html#383-386'>[src]</a></span></h1>
-<pre class='rust trait'>pub trait MDNodeExt: <a class='trait' href='../../../llvm-sys/llvm/value/trait.ValueExt.html' title='llvm-sys::llvm::value::ValueExt'>ValueExt</a> {
-    fn <a href='#tymethod.inner' class='fnname'>inner</a>(&amp;self) -&gt; *mut <a class='type' href='../../../llvm-sys/llvm/value/type.MDNodeInner.html' title='llvm-sys::llvm::value::MDNodeInner'>MDNodeInner</a>;
-}</pre>
-            <h2 id='required-methods'>Required Methods</h2>
-            <div class='methods'>
-        <h3 id='tymethod.inner' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.inner' class='fnname'>inner</a>(&amp;self) -&gt; *mut <a class='type' href='../../../llvm-sys/llvm/value/type.MDNodeInner.html' title='llvm-sys::llvm::value::MDNodeInner'>MDNodeInner</a></code></h3></div>
+        </span><a id='src-40878' href='../../../src/llvm-sys/llvm/value/mod.rs.html#396-397'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait MDNodeExt: <a class='trait' href='../../../llvm-sys/llvm/value/trait.MDNodeObj.html' title='llvm-sys::llvm::value::MDNodeObj'>MDNodeObj</a> { }</pre>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../llvm-sys/llvm/value/trait.MDNodeExt.html' title='llvm-sys::llvm::value::MDNodeExt'>MDNodeExt</a> for <a class='struct' href='../../../llvm-sys/llvm/value/struct.MDNode.html' title='llvm-sys::llvm::value::MDNode'>MDNode</a></code></li>
+    <li><a class='stability Experimental' title='Experimental'></a><code>impl&lt;T&gt; <a class='trait' href='../../../llvm-sys/llvm/value/trait.MDNodeExt.html' title='llvm-sys::llvm::value::MDNodeExt'>MDNodeExt</a> for T <span class='where'>where T: <a class='trait' href='../../../llvm-sys/llvm/value/trait.MDNodeObj.html' title='llvm-sys::llvm::value::MDNodeObj'>MDNodeObj</a></span></code></li>
 </ul><script type="text/javascript" async
                               src="../../../implementors/llvm-sys/llvm/value/trait.MDNodeExt.js">
                       </script></section>

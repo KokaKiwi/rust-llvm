@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `UserObj` trait in crate `llvm`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, UserObj">
+
+    <title>llvm::api::value::user::UserObj - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../../index.html'>llvm</a>::<wbr><a href='../../index.html'>api</a>::<wbr><a href='../index.html'>value</a>::<wbr><a href='index.html'>user</a></p><div class='block mod'><h2>Modules</h2><a class='mod ' href='constant/index.html'>constant</a><a class='mod ' href='inst/index.html'>inst</a></div><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.Operator.html'>Operator</a><a class='struct ' href='struct.Use.html'>Use</a><a class='struct ' href='struct.User.html'>User</a></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='trait.OperatorExt.html'>OperatorExt</a><a class='trait ' href='trait.OperatorObj.html'>OperatorObj</a><a class='trait ' href='trait.UseExt.html'>UseExt</a><a class='trait ' href='trait.UseObj.html'>UseObj</a><a class='trait ' href='trait.UserExt.html'>UserExt</a><a class='trait current' href='trait.UserObj.html'>UserObj</a></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../../../index.html'>llvm</a>::<wbr><a href='../../index.html'>api</a>::<wbr><a href='../index.html'>value</a>::<wbr><a href='index.html'>user</a>::<wbr><a class='trait' href=''>UserObj</a><wbr><a class='stability Experimental' title=''>Experimental</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]
+            </a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-39164' href='../../../../llvm-sys/llvm/value/user/trait.UserObj.html?gotosrc=39164'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait UserObj: <a class='trait' href='../../../../llvm/traits/trait.ValueObj.html' title='llvm::traits::ValueObj'>ValueObj</a> {
+    fn <a href='#tymethod.inner' class='fnname'>inner</a>(&amp;self) -&gt; *mut <a class='struct' href='../../../../llvm-sys/ffi/struct.llvm_User.html' title='llvm-sys::ffi::llvm_User'>llvm_User</a>;
+}</pre>
+            <h2 id='required-methods'>Required Methods</h2>
+            <div class='methods'>
+        <h3 id='tymethod.inner' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#tymethod.inner' class='fnname'>inner</a>(&amp;self) -&gt; *mut <a class='struct' href='../../../../llvm-sys/ffi/struct.llvm_User.html' title='llvm-sys::ffi::llvm_User'>llvm_User</a></code></h3></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/constant/struct.BlockAddress.html' title='llvm::api::value::user::constant::BlockAddress'>BlockAddress</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/constant/struct.Constant.html' title='llvm::api::value::user::constant::Constant'>Constant</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/constant/struct.ConstantAggregateZero.html' title='llvm::api::value::user::constant::ConstantAggregateZero'>ConstantAggregateZero</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/constant/struct.ConstantArray.html' title='llvm::api::value::user::constant::ConstantArray'>ConstantArray</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/constant/struct.ConstantDataArray.html' title='llvm::api::value::user::constant::ConstantDataArray'>ConstantDataArray</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/constant/struct.ConstantDataSequential.html' title='llvm::api::value::user::constant::ConstantDataSequential'>ConstantDataSequential</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/constant/struct.ConstantDataVector.html' title='llvm::api::value::user::constant::ConstantDataVector'>ConstantDataVector</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/constant/struct.ConstantExpr.html' title='llvm::api::value::user::constant::ConstantExpr'>ConstantExpr</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/constant/struct.ConstantFP.html' title='llvm::api::value::user::constant::ConstantFP'>ConstantFP</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/constant/struct.ConstantInt.html' title='llvm::api::value::user::constant::ConstantInt'>ConstantInt</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/constant/struct.ConstantPointerNull.html' title='llvm::api::value::user::constant::ConstantPointerNull'>ConstantPointerNull</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/constant/struct.ConstantStruct.html' title='llvm::api::value::user::constant::ConstantStruct'>ConstantStruct</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/constant/struct.ConstantVector.html' title='llvm::api::value::user::constant::ConstantVector'>ConstantVector</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/constant/struct.Function.html' title='llvm::api::value::user::constant::Function'>Function</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/constant/struct.GlobalAlias.html' title='llvm::api::value::user::constant::GlobalAlias'>GlobalAlias</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/constant/struct.GlobalObject.html' title='llvm::api::value::user::constant::GlobalObject'>GlobalObject</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/constant/struct.GlobalValue.html' title='llvm::api::value::user::constant::GlobalValue'>GlobalValue</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/constant/struct.GlobalVariable.html' title='llvm::api::value::user::constant::GlobalVariable'>GlobalVariable</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/constant/struct.UndefValue.html' title='llvm::api::value::user::constant::UndefValue'>UndefValue</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.AddrSpaceCastInst.html' title='llvm::api::value::user::inst::AddrSpaceCastInst'>AddrSpaceCastInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.AllocaInst.html' title='llvm::api::value::user::inst::AllocaInst'>AllocaInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.AtomicCmpXchgInst.html' title='llvm::api::value::user::inst::AtomicCmpXchgInst'>AtomicCmpXchgInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.AtomicRMWInst.html' title='llvm::api::value::user::inst::AtomicRMWInst'>AtomicRMWInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.BinaryOperator.html' title='llvm::api::value::user::inst::BinaryOperator'>BinaryOperator</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.BitCastInst.html' title='llvm::api::value::user::inst::BitCastInst'>BitCastInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.BranchInst.html' title='llvm::api::value::user::inst::BranchInst'>BranchInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.CallInst.html' title='llvm::api::value::user::inst::CallInst'>CallInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.CastInst.html' title='llvm::api::value::user::inst::CastInst'>CastInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.CmpInst.html' title='llvm::api::value::user::inst::CmpInst'>CmpInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.ExtractElementInst.html' title='llvm::api::value::user::inst::ExtractElementInst'>ExtractElementInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.ExtractValueInst.html' title='llvm::api::value::user::inst::ExtractValueInst'>ExtractValueInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.FPExtInst.html' title='llvm::api::value::user::inst::FPExtInst'>FPExtInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.FPToSIInst.html' title='llvm::api::value::user::inst::FPToSIInst'>FPToSIInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.FenceInst.html' title='llvm::api::value::user::inst::FenceInst'>FenceInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.GetElementPtrInst.html' title='llvm::api::value::user::inst::GetElementPtrInst'>GetElementPtrInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.IndirectBrInst.html' title='llvm::api::value::user::inst::IndirectBrInst'>IndirectBrInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.InsertElementInst.html' title='llvm::api::value::user::inst::InsertElementInst'>InsertElementInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.InsertValueInst.html' title='llvm::api::value::user::inst::InsertValueInst'>InsertValueInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.Instruction.html' title='llvm::api::value::user::inst::Instruction'>Instruction</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.InvokeInst.html' title='llvm::api::value::user::inst::InvokeInst'>InvokeInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.LandingPadInst.html' title='llvm::api::value::user::inst::LandingPadInst'>LandingPadInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.LoadInst.html' title='llvm::api::value::user::inst::LoadInst'>LoadInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.PHINode.html' title='llvm::api::value::user::inst::PHINode'>PHINode</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.ResumeInst.html' title='llvm::api::value::user::inst::ResumeInst'>ResumeInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.ReturnInst.html' title='llvm::api::value::user::inst::ReturnInst'>ReturnInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.SelectInst.html' title='llvm::api::value::user::inst::SelectInst'>SelectInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.ShuffleVectorInst.html' title='llvm::api::value::user::inst::ShuffleVectorInst'>ShuffleVectorInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.StoreInst.html' title='llvm::api::value::user::inst::StoreInst'>StoreInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.SwitchInst.html' title='llvm::api::value::user::inst::SwitchInst'>SwitchInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.TerminatorInst.html' title='llvm::api::value::user::inst::TerminatorInst'>TerminatorInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.UnaryInstruction.html' title='llvm::api::value::user::inst::UnaryInstruction'>UnaryInstruction</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.UnreachableInst.html' title='llvm::api::value::user::inst::UnreachableInst'>UnreachableInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/inst/struct.VAArgInst.html' title='llvm::api::value::user::inst::VAArgInst'>VAArgInst</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/struct.Operator.html' title='llvm::api::value::user::Operator'>Operator</a></code></li>
+<li><a class='stability Experimental' title='Experimental'></a><code>impl <a class='trait' href='../../../../llvm/traits/trait.UserObj.html' title='llvm::traits::UserObj'>UserObj</a> for <a class='struct' href='../../../../llvm/api/value/user/struct.User.html' title='llvm::api::value::user::User'>User</a></code></li>
+</ul><script type="text/javascript" async
+                              src="../../../../implementors/llvm-sys/llvm/value/user/trait.UserObj.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../../";
+        window.currentCrate = "llvm";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../../jquery.js"></script>
+    <script src="../../../../main.js"></script>
+    
+    <script async src="../../../../search-index.js"></script>
+</body>
+</html>

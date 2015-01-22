@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `pass` mod in crate `llvm`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, pass">
+
+    <title>llvm::api::pass - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>llvm</a>::<wbr><a href='../index.html'>api</a></p><div class='block mod'><h2>Modules</h2><a class='mod ' href='../calling_conv/index.html'>calling_conv</a><a class='mod current' href='../pass/index.html'>pass</a><a class='mod ' href='../ty/index.html'>ty</a><a class='mod ' href='../value/index.html'>value</a></div><div class='block struct'><h2>Structs</h2><a class='struct ' href='../struct.DataLayout.html'>DataLayout</a><a class='struct ' href='../struct.DebugLoc.html'>DebugLoc</a><a class='struct ' href='../struct.IRBuilder.html'>IRBuilder</a><a class='struct ' href='../struct.IRBuilderBase.html'>IRBuilderBase</a><a class='struct ' href='../struct.LLVMContext.html'>LLVMContext</a><a class='struct ' href='../struct.Module.html'>Module</a><a class='struct ' href='../struct.ValueSymbolTable.html'>ValueSymbolTable</a></div><div class='block enum'><h2>Enums</h2><a class='enum ' href='../enum.AtomicOrdering.html'>AtomicOrdering</a><a class='enum ' href='../enum.SynchronizationScope.html'>SynchronizationScope</a></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='../trait.DataLayoutExt.html'>DataLayoutExt</a><a class='trait ' href='../trait.DataLayoutObj.html'>DataLayoutObj</a><a class='trait ' href='../trait.DebugLocExt.html'>DebugLocExt</a><a class='trait ' href='../trait.DebugLocObj.html'>DebugLocObj</a><a class='trait ' href='../trait.IRBuilderBaseExt.html'>IRBuilderBaseExt</a><a class='trait ' href='../trait.IRBuilderBaseObj.html'>IRBuilderBaseObj</a><a class='trait ' href='../trait.IRBuilderExt.html'>IRBuilderExt</a><a class='trait ' href='../trait.IRBuilderObj.html'>IRBuilderObj</a><a class='trait ' href='../trait.LLVMContextExt.html'>LLVMContextExt</a><a class='trait ' href='../trait.LLVMContextObj.html'>LLVMContextObj</a><a class='trait ' href='../trait.ModuleExt.html'>ModuleExt</a><a class='trait ' href='../trait.ModuleObj.html'>ModuleObj</a><a class='trait ' href='../trait.ValueSymbolTableExt.html'>ValueSymbolTableExt</a><a class='trait ' href='../trait.ValueSymbolTableObj.html'>ValueSymbolTableObj</a></div><div class='block fn'><h2>Functions</h2><a class='fn ' href='../fn.get_global_context.html'>get_global_context</a><a class='fn ' href='../fn.verify_function.html'>verify_function</a><a class='fn ' href='../fn.verify_module.html'>verify_module</a></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>llvm</a>::<wbr><a href='../index.html'>api</a>::<wbr><a class='mod' href=''>pass</a><wbr><a class='stability Experimental' title=''>Experimental</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]
+            </a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-47043' href='../../../llvm-sys/llvm/pass/index.html?gotosrc=47043'>[src]</a></span></h1>
+<h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.BasicBlockPass.html'
+                               title='llvm::api::pass::BasicBlockPass'>BasicBlockPass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.CallGraphSCCPass.html'
+                               title='llvm::api::pass::CallGraphSCCPass'>CallGraphSCCPass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.FunctionPass.html'
+                               title='llvm::api::pass::FunctionPass'>FunctionPass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.FunctionPassManager.html'
+                               title='llvm::api::pass::FunctionPassManager'>FunctionPassManager</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.LoopPass.html'
+                               title='llvm::api::pass::LoopPass'>LoopPass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.ModulePass.html'
+                               title='llvm::api::pass::ModulePass'>ModulePass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.Pass.html'
+                               title='llvm::api::pass::Pass'>Pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.PassManager.html'
+                               title='llvm::api::pass::PassManager'>PassManager</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='struct' href='struct.RegionPass.html'
+                               title='llvm::api::pass::RegionPass'>RegionPass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='enum' href='enum.PassKind.html'
+                               title='llvm::api::pass::PassKind'>PassKind</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='enum' href='enum.PassManagerType.html'
+                               title='llvm::api::pass::PassManagerType'>PassManagerType</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.BasicBlockPassExt.html'
+                               title='llvm::api::pass::BasicBlockPassExt'>BasicBlockPassExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.BasicBlockPassObj.html'
+                               title='llvm::api::pass::BasicBlockPassObj'>BasicBlockPassObj</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.CallGraphSCCPassExt.html'
+                               title='llvm::api::pass::CallGraphSCCPassExt'>CallGraphSCCPassExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.CallGraphSCCPassObj.html'
+                               title='llvm::api::pass::CallGraphSCCPassObj'>CallGraphSCCPassObj</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.FunctionPassExt.html'
+                               title='llvm::api::pass::FunctionPassExt'>FunctionPassExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.FunctionPassManagerExt.html'
+                               title='llvm::api::pass::FunctionPassManagerExt'>FunctionPassManagerExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.FunctionPassManagerObj.html'
+                               title='llvm::api::pass::FunctionPassManagerObj'>FunctionPassManagerObj</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.FunctionPassObj.html'
+                               title='llvm::api::pass::FunctionPassObj'>FunctionPassObj</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.LoopPassExt.html'
+                               title='llvm::api::pass::LoopPassExt'>LoopPassExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.LoopPassObj.html'
+                               title='llvm::api::pass::LoopPassObj'>LoopPassObj</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ModulePassExt.html'
+                               title='llvm::api::pass::ModulePassExt'>ModulePassExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.ModulePassObj.html'
+                               title='llvm::api::pass::ModulePassObj'>ModulePassObj</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.PassExt.html'
+                               title='llvm::api::pass::PassExt'>PassExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.PassManagerExt.html'
+                               title='llvm::api::pass::PassManagerExt'>PassManagerExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.PassManagerObj.html'
+                               title='llvm::api::pass::PassManagerObj'>PassManagerObj</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.PassObj.html'
+                               title='llvm::api::pass::PassObj'>PassObj</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.RegionPassExt.html'
+                               title='llvm::api::pass::RegionPassExt'>RegionPassExt</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='trait' href='trait.RegionPassObj.html'
+                               title='llvm::api::pass::RegionPassObj'>RegionPassObj</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_add_discriminators_pass.html'
+                               title='llvm::api::pass::create_add_discriminators_pass'>create_add_discriminators_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_address_sanitizer_function_pass.html'
+                               title='llvm::api::pass::create_address_sanitizer_function_pass'>create_address_sanitizer_function_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_address_sanitizer_module_pass.html'
+                               title='llvm::api::pass::create_address_sanitizer_module_pass'>create_address_sanitizer_module_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_aggressive_dce_pass.html'
+                               title='llvm::api::pass::create_aggressive_dce_pass'>create_aggressive_dce_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_always_inliner_pass.html'
+                               title='llvm::api::pass::create_always_inliner_pass'>create_always_inliner_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_argument_promotion_pass.html'
+                               title='llvm::api::pass::create_argument_promotion_pass'>create_argument_promotion_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_barrier_noop_pass.html'
+                               title='llvm::api::pass::create_barrier_noop_pass'>create_barrier_noop_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_block_extractor_pass.html'
+                               title='llvm::api::pass::create_block_extractor_pass'>create_block_extractor_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_bounds_checking_pass.html'
+                               title='llvm::api::pass::create_bounds_checking_pass'>create_bounds_checking_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_break_critical_edges_pass.html'
+                               title='llvm::api::pass::create_break_critical_edges_pass'>create_break_critical_edges_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_cfg_simplification_pass.html'
+                               title='llvm::api::pass::create_cfg_simplification_pass'>create_cfg_simplification_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_constant_hoisting_pass.html'
+                               title='llvm::api::pass::create_constant_hoisting_pass'>create_constant_hoisting_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_constant_merge_pass.html'
+                               title='llvm::api::pass::create_constant_merge_pass'>create_constant_merge_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_constant_propagation_pass.html'
+                               title='llvm::api::pass::create_constant_propagation_pass'>create_constant_propagation_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_correlated_value_propagation_pass.html'
+                               title='llvm::api::pass::create_correlated_value_propagation_pass'>create_correlated_value_propagation_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_data_flow_sanitizer_pass.html'
+                               title='llvm::api::pass::create_data_flow_sanitizer_pass'>create_data_flow_sanitizer_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_dead_arg_elimination_pass.html'
+                               title='llvm::api::pass::create_dead_arg_elimination_pass'>create_dead_arg_elimination_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_dead_arg_hacking_pass.html'
+                               title='llvm::api::pass::create_dead_arg_hacking_pass'>create_dead_arg_hacking_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_dead_code_elimination_pass.html'
+                               title='llvm::api::pass::create_dead_code_elimination_pass'>create_dead_code_elimination_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_dead_inst_elimination_pass.html'
+                               title='llvm::api::pass::create_dead_inst_elimination_pass'>create_dead_inst_elimination_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_dead_store_elimination_pass.html'
+                               title='llvm::api::pass::create_dead_store_elimination_pass'>create_dead_store_elimination_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_debug_ir_pass.html'
+                               title='llvm::api::pass::create_debug_ir_pass'>create_debug_ir_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_demote_register_to_memory_pass.html'
+                               title='llvm::api::pass::create_demote_register_to_memory_pass'>create_demote_register_to_memory_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_early_cse_pass.html'
+                               title='llvm::api::pass::create_early_cse_pass'>create_early_cse_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_flatten_cfg_pass.html'
+                               title='llvm::api::pass::create_flatten_cfg_pass'>create_flatten_cfg_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_function_attrs_pass.html'
+                               title='llvm::api::pass::create_function_attrs_pass'>create_function_attrs_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_function_inlining_pass.html'
+                               title='llvm::api::pass::create_function_inlining_pass'>create_function_inlining_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_gcov_profiler_pass.html'
+                               title='llvm::api::pass::create_gcov_profiler_pass'>create_gcov_profiler_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_global_dce_pass.html'
+                               title='llvm::api::pass::create_global_dce_pass'>create_global_dce_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_global_merge_pass.html'
+                               title='llvm::api::pass::create_global_merge_pass'>create_global_merge_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_global_optimizer_pass.html'
+                               title='llvm::api::pass::create_global_optimizer_pass'>create_global_optimizer_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_gvn_pass.html'
+                               title='llvm::api::pass::create_gvn_pass'>create_gvn_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_ind_var_simplify_pass.html'
+                               title='llvm::api::pass::create_ind_var_simplify_pass'>create_ind_var_simplify_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_instruction_combining_pass.html'
+                               title='llvm::api::pass::create_instruction_combining_pass'>create_instruction_combining_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_instruction_namer_pass.html'
+                               title='llvm::api::pass::create_instruction_namer_pass'>create_instruction_namer_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_instruction_simplifier_pass.html'
+                               title='llvm::api::pass::create_instruction_simplifier_pass'>create_instruction_simplifier_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_internalize_pass.html'
+                               title='llvm::api::pass::create_internalize_pass'>create_internalize_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_ip_constant_propagation_pass.html'
+                               title='llvm::api::pass::create_ip_constant_propagation_pass'>create_ip_constant_propagation_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_ipsccp_pass.html'
+                               title='llvm::api::pass::create_ipsccp_pass'>create_ipsccp_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_jump_threading_pass.html'
+                               title='llvm::api::pass::create_jump_threading_pass'>create_jump_threading_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_lcssa_pass.html'
+                               title='llvm::api::pass::create_lcssa_pass'>create_lcssa_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_licm_pass.html'
+                               title='llvm::api::pass::create_licm_pass'>create_licm_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_load_combine_pass.html'
+                               title='llvm::api::pass::create_load_combine_pass'>create_load_combine_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_loop_deletion_pass.html'
+                               title='llvm::api::pass::create_loop_deletion_pass'>create_loop_deletion_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_loop_extractor_pass.html'
+                               title='llvm::api::pass::create_loop_extractor_pass'>create_loop_extractor_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_loop_idiom_pass.html'
+                               title='llvm::api::pass::create_loop_idiom_pass'>create_loop_idiom_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_loop_inst_simplify_pass.html'
+                               title='llvm::api::pass::create_loop_inst_simplify_pass'>create_loop_inst_simplify_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_loop_reroll_pass.html'
+                               title='llvm::api::pass::create_loop_reroll_pass'>create_loop_reroll_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_loop_rotate_pass.html'
+                               title='llvm::api::pass::create_loop_rotate_pass'>create_loop_rotate_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_loop_simplify_pass.html'
+                               title='llvm::api::pass::create_loop_simplify_pass'>create_loop_simplify_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_loop_strength_reduce_pass.html'
+                               title='llvm::api::pass::create_loop_strength_reduce_pass'>create_loop_strength_reduce_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_loop_unroll_pass.html'
+                               title='llvm::api::pass::create_loop_unroll_pass'>create_loop_unroll_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_loop_unswitch_pass.html'
+                               title='llvm::api::pass::create_loop_unswitch_pass'>create_loop_unswitch_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_lower_atomic_pass.html'
+                               title='llvm::api::pass::create_lower_atomic_pass'>create_lower_atomic_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_lower_expect_intrinsic_pass.html'
+                               title='llvm::api::pass::create_lower_expect_intrinsic_pass'>create_lower_expect_intrinsic_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_lower_invoke_pass.html'
+                               title='llvm::api::pass::create_lower_invoke_pass'>create_lower_invoke_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_lower_switch_pass.html'
+                               title='llvm::api::pass::create_lower_switch_pass'>create_lower_switch_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_mem_cpy_opt_pass.html'
+                               title='llvm::api::pass::create_mem_cpy_opt_pass'>create_mem_cpy_opt_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_memory_sanitizer_pass.html'
+                               title='llvm::api::pass::create_memory_sanitizer_pass'>create_memory_sanitizer_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_merge_functions_pass.html'
+                               title='llvm::api::pass::create_merge_functions_pass'>create_merge_functions_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_merged_load_store_motion_pass.html'
+                               title='llvm::api::pass::create_merged_load_store_motion_pass'>create_merged_load_store_motion_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_meta_renamer_pass.html'
+                               title='llvm::api::pass::create_meta_renamer_pass'>create_meta_renamer_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_obj_carc_contract_pass.html'
+                               title='llvm::api::pass::create_obj_carc_contract_pass'>create_obj_carc_contract_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_obj_carc_expand_pass.html'
+                               title='llvm::api::pass::create_obj_carc_expand_pass'>create_obj_carc_expand_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_obj_carc_opt_pass.html'
+                               title='llvm::api::pass::create_obj_carc_opt_pass'>create_obj_carc_opt_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_obj_carcap_elim_pass.html'
+                               title='llvm::api::pass::create_obj_carcap_elim_pass'>create_obj_carcap_elim_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_partial_inlining_pass.html'
+                               title='llvm::api::pass::create_partial_inlining_pass'>create_partial_inlining_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_partially_inline_lib_calls_pass.html'
+                               title='llvm::api::pass::create_partially_inline_lib_calls_pass'>create_partially_inline_lib_calls_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_promote_memory_to_register_pass.html'
+                               title='llvm::api::pass::create_promote_memory_to_register_pass'>create_promote_memory_to_register_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_prune_eh_pass.html'
+                               title='llvm::api::pass::create_prune_eh_pass'>create_prune_eh_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_reassociate_pass.html'
+                               title='llvm::api::pass::create_reassociate_pass'>create_reassociate_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_sample_profile_loader_pass.html'
+                               title='llvm::api::pass::create_sample_profile_loader_pass'>create_sample_profile_loader_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_scalar_repl_aggregates_pass.html'
+                               title='llvm::api::pass::create_scalar_repl_aggregates_pass'>create_scalar_repl_aggregates_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_scalarizer_pass.html'
+                               title='llvm::api::pass::create_scalarizer_pass'>create_scalarizer_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_sccp_pass.html'
+                               title='llvm::api::pass::create_sccp_pass'>create_sccp_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_separate_const_offset_from_gep_pass.html'
+                               title='llvm::api::pass::create_separate_const_offset_from_gep_pass'>create_separate_const_offset_from_gep_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_simple_loop_unroll_pass.html'
+                               title='llvm::api::pass::create_simple_loop_unroll_pass'>create_simple_loop_unroll_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_single_loop_extractor_pass.html'
+                               title='llvm::api::pass::create_single_loop_extractor_pass'>create_single_loop_extractor_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_sinking_pass.html'
+                               title='llvm::api::pass::create_sinking_pass'>create_sinking_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_sroa_pass.html'
+                               title='llvm::api::pass::create_sroa_pass'>create_sroa_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_strip_dead_debug_info_pass.html'
+                               title='llvm::api::pass::create_strip_dead_debug_info_pass'>create_strip_dead_debug_info_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_strip_dead_prototypes_pass.html'
+                               title='llvm::api::pass::create_strip_dead_prototypes_pass'>create_strip_dead_prototypes_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_strip_debug_declare_pass.html'
+                               title='llvm::api::pass::create_strip_debug_declare_pass'>create_strip_debug_declare_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_strip_non_debug_symbols_pass.html'
+                               title='llvm::api::pass::create_strip_non_debug_symbols_pass'>create_strip_non_debug_symbols_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_strip_symbols_pass.html'
+                               title='llvm::api::pass::create_strip_symbols_pass'>create_strip_symbols_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_structurize_cfg_pass.html'
+                               title='llvm::api::pass::create_structurize_cfg_pass'>create_structurize_cfg_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_tail_call_elimination_pass.html'
+                               title='llvm::api::pass::create_tail_call_elimination_pass'>create_tail_call_elimination_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='fn' href='fn.create_thread_sanitizer_pass.html'
+                               title='llvm::api::pass::create_thread_sanitizer_pass'>create_thread_sanitizer_pass</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.BasicBlockPassInner.html'
+                               title='llvm::api::pass::BasicBlockPassInner'>BasicBlockPassInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.CallGraphSCCPassInner.html'
+                               title='llvm::api::pass::CallGraphSCCPassInner'>CallGraphSCCPassInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.FunctionPassInner.html'
+                               title='llvm::api::pass::FunctionPassInner'>FunctionPassInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.FunctionPassManagerInner.html'
+                               title='llvm::api::pass::FunctionPassManagerInner'>FunctionPassManagerInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.LoopPassInner.html'
+                               title='llvm::api::pass::LoopPassInner'>LoopPassInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.ModulePassInner.html'
+                               title='llvm::api::pass::ModulePassInner'>ModulePassInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.PassInner.html'
+                               title='llvm::api::pass::PassInner'>PassInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.PassManagerInner.html'
+                               title='llvm::api::pass::PassManagerInner'>PassManagerInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Experimental' title='Experimental'></a><a class='type' href='type.RegionPassInner.html'
+                               title='llvm::api::pass::RegionPassInner'>RegionPassInner</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "llvm";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>
