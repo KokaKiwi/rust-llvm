@@ -34,6 +34,9 @@ pub struct llvm_AtomicRMWInst;
 pub struct llvm_BasicBlock;
 #[repr(C)]
 #[derive(Copy)]
+pub struct llvm_BasicBlockPass;
+#[repr(C)]
+#[derive(Copy)]
 pub struct llvm_BinaryOperator;
 #[repr(C)]
 #[derive(Copy)]
@@ -66,6 +69,9 @@ pub struct llvm_BlockAddress;
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_BranchInst;
+#[repr(C)]
+#[derive(Copy)]
+pub struct llvm_CallGraphSCCPass;
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_CallInst;
@@ -245,6 +251,12 @@ pub struct llvm_FenceInst;
 pub struct llvm_Function;
 #[repr(C)]
 #[derive(Copy)]
+pub struct llvm_FunctionPass;
+#[repr(C)]
+#[derive(Copy)]
+pub struct llvm_FunctionPassManager;
+#[repr(C)]
+#[derive(Copy)]
 pub struct llvm_FunctionType;
 #[repr(C)]
 #[derive(Copy)]
@@ -326,6 +338,9 @@ pub struct llvm_LandingPadInst;
 pub struct llvm_LoadInst;
 #[repr(C)]
 #[derive(Copy)]
+pub struct llvm_LoopPass;
+#[repr(C)]
+#[derive(Copy)]
 pub struct llvm_MDNode;
 #[repr(C)]
 #[derive(Copy)]
@@ -344,6 +359,12 @@ pub enum llvm_Instruction_MemoryOps {
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_Module;
+#[repr(C)]
+#[derive(Copy)]
+pub struct llvm_ModulePass;
+#[repr(C)]
+#[derive(Copy)]
+pub struct llvm_ModulePassManager;
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_Operator;
@@ -370,7 +391,39 @@ pub enum llvm_Instruction_OtherOps {
 pub struct llvm_PHINode;
 #[repr(C)]
 #[derive(Copy)]
+pub struct llvm_Pass;
+#[repr(C)]
+#[derive(Copy)]
+pub enum llvm_PassKind {
+    PT_BasicBlock = 0,
+    PT_Region = 1,
+    PT_Loop = 2,
+    PT_Function = 3,
+    PT_CallGraphSCC = 4,
+    PT_Module = 5,
+    PT_PassManager = 6,
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct llvm_PassManagerBuilder;
+#[repr(C)]
+#[derive(Copy)]
+pub enum llvm_PassManagerType {
+    PMT_Unknown = 0,
+    PMT_ModulePassManager = 1,
+    PMT_CallGraphPassManager = 2,
+    PMT_FunctionPassManager = 3,
+    PMT_LoopPassManager = 4,
+    PMT_RegionPassManager = 5,
+    PMT_BasicBlockPassManager = 6,
+    PMT_Last = 7,
+}
+#[repr(C)]
+#[derive(Copy)]
 pub struct llvm_PointerType;
+#[repr(C)]
+#[derive(Copy)]
+pub struct llvm_RegionPass;
 #[repr(C)]
 #[derive(Copy)]
 pub struct llvm_ResumeInst;
@@ -680,7 +733,95 @@ mod raw {
         pub fn llvm_GlobalVariable_copyAttributesFrom(inst: *mut super::llvm_GlobalVariable, Src: *mut super::llvm_GlobalValue) -> ::libc::c_void;
         pub fn llvm_Instruction_copyFastMathFlags(inst: *mut super::llvm_Instruction, Inst: *const super::llvm_Instruction) -> ::libc::c_void;
         pub fn llvm_StructType_create(ctx: *mut super::llvm_LLVMContext, Elements: super::llvm_ArrayRef_llvm_Type_ptr, Name: super::llvm_StringRef) -> *mut super::llvm_StructType;
+        pub fn llvm_createAddDiscriminatorsPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createAddressSanitizerFunctionPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createAddressSanitizerModulePass() -> *mut super::llvm_ModulePass;
+        pub fn llvm_createAggressiveDCEPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createAlwaysInlinerPass(InsertLifetime: ::libc::c_int) -> *mut super::llvm_Pass;
+        pub fn llvm_createArgumentPromotionPass(maxElements: ::libc::c_uint) -> *mut super::llvm_Pass;
+        pub fn llvm_createBarrierNoopPass() -> *mut super::llvm_ModulePass;
+        pub fn llvm_createBlockExtractorPass() -> *mut super::llvm_ModulePass;
+        pub fn llvm_createBoundsCheckingPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createBreakCriticalEdgesPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createCFGSimplificationPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createConstantHoistingPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createConstantMergePass() -> *mut super::llvm_ModulePass;
+        pub fn llvm_createConstantPropagationPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createCorrelatedValuePropagationPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createDataFlowSanitizerPass() -> *mut super::llvm_ModulePass;
+        pub fn llvm_createDeadArgEliminationPass() -> *mut super::llvm_ModulePass;
+        pub fn llvm_createDeadArgHackingPass() -> *mut super::llvm_ModulePass;
+        pub fn llvm_createDeadCodeEliminationPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createDeadInstEliminationPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createDeadStoreEliminationPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createDebugIRPass() -> *mut super::llvm_ModulePass;
+        pub fn llvm_createDemoteRegisterToMemoryPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createEarlyCSEPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createFlattenCFGPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createFunctionAttrsPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createFunctionInliningPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createGCOVProfilerPass() -> *mut super::llvm_ModulePass;
+        pub fn llvm_createGVNPass(NoLoads: ::libc::c_int) -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createGlobalDCEPass() -> *mut super::llvm_ModulePass;
+        pub fn llvm_createGlobalMergePass() -> *mut super::llvm_Pass;
+        pub fn llvm_createGlobalOptimizerPass() -> *mut super::llvm_ModulePass;
+        pub fn llvm_createIPConstantPropagationPass() -> *mut super::llvm_ModulePass;
+        pub fn llvm_createIPSCCPPass() -> *mut super::llvm_ModulePass;
+        pub fn llvm_createIndVarSimplifyPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createInstructionCombiningPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createInstructionNamerPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createInstructionSimplifierPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createInternalizePass() -> *mut super::llvm_ModulePass;
+        pub fn llvm_createJumpThreadingPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createLCSSAPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createLICMPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createLoadCombinePass() -> *mut super::llvm_BasicBlockPass;
+        pub fn llvm_createLoopDeletionPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createLoopExtractorPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createLoopIdiomPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createLoopInstSimplifyPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createLoopRerollPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createLoopRotatePass(MaxHeaderSize: ::libc::c_int) -> *mut super::llvm_Pass;
+        pub fn llvm_createLoopSimplifyPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createLoopStrengthReducePass() -> *mut super::llvm_Pass;
+        pub fn llvm_createLoopUnrollPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createLoopUnswitchPass(OptimizeForSize: ::libc::c_int) -> *mut super::llvm_Pass;
+        pub fn llvm_createLowerAtomicPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createLowerExpectIntrinsicPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createLowerInvokePass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createLowerSwitchPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createMemCpyOptPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createMemorySanitizerPass(TrackOrigins: ::libc::c_int) -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createMergeFunctionsPass() -> *mut super::llvm_ModulePass;
+        pub fn llvm_createMergedLoadStoreMotionPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createMetaRenamerPass() -> *mut super::llvm_ModulePass;
+        pub fn llvm_createObjCARCAPElimPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createObjCARCContractPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createObjCARCExpandPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createObjCARCOptPass() -> *mut super::llvm_Pass;
         pub fn llvm_StructType_createPacked(ctx: *mut super::llvm_LLVMContext, Elements: super::llvm_ArrayRef_llvm_Type_ptr, Name: super::llvm_StringRef, isPacked: ::libc::c_int) -> *mut super::llvm_StructType;
+        pub fn llvm_createPartialInliningPass() -> *mut super::llvm_ModulePass;
+        pub fn llvm_createPartiallyInlineLibCallsPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createPromoteMemoryToRegisterPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createPruneEHPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createReassociatePass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createSCCPPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createSROAPass(RequiresDomTree: ::libc::c_int) -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createSampleProfileLoaderPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createScalarReplAggregatesPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createScalarizerPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createSeparateConstOffsetFromGEPPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createSimpleLoopUnrollPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createSingleLoopExtractorPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createSinkingPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createStripDeadDebugInfoPass() -> *mut super::llvm_ModulePass;
+        pub fn llvm_createStripDeadPrototypesPass() -> *mut super::llvm_ModulePass;
+        pub fn llvm_createStripDebugDeclarePass() -> *mut super::llvm_ModulePass;
+        pub fn llvm_createStripNonDebugSymbolsPass() -> *mut super::llvm_ModulePass;
+        pub fn llvm_createStripSymbolsPass(OnlyDebugInfo: ::libc::c_int) -> *mut super::llvm_ModulePass;
+        pub fn llvm_createStructurizeCFGPass() -> *mut super::llvm_Pass;
+        pub fn llvm_createTailCallEliminationPass() -> *mut super::llvm_FunctionPass;
+        pub fn llvm_createThreadSanitizerPass() -> *mut super::llvm_FunctionPass;
         pub fn llvm_BasicBlock_delete(inst: *mut super::llvm_BasicBlock) -> ::libc::c_void;
         pub fn llvm_Function_delete(inst: *mut super::llvm_Function) -> ::libc::c_void;
         pub fn llvm_GlobalValue_delete(inst: *mut super::llvm_GlobalValue) -> ::libc::c_void;
@@ -689,6 +830,7 @@ mod raw {
         pub fn llvm_Instruction_delete(inst: *mut super::llvm_Instruction) -> ::libc::c_void;
         pub fn llvm_LLVMContext_delete() -> *mut super::llvm_LLVMContext;
         pub fn llvm_Module_delete(inst: *mut super::llvm_Module) -> ::libc::c_void;
+        pub fn llvm_Pass_delete(inst: *mut super::llvm_Pass) -> ::libc::c_void;
         pub fn llvm_User_delete(inst: *mut super::llvm_User) -> ::libc::c_void;
         pub fn llvm_Value_delete(inst: *mut super::llvm_Value) -> ::libc::c_void;
         pub fn llvm_ValueSymbolTable_delete() -> *mut super::llvm_ValueSymbolTable;
@@ -697,6 +839,8 @@ mod raw {
         pub fn llvm_Constant_destroyConstant(inst: *mut super::llvm_Constant) -> ::libc::c_void;
         pub fn llvm_ConstantPointerNull_destroyConstant(inst: *mut super::llvm_ConstantPointerNull) -> ::libc::c_void;
         pub fn llvm_GlobalValue_destroyConstant(inst: *mut super::llvm_GlobalValue) -> ::libc::c_void;
+        pub fn llvm_Pass_doFinalization(inst: *mut super::llvm_Pass, Module: *mut super::llvm_Module) -> ::libc::c_int;
+        pub fn llvm_Pass_doInitialization(inst: *mut super::llvm_Pass, Module: *mut super::llvm_Module) -> ::libc::c_int;
         pub fn llvm_Function_doesNotAccessMemory(inst: *const super::llvm_Function) -> ::libc::c_int;
         pub fn llvm_Function_doesNotAccessMemoryParam(inst: *const super::llvm_Function, n: ::libc::c_uint) -> ::libc::c_int;
         pub fn llvm_Function_doesNotAlias(inst: *const super::llvm_Function, n: ::libc::c_uint) -> ::libc::c_int;
@@ -709,6 +853,7 @@ mod raw {
         pub fn llvm_Instruction_dropUnknownMetadataFromIDS(inst: *mut super::llvm_Instruction, KnownIDs: super::llvm_ArrayRef__libc_c_uint) -> ::libc::c_void;
         pub fn llvm_DebugLoc_dump(inst: *const super::llvm_DebugLoc, Ctx: *const super::llvm_LLVMContext) -> ::libc::c_void;
         pub fn llvm_Module_dump(inst: *const super::llvm_Module) -> ::libc::c_void;
+        pub fn llvm_Pass_dump(inst: *const super::llvm_Pass) -> ::libc::c_void;
         pub fn llvm_Type_dump(inst: *const super::llvm_Type) -> ::libc::c_void;
         pub fn llvm_Value_dump(inst: *const super::llvm_Value) -> ::libc::c_void;
         pub fn llvm_ValueSymbolTable_dump(inst: *const super::llvm_ValueSymbolTable) -> ::libc::c_void;
@@ -863,6 +1008,7 @@ mod raw {
         pub fn llvm_BasicBlock_getParentMut(inst: *mut super::llvm_BasicBlock) -> *mut super::llvm_Function;
         pub fn llvm_GlobalValue_getParentMut(inst: *mut super::llvm_GlobalValue) -> *mut super::llvm_Module;
         pub fn llvm_Instruction_getParentMut(inst: *mut super::llvm_Instruction) -> *mut super::llvm_BasicBlock;
+        pub fn llvm_Pass_getPassKind(inst: *const super::llvm_Pass) -> super::llvm_PassKind;
         pub fn llvm_Type_getPointerAddressSpace(inst: *const super::llvm_Type) -> ::libc::c_uint;
         pub fn llvm_Type_getPointerElementType(inst: *const super::llvm_Type) -> *mut super::llvm_Type;
         pub fn llvm_Type_getPointerTo(inst: *mut super::llvm_Type, idx: ::libc::c_uint) -> *mut super::llvm_PointerType;
@@ -3903,6 +4049,36 @@ pub mod llvm {
         raw::llvm_Operator_getOpcode(inst)
     }
 
+    // ::llvm::Pass::delete
+    #[inline(always)]
+    pub unsafe fn Pass_delete(inst: *mut super::llvm_Pass) -> ::libc::c_void {
+        raw::llvm_Pass_delete(inst)
+    }
+
+    // ::llvm::Pass::doFinalization
+    #[inline(always)]
+    pub unsafe fn Pass_doFinalization(inst: *mut super::llvm_Pass, Module: *mut super::llvm_Module) -> bool {
+        raw::llvm_Pass_doFinalization(inst, Module) != 0
+    }
+
+    // ::llvm::Pass::doInitialization
+    #[inline(always)]
+    pub unsafe fn Pass_doInitialization(inst: *mut super::llvm_Pass, Module: *mut super::llvm_Module) -> bool {
+        raw::llvm_Pass_doInitialization(inst, Module) != 0
+    }
+
+    // ::llvm::Pass::dump
+    #[inline(always)]
+    pub unsafe fn Pass_dump(inst: *const super::llvm_Pass) -> ::libc::c_void {
+        raw::llvm_Pass_dump(inst)
+    }
+
+    // ::llvm::Pass::getPassKind
+    #[inline(always)]
+    pub unsafe fn Pass_getPassKind(inst: *const super::llvm_Pass) -> super::llvm_PassKind {
+        raw::llvm_Pass_getPassKind(inst)
+    }
+
     // ::llvm::PointerType::classof
     #[inline(always)]
     pub unsafe fn PointerType_classof(ty: *const super::llvm_Type) -> bool {
@@ -4729,6 +4905,534 @@ pub mod llvm {
     #[inline(always)]
     pub unsafe fn VectorType_isValidElementType(ty: *mut super::llvm_Type) -> bool {
         raw::llvm_VectorType_isValidElementType(ty) != 0
+    }
+
+    // ::llvm::createAddDiscriminatorsPass
+    #[inline(always)]
+    pub unsafe fn createAddDiscriminatorsPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createAddDiscriminatorsPass()
+    }
+
+    // ::llvm::createAddressSanitizerFunctionPass
+    #[inline(always)]
+    pub unsafe fn createAddressSanitizerFunctionPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createAddressSanitizerFunctionPass()
+    }
+
+    // ::llvm::createAddressSanitizerModulePass
+    #[inline(always)]
+    pub unsafe fn createAddressSanitizerModulePass() -> *mut super::llvm_ModulePass {
+        raw::llvm_createAddressSanitizerModulePass()
+    }
+
+    // ::llvm::createAggressiveDCEPass
+    #[inline(always)]
+    pub unsafe fn createAggressiveDCEPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createAggressiveDCEPass()
+    }
+
+    // ::llvm::createAlwaysInlinerPass
+    #[inline(always)]
+    pub unsafe fn createAlwaysInlinerPass(InsertLifetime: bool) -> *mut super::llvm_Pass {
+        raw::llvm_createAlwaysInlinerPass(if InsertLifetime { 1 } else { 0 })
+    }
+
+    // ::llvm::createArgumentPromotionPass
+    #[inline(always)]
+    pub unsafe fn createArgumentPromotionPass(maxElements: ::libc::c_uint) -> *mut super::llvm_Pass {
+        raw::llvm_createArgumentPromotionPass(maxElements)
+    }
+
+    // ::llvm::createBarrierNoopPass
+    #[inline(always)]
+    pub unsafe fn createBarrierNoopPass() -> *mut super::llvm_ModulePass {
+        raw::llvm_createBarrierNoopPass()
+    }
+
+    // ::llvm::createBlockExtractorPass
+    #[inline(always)]
+    pub unsafe fn createBlockExtractorPass() -> *mut super::llvm_ModulePass {
+        raw::llvm_createBlockExtractorPass()
+    }
+
+    // ::llvm::createBoundsCheckingPass
+    #[inline(always)]
+    pub unsafe fn createBoundsCheckingPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createBoundsCheckingPass()
+    }
+
+    // ::llvm::createBreakCriticalEdgesPass
+    #[inline(always)]
+    pub unsafe fn createBreakCriticalEdgesPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createBreakCriticalEdgesPass()
+    }
+
+    // ::llvm::createCFGSimplificationPass
+    #[inline(always)]
+    pub unsafe fn createCFGSimplificationPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createCFGSimplificationPass()
+    }
+
+    // ::llvm::createConstantHoistingPass
+    #[inline(always)]
+    pub unsafe fn createConstantHoistingPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createConstantHoistingPass()
+    }
+
+    // ::llvm::createConstantMergePass
+    #[inline(always)]
+    pub unsafe fn createConstantMergePass() -> *mut super::llvm_ModulePass {
+        raw::llvm_createConstantMergePass()
+    }
+
+    // ::llvm::createConstantPropagationPass
+    #[inline(always)]
+    pub unsafe fn createConstantPropagationPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createConstantPropagationPass()
+    }
+
+    // ::llvm::createCorrelatedValuePropagationPass
+    #[inline(always)]
+    pub unsafe fn createCorrelatedValuePropagationPass() -> *mut super::llvm_Pass {
+        raw::llvm_createCorrelatedValuePropagationPass()
+    }
+
+    // ::llvm::createDataFlowSanitizerPass
+    #[inline(always)]
+    pub unsafe fn createDataFlowSanitizerPass() -> *mut super::llvm_ModulePass {
+        raw::llvm_createDataFlowSanitizerPass()
+    }
+
+    // ::llvm::createDeadArgEliminationPass
+    #[inline(always)]
+    pub unsafe fn createDeadArgEliminationPass() -> *mut super::llvm_ModulePass {
+        raw::llvm_createDeadArgEliminationPass()
+    }
+
+    // ::llvm::createDeadArgHackingPass
+    #[inline(always)]
+    pub unsafe fn createDeadArgHackingPass() -> *mut super::llvm_ModulePass {
+        raw::llvm_createDeadArgHackingPass()
+    }
+
+    // ::llvm::createDeadCodeEliminationPass
+    #[inline(always)]
+    pub unsafe fn createDeadCodeEliminationPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createDeadCodeEliminationPass()
+    }
+
+    // ::llvm::createDeadInstEliminationPass
+    #[inline(always)]
+    pub unsafe fn createDeadInstEliminationPass() -> *mut super::llvm_Pass {
+        raw::llvm_createDeadInstEliminationPass()
+    }
+
+    // ::llvm::createDeadStoreEliminationPass
+    #[inline(always)]
+    pub unsafe fn createDeadStoreEliminationPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createDeadStoreEliminationPass()
+    }
+
+    // ::llvm::createDebugIRPass
+    #[inline(always)]
+    pub unsafe fn createDebugIRPass() -> *mut super::llvm_ModulePass {
+        raw::llvm_createDebugIRPass()
+    }
+
+    // ::llvm::createDemoteRegisterToMemoryPass
+    #[inline(always)]
+    pub unsafe fn createDemoteRegisterToMemoryPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createDemoteRegisterToMemoryPass()
+    }
+
+    // ::llvm::createEarlyCSEPass
+    #[inline(always)]
+    pub unsafe fn createEarlyCSEPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createEarlyCSEPass()
+    }
+
+    // ::llvm::createFlattenCFGPass
+    #[inline(always)]
+    pub unsafe fn createFlattenCFGPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createFlattenCFGPass()
+    }
+
+    // ::llvm::createFunctionAttrsPass
+    #[inline(always)]
+    pub unsafe fn createFunctionAttrsPass() -> *mut super::llvm_Pass {
+        raw::llvm_createFunctionAttrsPass()
+    }
+
+    // ::llvm::createFunctionInliningPass
+    #[inline(always)]
+    pub unsafe fn createFunctionInliningPass() -> *mut super::llvm_Pass {
+        raw::llvm_createFunctionInliningPass()
+    }
+
+    // ::llvm::createGCOVProfilerPass
+    #[inline(always)]
+    pub unsafe fn createGCOVProfilerPass() -> *mut super::llvm_ModulePass {
+        raw::llvm_createGCOVProfilerPass()
+    }
+
+    // ::llvm::createGVNPass
+    #[inline(always)]
+    pub unsafe fn createGVNPass(NoLoads: bool) -> *mut super::llvm_FunctionPass {
+        raw::llvm_createGVNPass(if NoLoads { 1 } else { 0 })
+    }
+
+    // ::llvm::createGlobalDCEPass
+    #[inline(always)]
+    pub unsafe fn createGlobalDCEPass() -> *mut super::llvm_ModulePass {
+        raw::llvm_createGlobalDCEPass()
+    }
+
+    // ::llvm::createGlobalMergePass
+    #[inline(always)]
+    pub unsafe fn createGlobalMergePass() -> *mut super::llvm_Pass {
+        raw::llvm_createGlobalMergePass()
+    }
+
+    // ::llvm::createGlobalOptimizerPass
+    #[inline(always)]
+    pub unsafe fn createGlobalOptimizerPass() -> *mut super::llvm_ModulePass {
+        raw::llvm_createGlobalOptimizerPass()
+    }
+
+    // ::llvm::createIPConstantPropagationPass
+    #[inline(always)]
+    pub unsafe fn createIPConstantPropagationPass() -> *mut super::llvm_ModulePass {
+        raw::llvm_createIPConstantPropagationPass()
+    }
+
+    // ::llvm::createIPSCCPPass
+    #[inline(always)]
+    pub unsafe fn createIPSCCPPass() -> *mut super::llvm_ModulePass {
+        raw::llvm_createIPSCCPPass()
+    }
+
+    // ::llvm::createIndVarSimplifyPass
+    #[inline(always)]
+    pub unsafe fn createIndVarSimplifyPass() -> *mut super::llvm_Pass {
+        raw::llvm_createIndVarSimplifyPass()
+    }
+
+    // ::llvm::createInstructionCombiningPass
+    #[inline(always)]
+    pub unsafe fn createInstructionCombiningPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createInstructionCombiningPass()
+    }
+
+    // ::llvm::createInstructionNamerPass
+    #[inline(always)]
+    pub unsafe fn createInstructionNamerPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createInstructionNamerPass()
+    }
+
+    // ::llvm::createInstructionSimplifierPass
+    #[inline(always)]
+    pub unsafe fn createInstructionSimplifierPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createInstructionSimplifierPass()
+    }
+
+    // ::llvm::createInternalizePass
+    #[inline(always)]
+    pub unsafe fn createInternalizePass() -> *mut super::llvm_ModulePass {
+        raw::llvm_createInternalizePass()
+    }
+
+    // ::llvm::createJumpThreadingPass
+    #[inline(always)]
+    pub unsafe fn createJumpThreadingPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createJumpThreadingPass()
+    }
+
+    // ::llvm::createLCSSAPass
+    #[inline(always)]
+    pub unsafe fn createLCSSAPass() -> *mut super::llvm_Pass {
+        raw::llvm_createLCSSAPass()
+    }
+
+    // ::llvm::createLICMPass
+    #[inline(always)]
+    pub unsafe fn createLICMPass() -> *mut super::llvm_Pass {
+        raw::llvm_createLICMPass()
+    }
+
+    // ::llvm::createLoadCombinePass
+    #[inline(always)]
+    pub unsafe fn createLoadCombinePass() -> *mut super::llvm_BasicBlockPass {
+        raw::llvm_createLoadCombinePass()
+    }
+
+    // ::llvm::createLoopDeletionPass
+    #[inline(always)]
+    pub unsafe fn createLoopDeletionPass() -> *mut super::llvm_Pass {
+        raw::llvm_createLoopDeletionPass()
+    }
+
+    // ::llvm::createLoopExtractorPass
+    #[inline(always)]
+    pub unsafe fn createLoopExtractorPass() -> *mut super::llvm_Pass {
+        raw::llvm_createLoopExtractorPass()
+    }
+
+    // ::llvm::createLoopIdiomPass
+    #[inline(always)]
+    pub unsafe fn createLoopIdiomPass() -> *mut super::llvm_Pass {
+        raw::llvm_createLoopIdiomPass()
+    }
+
+    // ::llvm::createLoopInstSimplifyPass
+    #[inline(always)]
+    pub unsafe fn createLoopInstSimplifyPass() -> *mut super::llvm_Pass {
+        raw::llvm_createLoopInstSimplifyPass()
+    }
+
+    // ::llvm::createLoopRerollPass
+    #[inline(always)]
+    pub unsafe fn createLoopRerollPass() -> *mut super::llvm_Pass {
+        raw::llvm_createLoopRerollPass()
+    }
+
+    // ::llvm::createLoopRotatePass
+    #[inline(always)]
+    pub unsafe fn createLoopRotatePass(MaxHeaderSize: ::libc::c_int) -> *mut super::llvm_Pass {
+        raw::llvm_createLoopRotatePass(MaxHeaderSize)
+    }
+
+    // ::llvm::createLoopSimplifyPass
+    #[inline(always)]
+    pub unsafe fn createLoopSimplifyPass() -> *mut super::llvm_Pass {
+        raw::llvm_createLoopSimplifyPass()
+    }
+
+    // ::llvm::createLoopStrengthReducePass
+    #[inline(always)]
+    pub unsafe fn createLoopStrengthReducePass() -> *mut super::llvm_Pass {
+        raw::llvm_createLoopStrengthReducePass()
+    }
+
+    // ::llvm::createLoopUnrollPass
+    #[inline(always)]
+    pub unsafe fn createLoopUnrollPass() -> *mut super::llvm_Pass {
+        raw::llvm_createLoopUnrollPass()
+    }
+
+    // ::llvm::createLoopUnswitchPass
+    #[inline(always)]
+    pub unsafe fn createLoopUnswitchPass(OptimizeForSize: bool) -> *mut super::llvm_Pass {
+        raw::llvm_createLoopUnswitchPass(if OptimizeForSize { 1 } else { 0 })
+    }
+
+    // ::llvm::createLowerAtomicPass
+    #[inline(always)]
+    pub unsafe fn createLowerAtomicPass() -> *mut super::llvm_Pass {
+        raw::llvm_createLowerAtomicPass()
+    }
+
+    // ::llvm::createLowerExpectIntrinsicPass
+    #[inline(always)]
+    pub unsafe fn createLowerExpectIntrinsicPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createLowerExpectIntrinsicPass()
+    }
+
+    // ::llvm::createLowerInvokePass
+    #[inline(always)]
+    pub unsafe fn createLowerInvokePass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createLowerInvokePass()
+    }
+
+    // ::llvm::createLowerSwitchPass
+    #[inline(always)]
+    pub unsafe fn createLowerSwitchPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createLowerSwitchPass()
+    }
+
+    // ::llvm::createMemCpyOptPass
+    #[inline(always)]
+    pub unsafe fn createMemCpyOptPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createMemCpyOptPass()
+    }
+
+    // ::llvm::createMemorySanitizerPass
+    #[inline(always)]
+    pub unsafe fn createMemorySanitizerPass(TrackOrigins: ::libc::c_int) -> *mut super::llvm_FunctionPass {
+        raw::llvm_createMemorySanitizerPass(TrackOrigins)
+    }
+
+    // ::llvm::createMergeFunctionsPass
+    #[inline(always)]
+    pub unsafe fn createMergeFunctionsPass() -> *mut super::llvm_ModulePass {
+        raw::llvm_createMergeFunctionsPass()
+    }
+
+    // ::llvm::createMergedLoadStoreMotionPass
+    #[inline(always)]
+    pub unsafe fn createMergedLoadStoreMotionPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createMergedLoadStoreMotionPass()
+    }
+
+    // ::llvm::createMetaRenamerPass
+    #[inline(always)]
+    pub unsafe fn createMetaRenamerPass() -> *mut super::llvm_ModulePass {
+        raw::llvm_createMetaRenamerPass()
+    }
+
+    // ::llvm::createObjCARCAPElimPass
+    #[inline(always)]
+    pub unsafe fn createObjCARCAPElimPass() -> *mut super::llvm_Pass {
+        raw::llvm_createObjCARCAPElimPass()
+    }
+
+    // ::llvm::createObjCARCContractPass
+    #[inline(always)]
+    pub unsafe fn createObjCARCContractPass() -> *mut super::llvm_Pass {
+        raw::llvm_createObjCARCContractPass()
+    }
+
+    // ::llvm::createObjCARCExpandPass
+    #[inline(always)]
+    pub unsafe fn createObjCARCExpandPass() -> *mut super::llvm_Pass {
+        raw::llvm_createObjCARCExpandPass()
+    }
+
+    // ::llvm::createObjCARCOptPass
+    #[inline(always)]
+    pub unsafe fn createObjCARCOptPass() -> *mut super::llvm_Pass {
+        raw::llvm_createObjCARCOptPass()
+    }
+
+    // ::llvm::createPartialInliningPass
+    #[inline(always)]
+    pub unsafe fn createPartialInliningPass() -> *mut super::llvm_ModulePass {
+        raw::llvm_createPartialInliningPass()
+    }
+
+    // ::llvm::createPartiallyInlineLibCallsPass
+    #[inline(always)]
+    pub unsafe fn createPartiallyInlineLibCallsPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createPartiallyInlineLibCallsPass()
+    }
+
+    // ::llvm::createPromoteMemoryToRegisterPass
+    #[inline(always)]
+    pub unsafe fn createPromoteMemoryToRegisterPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createPromoteMemoryToRegisterPass()
+    }
+
+    // ::llvm::createPruneEHPass
+    #[inline(always)]
+    pub unsafe fn createPruneEHPass() -> *mut super::llvm_Pass {
+        raw::llvm_createPruneEHPass()
+    }
+
+    // ::llvm::createReassociatePass
+    #[inline(always)]
+    pub unsafe fn createReassociatePass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createReassociatePass()
+    }
+
+    // ::llvm::createSCCPPass
+    #[inline(always)]
+    pub unsafe fn createSCCPPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createSCCPPass()
+    }
+
+    // ::llvm::createSROAPass
+    #[inline(always)]
+    pub unsafe fn createSROAPass(RequiresDomTree: bool) -> *mut super::llvm_FunctionPass {
+        raw::llvm_createSROAPass(if RequiresDomTree { 1 } else { 0 })
+    }
+
+    // ::llvm::createSampleProfileLoaderPass
+    #[inline(always)]
+    pub unsafe fn createSampleProfileLoaderPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createSampleProfileLoaderPass()
+    }
+
+    // ::llvm::createScalarReplAggregatesPass
+    #[inline(always)]
+    pub unsafe fn createScalarReplAggregatesPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createScalarReplAggregatesPass()
+    }
+
+    // ::llvm::createScalarizerPass
+    #[inline(always)]
+    pub unsafe fn createScalarizerPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createScalarizerPass()
+    }
+
+    // ::llvm::createSeparateConstOffsetFromGEPPass
+    #[inline(always)]
+    pub unsafe fn createSeparateConstOffsetFromGEPPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createSeparateConstOffsetFromGEPPass()
+    }
+
+    // ::llvm::createSimpleLoopUnrollPass
+    #[inline(always)]
+    pub unsafe fn createSimpleLoopUnrollPass() -> *mut super::llvm_Pass {
+        raw::llvm_createSimpleLoopUnrollPass()
+    }
+
+    // ::llvm::createSingleLoopExtractorPass
+    #[inline(always)]
+    pub unsafe fn createSingleLoopExtractorPass() -> *mut super::llvm_Pass {
+        raw::llvm_createSingleLoopExtractorPass()
+    }
+
+    // ::llvm::createSinkingPass
+    #[inline(always)]
+    pub unsafe fn createSinkingPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createSinkingPass()
+    }
+
+    // ::llvm::createStripDeadDebugInfoPass
+    #[inline(always)]
+    pub unsafe fn createStripDeadDebugInfoPass() -> *mut super::llvm_ModulePass {
+        raw::llvm_createStripDeadDebugInfoPass()
+    }
+
+    // ::llvm::createStripDeadPrototypesPass
+    #[inline(always)]
+    pub unsafe fn createStripDeadPrototypesPass() -> *mut super::llvm_ModulePass {
+        raw::llvm_createStripDeadPrototypesPass()
+    }
+
+    // ::llvm::createStripDebugDeclarePass
+    #[inline(always)]
+    pub unsafe fn createStripDebugDeclarePass() -> *mut super::llvm_ModulePass {
+        raw::llvm_createStripDebugDeclarePass()
+    }
+
+    // ::llvm::createStripNonDebugSymbolsPass
+    #[inline(always)]
+    pub unsafe fn createStripNonDebugSymbolsPass() -> *mut super::llvm_ModulePass {
+        raw::llvm_createStripNonDebugSymbolsPass()
+    }
+
+    // ::llvm::createStripSymbolsPass
+    #[inline(always)]
+    pub unsafe fn createStripSymbolsPass(OnlyDebugInfo: bool) -> *mut super::llvm_ModulePass {
+        raw::llvm_createStripSymbolsPass(if OnlyDebugInfo { 1 } else { 0 })
+    }
+
+    // ::llvm::createStructurizeCFGPass
+    #[inline(always)]
+    pub unsafe fn createStructurizeCFGPass() -> *mut super::llvm_Pass {
+        raw::llvm_createStructurizeCFGPass()
+    }
+
+    // ::llvm::createTailCallEliminationPass
+    #[inline(always)]
+    pub unsafe fn createTailCallEliminationPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createTailCallEliminationPass()
+    }
+
+    // ::llvm::createThreadSanitizerPass
+    #[inline(always)]
+    pub unsafe fn createThreadSanitizerPass() -> *mut super::llvm_FunctionPass {
+        raw::llvm_createThreadSanitizerPass()
     }
 
     // ::llvm::getGlobalContext

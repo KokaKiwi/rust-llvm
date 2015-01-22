@@ -12,10 +12,12 @@
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Operator.h"
+#include "llvm/IR/PassManager.h"
 #include "llvm/IR/Type.h"
 #include "llvm/IR/Value.h"
 #include "llvm/IR/ValueSymbolTable.h"
 #include "llvm/IR/Verifier.h"
+#include "llvm/LinkAllPasses.h"
 
 struct llvm_ArrayRef__libc_uint64_t {
     uint64_t const* data;
@@ -3461,6 +3463,41 @@ unsigned int llvm_Operator_getOpcode(::llvm::Operator const* inst)
     return inst->getOpcode();
 }
 
+// ::llvm::Pass::delete
+extern "C"
+void llvm_Pass_delete(::llvm::Pass* inst)
+{
+    delete inst;
+}
+
+// ::llvm::Pass::doFinalization
+extern "C"
+int llvm_Pass_doFinalization(::llvm::Pass* inst, ::llvm::Module* Module)
+{
+    return (inst->doFinalization(*Module) == true ? 1 : 0);
+}
+
+// ::llvm::Pass::doInitialization
+extern "C"
+int llvm_Pass_doInitialization(::llvm::Pass* inst, ::llvm::Module* Module)
+{
+    return (inst->doInitialization(*Module) == true ? 1 : 0);
+}
+
+// ::llvm::Pass::dump
+extern "C"
+void llvm_Pass_dump(::llvm::Pass const* inst)
+{
+    return inst->dump();
+}
+
+// ::llvm::Pass::getPassKind
+extern "C"
+::llvm::PassKind llvm_Pass_getPassKind(::llvm::Pass const* inst)
+{
+    return inst->getPassKind();
+}
+
 // ::llvm::PointerType::classof
 extern "C"
 int llvm_PointerType_classof(::llvm::Type const* ty)
@@ -4446,6 +4483,622 @@ extern "C"
 int llvm_VectorType_isValidElementType(::llvm::Type* ty)
 {
     return (::llvm::VectorType::isValidElementType(ty) == true ? 1 : 0);
+}
+
+// ::llvm::createAddDiscriminatorsPass
+extern "C"
+::llvm::FunctionPass* llvm_createAddDiscriminatorsPass()
+{
+    return ::llvm::createAddDiscriminatorsPass();
+}
+
+// ::llvm::createAddressSanitizerFunctionPass
+extern "C"
+::llvm::FunctionPass* llvm_createAddressSanitizerFunctionPass()
+{
+    return ::llvm::createAddressSanitizerFunctionPass();
+}
+
+// ::llvm::createAddressSanitizerModulePass
+extern "C"
+::llvm::ModulePass* llvm_createAddressSanitizerModulePass()
+{
+    return ::llvm::createAddressSanitizerModulePass();
+}
+
+// ::llvm::createAggressiveDCEPass
+extern "C"
+::llvm::FunctionPass* llvm_createAggressiveDCEPass()
+{
+    return ::llvm::createAggressiveDCEPass();
+}
+
+// ::llvm::createAlwaysInlinerPass
+extern "C"
+::llvm::Pass* llvm_createAlwaysInlinerPass(int InsertLifetime)
+{
+    return ::llvm::createAlwaysInlinerPass((InsertLifetime == 1 ? true : false));
+}
+
+// ::llvm::createArgumentPromotionPass
+extern "C"
+::llvm::Pass* llvm_createArgumentPromotionPass(unsigned int maxElements)
+{
+    return ::llvm::createArgumentPromotionPass(maxElements);
+}
+
+// ::llvm::createBarrierNoopPass
+extern "C"
+::llvm::ModulePass* llvm_createBarrierNoopPass()
+{
+    return ::llvm::createBarrierNoopPass();
+}
+
+// ::llvm::createBlockExtractorPass
+extern "C"
+::llvm::ModulePass* llvm_createBlockExtractorPass()
+{
+    return ::llvm::createBlockExtractorPass();
+}
+
+// ::llvm::createBoundsCheckingPass
+extern "C"
+::llvm::FunctionPass* llvm_createBoundsCheckingPass()
+{
+    return ::llvm::createBoundsCheckingPass();
+}
+
+// ::llvm::createBreakCriticalEdgesPass
+extern "C"
+::llvm::FunctionPass* llvm_createBreakCriticalEdgesPass()
+{
+    return ::llvm::createBreakCriticalEdgesPass();
+}
+
+// ::llvm::createCFGSimplificationPass
+extern "C"
+::llvm::FunctionPass* llvm_createCFGSimplificationPass()
+{
+    return ::llvm::createCFGSimplificationPass();
+}
+
+// ::llvm::createConstantHoistingPass
+extern "C"
+::llvm::FunctionPass* llvm_createConstantHoistingPass()
+{
+    return ::llvm::createConstantHoistingPass();
+}
+
+// ::llvm::createConstantMergePass
+extern "C"
+::llvm::ModulePass* llvm_createConstantMergePass()
+{
+    return ::llvm::createConstantMergePass();
+}
+
+// ::llvm::createConstantPropagationPass
+extern "C"
+::llvm::FunctionPass* llvm_createConstantPropagationPass()
+{
+    return ::llvm::createConstantPropagationPass();
+}
+
+// ::llvm::createCorrelatedValuePropagationPass
+extern "C"
+::llvm::Pass* llvm_createCorrelatedValuePropagationPass()
+{
+    return ::llvm::createCorrelatedValuePropagationPass();
+}
+
+// ::llvm::createDataFlowSanitizerPass
+extern "C"
+::llvm::ModulePass* llvm_createDataFlowSanitizerPass()
+{
+    return ::llvm::createDataFlowSanitizerPass();
+}
+
+// ::llvm::createDeadArgEliminationPass
+extern "C"
+::llvm::ModulePass* llvm_createDeadArgEliminationPass()
+{
+    return ::llvm::createDeadArgEliminationPass();
+}
+
+// ::llvm::createDeadArgHackingPass
+extern "C"
+::llvm::ModulePass* llvm_createDeadArgHackingPass()
+{
+    return ::llvm::createDeadArgHackingPass();
+}
+
+// ::llvm::createDeadCodeEliminationPass
+extern "C"
+::llvm::FunctionPass* llvm_createDeadCodeEliminationPass()
+{
+    return ::llvm::createDeadCodeEliminationPass();
+}
+
+// ::llvm::createDeadInstEliminationPass
+extern "C"
+::llvm::Pass* llvm_createDeadInstEliminationPass()
+{
+    return ::llvm::createDeadInstEliminationPass();
+}
+
+// ::llvm::createDeadStoreEliminationPass
+extern "C"
+::llvm::FunctionPass* llvm_createDeadStoreEliminationPass()
+{
+    return ::llvm::createDeadStoreEliminationPass();
+}
+
+// ::llvm::createDebugIRPass
+extern "C"
+::llvm::ModulePass* llvm_createDebugIRPass()
+{
+    return ::llvm::createDebugIRPass();
+}
+
+// ::llvm::createDemoteRegisterToMemoryPass
+extern "C"
+::llvm::FunctionPass* llvm_createDemoteRegisterToMemoryPass()
+{
+    return ::llvm::createDemoteRegisterToMemoryPass();
+}
+
+// ::llvm::createEarlyCSEPass
+extern "C"
+::llvm::FunctionPass* llvm_createEarlyCSEPass()
+{
+    return ::llvm::createEarlyCSEPass();
+}
+
+// ::llvm::createFlattenCFGPass
+extern "C"
+::llvm::FunctionPass* llvm_createFlattenCFGPass()
+{
+    return ::llvm::createFlattenCFGPass();
+}
+
+// ::llvm::createFunctionAttrsPass
+extern "C"
+::llvm::Pass* llvm_createFunctionAttrsPass()
+{
+    return ::llvm::createFunctionAttrsPass();
+}
+
+// ::llvm::createFunctionInliningPass
+extern "C"
+::llvm::Pass* llvm_createFunctionInliningPass()
+{
+    return ::llvm::createFunctionInliningPass();
+}
+
+// ::llvm::createGCOVProfilerPass
+extern "C"
+::llvm::ModulePass* llvm_createGCOVProfilerPass()
+{
+    return ::llvm::createGCOVProfilerPass();
+}
+
+// ::llvm::createGVNPass
+extern "C"
+::llvm::FunctionPass* llvm_createGVNPass(int NoLoads)
+{
+    return ::llvm::createGVNPass((NoLoads == 1 ? true : false));
+}
+
+// ::llvm::createGlobalDCEPass
+extern "C"
+::llvm::ModulePass* llvm_createGlobalDCEPass()
+{
+    return ::llvm::createGlobalDCEPass();
+}
+
+// ::llvm::createGlobalMergePass
+extern "C"
+::llvm::Pass* llvm_createGlobalMergePass()
+{
+    return ::llvm::createGlobalMergePass();
+}
+
+// ::llvm::createGlobalOptimizerPass
+extern "C"
+::llvm::ModulePass* llvm_createGlobalOptimizerPass()
+{
+    return ::llvm::createGlobalOptimizerPass();
+}
+
+// ::llvm::createIPConstantPropagationPass
+extern "C"
+::llvm::ModulePass* llvm_createIPConstantPropagationPass()
+{
+    return ::llvm::createIPConstantPropagationPass();
+}
+
+// ::llvm::createIPSCCPPass
+extern "C"
+::llvm::ModulePass* llvm_createIPSCCPPass()
+{
+    return ::llvm::createIPSCCPPass();
+}
+
+// ::llvm::createIndVarSimplifyPass
+extern "C"
+::llvm::Pass* llvm_createIndVarSimplifyPass()
+{
+    return ::llvm::createIndVarSimplifyPass();
+}
+
+// ::llvm::createInstructionCombiningPass
+extern "C"
+::llvm::FunctionPass* llvm_createInstructionCombiningPass()
+{
+    return ::llvm::createInstructionCombiningPass();
+}
+
+// ::llvm::createInstructionNamerPass
+extern "C"
+::llvm::FunctionPass* llvm_createInstructionNamerPass()
+{
+    return ::llvm::createInstructionNamerPass();
+}
+
+// ::llvm::createInstructionSimplifierPass
+extern "C"
+::llvm::FunctionPass* llvm_createInstructionSimplifierPass()
+{
+    return ::llvm::createInstructionSimplifierPass();
+}
+
+// ::llvm::createInternalizePass
+extern "C"
+::llvm::ModulePass* llvm_createInternalizePass()
+{
+    return ::llvm::createInternalizePass();
+}
+
+// ::llvm::createJumpThreadingPass
+extern "C"
+::llvm::FunctionPass* llvm_createJumpThreadingPass()
+{
+    return ::llvm::createJumpThreadingPass();
+}
+
+// ::llvm::createLCSSAPass
+extern "C"
+::llvm::Pass* llvm_createLCSSAPass()
+{
+    return ::llvm::createLCSSAPass();
+}
+
+// ::llvm::createLICMPass
+extern "C"
+::llvm::Pass* llvm_createLICMPass()
+{
+    return ::llvm::createLICMPass();
+}
+
+// ::llvm::createLoadCombinePass
+extern "C"
+::llvm::BasicBlockPass* llvm_createLoadCombinePass()
+{
+    return ::llvm::createLoadCombinePass();
+}
+
+// ::llvm::createLoopDeletionPass
+extern "C"
+::llvm::Pass* llvm_createLoopDeletionPass()
+{
+    return ::llvm::createLoopDeletionPass();
+}
+
+// ::llvm::createLoopExtractorPass
+extern "C"
+::llvm::Pass* llvm_createLoopExtractorPass()
+{
+    return ::llvm::createLoopExtractorPass();
+}
+
+// ::llvm::createLoopIdiomPass
+extern "C"
+::llvm::Pass* llvm_createLoopIdiomPass()
+{
+    return ::llvm::createLoopIdiomPass();
+}
+
+// ::llvm::createLoopInstSimplifyPass
+extern "C"
+::llvm::Pass* llvm_createLoopInstSimplifyPass()
+{
+    return ::llvm::createLoopInstSimplifyPass();
+}
+
+// ::llvm::createLoopRerollPass
+extern "C"
+::llvm::Pass* llvm_createLoopRerollPass()
+{
+    return ::llvm::createLoopRerollPass();
+}
+
+// ::llvm::createLoopRotatePass
+extern "C"
+::llvm::Pass* llvm_createLoopRotatePass(int MaxHeaderSize)
+{
+    return ::llvm::createLoopRotatePass(MaxHeaderSize);
+}
+
+// ::llvm::createLoopSimplifyPass
+extern "C"
+::llvm::Pass* llvm_createLoopSimplifyPass()
+{
+    return ::llvm::createLoopSimplifyPass();
+}
+
+// ::llvm::createLoopStrengthReducePass
+extern "C"
+::llvm::Pass* llvm_createLoopStrengthReducePass()
+{
+    return ::llvm::createLoopStrengthReducePass();
+}
+
+// ::llvm::createLoopUnrollPass
+extern "C"
+::llvm::Pass* llvm_createLoopUnrollPass()
+{
+    return ::llvm::createLoopUnrollPass();
+}
+
+// ::llvm::createLoopUnswitchPass
+extern "C"
+::llvm::Pass* llvm_createLoopUnswitchPass(int OptimizeForSize)
+{
+    return ::llvm::createLoopUnswitchPass((OptimizeForSize == 1 ? true : false));
+}
+
+// ::llvm::createLowerAtomicPass
+extern "C"
+::llvm::Pass* llvm_createLowerAtomicPass()
+{
+    return ::llvm::createLowerAtomicPass();
+}
+
+// ::llvm::createLowerExpectIntrinsicPass
+extern "C"
+::llvm::FunctionPass* llvm_createLowerExpectIntrinsicPass()
+{
+    return ::llvm::createLowerExpectIntrinsicPass();
+}
+
+// ::llvm::createLowerInvokePass
+extern "C"
+::llvm::FunctionPass* llvm_createLowerInvokePass()
+{
+    return ::llvm::createLowerInvokePass();
+}
+
+// ::llvm::createLowerSwitchPass
+extern "C"
+::llvm::FunctionPass* llvm_createLowerSwitchPass()
+{
+    return ::llvm::createLowerSwitchPass();
+}
+
+// ::llvm::createMemCpyOptPass
+extern "C"
+::llvm::FunctionPass* llvm_createMemCpyOptPass()
+{
+    return ::llvm::createMemCpyOptPass();
+}
+
+// ::llvm::createMemorySanitizerPass
+extern "C"
+::llvm::FunctionPass* llvm_createMemorySanitizerPass(int TrackOrigins)
+{
+    return ::llvm::createMemorySanitizerPass(TrackOrigins);
+}
+
+// ::llvm::createMergeFunctionsPass
+extern "C"
+::llvm::ModulePass* llvm_createMergeFunctionsPass()
+{
+    return ::llvm::createMergeFunctionsPass();
+}
+
+// ::llvm::createMergedLoadStoreMotionPass
+extern "C"
+::llvm::FunctionPass* llvm_createMergedLoadStoreMotionPass()
+{
+    return ::llvm::createMergedLoadStoreMotionPass();
+}
+
+// ::llvm::createMetaRenamerPass
+extern "C"
+::llvm::ModulePass* llvm_createMetaRenamerPass()
+{
+    return ::llvm::createMetaRenamerPass();
+}
+
+// ::llvm::createObjCARCAPElimPass
+extern "C"
+::llvm::Pass* llvm_createObjCARCAPElimPass()
+{
+    return ::llvm::createObjCARCAPElimPass();
+}
+
+// ::llvm::createObjCARCContractPass
+extern "C"
+::llvm::Pass* llvm_createObjCARCContractPass()
+{
+    return ::llvm::createObjCARCContractPass();
+}
+
+// ::llvm::createObjCARCExpandPass
+extern "C"
+::llvm::Pass* llvm_createObjCARCExpandPass()
+{
+    return ::llvm::createObjCARCExpandPass();
+}
+
+// ::llvm::createObjCARCOptPass
+extern "C"
+::llvm::Pass* llvm_createObjCARCOptPass()
+{
+    return ::llvm::createObjCARCOptPass();
+}
+
+// ::llvm::createPartialInliningPass
+extern "C"
+::llvm::ModulePass* llvm_createPartialInliningPass()
+{
+    return ::llvm::createPartialInliningPass();
+}
+
+// ::llvm::createPartiallyInlineLibCallsPass
+extern "C"
+::llvm::FunctionPass* llvm_createPartiallyInlineLibCallsPass()
+{
+    return ::llvm::createPartiallyInlineLibCallsPass();
+}
+
+// ::llvm::createPromoteMemoryToRegisterPass
+extern "C"
+::llvm::FunctionPass* llvm_createPromoteMemoryToRegisterPass()
+{
+    return ::llvm::createPromoteMemoryToRegisterPass();
+}
+
+// ::llvm::createPruneEHPass
+extern "C"
+::llvm::Pass* llvm_createPruneEHPass()
+{
+    return ::llvm::createPruneEHPass();
+}
+
+// ::llvm::createReassociatePass
+extern "C"
+::llvm::FunctionPass* llvm_createReassociatePass()
+{
+    return ::llvm::createReassociatePass();
+}
+
+// ::llvm::createSCCPPass
+extern "C"
+::llvm::FunctionPass* llvm_createSCCPPass()
+{
+    return ::llvm::createSCCPPass();
+}
+
+// ::llvm::createSROAPass
+extern "C"
+::llvm::FunctionPass* llvm_createSROAPass(int RequiresDomTree)
+{
+    return ::llvm::createSROAPass((RequiresDomTree == 1 ? true : false));
+}
+
+// ::llvm::createSampleProfileLoaderPass
+extern "C"
+::llvm::FunctionPass* llvm_createSampleProfileLoaderPass()
+{
+    return ::llvm::createSampleProfileLoaderPass();
+}
+
+// ::llvm::createScalarReplAggregatesPass
+extern "C"
+::llvm::FunctionPass* llvm_createScalarReplAggregatesPass()
+{
+    return ::llvm::createScalarReplAggregatesPass();
+}
+
+// ::llvm::createScalarizerPass
+extern "C"
+::llvm::FunctionPass* llvm_createScalarizerPass()
+{
+    return ::llvm::createScalarizerPass();
+}
+
+// ::llvm::createSeparateConstOffsetFromGEPPass
+extern "C"
+::llvm::FunctionPass* llvm_createSeparateConstOffsetFromGEPPass()
+{
+    return ::llvm::createSeparateConstOffsetFromGEPPass();
+}
+
+// ::llvm::createSimpleLoopUnrollPass
+extern "C"
+::llvm::Pass* llvm_createSimpleLoopUnrollPass()
+{
+    return ::llvm::createSimpleLoopUnrollPass();
+}
+
+// ::llvm::createSingleLoopExtractorPass
+extern "C"
+::llvm::Pass* llvm_createSingleLoopExtractorPass()
+{
+    return ::llvm::createSingleLoopExtractorPass();
+}
+
+// ::llvm::createSinkingPass
+extern "C"
+::llvm::FunctionPass* llvm_createSinkingPass()
+{
+    return ::llvm::createSinkingPass();
+}
+
+// ::llvm::createStripDeadDebugInfoPass
+extern "C"
+::llvm::ModulePass* llvm_createStripDeadDebugInfoPass()
+{
+    return ::llvm::createStripDeadDebugInfoPass();
+}
+
+// ::llvm::createStripDeadPrototypesPass
+extern "C"
+::llvm::ModulePass* llvm_createStripDeadPrototypesPass()
+{
+    return ::llvm::createStripDeadPrototypesPass();
+}
+
+// ::llvm::createStripDebugDeclarePass
+extern "C"
+::llvm::ModulePass* llvm_createStripDebugDeclarePass()
+{
+    return ::llvm::createStripDebugDeclarePass();
+}
+
+// ::llvm::createStripNonDebugSymbolsPass
+extern "C"
+::llvm::ModulePass* llvm_createStripNonDebugSymbolsPass()
+{
+    return ::llvm::createStripNonDebugSymbolsPass();
+}
+
+// ::llvm::createStripSymbolsPass
+extern "C"
+::llvm::ModulePass* llvm_createStripSymbolsPass(int OnlyDebugInfo)
+{
+    return ::llvm::createStripSymbolsPass((OnlyDebugInfo == 1 ? true : false));
+}
+
+// ::llvm::createStructurizeCFGPass
+extern "C"
+::llvm::Pass* llvm_createStructurizeCFGPass()
+{
+    return ::llvm::createStructurizeCFGPass();
+}
+
+// ::llvm::createTailCallEliminationPass
+extern "C"
+::llvm::FunctionPass* llvm_createTailCallEliminationPass()
+{
+    return ::llvm::createTailCallEliminationPass();
+}
+
+// ::llvm::createThreadSanitizerPass
+extern "C"
+::llvm::FunctionPass* llvm_createThreadSanitizerPass()
+{
+    return ::llvm::createThreadSanitizerPass();
 }
 
 // ::llvm::getGlobalContext

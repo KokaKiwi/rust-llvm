@@ -8,17 +8,6 @@ from .ADT.StringRef import StringRef
 class llvm_body:
     verifyFunction = fn(Bool, (ref(Function, const=True), 'Function'))
 
-@CallingConv.body
-class CallingConv:
-    ID = Enum(values=[
-        ('C', 0), ('Fast', 8), ('Cold', 9), ('GHC', 10),
-        ('HiPE', 11), ('WebKit_JS', 12), ('AnyReg', 13), ('PreserveMost', 14),
-        ('PreserveAll', 15), ('FirstTargetCC', 'X86_StdCall'), ('X86_StdCall', 64), ('X86_FastCall', 65),
-        ('ARM_APCS', 66), ('ARM_AAPCS', 67), ('ARM_AAPCS_VFP', 68), ('MSP430_INTR', 69),
-        ('X86_ThisCall', 70), ('PTX_Kernel', 71), ('PTX_Device', 72), ('SPIR_FUNC', 75),
-        ('SPIR_KERNEL', 76), ('Intel_OCL_BI', 77), ('X86_64_SysV', 78), ('X86_64_Win64', 79),
-    ])
-
 @Function.body
 class Function:
     delete = Destructor()

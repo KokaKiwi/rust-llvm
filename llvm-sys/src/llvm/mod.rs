@@ -1,6 +1,7 @@
 pub mod value;
 pub mod calling_conv;
 pub mod ty;
+pub mod pass;
 pub enum AtomicOrdering {
     NotAtomic,
     Unordered,
@@ -177,6 +178,29 @@ impl DebugLoc {
     }
 }
 impl Copy for DebugLoc {}
+pub type FunctionPassManagerInner = ::ffi::llvm_FunctionPassManager;
+
+pub trait FunctionPassManagerExt {
+    #[allow(non_snake_case)]
+    fn inner(&self) -> *mut FunctionPassManagerInner;
+}
+
+pub struct FunctionPassManager {
+    inner: ::core::nonzero::NonZero<*mut FunctionPassManagerInner>,
+}
+impl FunctionPassManagerExt for FunctionPassManager {
+    fn inner(&self) -> *mut FunctionPassManagerInner {
+        *self.inner
+    }
+}
+impl FunctionPassManager {
+    pub unsafe fn from_inner(inner: *mut FunctionPassManagerInner) -> FunctionPassManager {
+        FunctionPassManager {
+            inner: ::core::nonzero::NonZero::new(inner),
+        }
+    }
+}
+impl Copy for FunctionPassManager {}
 pub type IRBuilderInner = ::ffi::llvm_IRBuilder;
 
 pub trait IRBuilderExt: ::llvm::IRBuilderBaseExt {
@@ -2296,6 +2320,52 @@ impl Drop for Module {
         }
     }
 }
+pub type ModulePassManagerInner = ::ffi::llvm_ModulePassManager;
+
+pub trait ModulePassManagerExt {
+    #[allow(non_snake_case)]
+    fn inner(&self) -> *mut ModulePassManagerInner;
+}
+
+pub struct ModulePassManager {
+    inner: ::core::nonzero::NonZero<*mut ModulePassManagerInner>,
+}
+impl ModulePassManagerExt for ModulePassManager {
+    fn inner(&self) -> *mut ModulePassManagerInner {
+        *self.inner
+    }
+}
+impl ModulePassManager {
+    pub unsafe fn from_inner(inner: *mut ModulePassManagerInner) -> ModulePassManager {
+        ModulePassManager {
+            inner: ::core::nonzero::NonZero::new(inner),
+        }
+    }
+}
+impl Copy for ModulePassManager {}
+pub type PassManagerBuilderInner = ::ffi::llvm_PassManagerBuilder;
+
+pub trait PassManagerBuilderExt {
+    #[allow(non_snake_case)]
+    fn inner(&self) -> *mut PassManagerBuilderInner;
+}
+
+pub struct PassManagerBuilder {
+    inner: ::core::nonzero::NonZero<*mut PassManagerBuilderInner>,
+}
+impl PassManagerBuilderExt for PassManagerBuilder {
+    fn inner(&self) -> *mut PassManagerBuilderInner {
+        *self.inner
+    }
+}
+impl PassManagerBuilder {
+    pub unsafe fn from_inner(inner: *mut PassManagerBuilderInner) -> PassManagerBuilder {
+        PassManagerBuilder {
+            inner: ::core::nonzero::NonZero::new(inner),
+        }
+    }
+}
+impl Copy for PassManagerBuilder {}
 pub type ValueSymbolTableInner = ::ffi::llvm_ValueSymbolTable;
 
 pub trait ValueSymbolTableExt {

@@ -116,3 +116,19 @@ MDNode = llvm.Class('MDNode', Value)
 MDString = llvm.Class('MDString', Value)
 
 ValueSymbolTable = llvm.Class('ValueSymbolTable')
+
+Pass = llvm.Class('Pass')
+Pass.modpath = submodpath(['pass'])
+
+BasicBlockPass = llvm.Class('BasicBlockPass', Pass)
+CallGraphSCCPass = llvm.Class('CallGraphSCCPass', Pass)
+FunctionPass = llvm.Class('FunctionPass', Pass)
+LoopPass = llvm.Class('LoopPass', Pass)
+ModulePass = llvm.Class('ModulePass', Pass)
+RegionPass = llvm.Class('RegionPass', Pass)
+
+FunctionPassManager = llvm.Class('FunctionPassManager')
+ModulePassManager = llvm.Class('ModulePassManager')
+PassManagerBuilder = llvm.Class('PassManagerBuilder')
+
+from . import enums

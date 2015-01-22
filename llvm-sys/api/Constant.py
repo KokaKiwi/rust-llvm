@@ -129,13 +129,6 @@ class ConstantPointerNull:
 
 @GlobalValue.body
 class GlobalValue:
-    LinkageTypes = Enum(values=[
-        ('ExternalLinkage', 0), 'AvailableExternallyLinkage', 'LinkOnceAnyLinkage',
-        'LinkOnceODRLinkage', 'WeakAnyLinkage', 'WeakODRLinkage',
-        'AppendingLinkage', 'InternalLinkage', 'PrivateLinkage',
-        'ExternalWeakLinkage', 'CommonLinkage',
-    ])
-
     delete = Destructor()
 
     getAlignment = Method(UnsignedInt, const=True)
