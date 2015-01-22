@@ -1,23 +1,26 @@
 pub mod user;
 pub type ArgumentInner = ::ffi::llvm_Argument;
 
-pub trait ArgumentExt: ::llvm::value::ValueExt {
-    #[allow(non_snake_case)]
+pub trait ArgumentObj: ::llvm::value::ValueObj {
     fn inner(&self) -> *mut ArgumentInner;
 }
+
+pub trait ArgumentExt: ArgumentObj {
+}
+impl<T> ArgumentExt for T where T: ArgumentObj {}
 
 pub struct Argument {
     inner: ::core::nonzero::NonZero<*mut ArgumentInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for Argument {
+impl ::llvm::value::ValueObj for Argument {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ArgumentExt for Argument {
+impl ArgumentObj for Argument {
     fn inner(&self) -> *mut ArgumentInner {
         *self.inner
     }
@@ -34,32 +37,34 @@ impl Drop for Argument {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+                ::ffi::llvm::Value_delete(::llvm::value::ValueObj::inner(self));
             }
         }
     }
 }
 pub type BasicBlockInner = ::ffi::llvm_BasicBlock;
 
-pub trait BasicBlockExt: ::llvm::value::ValueExt {
-    #[allow(non_snake_case)]
+pub trait BasicBlockObj: ::llvm::value::ValueObj {
     fn inner(&self) -> *mut BasicBlockInner;
+}
+
+pub trait BasicBlockExt: BasicBlockObj {
 
     fn drop_all_references(&mut self) {
         unsafe {
-            ::ffi::llvm::BasicBlock_dropAllReferences(::llvm::value::BasicBlockExt::inner(self));
+            ::ffi::llvm::BasicBlock_dropAllReferences(::llvm::value::BasicBlockObj::inner(self));
         }
     }
 
     fn erase_from_parent(&mut self) {
         unsafe {
-            ::ffi::llvm::BasicBlock_eraseFromParent(::llvm::value::BasicBlockExt::inner(self));
+            ::ffi::llvm::BasicBlock_eraseFromParent(::llvm::value::BasicBlockObj::inner(self));
         }
     }
 
     fn get_data_layout(&self) -> Option<::llvm::DataLayout> {
         unsafe {
-            let ret = ::ffi::llvm::BasicBlock_getDataLayout(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            let ret = ::ffi::llvm::BasicBlock_getDataLayout(::llvm::value::BasicBlockObj::inner(self) as *const ::ffi::llvm_BasicBlock);
             if ret.is_null() {
                 return None;
             }
@@ -69,7 +74,7 @@ pub trait BasicBlockExt: ::llvm::value::ValueExt {
 
     fn get_first_non_phi(&self) -> Option<::llvm::value::user::inst::Instruction> {
         unsafe {
-            let ret = ::ffi::llvm::BasicBlock_getFirstNonPHI(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            let ret = ::ffi::llvm::BasicBlock_getFirstNonPHI(::llvm::value::BasicBlockObj::inner(self) as *const ::ffi::llvm_BasicBlock);
             if ret.is_null() {
                 return None;
             }
@@ -79,7 +84,7 @@ pub trait BasicBlockExt: ::llvm::value::ValueExt {
 
     fn get_first_non_phi_mut(&mut self) -> Option<::llvm::value::user::inst::Instruction> {
         unsafe {
-            let ret = ::ffi::llvm::BasicBlock_getFirstNonPHIMut(::llvm::value::BasicBlockExt::inner(self));
+            let ret = ::ffi::llvm::BasicBlock_getFirstNonPHIMut(::llvm::value::BasicBlockObj::inner(self));
             if ret.is_null() {
                 return None;
             }
@@ -89,7 +94,7 @@ pub trait BasicBlockExt: ::llvm::value::ValueExt {
 
     fn get_first_non_phi_or_dbg(&self) -> Option<::llvm::value::user::inst::Instruction> {
         unsafe {
-            let ret = ::ffi::llvm::BasicBlock_getFirstNonPHIOrDbg(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            let ret = ::ffi::llvm::BasicBlock_getFirstNonPHIOrDbg(::llvm::value::BasicBlockObj::inner(self) as *const ::ffi::llvm_BasicBlock);
             if ret.is_null() {
                 return None;
             }
@@ -99,7 +104,7 @@ pub trait BasicBlockExt: ::llvm::value::ValueExt {
 
     fn get_first_non_phi_or_dbg_mut(&mut self) -> Option<::llvm::value::user::inst::Instruction> {
         unsafe {
-            let ret = ::ffi::llvm::BasicBlock_getFirstNonPHIOrDbgMut(::llvm::value::BasicBlockExt::inner(self));
+            let ret = ::ffi::llvm::BasicBlock_getFirstNonPHIOrDbgMut(::llvm::value::BasicBlockObj::inner(self));
             if ret.is_null() {
                 return None;
             }
@@ -109,7 +114,7 @@ pub trait BasicBlockExt: ::llvm::value::ValueExt {
 
     fn get_first_non_phi_or_dbg_or_lifetime(&self) -> Option<::llvm::value::user::inst::Instruction> {
         unsafe {
-            let ret = ::ffi::llvm::BasicBlock_getFirstNonPHIOrDbgOrLifetime(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            let ret = ::ffi::llvm::BasicBlock_getFirstNonPHIOrDbgOrLifetime(::llvm::value::BasicBlockObj::inner(self) as *const ::ffi::llvm_BasicBlock);
             if ret.is_null() {
                 return None;
             }
@@ -119,7 +124,7 @@ pub trait BasicBlockExt: ::llvm::value::ValueExt {
 
     fn get_first_non_phi_or_dbg_or_lifetime_mut(&mut self) -> Option<::llvm::value::user::inst::Instruction> {
         unsafe {
-            let ret = ::ffi::llvm::BasicBlock_getFirstNonPHIOrDbgOrLifetimeMut(::llvm::value::BasicBlockExt::inner(self));
+            let ret = ::ffi::llvm::BasicBlock_getFirstNonPHIOrDbgOrLifetimeMut(::llvm::value::BasicBlockObj::inner(self));
             if ret.is_null() {
                 return None;
             }
@@ -129,7 +134,7 @@ pub trait BasicBlockExt: ::llvm::value::ValueExt {
 
     fn get_landing_pad_inst(&self) -> Option<::llvm::value::user::inst::LandingPadInst> {
         unsafe {
-            let ret = ::ffi::llvm::BasicBlock_getLandingPadInst(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            let ret = ::ffi::llvm::BasicBlock_getLandingPadInst(::llvm::value::BasicBlockObj::inner(self) as *const ::ffi::llvm_BasicBlock);
             if ret.is_null() {
                 return None;
             }
@@ -139,7 +144,7 @@ pub trait BasicBlockExt: ::llvm::value::ValueExt {
 
     fn get_landing_pad_inst_mut(&mut self) -> Option<::llvm::value::user::inst::LandingPadInst> {
         unsafe {
-            let ret = ::ffi::llvm::BasicBlock_getLandingPadInstMut(::llvm::value::BasicBlockExt::inner(self));
+            let ret = ::ffi::llvm::BasicBlock_getLandingPadInstMut(::llvm::value::BasicBlockObj::inner(self));
             if ret.is_null() {
                 return None;
             }
@@ -149,7 +154,7 @@ pub trait BasicBlockExt: ::llvm::value::ValueExt {
 
     fn get_parent(&self) -> Option<::llvm::value::user::constant::Function> {
         unsafe {
-            let ret = ::ffi::llvm::BasicBlock_getParent(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            let ret = ::ffi::llvm::BasicBlock_getParent(::llvm::value::BasicBlockObj::inner(self) as *const ::ffi::llvm_BasicBlock);
             if ret.is_null() {
                 return None;
             }
@@ -159,7 +164,7 @@ pub trait BasicBlockExt: ::llvm::value::ValueExt {
 
     fn get_parent_mut(&mut self) -> Option<::llvm::value::user::constant::Function> {
         unsafe {
-            let ret = ::ffi::llvm::BasicBlock_getParentMut(::llvm::value::BasicBlockExt::inner(self));
+            let ret = ::ffi::llvm::BasicBlock_getParentMut(::llvm::value::BasicBlockObj::inner(self));
             if ret.is_null() {
                 return None;
             }
@@ -169,7 +174,7 @@ pub trait BasicBlockExt: ::llvm::value::ValueExt {
 
     fn get_single_predecessor(&self) -> Option<::llvm::value::BasicBlock> {
         unsafe {
-            let ret = ::ffi::llvm::BasicBlock_getSinglePredecessor(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            let ret = ::ffi::llvm::BasicBlock_getSinglePredecessor(::llvm::value::BasicBlockObj::inner(self) as *const ::ffi::llvm_BasicBlock);
             if ret.is_null() {
                 return None;
             }
@@ -179,7 +184,7 @@ pub trait BasicBlockExt: ::llvm::value::ValueExt {
 
     fn get_single_predecessor_mut(&mut self) -> Option<::llvm::value::BasicBlock> {
         unsafe {
-            let ret = ::ffi::llvm::BasicBlock_getSinglePredecessorMut(::llvm::value::BasicBlockExt::inner(self));
+            let ret = ::ffi::llvm::BasicBlock_getSinglePredecessorMut(::llvm::value::BasicBlockObj::inner(self));
             if ret.is_null() {
                 return None;
             }
@@ -189,7 +194,7 @@ pub trait BasicBlockExt: ::llvm::value::ValueExt {
 
     fn get_terminator(&self) -> Option<::llvm::value::user::inst::TerminatorInst> {
         unsafe {
-            let ret = ::ffi::llvm::BasicBlock_getTerminator(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            let ret = ::ffi::llvm::BasicBlock_getTerminator(::llvm::value::BasicBlockObj::inner(self) as *const ::ffi::llvm_BasicBlock);
             if ret.is_null() {
                 return None;
             }
@@ -199,7 +204,7 @@ pub trait BasicBlockExt: ::llvm::value::ValueExt {
 
     fn get_terminator_mut(&mut self) -> Option<::llvm::value::user::inst::TerminatorInst> {
         unsafe {
-            let ret = ::ffi::llvm::BasicBlock_getTerminatorMut(::llvm::value::BasicBlockExt::inner(self));
+            let ret = ::ffi::llvm::BasicBlock_getTerminatorMut(::llvm::value::BasicBlockObj::inner(self));
             if ret.is_null() {
                 return None;
             }
@@ -209,7 +214,7 @@ pub trait BasicBlockExt: ::llvm::value::ValueExt {
 
     fn get_unique_predecessor(&self) -> Option<::llvm::value::BasicBlock> {
         unsafe {
-            let ret = ::ffi::llvm::BasicBlock_getUniquePredecessor(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            let ret = ::ffi::llvm::BasicBlock_getUniquePredecessor(::llvm::value::BasicBlockObj::inner(self) as *const ::ffi::llvm_BasicBlock);
             if ret.is_null() {
                 return None;
             }
@@ -219,7 +224,7 @@ pub trait BasicBlockExt: ::llvm::value::ValueExt {
 
     fn get_unique_predecessor_mut(&mut self) -> Option<::llvm::value::BasicBlock> {
         unsafe {
-            let ret = ::ffi::llvm::BasicBlock_getUniquePredecessorMut(::llvm::value::BasicBlockExt::inner(self));
+            let ret = ::ffi::llvm::BasicBlock_getUniquePredecessorMut(::llvm::value::BasicBlockObj::inner(self));
             if ret.is_null() {
                 return None;
             }
@@ -229,7 +234,7 @@ pub trait BasicBlockExt: ::llvm::value::ValueExt {
 
     fn get_value_symbol_table(&mut self) -> Option<::llvm::ValueSymbolTable> {
         unsafe {
-            let ret = ::ffi::llvm::BasicBlock_getValueSymbolTable(::llvm::value::BasicBlockExt::inner(self));
+            let ret = ::ffi::llvm::BasicBlock_getValueSymbolTable(::llvm::value::BasicBlockObj::inner(self));
             if ret.is_null() {
                 return None;
             }
@@ -239,62 +244,63 @@ pub trait BasicBlockExt: ::llvm::value::ValueExt {
 
     fn has_address_taken(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::BasicBlock_hasAddressTaken(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            let ret = ::ffi::llvm::BasicBlock_hasAddressTaken(::llvm::value::BasicBlockObj::inner(self) as *const ::ffi::llvm_BasicBlock);
             ret
         }
     }
 
     fn is_landing_pad(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::BasicBlock_isLandingPad(::llvm::value::BasicBlockExt::inner(self) as *const ::ffi::llvm_BasicBlock);
+            let ret = ::ffi::llvm::BasicBlock_isLandingPad(::llvm::value::BasicBlockObj::inner(self) as *const ::ffi::llvm_BasicBlock);
             ret
         }
     }
 
-    fn move_after(&mut self, move_pos: &::llvm::value::BasicBlockExt) {
+    fn move_after<A1: ::llvm::value::BasicBlockObj>(&mut self, move_pos: &mut A1) {
         unsafe {
-            ::ffi::llvm::BasicBlock_moveAfter(::llvm::value::BasicBlockExt::inner(self), ::llvm::value::BasicBlockExt::inner(move_pos));
+            ::ffi::llvm::BasicBlock_moveAfter(::llvm::value::BasicBlockObj::inner(self), ::llvm::value::BasicBlockObj::inner(move_pos));
         }
     }
 
-    fn move_before(&mut self, move_pos: &::llvm::value::BasicBlockExt) {
+    fn move_before<A1: ::llvm::value::BasicBlockObj>(&mut self, move_pos: &mut A1) {
         unsafe {
-            ::ffi::llvm::BasicBlock_moveBefore(::llvm::value::BasicBlockExt::inner(self), ::llvm::value::BasicBlockExt::inner(move_pos));
+            ::ffi::llvm::BasicBlock_moveBefore(::llvm::value::BasicBlockObj::inner(self), ::llvm::value::BasicBlockObj::inner(move_pos));
         }
     }
 
     fn remove_from_parent(&mut self) {
         unsafe {
-            ::ffi::llvm::BasicBlock_removeFromParent(::llvm::value::BasicBlockExt::inner(self));
+            ::ffi::llvm::BasicBlock_removeFromParent(::llvm::value::BasicBlockObj::inner(self));
         }
     }
 
-    fn remove_predecessor(&mut self, pred: &::llvm::value::BasicBlockExt, dont_delete_useless_ph_is: Option<bool>) {
+    fn remove_predecessor<A1: ::llvm::value::BasicBlockObj>(&mut self, pred: &mut A1, dont_delete_useless_ph_is: Option<bool>) {
         unsafe {
             let dont_delete_useless_ph_is = dont_delete_useless_ph_is.unwrap_or(false);
-            ::ffi::llvm::BasicBlock_removePredecessor(::llvm::value::BasicBlockExt::inner(self), ::llvm::value::BasicBlockExt::inner(pred), dont_delete_useless_ph_is);
+            ::ffi::llvm::BasicBlock_removePredecessor(::llvm::value::BasicBlockObj::inner(self), ::llvm::value::BasicBlockObj::inner(pred), dont_delete_useless_ph_is);
         }
     }
 
-    fn replace_successors_phi_uses_with(&mut self, new: &::llvm::value::BasicBlockExt) {
+    fn replace_successors_phi_uses_with<A1: ::llvm::value::BasicBlockObj>(&mut self, new: &mut A1) {
         unsafe {
-            ::ffi::llvm::BasicBlock_replaceSuccessorsPhiUsesWith(::llvm::value::BasicBlockExt::inner(self), ::llvm::value::BasicBlockExt::inner(new));
+            ::ffi::llvm::BasicBlock_replaceSuccessorsPhiUsesWith(::llvm::value::BasicBlockObj::inner(self), ::llvm::value::BasicBlockObj::inner(new));
         }
     }
 }
+impl<T> BasicBlockExt for T where T: BasicBlockObj {}
 
 pub struct BasicBlock {
     inner: ::core::nonzero::NonZero<*mut BasicBlockInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for BasicBlock {
+impl ::llvm::value::ValueObj for BasicBlock {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl BasicBlockExt for BasicBlock {
+impl BasicBlockObj for BasicBlock {
     fn inner(&self) -> *mut BasicBlockInner {
         *self.inner
     }
@@ -307,14 +313,14 @@ impl BasicBlock {
         }
     }
 
-    pub fn create(context: &::llvm::LLVMContextExt, name: Option<&str>, parent: Option<&::llvm::value::user::constant::FunctionExt>, insert_before: Option<&::llvm::value::BasicBlockExt>) -> ::llvm::value::BasicBlock {
+    pub fn create<A1: ::llvm::LLVMContextObj, A3: ::llvm::value::user::constant::FunctionObj, A4: ::llvm::value::BasicBlockObj>(context: &mut A1, name: Option<&str>, parent: Option<&mut A3>, insert_before: Option<&mut A4>) -> ::llvm::value::BasicBlock {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::BasicBlock_Create(::llvm::LLVMContextExt::inner(context), c_name, parent.map(|parent| ::llvm::value::user::constant::FunctionExt::inner(parent)).unwrap_or(::std::ptr::null_mut()), insert_before.map(|insert_before| ::llvm::value::BasicBlockExt::inner(insert_before)).unwrap_or(::std::ptr::null_mut()));
+            let ret = ::ffi::llvm::BasicBlock_Create(::llvm::LLVMContextObj::inner(context), c_name, parent.map(|parent| ::llvm::value::user::constant::FunctionObj::inner(parent)).unwrap_or(::std::ptr::null_mut()), insert_before.map(|insert_before| ::llvm::value::BasicBlockObj::inner(insert_before)).unwrap_or(::std::ptr::null_mut()));
             if ret.is_null() {
                 panic!("::llvm::BasicBlock::Create returned a null pointer!");
             }
@@ -322,9 +328,9 @@ impl BasicBlock {
         }
     }
 
-    pub fn classof(val: &::llvm::value::ValueExt) -> bool {
+    pub fn classof<A1: ::llvm::value::ValueObj>(val: &A1) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::BasicBlock_classof(::llvm::value::ValueExt::inner(val));
+            let ret = ::ffi::llvm::BasicBlock_classof(::llvm::value::ValueObj::inner(val));
             ret
         }
     }
@@ -333,30 +339,33 @@ impl Drop for BasicBlock {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::BasicBlock_delete(::llvm::value::BasicBlockExt::inner(self));
+                ::ffi::llvm::BasicBlock_delete(::llvm::value::BasicBlockObj::inner(self));
             }
         }
     }
 }
 pub type InlineAsmInner = ::ffi::llvm_InlineAsm;
 
-pub trait InlineAsmExt: ::llvm::value::ValueExt {
-    #[allow(non_snake_case)]
+pub trait InlineAsmObj: ::llvm::value::ValueObj {
     fn inner(&self) -> *mut InlineAsmInner;
 }
+
+pub trait InlineAsmExt: InlineAsmObj {
+}
+impl<T> InlineAsmExt for T where T: InlineAsmObj {}
 
 pub struct InlineAsm {
     inner: ::core::nonzero::NonZero<*mut InlineAsmInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for InlineAsm {
+impl ::llvm::value::ValueObj for InlineAsm {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl InlineAsmExt for InlineAsm {
+impl InlineAsmObj for InlineAsm {
     fn inner(&self) -> *mut InlineAsmInner {
         *self.inner
     }
@@ -373,30 +382,33 @@ impl Drop for InlineAsm {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+                ::ffi::llvm::Value_delete(::llvm::value::ValueObj::inner(self));
             }
         }
     }
 }
 pub type MDNodeInner = ::ffi::llvm_MDNode;
 
-pub trait MDNodeExt: ::llvm::value::ValueExt {
-    #[allow(non_snake_case)]
+pub trait MDNodeObj: ::llvm::value::ValueObj {
     fn inner(&self) -> *mut MDNodeInner;
 }
+
+pub trait MDNodeExt: MDNodeObj {
+}
+impl<T> MDNodeExt for T where T: MDNodeObj {}
 
 pub struct MDNode {
     inner: ::core::nonzero::NonZero<*mut MDNodeInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for MDNode {
+impl ::llvm::value::ValueObj for MDNode {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl MDNodeExt for MDNode {
+impl MDNodeObj for MDNode {
     fn inner(&self) -> *mut MDNodeInner {
         *self.inner
     }
@@ -413,30 +425,33 @@ impl Drop for MDNode {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+                ::ffi::llvm::Value_delete(::llvm::value::ValueObj::inner(self));
             }
         }
     }
 }
 pub type MDStringInner = ::ffi::llvm_MDString;
 
-pub trait MDStringExt: ::llvm::value::ValueExt {
-    #[allow(non_snake_case)]
+pub trait MDStringObj: ::llvm::value::ValueObj {
     fn inner(&self) -> *mut MDStringInner;
 }
+
+pub trait MDStringExt: MDStringObj {
+}
+impl<T> MDStringExt for T where T: MDStringObj {}
 
 pub struct MDString {
     inner: ::core::nonzero::NonZero<*mut MDStringInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for MDString {
+impl ::llvm::value::ValueObj for MDString {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl MDStringExt for MDString {
+impl MDStringObj for MDString {
     fn inner(&self) -> *mut MDStringInner {
         *self.inner
     }
@@ -453,7 +468,7 @@ impl Drop for MDString {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+                ::ffi::llvm::Value_delete(::llvm::value::ValueObj::inner(self));
             }
         }
     }
@@ -537,26 +552,28 @@ impl ValueTy {
 impl Copy for ValueTy {}
 pub type ValueInner = ::ffi::llvm_Value;
 
-pub trait ValueExt {
-    #[allow(non_snake_case)]
+pub trait ValueObj {
     fn inner(&self) -> *mut ValueInner;
+}
+
+pub trait ValueExt: ValueObj {
 
     fn dump(&self) {
         unsafe {
-            ::ffi::llvm::Value_dump(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value);
+            ::ffi::llvm::Value_dump(::llvm::value::ValueObj::inner(self) as *const ::ffi::llvm_Value);
         }
     }
 
     fn get_context(&self) -> ::llvm::LLVMContext {
         unsafe {
-            let ret = ::ffi::llvm::Value_getContext(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value);
+            let ret = ::ffi::llvm::Value_getContext(::llvm::value::ValueObj::inner(self) as *const ::ffi::llvm_Value);
             ::llvm::LLVMContext::from_inner(ret)
         }
     }
 
     fn get_name(&self) -> &str {
         unsafe {
-            let ret = ::ffi::llvm::Value_getName(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value);
+            let ret = ::ffi::llvm::Value_getName(::llvm::value::ValueObj::inner(self) as *const ::ffi::llvm_Value);
             let ret = ::core::str::from_utf8_unchecked(::core::mem::transmute(::core::slice::from_raw_buf(&ret.data, ret.length as usize)));
             ret
         }
@@ -564,14 +581,14 @@ pub trait ValueExt {
 
     fn get_num_uses(&self) -> u32 {
         unsafe {
-            let ret = ::ffi::llvm::Value_getNumUses(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value) as u32;
+            let ret = ::ffi::llvm::Value_getNumUses(::llvm::value::ValueObj::inner(self) as *const ::ffi::llvm_Value) as u32;
             ret
         }
     }
 
     fn get_type(&self) -> Option<::llvm::ty::Type> {
         unsafe {
-            let ret = ::ffi::llvm::Value_getType(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value);
+            let ret = ::ffi::llvm::Value_getType(::llvm::value::ValueObj::inner(self) as *const ::ffi::llvm_Value);
             if ret.is_null() {
                 return None;
             }
@@ -581,55 +598,55 @@ pub trait ValueExt {
 
     fn get_value_id(&self) -> u32 {
         unsafe {
-            let ret = ::ffi::llvm::Value_getValueID(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value) as u32;
+            let ret = ::ffi::llvm::Value_getValueID(::llvm::value::ValueObj::inner(self) as *const ::ffi::llvm_Value) as u32;
             ret
         }
     }
 
     fn has_n_uses(&self, n: u32) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Value_hasNUses(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value, n as ::libc::c_uint);
+            let ret = ::ffi::llvm::Value_hasNUses(::llvm::value::ValueObj::inner(self) as *const ::ffi::llvm_Value, n as ::libc::c_uint);
             ret
         }
     }
 
     fn has_n_uses_or_more(&self, n: u32) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Value_hasNUsesOrMore(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value, n as ::libc::c_uint);
+            let ret = ::ffi::llvm::Value_hasNUsesOrMore(::llvm::value::ValueObj::inner(self) as *const ::ffi::llvm_Value, n as ::libc::c_uint);
             ret
         }
     }
 
     fn has_name(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Value_hasName(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value);
+            let ret = ::ffi::llvm::Value_hasName(::llvm::value::ValueObj::inner(self) as *const ::ffi::llvm_Value);
             ret
         }
     }
 
     fn has_one_use(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Value_hasOneUse(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value);
+            let ret = ::ffi::llvm::Value_hasOneUse(::llvm::value::ValueObj::inner(self) as *const ::ffi::llvm_Value);
             ret
         }
     }
 
-    fn is_used_in_basic_block(&self, bb: &::llvm::value::BasicBlockExt) -> bool {
+    fn is_used_in_basic_block<A1: ::llvm::value::BasicBlockObj>(&self, bb: &A1) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Value_isUsedInBasicBlock(::llvm::value::ValueExt::inner(self) as *const ::ffi::llvm_Value, ::llvm::value::BasicBlockExt::inner(bb));
+            let ret = ::ffi::llvm::Value_isUsedInBasicBlock(::llvm::value::ValueObj::inner(self) as *const ::ffi::llvm_Value, ::llvm::value::BasicBlockObj::inner(bb));
             ret
         }
     }
 
-    fn mutate_type(&mut self, ty: &::llvm::ty::TypeExt) {
+    fn mutate_type<A1: ::llvm::ty::TypeObj>(&mut self, ty: &mut A1) {
         unsafe {
-            ::ffi::llvm::Value_mutateType(::llvm::value::ValueExt::inner(self), ::llvm::ty::TypeExt::inner(ty));
+            ::ffi::llvm::Value_mutateType(::llvm::value::ValueObj::inner(self), ::llvm::ty::TypeObj::inner(ty));
         }
     }
 
-    fn replace_all_uses_with(&mut self, value: &::llvm::value::ValueExt) {
+    fn replace_all_uses_with<A1: ::llvm::value::ValueObj>(&mut self, value: &mut A1) {
         unsafe {
-            ::ffi::llvm::Value_replaceAllUsesWith(::llvm::value::ValueExt::inner(self), ::llvm::value::ValueExt::inner(value));
+            ::ffi::llvm::Value_replaceAllUsesWith(::llvm::value::ValueObj::inner(self), ::llvm::value::ValueObj::inner(value));
         }
     }
 
@@ -639,22 +656,23 @@ pub trait ValueExt {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            ::ffi::llvm::Value_setName(::llvm::value::ValueExt::inner(self), c_name);
+            ::ffi::llvm::Value_setName(::llvm::value::ValueObj::inner(self), c_name);
         }
     }
 
-    fn take_name(&mut self, value: &::llvm::value::ValueExt) {
+    fn take_name<A1: ::llvm::value::ValueObj>(&mut self, value: &mut A1) {
         unsafe {
-            ::ffi::llvm::Value_takeName(::llvm::value::ValueExt::inner(self), ::llvm::value::ValueExt::inner(value));
+            ::ffi::llvm::Value_takeName(::llvm::value::ValueObj::inner(self), ::llvm::value::ValueObj::inner(value));
         }
     }
 }
+impl<T> ValueExt for T where T: ValueObj {}
 
 pub struct Value {
     inner: ::core::nonzero::NonZero<*mut ValueInner>,
     owned: bool,
 }
-impl ValueExt for Value {
+impl ValueObj for Value {
     fn inner(&self) -> *mut ValueInner {
         *self.inner
     }
@@ -671,7 +689,7 @@ impl Drop for Value {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Value_delete(::llvm::value::ValueExt::inner(self));
+                ::ffi::llvm::Value_delete(::llvm::value::ValueObj::inner(self));
             }
         }
     }

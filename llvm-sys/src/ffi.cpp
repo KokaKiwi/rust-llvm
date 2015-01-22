@@ -12,12 +12,12 @@
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Operator.h"
-#include "llvm/IR/PassManager.h"
 #include "llvm/IR/Type.h"
 #include "llvm/IR/Value.h"
 #include "llvm/IR/ValueSymbolTable.h"
 #include "llvm/IR/Verifier.h"
 #include "llvm/LinkAllPasses.h"
+#include "llvm/PassManager.h"
 
 struct llvm_ArrayRef__libc_uint64_t {
     uint64_t const* data;
@@ -110,14 +110,14 @@ void llvm_BasicBlock_delete(::llvm::BasicBlock* inst)
 extern "C"
 void llvm_BasicBlock_dropAllReferences(::llvm::BasicBlock* inst)
 {
-    return inst->dropAllReferences();
+    inst->dropAllReferences();
 }
 
 // ::llvm::BasicBlock::eraseFromParent
 extern "C"
 void llvm_BasicBlock_eraseFromParent(::llvm::BasicBlock* inst)
 {
-    return inst->eraseFromParent();
+    inst->eraseFromParent();
 }
 
 // ::llvm::BasicBlock::getDataLayout
@@ -264,42 +264,42 @@ int llvm_BasicBlock_isLandingPad(::llvm::BasicBlock const* inst)
 extern "C"
 void llvm_BasicBlock_moveAfter(::llvm::BasicBlock* inst, ::llvm::BasicBlock* MovePos)
 {
-    return inst->moveAfter(MovePos);
+    inst->moveAfter(MovePos);
 }
 
 // ::llvm::BasicBlock::moveBefore
 extern "C"
 void llvm_BasicBlock_moveBefore(::llvm::BasicBlock* inst, ::llvm::BasicBlock* MovePos)
 {
-    return inst->moveBefore(MovePos);
+    inst->moveBefore(MovePos);
 }
 
 // ::llvm::BasicBlock::removeFromParent
 extern "C"
 void llvm_BasicBlock_removeFromParent(::llvm::BasicBlock* inst)
 {
-    return inst->removeFromParent();
+    inst->removeFromParent();
 }
 
 // ::llvm::BasicBlock::removePredecessor
 extern "C"
 void llvm_BasicBlock_removePredecessor(::llvm::BasicBlock* inst, ::llvm::BasicBlock* Pred, int DontDeleteUselessPHIs)
 {
-    return inst->removePredecessor(Pred, (DontDeleteUselessPHIs == 1 ? true : false));
+    inst->removePredecessor(Pred, (DontDeleteUselessPHIs == 1 ? true : false));
 }
 
 // ::llvm::BasicBlock::replaceSuccessorsPhiUsesWith
 extern "C"
 void llvm_BasicBlock_replaceSuccessorsPhiUsesWith(::llvm::BasicBlock* inst, ::llvm::BasicBlock* New)
 {
-    return inst->replaceSuccessorsPhiUsesWith(New);
+    inst->replaceSuccessorsPhiUsesWith(New);
 }
 
 // ::llvm::BlockAddress::destroyConstant
 extern "C"
 void llvm_BlockAddress_destroyConstant(::llvm::BlockAddress* inst)
 {
-    return inst->destroyConstant();
+    inst->destroyConstant();
 }
 
 // ::llvm::BlockAddress::getBasicBlock
@@ -355,7 +355,7 @@ int llvm_Constant_classof(::llvm::Value const* V)
 extern "C"
 void llvm_Constant_destroyConstant(::llvm::Constant* inst)
 {
-    return inst->destroyConstant();
+    inst->destroyConstant();
 }
 
 // ::llvm::Constant::getAggregateElement
@@ -461,7 +461,7 @@ int llvm_Constant_isZeroValue(::llvm::Constant const* inst)
 extern "C"
 void llvm_Constant_removeDeadConstantUsers(::llvm::Constant const* inst)
 {
-    return inst->removeDeadConstantUsers();
+    inst->removeDeadConstantUsers();
 }
 
 // ::llvm::Constant::stripPointerCasts
@@ -745,7 +745,7 @@ int llvm_ConstantPointerNull_classof(::llvm::Value const* Val)
 extern "C"
 void llvm_ConstantPointerNull_destroyConstant(::llvm::ConstantPointerNull* inst)
 {
-    return inst->destroyConstant();
+    inst->destroyConstant();
 }
 
 // ::llvm::ConstantPointerNull::get
@@ -766,7 +766,7 @@ extern "C"
 extern "C"
 void llvm_DebugLoc_dump(::llvm::DebugLoc const* inst, ::llvm::LLVMContext const* Ctx)
 {
-    return inst->dump(*Ctx);
+    inst->dump(*Ctx);
 }
 
 // ::llvm::DebugLoc::getAsMDNode
@@ -838,7 +838,7 @@ extern "C"
 void llvm_Function_addFnAttr(::llvm::Function* inst, llvm_StringRef _Kind)
 {
     auto Kind = ::llvm::StringRef(_Kind.data, _Kind.length);
-    return inst->addFnAttr(Kind);
+    inst->addFnAttr(Kind);
 }
 
 // ::llvm::Function::addFnAttrWithValue
@@ -847,7 +847,7 @@ void llvm_Function_addFnAttrWithValue(::llvm::Function* inst, llvm_StringRef _Ki
 {
     auto Kind = ::llvm::StringRef(_Kind.data, _Kind.length);
     auto Val = ::llvm::StringRef(_Val.data, _Val.length);
-    return inst->addFnAttr(Kind, Val);
+    inst->addFnAttr(Kind, Val);
 }
 
 // ::llvm::Function::cannotDuplicate
@@ -868,14 +868,14 @@ int llvm_Function_classof(::llvm::Value const* Val)
 extern "C"
 void llvm_Function_clearGC(::llvm::Function* inst)
 {
-    return inst->clearGC();
+    inst->clearGC();
 }
 
 // ::llvm::Function::copyAttributesFrom
 extern "C"
 void llvm_Function_copyAttributesFrom(::llvm::Function* inst, ::llvm::GlobalValue* Src)
 {
-    return inst->copyAttributesFrom(Src);
+    inst->copyAttributesFrom(Src);
 }
 
 // ::llvm::Function::delete
@@ -889,7 +889,7 @@ void llvm_Function_delete(::llvm::Function* inst)
 extern "C"
 void llvm_Function_deleteBody(::llvm::Function* inst)
 {
-    return inst->deleteBody();
+    inst->deleteBody();
 }
 
 // ::llvm::Function::doesNotAccessMemory
@@ -938,7 +938,7 @@ int llvm_Function_doesNotThrow(::llvm::Function const* inst)
 extern "C"
 void llvm_Function_eraseFromParent(::llvm::Function* inst)
 {
-    return inst->eraseFromParent();
+    inst->eraseFromParent();
 }
 
 // ::llvm::Function::getCallingConv
@@ -1058,84 +1058,119 @@ int llvm_Function_onlyReadsMemoryParam(::llvm::Function const* inst, unsigned in
 extern "C"
 void llvm_Function_removeFromParent(::llvm::Function* inst)
 {
-    return inst->removeFromParent();
+    inst->removeFromParent();
 }
 
 // ::llvm::Function::setCallingConv
 extern "C"
 void llvm_Function_setCallingConv(::llvm::Function* inst, ::llvm::CallingConv::ID CC)
 {
-    return inst->setCallingConv(CC);
+    inst->setCallingConv(CC);
 }
 
 // ::llvm::Function::setCannotDuplicate
 extern "C"
 void llvm_Function_setCannotDuplicate(::llvm::Function* inst)
 {
-    return inst->setCannotDuplicate();
+    inst->setCannotDuplicate();
 }
 
 // ::llvm::Function::setDoesNotAccessMemory
 extern "C"
 void llvm_Function_setDoesNotAccessMemory(::llvm::Function* inst)
 {
-    return inst->setDoesNotAccessMemory();
+    inst->setDoesNotAccessMemory();
 }
 
 // ::llvm::Function::setDoesNotAccessMemoryParam
 extern "C"
 void llvm_Function_setDoesNotAccessMemoryParam(::llvm::Function* inst, unsigned int n)
 {
-    return inst->setDoesNotAccessMemory(n);
+    inst->setDoesNotAccessMemory(n);
 }
 
 // ::llvm::Function::setDoesNotAlias
 extern "C"
 void llvm_Function_setDoesNotAlias(::llvm::Function* inst, unsigned int n)
 {
-    return inst->setDoesNotAlias(n);
+    inst->setDoesNotAlias(n);
 }
 
 // ::llvm::Function::setDoesNotCapture
 extern "C"
 void llvm_Function_setDoesNotCapture(::llvm::Function* inst, unsigned int n)
 {
-    return inst->setDoesNotCapture(n);
+    inst->setDoesNotCapture(n);
 }
 
 // ::llvm::Function::setDoesNotReturn
 extern "C"
 void llvm_Function_setDoesNotReturn(::llvm::Function* inst)
 {
-    return inst->setDoesNotReturn();
+    inst->setDoesNotReturn();
 }
 
 // ::llvm::Function::setDoesNotThrow
 extern "C"
 void llvm_Function_setDoesNotThrow(::llvm::Function* inst)
 {
-    return inst->setDoesNotThrow();
+    inst->setDoesNotThrow();
 }
 
 // ::llvm::Function::setHasUWTable
 extern "C"
 void llvm_Function_setHasUWTable(::llvm::Function* inst)
 {
-    return inst->setHasUWTable();
+    inst->setHasUWTable();
 }
 
 // ::llvm::Function::setOnlyReadsMemory
 extern "C"
 void llvm_Function_setOnlyReadsMemory(::llvm::Function* inst)
 {
-    return inst->setOnlyReadsMemory();
+    inst->setOnlyReadsMemory();
 }
 
 // ::llvm::Function::setOnlyReadsMemoryParam
 extern "C"
 void llvm_Function_setOnlyReadsMemoryParam(::llvm::Function* inst, unsigned int n)
 {
-    return inst->setOnlyReadsMemory(n);
+    inst->setOnlyReadsMemory(n);
+}
+
+// ::llvm::FunctionPassManager::add
+extern "C"
+void llvm_FunctionPassManager_add(::llvm::FunctionPassManager* inst, ::llvm::FunctionPass* Pass)
+{
+    inst->add(Pass);
+}
+
+// ::llvm::FunctionPassManager::doFinalization
+extern "C"
+int llvm_FunctionPassManager_doFinalization(::llvm::FunctionPassManager* inst)
+{
+    return (inst->doFinalization() == true ? 1 : 0);
+}
+
+// ::llvm::FunctionPassManager::doInitialization
+extern "C"
+int llvm_FunctionPassManager_doInitialization(::llvm::FunctionPassManager* inst)
+{
+    return (inst->doInitialization() == true ? 1 : 0);
+}
+
+// ::llvm::FunctionPassManager::new
+extern "C"
+::llvm::FunctionPassManager* llvm_FunctionPassManager_new(::llvm::Module* Module)
+{
+    return new(std::nothrow) ::llvm::FunctionPassManager(Module);
+}
+
+// ::llvm::FunctionPassManager::run
+extern "C"
+void llvm_FunctionPassManager_run(::llvm::FunctionPassManager* inst, ::llvm::Function* Function)
+{
+    inst->run(*Function);
 }
 
 // ::llvm::FunctionType::classof
@@ -1200,14 +1235,14 @@ extern "C"
 void llvm_GlobalObject_setSection(::llvm::GlobalObject* inst, llvm_StringRef _S)
 {
     auto S = ::llvm::StringRef(_S.data, _S.length);
-    return inst->setSection(S);
+    inst->setSection(S);
 }
 
 // ::llvm::GlobalValue::copyAttributesFrom
 extern "C"
 void llvm_GlobalValue_copyAttributesFrom(::llvm::GlobalValue* inst, ::llvm::GlobalValue* Src)
 {
-    return inst->copyAttributesFrom(Src);
+    inst->copyAttributesFrom(Src);
 }
 
 // ::llvm::GlobalValue::delete
@@ -1221,14 +1256,14 @@ void llvm_GlobalValue_delete(::llvm::GlobalValue* inst)
 extern "C"
 void llvm_GlobalValue_destroyConstant(::llvm::GlobalValue* inst)
 {
-    return inst->destroyConstant();
+    inst->destroyConstant();
 }
 
 // ::llvm::GlobalValue::eraseFromParent
 extern "C"
 void llvm_GlobalValue_eraseFromParent(::llvm::GlobalValue* inst)
 {
-    return inst->eraseFromParent();
+    inst->eraseFromParent();
 }
 
 // ::llvm::GlobalValue::getAlignment
@@ -1438,28 +1473,28 @@ int llvm_GlobalValue_mayBeOverridden(::llvm::GlobalValue const* inst)
 extern "C"
 void llvm_GlobalValue_removeFromParent(::llvm::GlobalValue* inst)
 {
-    return inst->removeFromParent();
+    inst->removeFromParent();
 }
 
 // ::llvm::GlobalValue::setThreadLocal
 extern "C"
 void llvm_GlobalValue_setThreadLocal(::llvm::GlobalValue* inst, int Val)
 {
-    return inst->setThreadLocal((Val == 1 ? true : false));
+    inst->setThreadLocal((Val == 1 ? true : false));
 }
 
 // ::llvm::GlobalValue::setUnnamedAddr
 extern "C"
 void llvm_GlobalValue_setUnnamedAddr(::llvm::GlobalValue* inst, int Val)
 {
-    return inst->setUnnamedAddr((Val == 1 ? true : false));
+    inst->setUnnamedAddr((Val == 1 ? true : false));
 }
 
 // ::llvm::GlobalVariable::copyAttributesFrom
 extern "C"
 void llvm_GlobalVariable_copyAttributesFrom(::llvm::GlobalVariable* inst, ::llvm::GlobalValue* Src)
 {
-    return inst->copyAttributesFrom(Src);
+    inst->copyAttributesFrom(Src);
 }
 
 // ::llvm::GlobalVariable::delete
@@ -1473,7 +1508,7 @@ void llvm_GlobalVariable_delete(::llvm::GlobalVariable* inst)
 extern "C"
 void llvm_GlobalVariable_eraseFromParent(::llvm::GlobalVariable* inst)
 {
-    return inst->eraseFromParent();
+    inst->eraseFromParent();
 }
 
 // ::llvm::GlobalVariable::getInitializer
@@ -1543,28 +1578,28 @@ extern "C"
 extern "C"
 void llvm_GlobalVariable_removeFromParent(::llvm::GlobalVariable* inst)
 {
-    return inst->removeFromParent();
+    inst->removeFromParent();
 }
 
 // ::llvm::GlobalVariable::setConstant
 extern "C"
 void llvm_GlobalVariable_setConstant(::llvm::GlobalVariable* inst, int Val)
 {
-    return inst->setConstant((Val == 1 ? true : false));
+    inst->setConstant((Val == 1 ? true : false));
 }
 
 // ::llvm::GlobalVariable::setExternallyInitialized
 extern "C"
 void llvm_GlobalVariable_setExternallyInitialized(::llvm::GlobalVariable* inst, int Val)
 {
-    return inst->setExternallyInitialized((Val == 1 ? true : false));
+    inst->setExternallyInitialized((Val == 1 ? true : false));
 }
 
 // ::llvm::GlobalVariable::setInitializer
 extern "C"
 void llvm_GlobalVariable_setInitializer(::llvm::GlobalVariable* inst, ::llvm::Constant* InitVal)
 {
-    return inst->setInitializer(InitVal);
+    inst->setInitializer(InitVal);
 }
 
 // ::llvm::IRBuilder::CreateAShr
@@ -2587,7 +2622,7 @@ extern "C"
 extern "C"
 void llvm_IRBuilderBase_ClearInsertionPoint(::llvm::IRBuilderBase* inst)
 {
-    return inst->ClearInsertionPoint();
+    inst->ClearInsertionPoint();
 }
 
 // ::llvm::IRBuilderBase::CreateGlobalString
@@ -2645,35 +2680,35 @@ extern "C"
 extern "C"
 void llvm_IRBuilderBase_SetCurrentDebugLocation(::llvm::IRBuilderBase* inst, ::llvm::DebugLoc const* Loc)
 {
-    return inst->SetCurrentDebugLocation(*Loc);
+    inst->SetCurrentDebugLocation(*Loc);
 }
 
 // ::llvm::IRBuilderBase::SetDefaultFPMathTag
 extern "C"
 void llvm_IRBuilderBase_SetDefaultFPMathTag(::llvm::IRBuilderBase* inst, ::llvm::MDNode* FPMathTag)
 {
-    return inst->SetDefaultFPMathTag(FPMathTag);
+    inst->SetDefaultFPMathTag(FPMathTag);
 }
 
 // ::llvm::IRBuilderBase::SetInsertPoint
 extern "C"
 void llvm_IRBuilderBase_SetInsertPoint(::llvm::IRBuilderBase* inst, ::llvm::BasicBlock* BB)
 {
-    return inst->SetInsertPoint(BB);
+    inst->SetInsertPoint(BB);
 }
 
 // ::llvm::IRBuilderBase::SetInsertPointAtInst
 extern "C"
 void llvm_IRBuilderBase_SetInsertPointAtInst(::llvm::IRBuilderBase* inst, ::llvm::Instruction* Inst)
 {
-    return inst->SetInsertPoint(Inst);
+    inst->SetInsertPoint(Inst);
 }
 
 // ::llvm::IRBuilderBase::SetInstDebugLocation
 extern "C"
 void llvm_IRBuilderBase_SetInstDebugLocation(::llvm::IRBuilderBase const* inst, ::llvm::Instruction* Inst)
 {
-    return inst->SetInstDebugLocation(Inst);
+    inst->SetInstDebugLocation(Inst);
 }
 
 // ::llvm::IRBuilderBase::getContext
@@ -2863,7 +2898,7 @@ extern "C"
 extern "C"
 void llvm_Instruction_copyFastMathFlags(::llvm::Instruction* inst, ::llvm::Instruction const* Inst)
 {
-    return inst->copyFastMathFlags(Inst);
+    inst->copyFastMathFlags(Inst);
 }
 
 // ::llvm::Instruction::delete
@@ -2877,7 +2912,7 @@ void llvm_Instruction_delete(::llvm::Instruction* inst)
 extern "C"
 void llvm_Instruction_dropUnknownMetadata(::llvm::Instruction* inst)
 {
-    return inst->dropUnknownMetadata();
+    inst->dropUnknownMetadata();
 }
 
 // ::llvm::Instruction::dropUnknownMetadataFromIDS
@@ -2885,14 +2920,14 @@ extern "C"
 void llvm_Instruction_dropUnknownMetadataFromIDS(::llvm::Instruction* inst, llvm_ArrayRef__libc_c_uint _KnownIDs)
 {
     auto KnownIDs = ::llvm::ArrayRef<unsigned int>(_KnownIDs.data, _KnownIDs.length);
-    return inst->dropUnknownMetadata(KnownIDs);
+    inst->dropUnknownMetadata(KnownIDs);
 }
 
 // ::llvm::Instruction::eraseFromParent
 extern "C"
 void llvm_Instruction_eraseFromParent(::llvm::Instruction* inst)
 {
-    return inst->eraseFromParent();
+    inst->eraseFromParent();
 }
 
 // ::llvm::Instruction::getDataLayout
@@ -2998,14 +3033,14 @@ int llvm_Instruction_hasUnsafeAlgebra(::llvm::Instruction const* inst)
 extern "C"
 void llvm_Instruction_insertAfter(::llvm::Instruction* inst, ::llvm::Instruction* InsertPos)
 {
-    return inst->insertAfter(InsertPos);
+    inst->insertAfter(InsertPos);
 }
 
 // ::llvm::Instruction::insertBefore
 extern "C"
 void llvm_Instruction_insertBefore(::llvm::Instruction* inst, ::llvm::Instruction* InsertPos)
 {
-    return inst->insertBefore(InsertPos);
+    inst->insertBefore(InsertPos);
 }
 
 // ::llvm::Instruction::isArithmeticShift
@@ -3152,63 +3187,63 @@ int llvm_Instruction_mayWriteToMemory(::llvm::Instruction const* inst)
 extern "C"
 void llvm_Instruction_moveBefore(::llvm::Instruction* inst, ::llvm::Instruction* MovePos)
 {
-    return inst->moveBefore(MovePos);
+    inst->moveBefore(MovePos);
 }
 
 // ::llvm::Instruction::removeFromParent
 extern "C"
 void llvm_Instruction_removeFromParent(::llvm::Instruction* inst)
 {
-    return inst->removeFromParent();
+    inst->removeFromParent();
 }
 
 // ::llvm::Instruction::setDebugLoc
 extern "C"
 void llvm_Instruction_setDebugLoc(::llvm::Instruction* inst, ::llvm::DebugLoc const* Loc)
 {
-    return inst->setDebugLoc(*Loc);
+    inst->setDebugLoc(*Loc);
 }
 
 // ::llvm::Instruction::setHasAllowReciprocal
 extern "C"
 void llvm_Instruction_setHasAllowReciprocal(::llvm::Instruction* inst, int Val)
 {
-    return inst->setHasAllowReciprocal((Val == 1 ? true : false));
+    inst->setHasAllowReciprocal((Val == 1 ? true : false));
 }
 
 // ::llvm::Instruction::setHasNoInfs
 extern "C"
 void llvm_Instruction_setHasNoInfs(::llvm::Instruction* inst, int Val)
 {
-    return inst->setHasNoInfs((Val == 1 ? true : false));
+    inst->setHasNoInfs((Val == 1 ? true : false));
 }
 
 // ::llvm::Instruction::setHasNoNaNs
 extern "C"
 void llvm_Instruction_setHasNoNaNs(::llvm::Instruction* inst, int Val)
 {
-    return inst->setHasNoNaNs((Val == 1 ? true : false));
+    inst->setHasNoNaNs((Val == 1 ? true : false));
 }
 
 // ::llvm::Instruction::setHasNoSignedZeros
 extern "C"
 void llvm_Instruction_setHasNoSignedZeros(::llvm::Instruction* inst, int Val)
 {
-    return inst->setHasNoSignedZeros((Val == 1 ? true : false));
+    inst->setHasNoSignedZeros((Val == 1 ? true : false));
 }
 
 // ::llvm::Instruction::setHasUnsafeAlgebra
 extern "C"
 void llvm_Instruction_setHasUnsafeAlgebra(::llvm::Instruction* inst, int Val)
 {
-    return inst->setHasUnsafeAlgebra((Val == 1 ? true : false));
+    inst->setHasUnsafeAlgebra((Val == 1 ? true : false));
 }
 
 // ::llvm::Instruction::setMetadata
 extern "C"
 void llvm_Instruction_setMetadata(::llvm::Instruction* inst, unsigned int KindID, ::llvm::MDNode* Node)
 {
-    return inst->setMetadata(KindID, Node);
+    inst->setMetadata(KindID, Node);
 }
 
 // ::llvm::Instruction::setMetadataStr
@@ -3216,7 +3251,7 @@ extern "C"
 void llvm_Instruction_setMetadataStr(::llvm::Instruction* inst, llvm_StringRef _Kind, ::llvm::MDNode* Node)
 {
     auto Kind = ::llvm::StringRef(_Kind.data, _Kind.length);
-    return inst->setMetadata(Kind, Node);
+    inst->setMetadata(Kind, Node);
 }
 
 // ::llvm::Instruction::user_back
@@ -3294,7 +3329,7 @@ extern "C"
 void llvm_Module_appendModuleInlineAsm(::llvm::Module* inst, llvm_StringRef _Asm)
 {
     auto Asm = ::llvm::StringRef(_Asm.data, _Asm.length);
-    return inst->appendModuleInlineAsm(Asm);
+    inst->appendModuleInlineAsm(Asm);
 }
 
 // ::llvm::Module::delete
@@ -3308,7 +3343,7 @@ void llvm_Module_delete(::llvm::Module* inst)
 extern "C"
 void llvm_Module_dump(::llvm::Module const* inst)
 {
-    return inst->dump();
+    inst->dump();
 }
 
 // ::llvm::Module::getContext
@@ -3421,7 +3456,7 @@ extern "C"
 extern "C"
 void llvm_Module_setDataLayout(::llvm::Module* inst, ::llvm::DataLayout const* Other)
 {
-    return inst->setDataLayout(Other);
+    inst->setDataLayout(Other);
 }
 
 // ::llvm::Module::setDataLayoutStr
@@ -3429,7 +3464,7 @@ extern "C"
 void llvm_Module_setDataLayoutStr(::llvm::Module* inst, llvm_StringRef _Desc)
 {
     auto Desc = ::llvm::StringRef(_Desc.data, _Desc.length);
-    return inst->setDataLayout(Desc);
+    inst->setDataLayout(Desc);
 }
 
 // ::llvm::Module::setModuleIdentifier
@@ -3437,7 +3472,7 @@ extern "C"
 void llvm_Module_setModuleIdentifier(::llvm::Module* inst, llvm_StringRef _ID)
 {
     auto ID = ::llvm::StringRef(_ID.data, _ID.length);
-    return inst->setModuleIdentifier(ID);
+    inst->setModuleIdentifier(ID);
 }
 
 // ::llvm::Module::setModuleInlineAsm
@@ -3445,7 +3480,7 @@ extern "C"
 void llvm_Module_setModuleInlineAsm(::llvm::Module* inst, llvm_StringRef _Asm)
 {
     auto Asm = ::llvm::StringRef(_Asm.data, _Asm.length);
-    return inst->setModuleInlineAsm(Asm);
+    inst->setModuleInlineAsm(Asm);
 }
 
 // ::llvm::Module::setTargetTriple
@@ -3453,7 +3488,7 @@ extern "C"
 void llvm_Module_setTargetTriple(::llvm::Module* inst, llvm_StringRef _Triple)
 {
     auto Triple = ::llvm::StringRef(_Triple.data, _Triple.length);
-    return inst->setTargetTriple(Triple);
+    inst->setTargetTriple(Triple);
 }
 
 // ::llvm::Operator::getOpcode
@@ -3488,7 +3523,7 @@ int llvm_Pass_doInitialization(::llvm::Pass* inst, ::llvm::Module* Module)
 extern "C"
 void llvm_Pass_dump(::llvm::Pass const* inst)
 {
-    return inst->dump();
+    inst->dump();
 }
 
 // ::llvm::Pass::getPassKind
@@ -3496,6 +3531,27 @@ extern "C"
 ::llvm::PassKind llvm_Pass_getPassKind(::llvm::Pass const* inst)
 {
     return inst->getPassKind();
+}
+
+// ::llvm::PassManager::add
+extern "C"
+void llvm_PassManager_add(::llvm::PassManager* inst, ::llvm::Pass* Pass)
+{
+    inst->add(Pass);
+}
+
+// ::llvm::PassManager::new
+extern "C"
+::llvm::PassManager* llvm_PassManager_new()
+{
+    return new(std::nothrow) ::llvm::PassManager();
+}
+
+// ::llvm::PassManager::run
+extern "C"
+void llvm_PassManager_run(::llvm::PassManager* inst, ::llvm::Module* Module)
+{
+    inst->run(*Module);
 }
 
 // ::llvm::PointerType::classof
@@ -3651,7 +3707,7 @@ extern "C"
 void llvm_StructType_setBody(::llvm::StructType* inst, llvm_ArrayRef_llvm_Type_ptr _Elements)
 {
     auto Elements = ::llvm::ArrayRef<::llvm::Type*>(_Elements.data, _Elements.length);
-    return inst->setBody(Elements);
+    inst->setBody(Elements);
 }
 
 // ::llvm::StructType::setBodyPacked
@@ -3659,7 +3715,7 @@ extern "C"
 void llvm_StructType_setBodyPacked(::llvm::StructType* inst, llvm_ArrayRef_llvm_Type_ptr _Elements, int isPacked)
 {
     auto Elements = ::llvm::ArrayRef<::llvm::Type*>(_Elements.data, _Elements.length);
-    return inst->setBody(Elements, (isPacked == 1 ? true : false));
+    inst->setBody(Elements, (isPacked == 1 ? true : false));
 }
 
 // ::llvm::StructType::setName
@@ -3667,14 +3723,14 @@ extern "C"
 void llvm_StructType_setName(::llvm::StructType* inst, llvm_StringRef _Name)
 {
     auto Name = ::llvm::StringRef(_Name.data, _Name.length);
-    return inst->setName(Name);
+    inst->setName(Name);
 }
 
 // ::llvm::Type::dump
 extern "C"
 void llvm_Type_dump(::llvm::Type const* inst)
 {
-    return inst->dump();
+    inst->dump();
 }
 
 // ::llvm::Type::getContainedType
@@ -4196,14 +4252,14 @@ extern "C"
 extern "C"
 void llvm_Use_set(::llvm::Use* inst, ::llvm::Value* Val)
 {
-    return inst->set(Val);
+    inst->set(Val);
 }
 
 // ::llvm::Use::swap
 extern "C"
 void llvm_Use_swap(::llvm::Use* inst, ::llvm::Use* RHS)
 {
-    return inst->swap(*RHS);
+    inst->swap(*RHS);
 }
 
 // ::llvm::User::classof
@@ -4224,7 +4280,7 @@ void llvm_User_delete(::llvm::User* inst)
 extern "C"
 void llvm_User_dropAllReferences(::llvm::User* inst)
 {
-    return inst->dropAllReferences();
+    inst->dropAllReferences();
 }
 
 // ::llvm::User::getNumOperands
@@ -4245,14 +4301,14 @@ extern "C"
 extern "C"
 void llvm_User_replaceUsesOfWith(::llvm::User* inst, ::llvm::Value* From, ::llvm::Value* To)
 {
-    return inst->replaceUsesOfWith(From, To);
+    inst->replaceUsesOfWith(From, To);
 }
 
 // ::llvm::User::setOperand
 extern "C"
 void llvm_User_setOperand(::llvm::User* inst, unsigned int idx, ::llvm::Value* Val)
 {
-    return inst->setOperand(idx, Val);
+    inst->setOperand(idx, Val);
 }
 
 // ::llvm::Value::delete
@@ -4266,7 +4322,7 @@ void llvm_Value_delete(::llvm::Value* inst)
 extern "C"
 void llvm_Value_dump(::llvm::Value const* inst)
 {
-    return inst->dump();
+    inst->dump();
 }
 
 // ::llvm::Value::getContext
@@ -4347,14 +4403,14 @@ int llvm_Value_isUsedInBasicBlock(::llvm::Value const* inst, ::llvm::BasicBlock 
 extern "C"
 void llvm_Value_mutateType(::llvm::Value* inst, ::llvm::Type* ty)
 {
-    return inst->mutateType(ty);
+    inst->mutateType(ty);
 }
 
 // ::llvm::Value::replaceAllUsesWith
 extern "C"
 void llvm_Value_replaceAllUsesWith(::llvm::Value* inst, ::llvm::Value* Value)
 {
-    return inst->replaceAllUsesWith(Value);
+    inst->replaceAllUsesWith(Value);
 }
 
 // ::llvm::Value::setName
@@ -4362,14 +4418,14 @@ extern "C"
 void llvm_Value_setName(::llvm::Value* inst, llvm_StringRef _Name)
 {
     auto Name = ::llvm::StringRef(_Name.data, _Name.length);
-    return inst->setName(Name);
+    inst->setName(Name);
 }
 
 // ::llvm::Value::takeName
 extern "C"
 void llvm_Value_takeName(::llvm::Value* inst, ::llvm::Value* Value)
 {
-    return inst->takeName(Value);
+    inst->takeName(Value);
 }
 
 // ::llvm::ValueSymbolTable::delete
@@ -4383,7 +4439,7 @@ extern "C"
 extern "C"
 void llvm_ValueSymbolTable_dump(::llvm::ValueSymbolTable const* inst)
 {
-    return inst->dump();
+    inst->dump();
 }
 
 // ::llvm::ValueSymbolTable::empty

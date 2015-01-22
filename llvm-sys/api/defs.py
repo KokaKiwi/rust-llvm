@@ -128,7 +128,9 @@ ModulePass = llvm.Class('ModulePass', Pass)
 RegionPass = llvm.Class('RegionPass', Pass)
 
 FunctionPassManager = llvm.Class('FunctionPassManager')
-ModulePassManager = llvm.Class('ModulePassManager')
-PassManagerBuilder = llvm.Class('PassManagerBuilder')
+FunctionPassManager.modpath = submodpath(['pass'])
+PassManager = llvm.Class('PassManager')
+PassManager.modpath = submodpath(['pass'])
+# PassManagerBuilder = llvm.Class('PassManagerBuilder')
 
 from . import enums

@@ -1,50 +1,53 @@
 pub type AddrSpaceCastInstInner = ::ffi::llvm_AddrSpaceCastInst;
 
-pub trait AddrSpaceCastInstExt: ::llvm::value::user::inst::CastInstExt {
-    #[allow(non_snake_case)]
+pub trait AddrSpaceCastInstObj: ::llvm::value::user::inst::CastInstObj {
     fn inner(&self) -> *mut AddrSpaceCastInstInner;
 }
+
+pub trait AddrSpaceCastInstExt: AddrSpaceCastInstObj {
+}
+impl<T> AddrSpaceCastInstExt for T where T: AddrSpaceCastInstObj {}
 
 pub struct AddrSpaceCastInst {
     inner: ::core::nonzero::NonZero<*mut AddrSpaceCastInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for AddrSpaceCastInst {
+impl ::llvm::value::ValueObj for AddrSpaceCastInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for AddrSpaceCastInst {
+impl ::llvm::value::user::UserObj for AddrSpaceCastInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for AddrSpaceCastInst {
+impl ::llvm::value::user::inst::InstructionObj for AddrSpaceCastInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::UnaryInstructionExt for AddrSpaceCastInst {
+impl ::llvm::value::user::inst::UnaryInstructionObj for AddrSpaceCastInst {
     fn inner(&self) -> *mut ::ffi::llvm_UnaryInstruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::CastInstExt for AddrSpaceCastInst {
+impl ::llvm::value::user::inst::CastInstObj for AddrSpaceCastInst {
     fn inner(&self) -> *mut ::ffi::llvm_CastInst {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl AddrSpaceCastInstExt for AddrSpaceCastInst {
+impl AddrSpaceCastInstObj for AddrSpaceCastInst {
     fn inner(&self) -> *mut AddrSpaceCastInstInner {
         *self.inner
     }
@@ -61,51 +64,54 @@ impl Drop for AddrSpaceCastInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type AllocaInstInner = ::ffi::llvm_AllocaInst;
 
-pub trait AllocaInstExt: ::llvm::value::user::inst::UnaryInstructionExt {
-    #[allow(non_snake_case)]
+pub trait AllocaInstObj: ::llvm::value::user::inst::UnaryInstructionObj {
     fn inner(&self) -> *mut AllocaInstInner;
 }
+
+pub trait AllocaInstExt: AllocaInstObj {
+}
+impl<T> AllocaInstExt for T where T: AllocaInstObj {}
 
 pub struct AllocaInst {
     inner: ::core::nonzero::NonZero<*mut AllocaInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for AllocaInst {
+impl ::llvm::value::ValueObj for AllocaInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for AllocaInst {
+impl ::llvm::value::user::UserObj for AllocaInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for AllocaInst {
+impl ::llvm::value::user::inst::InstructionObj for AllocaInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::UnaryInstructionExt for AllocaInst {
+impl ::llvm::value::user::inst::UnaryInstructionObj for AllocaInst {
     fn inner(&self) -> *mut ::ffi::llvm_UnaryInstruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl AllocaInstExt for AllocaInst {
+impl AllocaInstObj for AllocaInst {
     fn inner(&self) -> *mut AllocaInstInner {
         *self.inner
     }
@@ -122,44 +128,47 @@ impl Drop for AllocaInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type AtomicCmpXchgInstInner = ::ffi::llvm_AtomicCmpXchgInst;
 
-pub trait AtomicCmpXchgInstExt: ::llvm::value::user::inst::InstructionExt {
-    #[allow(non_snake_case)]
+pub trait AtomicCmpXchgInstObj: ::llvm::value::user::inst::InstructionObj {
     fn inner(&self) -> *mut AtomicCmpXchgInstInner;
 }
+
+pub trait AtomicCmpXchgInstExt: AtomicCmpXchgInstObj {
+}
+impl<T> AtomicCmpXchgInstExt for T where T: AtomicCmpXchgInstObj {}
 
 pub struct AtomicCmpXchgInst {
     inner: ::core::nonzero::NonZero<*mut AtomicCmpXchgInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for AtomicCmpXchgInst {
+impl ::llvm::value::ValueObj for AtomicCmpXchgInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for AtomicCmpXchgInst {
+impl ::llvm::value::user::UserObj for AtomicCmpXchgInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for AtomicCmpXchgInst {
+impl ::llvm::value::user::inst::InstructionObj for AtomicCmpXchgInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl AtomicCmpXchgInstExt for AtomicCmpXchgInst {
+impl AtomicCmpXchgInstObj for AtomicCmpXchgInst {
     fn inner(&self) -> *mut AtomicCmpXchgInstInner {
         *self.inner
     }
@@ -176,44 +185,47 @@ impl Drop for AtomicCmpXchgInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type AtomicRMWInstInner = ::ffi::llvm_AtomicRMWInst;
 
-pub trait AtomicRMWInstExt: ::llvm::value::user::inst::InstructionExt {
-    #[allow(non_snake_case)]
+pub trait AtomicRMWInstObj: ::llvm::value::user::inst::InstructionObj {
     fn inner(&self) -> *mut AtomicRMWInstInner;
 }
+
+pub trait AtomicRMWInstExt: AtomicRMWInstObj {
+}
+impl<T> AtomicRMWInstExt for T where T: AtomicRMWInstObj {}
 
 pub struct AtomicRMWInst {
     inner: ::core::nonzero::NonZero<*mut AtomicRMWInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for AtomicRMWInst {
+impl ::llvm::value::ValueObj for AtomicRMWInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for AtomicRMWInst {
+impl ::llvm::value::user::UserObj for AtomicRMWInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for AtomicRMWInst {
+impl ::llvm::value::user::inst::InstructionObj for AtomicRMWInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl AtomicRMWInstExt for AtomicRMWInst {
+impl AtomicRMWInstObj for AtomicRMWInst {
     fn inner(&self) -> *mut AtomicRMWInstInner {
         *self.inner
     }
@@ -230,44 +242,47 @@ impl Drop for AtomicRMWInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type BinaryOperatorInner = ::ffi::llvm_BinaryOperator;
 
-pub trait BinaryOperatorExt: ::llvm::value::user::inst::InstructionExt {
-    #[allow(non_snake_case)]
+pub trait BinaryOperatorObj: ::llvm::value::user::inst::InstructionObj {
     fn inner(&self) -> *mut BinaryOperatorInner;
 }
+
+pub trait BinaryOperatorExt: BinaryOperatorObj {
+}
+impl<T> BinaryOperatorExt for T where T: BinaryOperatorObj {}
 
 pub struct BinaryOperator {
     inner: ::core::nonzero::NonZero<*mut BinaryOperatorInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for BinaryOperator {
+impl ::llvm::value::ValueObj for BinaryOperator {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for BinaryOperator {
+impl ::llvm::value::user::UserObj for BinaryOperator {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for BinaryOperator {
+impl ::llvm::value::user::inst::InstructionObj for BinaryOperator {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl BinaryOperatorExt for BinaryOperator {
+impl BinaryOperatorObj for BinaryOperator {
     fn inner(&self) -> *mut BinaryOperatorInner {
         *self.inner
     }
@@ -284,58 +299,61 @@ impl Drop for BinaryOperator {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type BitCastInstInner = ::ffi::llvm_BitCastInst;
 
-pub trait BitCastInstExt: ::llvm::value::user::inst::CastInstExt {
-    #[allow(non_snake_case)]
+pub trait BitCastInstObj: ::llvm::value::user::inst::CastInstObj {
     fn inner(&self) -> *mut BitCastInstInner;
 }
+
+pub trait BitCastInstExt: BitCastInstObj {
+}
+impl<T> BitCastInstExt for T where T: BitCastInstObj {}
 
 pub struct BitCastInst {
     inner: ::core::nonzero::NonZero<*mut BitCastInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for BitCastInst {
+impl ::llvm::value::ValueObj for BitCastInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for BitCastInst {
+impl ::llvm::value::user::UserObj for BitCastInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for BitCastInst {
+impl ::llvm::value::user::inst::InstructionObj for BitCastInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::UnaryInstructionExt for BitCastInst {
+impl ::llvm::value::user::inst::UnaryInstructionObj for BitCastInst {
     fn inner(&self) -> *mut ::ffi::llvm_UnaryInstruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::CastInstExt for BitCastInst {
+impl ::llvm::value::user::inst::CastInstObj for BitCastInst {
     fn inner(&self) -> *mut ::ffi::llvm_CastInst {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl BitCastInstExt for BitCastInst {
+impl BitCastInstObj for BitCastInst {
     fn inner(&self) -> *mut BitCastInstInner {
         *self.inner
     }
@@ -352,51 +370,54 @@ impl Drop for BitCastInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type BranchInstInner = ::ffi::llvm_BranchInst;
 
-pub trait BranchInstExt: ::llvm::value::user::inst::TerminatorInstExt {
-    #[allow(non_snake_case)]
+pub trait BranchInstObj: ::llvm::value::user::inst::TerminatorInstObj {
     fn inner(&self) -> *mut BranchInstInner;
 }
+
+pub trait BranchInstExt: BranchInstObj {
+}
+impl<T> BranchInstExt for T where T: BranchInstObj {}
 
 pub struct BranchInst {
     inner: ::core::nonzero::NonZero<*mut BranchInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for BranchInst {
+impl ::llvm::value::ValueObj for BranchInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for BranchInst {
+impl ::llvm::value::user::UserObj for BranchInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for BranchInst {
+impl ::llvm::value::user::inst::InstructionObj for BranchInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::TerminatorInstExt for BranchInst {
+impl ::llvm::value::user::inst::TerminatorInstObj for BranchInst {
     fn inner(&self) -> *mut ::ffi::llvm_TerminatorInst {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl BranchInstExt for BranchInst {
+impl BranchInstObj for BranchInst {
     fn inner(&self) -> *mut BranchInstInner {
         *self.inner
     }
@@ -413,44 +434,47 @@ impl Drop for BranchInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type CallInstInner = ::ffi::llvm_CallInst;
 
-pub trait CallInstExt: ::llvm::value::user::inst::InstructionExt {
-    #[allow(non_snake_case)]
+pub trait CallInstObj: ::llvm::value::user::inst::InstructionObj {
     fn inner(&self) -> *mut CallInstInner;
 }
+
+pub trait CallInstExt: CallInstObj {
+}
+impl<T> CallInstExt for T where T: CallInstObj {}
 
 pub struct CallInst {
     inner: ::core::nonzero::NonZero<*mut CallInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for CallInst {
+impl ::llvm::value::ValueObj for CallInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for CallInst {
+impl ::llvm::value::user::UserObj for CallInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for CallInst {
+impl ::llvm::value::user::inst::InstructionObj for CallInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl CallInstExt for CallInst {
+impl CallInstObj for CallInst {
     fn inner(&self) -> *mut CallInstInner {
         *self.inner
     }
@@ -467,51 +491,54 @@ impl Drop for CallInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type CastInstInner = ::ffi::llvm_CastInst;
 
-pub trait CastInstExt: ::llvm::value::user::inst::UnaryInstructionExt {
-    #[allow(non_snake_case)]
+pub trait CastInstObj: ::llvm::value::user::inst::UnaryInstructionObj {
     fn inner(&self) -> *mut CastInstInner;
 }
+
+pub trait CastInstExt: CastInstObj {
+}
+impl<T> CastInstExt for T where T: CastInstObj {}
 
 pub struct CastInst {
     inner: ::core::nonzero::NonZero<*mut CastInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for CastInst {
+impl ::llvm::value::ValueObj for CastInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for CastInst {
+impl ::llvm::value::user::UserObj for CastInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for CastInst {
+impl ::llvm::value::user::inst::InstructionObj for CastInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::UnaryInstructionExt for CastInst {
+impl ::llvm::value::user::inst::UnaryInstructionObj for CastInst {
     fn inner(&self) -> *mut ::ffi::llvm_UnaryInstruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl CastInstExt for CastInst {
+impl CastInstObj for CastInst {
     fn inner(&self) -> *mut CastInstInner {
         *self.inner
     }
@@ -528,7 +555,7 @@ impl Drop for CastInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
@@ -640,37 +667,40 @@ impl Predicate {
 impl Copy for Predicate {}
 pub type CmpInstInner = ::ffi::llvm_CmpInst;
 
-pub trait CmpInstExt: ::llvm::value::user::inst::InstructionExt {
-    #[allow(non_snake_case)]
+pub trait CmpInstObj: ::llvm::value::user::inst::InstructionObj {
     fn inner(&self) -> *mut CmpInstInner;
 }
+
+pub trait CmpInstExt: CmpInstObj {
+}
+impl<T> CmpInstExt for T where T: CmpInstObj {}
 
 pub struct CmpInst {
     inner: ::core::nonzero::NonZero<*mut CmpInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for CmpInst {
+impl ::llvm::value::ValueObj for CmpInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for CmpInst {
+impl ::llvm::value::user::UserObj for CmpInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for CmpInst {
+impl ::llvm::value::user::inst::InstructionObj for CmpInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl CmpInstExt for CmpInst {
+impl CmpInstObj for CmpInst {
     fn inner(&self) -> *mut CmpInstInner {
         *self.inner
     }
@@ -687,44 +717,47 @@ impl Drop for CmpInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type ExtractElementInstInner = ::ffi::llvm_ExtractElementInst;
 
-pub trait ExtractElementInstExt: ::llvm::value::user::inst::InstructionExt {
-    #[allow(non_snake_case)]
+pub trait ExtractElementInstObj: ::llvm::value::user::inst::InstructionObj {
     fn inner(&self) -> *mut ExtractElementInstInner;
 }
+
+pub trait ExtractElementInstExt: ExtractElementInstObj {
+}
+impl<T> ExtractElementInstExt for T where T: ExtractElementInstObj {}
 
 pub struct ExtractElementInst {
     inner: ::core::nonzero::NonZero<*mut ExtractElementInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for ExtractElementInst {
+impl ::llvm::value::ValueObj for ExtractElementInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for ExtractElementInst {
+impl ::llvm::value::user::UserObj for ExtractElementInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for ExtractElementInst {
+impl ::llvm::value::user::inst::InstructionObj for ExtractElementInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ExtractElementInstExt for ExtractElementInst {
+impl ExtractElementInstObj for ExtractElementInst {
     fn inner(&self) -> *mut ExtractElementInstInner {
         *self.inner
     }
@@ -741,51 +774,54 @@ impl Drop for ExtractElementInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type ExtractValueInstInner = ::ffi::llvm_ExtractValueInst;
 
-pub trait ExtractValueInstExt: ::llvm::value::user::inst::UnaryInstructionExt {
-    #[allow(non_snake_case)]
+pub trait ExtractValueInstObj: ::llvm::value::user::inst::UnaryInstructionObj {
     fn inner(&self) -> *mut ExtractValueInstInner;
 }
+
+pub trait ExtractValueInstExt: ExtractValueInstObj {
+}
+impl<T> ExtractValueInstExt for T where T: ExtractValueInstObj {}
 
 pub struct ExtractValueInst {
     inner: ::core::nonzero::NonZero<*mut ExtractValueInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for ExtractValueInst {
+impl ::llvm::value::ValueObj for ExtractValueInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for ExtractValueInst {
+impl ::llvm::value::user::UserObj for ExtractValueInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for ExtractValueInst {
+impl ::llvm::value::user::inst::InstructionObj for ExtractValueInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::UnaryInstructionExt for ExtractValueInst {
+impl ::llvm::value::user::inst::UnaryInstructionObj for ExtractValueInst {
     fn inner(&self) -> *mut ::ffi::llvm_UnaryInstruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ExtractValueInstExt for ExtractValueInst {
+impl ExtractValueInstObj for ExtractValueInst {
     fn inner(&self) -> *mut ExtractValueInstInner {
         *self.inner
     }
@@ -802,58 +838,61 @@ impl Drop for ExtractValueInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type FPExtInstInner = ::ffi::llvm_FPExtInst;
 
-pub trait FPExtInstExt: ::llvm::value::user::inst::CastInstExt {
-    #[allow(non_snake_case)]
+pub trait FPExtInstObj: ::llvm::value::user::inst::CastInstObj {
     fn inner(&self) -> *mut FPExtInstInner;
 }
+
+pub trait FPExtInstExt: FPExtInstObj {
+}
+impl<T> FPExtInstExt for T where T: FPExtInstObj {}
 
 pub struct FPExtInst {
     inner: ::core::nonzero::NonZero<*mut FPExtInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for FPExtInst {
+impl ::llvm::value::ValueObj for FPExtInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for FPExtInst {
+impl ::llvm::value::user::UserObj for FPExtInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for FPExtInst {
+impl ::llvm::value::user::inst::InstructionObj for FPExtInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::UnaryInstructionExt for FPExtInst {
+impl ::llvm::value::user::inst::UnaryInstructionObj for FPExtInst {
     fn inner(&self) -> *mut ::ffi::llvm_UnaryInstruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::CastInstExt for FPExtInst {
+impl ::llvm::value::user::inst::CastInstObj for FPExtInst {
     fn inner(&self) -> *mut ::ffi::llvm_CastInst {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl FPExtInstExt for FPExtInst {
+impl FPExtInstObj for FPExtInst {
     fn inner(&self) -> *mut FPExtInstInner {
         *self.inner
     }
@@ -870,58 +909,61 @@ impl Drop for FPExtInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type FPToSIInstInner = ::ffi::llvm_FPToSIInst;
 
-pub trait FPToSIInstExt: ::llvm::value::user::inst::CastInstExt {
-    #[allow(non_snake_case)]
+pub trait FPToSIInstObj: ::llvm::value::user::inst::CastInstObj {
     fn inner(&self) -> *mut FPToSIInstInner;
 }
+
+pub trait FPToSIInstExt: FPToSIInstObj {
+}
+impl<T> FPToSIInstExt for T where T: FPToSIInstObj {}
 
 pub struct FPToSIInst {
     inner: ::core::nonzero::NonZero<*mut FPToSIInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for FPToSIInst {
+impl ::llvm::value::ValueObj for FPToSIInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for FPToSIInst {
+impl ::llvm::value::user::UserObj for FPToSIInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for FPToSIInst {
+impl ::llvm::value::user::inst::InstructionObj for FPToSIInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::UnaryInstructionExt for FPToSIInst {
+impl ::llvm::value::user::inst::UnaryInstructionObj for FPToSIInst {
     fn inner(&self) -> *mut ::ffi::llvm_UnaryInstruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::CastInstExt for FPToSIInst {
+impl ::llvm::value::user::inst::CastInstObj for FPToSIInst {
     fn inner(&self) -> *mut ::ffi::llvm_CastInst {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl FPToSIInstExt for FPToSIInst {
+impl FPToSIInstObj for FPToSIInst {
     fn inner(&self) -> *mut FPToSIInstInner {
         *self.inner
     }
@@ -938,44 +980,47 @@ impl Drop for FPToSIInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type FenceInstInner = ::ffi::llvm_FenceInst;
 
-pub trait FenceInstExt: ::llvm::value::user::inst::InstructionExt {
-    #[allow(non_snake_case)]
+pub trait FenceInstObj: ::llvm::value::user::inst::InstructionObj {
     fn inner(&self) -> *mut FenceInstInner;
 }
+
+pub trait FenceInstExt: FenceInstObj {
+}
+impl<T> FenceInstExt for T where T: FenceInstObj {}
 
 pub struct FenceInst {
     inner: ::core::nonzero::NonZero<*mut FenceInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for FenceInst {
+impl ::llvm::value::ValueObj for FenceInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for FenceInst {
+impl ::llvm::value::user::UserObj for FenceInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for FenceInst {
+impl ::llvm::value::user::inst::InstructionObj for FenceInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl FenceInstExt for FenceInst {
+impl FenceInstObj for FenceInst {
     fn inner(&self) -> *mut FenceInstInner {
         *self.inner
     }
@@ -992,44 +1037,47 @@ impl Drop for FenceInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type GetElementPtrInstInner = ::ffi::llvm_GetElementPtrInst;
 
-pub trait GetElementPtrInstExt: ::llvm::value::user::inst::InstructionExt {
-    #[allow(non_snake_case)]
+pub trait GetElementPtrInstObj: ::llvm::value::user::inst::InstructionObj {
     fn inner(&self) -> *mut GetElementPtrInstInner;
 }
+
+pub trait GetElementPtrInstExt: GetElementPtrInstObj {
+}
+impl<T> GetElementPtrInstExt for T where T: GetElementPtrInstObj {}
 
 pub struct GetElementPtrInst {
     inner: ::core::nonzero::NonZero<*mut GetElementPtrInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for GetElementPtrInst {
+impl ::llvm::value::ValueObj for GetElementPtrInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for GetElementPtrInst {
+impl ::llvm::value::user::UserObj for GetElementPtrInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for GetElementPtrInst {
+impl ::llvm::value::user::inst::InstructionObj for GetElementPtrInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl GetElementPtrInstExt for GetElementPtrInst {
+impl GetElementPtrInstObj for GetElementPtrInst {
     fn inner(&self) -> *mut GetElementPtrInstInner {
         *self.inner
     }
@@ -1046,51 +1094,54 @@ impl Drop for GetElementPtrInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type IndirectBrInstInner = ::ffi::llvm_IndirectBrInst;
 
-pub trait IndirectBrInstExt: ::llvm::value::user::inst::TerminatorInstExt {
-    #[allow(non_snake_case)]
+pub trait IndirectBrInstObj: ::llvm::value::user::inst::TerminatorInstObj {
     fn inner(&self) -> *mut IndirectBrInstInner;
 }
+
+pub trait IndirectBrInstExt: IndirectBrInstObj {
+}
+impl<T> IndirectBrInstExt for T where T: IndirectBrInstObj {}
 
 pub struct IndirectBrInst {
     inner: ::core::nonzero::NonZero<*mut IndirectBrInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for IndirectBrInst {
+impl ::llvm::value::ValueObj for IndirectBrInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for IndirectBrInst {
+impl ::llvm::value::user::UserObj for IndirectBrInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for IndirectBrInst {
+impl ::llvm::value::user::inst::InstructionObj for IndirectBrInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::TerminatorInstExt for IndirectBrInst {
+impl ::llvm::value::user::inst::TerminatorInstObj for IndirectBrInst {
     fn inner(&self) -> *mut ::ffi::llvm_TerminatorInst {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl IndirectBrInstExt for IndirectBrInst {
+impl IndirectBrInstObj for IndirectBrInst {
     fn inner(&self) -> *mut IndirectBrInstInner {
         *self.inner
     }
@@ -1107,44 +1158,47 @@ impl Drop for IndirectBrInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type InsertElementInstInner = ::ffi::llvm_InsertElementInst;
 
-pub trait InsertElementInstExt: ::llvm::value::user::inst::InstructionExt {
-    #[allow(non_snake_case)]
+pub trait InsertElementInstObj: ::llvm::value::user::inst::InstructionObj {
     fn inner(&self) -> *mut InsertElementInstInner;
 }
+
+pub trait InsertElementInstExt: InsertElementInstObj {
+}
+impl<T> InsertElementInstExt for T where T: InsertElementInstObj {}
 
 pub struct InsertElementInst {
     inner: ::core::nonzero::NonZero<*mut InsertElementInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for InsertElementInst {
+impl ::llvm::value::ValueObj for InsertElementInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for InsertElementInst {
+impl ::llvm::value::user::UserObj for InsertElementInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for InsertElementInst {
+impl ::llvm::value::user::inst::InstructionObj for InsertElementInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl InsertElementInstExt for InsertElementInst {
+impl InsertElementInstObj for InsertElementInst {
     fn inner(&self) -> *mut InsertElementInstInner {
         *self.inner
     }
@@ -1161,44 +1215,47 @@ impl Drop for InsertElementInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type InsertValueInstInner = ::ffi::llvm_InsertValueInst;
 
-pub trait InsertValueInstExt: ::llvm::value::user::inst::InstructionExt {
-    #[allow(non_snake_case)]
+pub trait InsertValueInstObj: ::llvm::value::user::inst::InstructionObj {
     fn inner(&self) -> *mut InsertValueInstInner;
 }
+
+pub trait InsertValueInstExt: InsertValueInstObj {
+}
+impl<T> InsertValueInstExt for T where T: InsertValueInstObj {}
 
 pub struct InsertValueInst {
     inner: ::core::nonzero::NonZero<*mut InsertValueInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for InsertValueInst {
+impl ::llvm::value::ValueObj for InsertValueInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for InsertValueInst {
+impl ::llvm::value::user::UserObj for InsertValueInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for InsertValueInst {
+impl ::llvm::value::user::inst::InstructionObj for InsertValueInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl InsertValueInstExt for InsertValueInst {
+impl InsertValueInstObj for InsertValueInst {
     fn inner(&self) -> *mut InsertValueInstInner {
         *self.inner
     }
@@ -1215,7 +1272,7 @@ impl Drop for InsertValueInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
@@ -1464,13 +1521,15 @@ impl TermOps {
 impl Copy for TermOps {}
 pub type InstructionInner = ::ffi::llvm_Instruction;
 
-pub trait InstructionExt: ::llvm::value::user::UserExt {
-    #[allow(non_snake_case)]
+pub trait InstructionObj: ::llvm::value::user::UserObj {
     fn inner(&self) -> *mut InstructionInner;
+}
+
+pub trait InstructionExt: InstructionObj {
 
     fn clone(&self) -> Option<::llvm::value::user::inst::Instruction> {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_clone(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_clone(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             if ret.is_null() {
                 return None;
             }
@@ -1478,15 +1537,15 @@ pub trait InstructionExt: ::llvm::value::user::UserExt {
         }
     }
 
-    fn copy_fast_math_flags(&mut self, inst: &::llvm::value::user::inst::InstructionExt) {
+    fn copy_fast_math_flags<A1: ::llvm::value::user::inst::InstructionObj>(&mut self, inst: &A1) {
         unsafe {
-            ::ffi::llvm::Instruction_copyFastMathFlags(::llvm::value::user::inst::InstructionExt::inner(self), ::llvm::value::user::inst::InstructionExt::inner(inst));
+            ::ffi::llvm::Instruction_copyFastMathFlags(::llvm::value::user::inst::InstructionObj::inner(self), ::llvm::value::user::inst::InstructionObj::inner(inst));
         }
     }
 
     fn drop_unknown_metadata(&mut self) {
         unsafe {
-            ::ffi::llvm::Instruction_dropUnknownMetadata(::llvm::value::user::inst::InstructionExt::inner(self));
+            ::ffi::llvm::Instruction_dropUnknownMetadata(::llvm::value::user::inst::InstructionObj::inner(self));
         }
     }
 
@@ -1496,19 +1555,19 @@ pub trait InstructionExt: ::llvm::value::user::UserExt {
                 data: known_i_ds.as_ptr(),
                 length: known_i_ds.len() as ::libc::size_t,
             };
-            ::ffi::llvm::Instruction_dropUnknownMetadataFromIDS(::llvm::value::user::inst::InstructionExt::inner(self), c_known_i_ds);
+            ::ffi::llvm::Instruction_dropUnknownMetadataFromIDS(::llvm::value::user::inst::InstructionObj::inner(self), c_known_i_ds);
         }
     }
 
     fn erase_from_parent(&mut self) {
         unsafe {
-            ::ffi::llvm::Instruction_eraseFromParent(::llvm::value::user::inst::InstructionExt::inner(self));
+            ::ffi::llvm::Instruction_eraseFromParent(::llvm::value::user::inst::InstructionObj::inner(self));
         }
     }
 
     fn get_data_layout(&self) -> Option<::llvm::DataLayout> {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_getDataLayout(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_getDataLayout(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             if ret.is_null() {
                 return None;
             }
@@ -1518,14 +1577,14 @@ pub trait InstructionExt: ::llvm::value::user::UserExt {
 
     fn get_debug_loc(&self) -> ::llvm::DebugLoc {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_getDebugLoc(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_getDebugLoc(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ::llvm::DebugLoc::from_inner(ret as *mut ::ffi::llvm_DebugLoc)
         }
     }
 
     fn get_metadata(&self, kind_id: u32) -> Option<::llvm::value::MDNode> {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_getMetadata(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction, kind_id as ::libc::c_uint);
+            let ret = ::ffi::llvm::Instruction_getMetadata(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction, kind_id as ::libc::c_uint);
             if ret.is_null() {
                 return None;
             }
@@ -1539,7 +1598,7 @@ pub trait InstructionExt: ::llvm::value::user::UserExt {
                 data: kind.as_ptr() as *const ::libc::c_char,
                 length: kind.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::Instruction_getMetadataStr(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction, c_kind);
+            let ret = ::ffi::llvm::Instruction_getMetadataStr(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction, c_kind);
             if ret.is_null() {
                 return None;
             }
@@ -1549,14 +1608,14 @@ pub trait InstructionExt: ::llvm::value::user::UserExt {
 
     fn get_opcode(&self) -> u32 {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_getOpcode(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction) as u32;
+            let ret = ::ffi::llvm::Instruction_getOpcode(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction) as u32;
             ret
         }
     }
 
     fn get_parent(&self) -> Option<::llvm::value::BasicBlock> {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_getParent(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_getParent(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             if ret.is_null() {
                 return None;
             }
@@ -1566,7 +1625,7 @@ pub trait InstructionExt: ::llvm::value::user::UserExt {
 
     fn get_parent_mut(&mut self) -> Option<::llvm::value::BasicBlock> {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_getParentMut(::llvm::value::user::inst::InstructionExt::inner(self));
+            let ret = ::ffi::llvm::Instruction_getParentMut(::llvm::value::user::inst::InstructionObj::inner(self));
             if ret.is_null() {
                 return None;
             }
@@ -1576,272 +1635,272 @@ pub trait InstructionExt: ::llvm::value::user::UserExt {
 
     fn has_allow_reciprocal(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_hasAllowReciprocal(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_hasAllowReciprocal(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
     fn has_metadata(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_hasMetadata(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_hasMetadata(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
     fn has_metadata_other_than_debug_loc(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_hasMetadataOtherThanDebugLoc(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_hasMetadataOtherThanDebugLoc(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
     fn has_no_infs(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_hasNoInfs(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_hasNoInfs(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
     fn has_no_na_ns(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_hasNoNaNs(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_hasNoNaNs(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
     fn has_no_signed_zeros(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_hasNoSignedZeros(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_hasNoSignedZeros(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
     fn has_unsafe_algebra(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_hasUnsafeAlgebra(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_hasUnsafeAlgebra(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
-    fn insert_after(&mut self, insert_pos: &::llvm::value::user::inst::InstructionExt) {
+    fn insert_after<A1: ::llvm::value::user::inst::InstructionObj>(&mut self, insert_pos: &mut A1) {
         unsafe {
-            ::ffi::llvm::Instruction_insertAfter(::llvm::value::user::inst::InstructionExt::inner(self), ::llvm::value::user::inst::InstructionExt::inner(insert_pos));
+            ::ffi::llvm::Instruction_insertAfter(::llvm::value::user::inst::InstructionObj::inner(self), ::llvm::value::user::inst::InstructionObj::inner(insert_pos));
         }
     }
 
-    fn insert_before(&mut self, insert_pos: &::llvm::value::user::inst::InstructionExt) {
+    fn insert_before<A1: ::llvm::value::user::inst::InstructionObj>(&mut self, insert_pos: &mut A1) {
         unsafe {
-            ::ffi::llvm::Instruction_insertBefore(::llvm::value::user::inst::InstructionExt::inner(self), ::llvm::value::user::inst::InstructionExt::inner(insert_pos));
+            ::ffi::llvm::Instruction_insertBefore(::llvm::value::user::inst::InstructionObj::inner(self), ::llvm::value::user::inst::InstructionObj::inner(insert_pos));
         }
     }
 
     fn is_arithmetic_shift(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_isArithmeticShift(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_isArithmeticShift(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
     fn is_associative(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_isAssociative(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_isAssociative(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
     fn is_binary_op(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_isBinaryOp(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_isBinaryOp(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
     fn is_cast(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_isCast(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_isCast(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
     fn is_commutative(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_isCommutative(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_isCommutative(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
     fn is_idempotent(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_isIdempotent(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_isIdempotent(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
-    fn is_identical_to(&self, inst: &::llvm::value::user::inst::InstructionExt) -> bool {
+    fn is_identical_to<A1: ::llvm::value::user::inst::InstructionObj>(&self, inst: &A1) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_isIdenticalTo(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction, ::llvm::value::user::inst::InstructionExt::inner(inst));
+            let ret = ::ffi::llvm::Instruction_isIdenticalTo(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction, ::llvm::value::user::inst::InstructionObj::inner(inst));
             ret
         }
     }
 
-    fn is_identical_to_when_defined(&self, inst: &::llvm::value::user::inst::InstructionExt) -> bool {
+    fn is_identical_to_when_defined<A1: ::llvm::value::user::inst::InstructionObj>(&self, inst: &A1) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_isIdenticalToWhenDefined(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction, ::llvm::value::user::inst::InstructionExt::inner(inst));
+            let ret = ::ffi::llvm::Instruction_isIdenticalToWhenDefined(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction, ::llvm::value::user::inst::InstructionObj::inner(inst));
             ret
         }
     }
 
     fn is_logical_shift(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_isLogicalShift(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_isLogicalShift(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
     fn is_nilpotent(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_isNilpotent(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_isNilpotent(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
-    fn is_same_operation_as(&self, inst: &::llvm::value::user::inst::InstructionExt, flags: u32) -> bool {
+    fn is_same_operation_as<A1: ::llvm::value::user::inst::InstructionObj>(&self, inst: &A1, flags: u32) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_isSameOperationAs(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction, ::llvm::value::user::inst::InstructionExt::inner(inst), flags as ::libc::c_uint);
+            let ret = ::ffi::llvm::Instruction_isSameOperationAs(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction, ::llvm::value::user::inst::InstructionObj::inner(inst), flags as ::libc::c_uint);
             ret
         }
     }
 
     fn is_shift(&mut self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_isShift(::llvm::value::user::inst::InstructionExt::inner(self));
+            let ret = ::ffi::llvm::Instruction_isShift(::llvm::value::user::inst::InstructionObj::inner(self));
             ret
         }
     }
 
     fn is_terminator(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_isTerminator(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_isTerminator(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
-    fn is_used_outside_of_block(&self, bb: &::llvm::value::BasicBlockExt) -> bool {
+    fn is_used_outside_of_block<A1: ::llvm::value::BasicBlockObj>(&self, bb: &A1) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_isUsedOutsideOfBlock(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction, ::llvm::value::BasicBlockExt::inner(bb));
+            let ret = ::ffi::llvm::Instruction_isUsedOutsideOfBlock(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction, ::llvm::value::BasicBlockObj::inner(bb));
             ret
         }
     }
 
     fn may_have_side_effects(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_mayHaveSideEffects(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_mayHaveSideEffects(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
     fn may_read_from_memory(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_mayReadFromMemory(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_mayReadFromMemory(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
     fn may_read_or_write_memory(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_mayReadOrWriteMemory(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_mayReadOrWriteMemory(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
     fn may_return(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_mayReturn(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_mayReturn(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
     fn may_throw(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_mayThrow(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_mayThrow(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
     fn may_write_to_memory(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_mayWriteToMemory(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_mayWriteToMemory(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             ret
         }
     }
 
-    fn move_before(&mut self, move_pos: &::llvm::value::user::inst::InstructionExt) {
+    fn move_before<A1: ::llvm::value::user::inst::InstructionObj>(&mut self, move_pos: &mut A1) {
         unsafe {
-            ::ffi::llvm::Instruction_moveBefore(::llvm::value::user::inst::InstructionExt::inner(self), ::llvm::value::user::inst::InstructionExt::inner(move_pos));
+            ::ffi::llvm::Instruction_moveBefore(::llvm::value::user::inst::InstructionObj::inner(self), ::llvm::value::user::inst::InstructionObj::inner(move_pos));
         }
     }
 
     fn remove_from_parent(&mut self) {
         unsafe {
-            ::ffi::llvm::Instruction_removeFromParent(::llvm::value::user::inst::InstructionExt::inner(self));
+            ::ffi::llvm::Instruction_removeFromParent(::llvm::value::user::inst::InstructionObj::inner(self));
         }
     }
 
-    fn set_debug_loc(&mut self, loc: &::llvm::DebugLocExt) {
+    fn set_debug_loc<A1: ::llvm::DebugLocObj>(&mut self, loc: &A1) {
         unsafe {
-            ::ffi::llvm::Instruction_setDebugLoc(::llvm::value::user::inst::InstructionExt::inner(self), ::llvm::DebugLocExt::inner(loc));
+            ::ffi::llvm::Instruction_setDebugLoc(::llvm::value::user::inst::InstructionObj::inner(self), ::llvm::DebugLocObj::inner(loc));
         }
     }
 
     fn set_has_allow_reciprocal(&mut self, val: bool) {
         unsafe {
-            ::ffi::llvm::Instruction_setHasAllowReciprocal(::llvm::value::user::inst::InstructionExt::inner(self), val);
+            ::ffi::llvm::Instruction_setHasAllowReciprocal(::llvm::value::user::inst::InstructionObj::inner(self), val);
         }
     }
 
     fn set_has_no_infs(&mut self, val: bool) {
         unsafe {
-            ::ffi::llvm::Instruction_setHasNoInfs(::llvm::value::user::inst::InstructionExt::inner(self), val);
+            ::ffi::llvm::Instruction_setHasNoInfs(::llvm::value::user::inst::InstructionObj::inner(self), val);
         }
     }
 
     fn set_has_no_na_ns(&mut self, val: bool) {
         unsafe {
-            ::ffi::llvm::Instruction_setHasNoNaNs(::llvm::value::user::inst::InstructionExt::inner(self), val);
+            ::ffi::llvm::Instruction_setHasNoNaNs(::llvm::value::user::inst::InstructionObj::inner(self), val);
         }
     }
 
     fn set_has_no_signed_zeros(&mut self, val: bool) {
         unsafe {
-            ::ffi::llvm::Instruction_setHasNoSignedZeros(::llvm::value::user::inst::InstructionExt::inner(self), val);
+            ::ffi::llvm::Instruction_setHasNoSignedZeros(::llvm::value::user::inst::InstructionObj::inner(self), val);
         }
     }
 
     fn set_has_unsafe_algebra(&mut self, val: bool) {
         unsafe {
-            ::ffi::llvm::Instruction_setHasUnsafeAlgebra(::llvm::value::user::inst::InstructionExt::inner(self), val);
+            ::ffi::llvm::Instruction_setHasUnsafeAlgebra(::llvm::value::user::inst::InstructionObj::inner(self), val);
         }
     }
 
-    fn set_metadata(&mut self, kind_id: u32, node: &::llvm::value::MDNodeExt) {
+    fn set_metadata<A2: ::llvm::value::MDNodeObj>(&mut self, kind_id: u32, node: &mut A2) {
         unsafe {
-            ::ffi::llvm::Instruction_setMetadata(::llvm::value::user::inst::InstructionExt::inner(self), kind_id as ::libc::c_uint, ::llvm::value::MDNodeExt::inner(node));
+            ::ffi::llvm::Instruction_setMetadata(::llvm::value::user::inst::InstructionObj::inner(self), kind_id as ::libc::c_uint, ::llvm::value::MDNodeObj::inner(node));
         }
     }
 
-    fn set_metadata_str(&mut self, kind: &str, node: &::llvm::value::MDNodeExt) {
+    fn set_metadata_str<A2: ::llvm::value::MDNodeObj>(&mut self, kind: &str, node: &mut A2) {
         unsafe {
             let c_kind = ::ffi::llvm_StringRef {
                 data: kind.as_ptr() as *const ::libc::c_char,
                 length: kind.len() as ::libc::size_t,
             };
-            ::ffi::llvm::Instruction_setMetadataStr(::llvm::value::user::inst::InstructionExt::inner(self), c_kind, ::llvm::value::MDNodeExt::inner(node));
+            ::ffi::llvm::Instruction_setMetadataStr(::llvm::value::user::inst::InstructionObj::inner(self), c_kind, ::llvm::value::MDNodeObj::inner(node));
         }
     }
 
     fn user_back(&self) -> Option<::llvm::value::user::inst::Instruction> {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_user_back(::llvm::value::user::inst::InstructionExt::inner(self) as *const ::ffi::llvm_Instruction);
+            let ret = ::ffi::llvm::Instruction_user_back(::llvm::value::user::inst::InstructionObj::inner(self) as *const ::ffi::llvm_Instruction);
             if ret.is_null() {
                 return None;
             }
@@ -1851,7 +1910,7 @@ pub trait InstructionExt: ::llvm::value::user::UserExt {
 
     fn user_back_mut(&mut self) -> Option<::llvm::value::user::inst::Instruction> {
         unsafe {
-            let ret = ::ffi::llvm::Instruction_user_back_mut(::llvm::value::user::inst::InstructionExt::inner(self));
+            let ret = ::ffi::llvm::Instruction_user_back_mut(::llvm::value::user::inst::InstructionObj::inner(self));
             if ret.is_null() {
                 return None;
             }
@@ -1859,26 +1918,27 @@ pub trait InstructionExt: ::llvm::value::user::UserExt {
         }
     }
 }
+impl<T> InstructionExt for T where T: InstructionObj {}
 
 pub struct Instruction {
     inner: ::core::nonzero::NonZero<*mut InstructionInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for Instruction {
+impl ::llvm::value::ValueObj for Instruction {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for Instruction {
+impl ::llvm::value::user::UserObj for Instruction {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl InstructionExt for Instruction {
+impl InstructionObj for Instruction {
     fn inner(&self) -> *mut InstructionInner {
         *self.inner
     }
@@ -1895,51 +1955,54 @@ impl Drop for Instruction {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type InvokeInstInner = ::ffi::llvm_InvokeInst;
 
-pub trait InvokeInstExt: ::llvm::value::user::inst::TerminatorInstExt {
-    #[allow(non_snake_case)]
+pub trait InvokeInstObj: ::llvm::value::user::inst::TerminatorInstObj {
     fn inner(&self) -> *mut InvokeInstInner;
 }
+
+pub trait InvokeInstExt: InvokeInstObj {
+}
+impl<T> InvokeInstExt for T where T: InvokeInstObj {}
 
 pub struct InvokeInst {
     inner: ::core::nonzero::NonZero<*mut InvokeInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for InvokeInst {
+impl ::llvm::value::ValueObj for InvokeInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for InvokeInst {
+impl ::llvm::value::user::UserObj for InvokeInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for InvokeInst {
+impl ::llvm::value::user::inst::InstructionObj for InvokeInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::TerminatorInstExt for InvokeInst {
+impl ::llvm::value::user::inst::TerminatorInstObj for InvokeInst {
     fn inner(&self) -> *mut ::ffi::llvm_TerminatorInst {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl InvokeInstExt for InvokeInst {
+impl InvokeInstObj for InvokeInst {
     fn inner(&self) -> *mut InvokeInstInner {
         *self.inner
     }
@@ -1956,44 +2019,47 @@ impl Drop for InvokeInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type LandingPadInstInner = ::ffi::llvm_LandingPadInst;
 
-pub trait LandingPadInstExt: ::llvm::value::user::inst::InstructionExt {
-    #[allow(non_snake_case)]
+pub trait LandingPadInstObj: ::llvm::value::user::inst::InstructionObj {
     fn inner(&self) -> *mut LandingPadInstInner;
 }
+
+pub trait LandingPadInstExt: LandingPadInstObj {
+}
+impl<T> LandingPadInstExt for T where T: LandingPadInstObj {}
 
 pub struct LandingPadInst {
     inner: ::core::nonzero::NonZero<*mut LandingPadInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for LandingPadInst {
+impl ::llvm::value::ValueObj for LandingPadInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for LandingPadInst {
+impl ::llvm::value::user::UserObj for LandingPadInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for LandingPadInst {
+impl ::llvm::value::user::inst::InstructionObj for LandingPadInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl LandingPadInstExt for LandingPadInst {
+impl LandingPadInstObj for LandingPadInst {
     fn inner(&self) -> *mut LandingPadInstInner {
         *self.inner
     }
@@ -2010,51 +2076,54 @@ impl Drop for LandingPadInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type LoadInstInner = ::ffi::llvm_LoadInst;
 
-pub trait LoadInstExt: ::llvm::value::user::inst::UnaryInstructionExt {
-    #[allow(non_snake_case)]
+pub trait LoadInstObj: ::llvm::value::user::inst::UnaryInstructionObj {
     fn inner(&self) -> *mut LoadInstInner;
 }
+
+pub trait LoadInstExt: LoadInstObj {
+}
+impl<T> LoadInstExt for T where T: LoadInstObj {}
 
 pub struct LoadInst {
     inner: ::core::nonzero::NonZero<*mut LoadInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for LoadInst {
+impl ::llvm::value::ValueObj for LoadInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for LoadInst {
+impl ::llvm::value::user::UserObj for LoadInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for LoadInst {
+impl ::llvm::value::user::inst::InstructionObj for LoadInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::UnaryInstructionExt for LoadInst {
+impl ::llvm::value::user::inst::UnaryInstructionObj for LoadInst {
     fn inner(&self) -> *mut ::ffi::llvm_UnaryInstruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl LoadInstExt for LoadInst {
+impl LoadInstObj for LoadInst {
     fn inner(&self) -> *mut LoadInstInner {
         *self.inner
     }
@@ -2071,44 +2140,47 @@ impl Drop for LoadInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type PHINodeInner = ::ffi::llvm_PHINode;
 
-pub trait PHINodeExt: ::llvm::value::user::inst::InstructionExt {
-    #[allow(non_snake_case)]
+pub trait PHINodeObj: ::llvm::value::user::inst::InstructionObj {
     fn inner(&self) -> *mut PHINodeInner;
 }
+
+pub trait PHINodeExt: PHINodeObj {
+}
+impl<T> PHINodeExt for T where T: PHINodeObj {}
 
 pub struct PHINode {
     inner: ::core::nonzero::NonZero<*mut PHINodeInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for PHINode {
+impl ::llvm::value::ValueObj for PHINode {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for PHINode {
+impl ::llvm::value::user::UserObj for PHINode {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for PHINode {
+impl ::llvm::value::user::inst::InstructionObj for PHINode {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl PHINodeExt for PHINode {
+impl PHINodeObj for PHINode {
     fn inner(&self) -> *mut PHINodeInner {
         *self.inner
     }
@@ -2125,51 +2197,54 @@ impl Drop for PHINode {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type ResumeInstInner = ::ffi::llvm_ResumeInst;
 
-pub trait ResumeInstExt: ::llvm::value::user::inst::TerminatorInstExt {
-    #[allow(non_snake_case)]
+pub trait ResumeInstObj: ::llvm::value::user::inst::TerminatorInstObj {
     fn inner(&self) -> *mut ResumeInstInner;
 }
+
+pub trait ResumeInstExt: ResumeInstObj {
+}
+impl<T> ResumeInstExt for T where T: ResumeInstObj {}
 
 pub struct ResumeInst {
     inner: ::core::nonzero::NonZero<*mut ResumeInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for ResumeInst {
+impl ::llvm::value::ValueObj for ResumeInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for ResumeInst {
+impl ::llvm::value::user::UserObj for ResumeInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for ResumeInst {
+impl ::llvm::value::user::inst::InstructionObj for ResumeInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::TerminatorInstExt for ResumeInst {
+impl ::llvm::value::user::inst::TerminatorInstObj for ResumeInst {
     fn inner(&self) -> *mut ::ffi::llvm_TerminatorInst {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ResumeInstExt for ResumeInst {
+impl ResumeInstObj for ResumeInst {
     fn inner(&self) -> *mut ResumeInstInner {
         *self.inner
     }
@@ -2186,51 +2261,54 @@ impl Drop for ResumeInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type ReturnInstInner = ::ffi::llvm_ReturnInst;
 
-pub trait ReturnInstExt: ::llvm::value::user::inst::TerminatorInstExt {
-    #[allow(non_snake_case)]
+pub trait ReturnInstObj: ::llvm::value::user::inst::TerminatorInstObj {
     fn inner(&self) -> *mut ReturnInstInner;
 }
+
+pub trait ReturnInstExt: ReturnInstObj {
+}
+impl<T> ReturnInstExt for T where T: ReturnInstObj {}
 
 pub struct ReturnInst {
     inner: ::core::nonzero::NonZero<*mut ReturnInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for ReturnInst {
+impl ::llvm::value::ValueObj for ReturnInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for ReturnInst {
+impl ::llvm::value::user::UserObj for ReturnInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for ReturnInst {
+impl ::llvm::value::user::inst::InstructionObj for ReturnInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::TerminatorInstExt for ReturnInst {
+impl ::llvm::value::user::inst::TerminatorInstObj for ReturnInst {
     fn inner(&self) -> *mut ::ffi::llvm_TerminatorInst {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ReturnInstExt for ReturnInst {
+impl ReturnInstObj for ReturnInst {
     fn inner(&self) -> *mut ReturnInstInner {
         *self.inner
     }
@@ -2247,44 +2325,47 @@ impl Drop for ReturnInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type SelectInstInner = ::ffi::llvm_SelectInst;
 
-pub trait SelectInstExt: ::llvm::value::user::inst::InstructionExt {
-    #[allow(non_snake_case)]
+pub trait SelectInstObj: ::llvm::value::user::inst::InstructionObj {
     fn inner(&self) -> *mut SelectInstInner;
 }
+
+pub trait SelectInstExt: SelectInstObj {
+}
+impl<T> SelectInstExt for T where T: SelectInstObj {}
 
 pub struct SelectInst {
     inner: ::core::nonzero::NonZero<*mut SelectInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for SelectInst {
+impl ::llvm::value::ValueObj for SelectInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for SelectInst {
+impl ::llvm::value::user::UserObj for SelectInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for SelectInst {
+impl ::llvm::value::user::inst::InstructionObj for SelectInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl SelectInstExt for SelectInst {
+impl SelectInstObj for SelectInst {
     fn inner(&self) -> *mut SelectInstInner {
         *self.inner
     }
@@ -2301,44 +2382,47 @@ impl Drop for SelectInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type ShuffleVectorInstInner = ::ffi::llvm_ShuffleVectorInst;
 
-pub trait ShuffleVectorInstExt: ::llvm::value::user::inst::InstructionExt {
-    #[allow(non_snake_case)]
+pub trait ShuffleVectorInstObj: ::llvm::value::user::inst::InstructionObj {
     fn inner(&self) -> *mut ShuffleVectorInstInner;
 }
+
+pub trait ShuffleVectorInstExt: ShuffleVectorInstObj {
+}
+impl<T> ShuffleVectorInstExt for T where T: ShuffleVectorInstObj {}
 
 pub struct ShuffleVectorInst {
     inner: ::core::nonzero::NonZero<*mut ShuffleVectorInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for ShuffleVectorInst {
+impl ::llvm::value::ValueObj for ShuffleVectorInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for ShuffleVectorInst {
+impl ::llvm::value::user::UserObj for ShuffleVectorInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for ShuffleVectorInst {
+impl ::llvm::value::user::inst::InstructionObj for ShuffleVectorInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ShuffleVectorInstExt for ShuffleVectorInst {
+impl ShuffleVectorInstObj for ShuffleVectorInst {
     fn inner(&self) -> *mut ShuffleVectorInstInner {
         *self.inner
     }
@@ -2355,44 +2439,47 @@ impl Drop for ShuffleVectorInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type StoreInstInner = ::ffi::llvm_StoreInst;
 
-pub trait StoreInstExt: ::llvm::value::user::inst::InstructionExt {
-    #[allow(non_snake_case)]
+pub trait StoreInstObj: ::llvm::value::user::inst::InstructionObj {
     fn inner(&self) -> *mut StoreInstInner;
 }
+
+pub trait StoreInstExt: StoreInstObj {
+}
+impl<T> StoreInstExt for T where T: StoreInstObj {}
 
 pub struct StoreInst {
     inner: ::core::nonzero::NonZero<*mut StoreInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for StoreInst {
+impl ::llvm::value::ValueObj for StoreInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for StoreInst {
+impl ::llvm::value::user::UserObj for StoreInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for StoreInst {
+impl ::llvm::value::user::inst::InstructionObj for StoreInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl StoreInstExt for StoreInst {
+impl StoreInstObj for StoreInst {
     fn inner(&self) -> *mut StoreInstInner {
         *self.inner
     }
@@ -2409,51 +2496,54 @@ impl Drop for StoreInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type SwitchInstInner = ::ffi::llvm_SwitchInst;
 
-pub trait SwitchInstExt: ::llvm::value::user::inst::TerminatorInstExt {
-    #[allow(non_snake_case)]
+pub trait SwitchInstObj: ::llvm::value::user::inst::TerminatorInstObj {
     fn inner(&self) -> *mut SwitchInstInner;
 }
+
+pub trait SwitchInstExt: SwitchInstObj {
+}
+impl<T> SwitchInstExt for T where T: SwitchInstObj {}
 
 pub struct SwitchInst {
     inner: ::core::nonzero::NonZero<*mut SwitchInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for SwitchInst {
+impl ::llvm::value::ValueObj for SwitchInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for SwitchInst {
+impl ::llvm::value::user::UserObj for SwitchInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for SwitchInst {
+impl ::llvm::value::user::inst::InstructionObj for SwitchInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::TerminatorInstExt for SwitchInst {
+impl ::llvm::value::user::inst::TerminatorInstObj for SwitchInst {
     fn inner(&self) -> *mut ::ffi::llvm_TerminatorInst {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl SwitchInstExt for SwitchInst {
+impl SwitchInstObj for SwitchInst {
     fn inner(&self) -> *mut SwitchInstInner {
         *self.inner
     }
@@ -2470,44 +2560,47 @@ impl Drop for SwitchInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type TerminatorInstInner = ::ffi::llvm_TerminatorInst;
 
-pub trait TerminatorInstExt: ::llvm::value::user::inst::InstructionExt {
-    #[allow(non_snake_case)]
+pub trait TerminatorInstObj: ::llvm::value::user::inst::InstructionObj {
     fn inner(&self) -> *mut TerminatorInstInner;
 }
+
+pub trait TerminatorInstExt: TerminatorInstObj {
+}
+impl<T> TerminatorInstExt for T where T: TerminatorInstObj {}
 
 pub struct TerminatorInst {
     inner: ::core::nonzero::NonZero<*mut TerminatorInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for TerminatorInst {
+impl ::llvm::value::ValueObj for TerminatorInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for TerminatorInst {
+impl ::llvm::value::user::UserObj for TerminatorInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for TerminatorInst {
+impl ::llvm::value::user::inst::InstructionObj for TerminatorInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl TerminatorInstExt for TerminatorInst {
+impl TerminatorInstObj for TerminatorInst {
     fn inner(&self) -> *mut TerminatorInstInner {
         *self.inner
     }
@@ -2524,44 +2617,47 @@ impl Drop for TerminatorInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type UnaryInstructionInner = ::ffi::llvm_UnaryInstruction;
 
-pub trait UnaryInstructionExt: ::llvm::value::user::inst::InstructionExt {
-    #[allow(non_snake_case)]
+pub trait UnaryInstructionObj: ::llvm::value::user::inst::InstructionObj {
     fn inner(&self) -> *mut UnaryInstructionInner;
 }
+
+pub trait UnaryInstructionExt: UnaryInstructionObj {
+}
+impl<T> UnaryInstructionExt for T where T: UnaryInstructionObj {}
 
 pub struct UnaryInstruction {
     inner: ::core::nonzero::NonZero<*mut UnaryInstructionInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for UnaryInstruction {
+impl ::llvm::value::ValueObj for UnaryInstruction {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for UnaryInstruction {
+impl ::llvm::value::user::UserObj for UnaryInstruction {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for UnaryInstruction {
+impl ::llvm::value::user::inst::InstructionObj for UnaryInstruction {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl UnaryInstructionExt for UnaryInstruction {
+impl UnaryInstructionObj for UnaryInstruction {
     fn inner(&self) -> *mut UnaryInstructionInner {
         *self.inner
     }
@@ -2578,51 +2674,54 @@ impl Drop for UnaryInstruction {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type UnreachableInstInner = ::ffi::llvm_UnreachableInst;
 
-pub trait UnreachableInstExt: ::llvm::value::user::inst::TerminatorInstExt {
-    #[allow(non_snake_case)]
+pub trait UnreachableInstObj: ::llvm::value::user::inst::TerminatorInstObj {
     fn inner(&self) -> *mut UnreachableInstInner;
 }
+
+pub trait UnreachableInstExt: UnreachableInstObj {
+}
+impl<T> UnreachableInstExt for T where T: UnreachableInstObj {}
 
 pub struct UnreachableInst {
     inner: ::core::nonzero::NonZero<*mut UnreachableInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for UnreachableInst {
+impl ::llvm::value::ValueObj for UnreachableInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for UnreachableInst {
+impl ::llvm::value::user::UserObj for UnreachableInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for UnreachableInst {
+impl ::llvm::value::user::inst::InstructionObj for UnreachableInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::TerminatorInstExt for UnreachableInst {
+impl ::llvm::value::user::inst::TerminatorInstObj for UnreachableInst {
     fn inner(&self) -> *mut ::ffi::llvm_TerminatorInst {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl UnreachableInstExt for UnreachableInst {
+impl UnreachableInstObj for UnreachableInst {
     fn inner(&self) -> *mut UnreachableInstInner {
         *self.inner
     }
@@ -2639,51 +2738,54 @@ impl Drop for UnreachableInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }
 }
 pub type VAArgInstInner = ::ffi::llvm_VAArgInst;
 
-pub trait VAArgInstExt: ::llvm::value::user::inst::UnaryInstructionExt {
-    #[allow(non_snake_case)]
+pub trait VAArgInstObj: ::llvm::value::user::inst::UnaryInstructionObj {
     fn inner(&self) -> *mut VAArgInstInner;
 }
+
+pub trait VAArgInstExt: VAArgInstObj {
+}
+impl<T> VAArgInstExt for T where T: VAArgInstObj {}
 
 pub struct VAArgInst {
     inner: ::core::nonzero::NonZero<*mut VAArgInstInner>,
     owned: bool,
 }
-impl ::llvm::value::ValueExt for VAArgInst {
+impl ::llvm::value::ValueObj for VAArgInst {
     fn inner(&self) -> *mut ::ffi::llvm_Value {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::UserExt for VAArgInst {
+impl ::llvm::value::user::UserObj for VAArgInst {
     fn inner(&self) -> *mut ::ffi::llvm_User {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::InstructionExt for VAArgInst {
+impl ::llvm::value::user::inst::InstructionObj for VAArgInst {
     fn inner(&self) -> *mut ::ffi::llvm_Instruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl ::llvm::value::user::inst::UnaryInstructionExt for VAArgInst {
+impl ::llvm::value::user::inst::UnaryInstructionObj for VAArgInst {
     fn inner(&self) -> *mut ::ffi::llvm_UnaryInstruction {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
-impl VAArgInstExt for VAArgInst {
+impl VAArgInstObj for VAArgInst {
     fn inner(&self) -> *mut VAArgInstInner {
         *self.inner
     }
@@ -2700,7 +2802,7 @@ impl Drop for VAArgInst {
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionExt::inner(self));
+                ::ffi::llvm::Instruction_delete(::llvm::value::user::inst::InstructionObj::inner(self));
             }
         }
     }

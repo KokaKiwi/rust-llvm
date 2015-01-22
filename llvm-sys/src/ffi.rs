@@ -364,9 +364,6 @@ pub struct llvm_Module;
 pub struct llvm_ModulePass;
 #[repr(C)]
 #[derive(Copy)]
-pub struct llvm_ModulePassManager;
-#[repr(C)]
-#[derive(Copy)]
 pub struct llvm_Operator;
 #[repr(C)]
 #[derive(Copy)]
@@ -405,7 +402,7 @@ pub enum llvm_PassKind {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub struct llvm_PassManagerBuilder;
+pub struct llvm_PassManager;
 #[repr(C)]
 #[derive(Copy)]
 pub enum llvm_PassManagerType {
@@ -705,6 +702,8 @@ mod raw {
         pub fn llvm_IRBuilderBase_SetInsertPoint(inst: *mut super::llvm_IRBuilderBase, BB: *mut super::llvm_BasicBlock) -> ::libc::c_void;
         pub fn llvm_IRBuilderBase_SetInsertPointAtInst(inst: *mut super::llvm_IRBuilderBase, Inst: *mut super::llvm_Instruction) -> ::libc::c_void;
         pub fn llvm_IRBuilderBase_SetInstDebugLocation(inst: *const super::llvm_IRBuilderBase, Inst: *mut super::llvm_Instruction) -> ::libc::c_void;
+        pub fn llvm_FunctionPassManager_add(inst: *mut super::llvm_FunctionPassManager, Pass: *mut super::llvm_FunctionPass) -> ::libc::c_void;
+        pub fn llvm_PassManager_add(inst: *mut super::llvm_PassManager, Pass: *mut super::llvm_Pass) -> ::libc::c_void;
         pub fn llvm_Function_addFnAttr(inst: *mut super::llvm_Function, Kind: super::llvm_StringRef) -> ::libc::c_void;
         pub fn llvm_Function_addFnAttrWithValue(inst: *mut super::llvm_Function, Kind: super::llvm_StringRef, Val: super::llvm_StringRef) -> ::libc::c_void;
         pub fn llvm_Module_appendModuleInlineAsm(inst: *mut super::llvm_Module, Asm: super::llvm_StringRef) -> ::libc::c_void;
@@ -839,7 +838,9 @@ mod raw {
         pub fn llvm_Constant_destroyConstant(inst: *mut super::llvm_Constant) -> ::libc::c_void;
         pub fn llvm_ConstantPointerNull_destroyConstant(inst: *mut super::llvm_ConstantPointerNull) -> ::libc::c_void;
         pub fn llvm_GlobalValue_destroyConstant(inst: *mut super::llvm_GlobalValue) -> ::libc::c_void;
+        pub fn llvm_FunctionPassManager_doFinalization(inst: *mut super::llvm_FunctionPassManager) -> ::libc::c_int;
         pub fn llvm_Pass_doFinalization(inst: *mut super::llvm_Pass, Module: *mut super::llvm_Module) -> ::libc::c_int;
+        pub fn llvm_FunctionPassManager_doInitialization(inst: *mut super::llvm_FunctionPassManager) -> ::libc::c_int;
         pub fn llvm_Pass_doInitialization(inst: *mut super::llvm_Pass, Module: *mut super::llvm_Module) -> ::libc::c_int;
         pub fn llvm_Function_doesNotAccessMemory(inst: *const super::llvm_Function) -> ::libc::c_int;
         pub fn llvm_Function_doesNotAccessMemoryParam(inst: *const super::llvm_Function, n: ::libc::c_uint) -> ::libc::c_int;
@@ -1197,11 +1198,13 @@ mod raw {
         pub fn llvm_Value_mutateType(inst: *mut super::llvm_Value, ty: *mut super::llvm_Type) -> ::libc::c_void;
         pub fn llvm_Function_needsUnwindTableEntry(inst: *const super::llvm_Function) -> ::libc::c_int;
         pub fn llvm_DebugLoc_new() -> *mut super::llvm_DebugLoc;
+        pub fn llvm_FunctionPassManager_new(Module: *mut super::llvm_Module) -> *mut super::llvm_FunctionPassManager;
         pub fn llvm_GlobalVariable_new(Ty: *mut super::llvm_Type, isConstant: ::libc::c_int, Linkage: super::llvm_GlobalValue_LinkageTypes) -> *mut super::llvm_GlobalVariable;
         pub fn llvm_IRBuilder_new(Context: *mut super::llvm_LLVMContext) -> *mut super::llvm_IRBuilder;
         pub fn llvm_IRBuilderBase_new(Context: *mut super::llvm_LLVMContext) -> *mut super::llvm_IRBuilderBase;
         pub fn llvm_LLVMContext_new() -> *mut super::llvm_LLVMContext;
         pub fn llvm_Module_new(ModuleID: super::llvm_StringRef, Context: *mut super::llvm_LLVMContext) -> *mut super::llvm_Module;
+        pub fn llvm_PassManager_new() -> *mut super::llvm_PassManager;
         pub fn llvm_ValueSymbolTable_new() -> *mut super::llvm_ValueSymbolTable;
         pub fn llvm_GlobalVariable_newWithModule(Module: *mut super::llvm_Module, Ty: *mut super::llvm_Type, isConstant: ::libc::c_int, Linkage: super::llvm_GlobalValue_LinkageTypes, Initializer: *mut super::llvm_Constant) -> *mut super::llvm_GlobalVariable;
         pub fn llvm_IRBuilder_new_in_block(BB: *mut super::llvm_BasicBlock) -> *mut super::llvm_IRBuilder;
@@ -1217,6 +1220,8 @@ mod raw {
         pub fn llvm_Value_replaceAllUsesWith(inst: *mut super::llvm_Value, Value: *mut super::llvm_Value) -> ::libc::c_void;
         pub fn llvm_BasicBlock_replaceSuccessorsPhiUsesWith(inst: *mut super::llvm_BasicBlock, New: *mut super::llvm_BasicBlock) -> ::libc::c_void;
         pub fn llvm_User_replaceUsesOfWith(inst: *mut super::llvm_User, From: *mut super::llvm_Value, To: *mut super::llvm_Value) -> ::libc::c_void;
+        pub fn llvm_FunctionPassManager_run(inst: *mut super::llvm_FunctionPassManager, Function: *mut super::llvm_Function) -> ::libc::c_void;
+        pub fn llvm_PassManager_run(inst: *mut super::llvm_PassManager, Module: *mut super::llvm_Module) -> ::libc::c_void;
         pub fn llvm_Use_set(inst: *mut super::llvm_Use, Val: *mut super::llvm_Value) -> ::libc::c_void;
         pub fn llvm_StructType_setBody(inst: *mut super::llvm_StructType, Elements: super::llvm_ArrayRef_llvm_Type_ptr) -> ::libc::c_void;
         pub fn llvm_StructType_setBodyPacked(inst: *mut super::llvm_StructType, Elements: super::llvm_ArrayRef_llvm_Type_ptr, isPacked: ::libc::c_int) -> ::libc::c_void;
@@ -2189,6 +2194,36 @@ pub mod llvm {
     #[inline(always)]
     pub unsafe fn Function_setOnlyReadsMemoryParam(inst: *mut super::llvm_Function, n: ::libc::c_uint) -> ::libc::c_void {
         raw::llvm_Function_setOnlyReadsMemoryParam(inst, n)
+    }
+
+    // ::llvm::FunctionPassManager::add
+    #[inline(always)]
+    pub unsafe fn FunctionPassManager_add(inst: *mut super::llvm_FunctionPassManager, Pass: *mut super::llvm_FunctionPass) -> ::libc::c_void {
+        raw::llvm_FunctionPassManager_add(inst, Pass)
+    }
+
+    // ::llvm::FunctionPassManager::doFinalization
+    #[inline(always)]
+    pub unsafe fn FunctionPassManager_doFinalization(inst: *mut super::llvm_FunctionPassManager) -> bool {
+        raw::llvm_FunctionPassManager_doFinalization(inst) != 0
+    }
+
+    // ::llvm::FunctionPassManager::doInitialization
+    #[inline(always)]
+    pub unsafe fn FunctionPassManager_doInitialization(inst: *mut super::llvm_FunctionPassManager) -> bool {
+        raw::llvm_FunctionPassManager_doInitialization(inst) != 0
+    }
+
+    // ::llvm::FunctionPassManager::new
+    #[inline(always)]
+    pub unsafe fn FunctionPassManager_new(Module: *mut super::llvm_Module) -> *mut super::llvm_FunctionPassManager {
+        raw::llvm_FunctionPassManager_new(Module)
+    }
+
+    // ::llvm::FunctionPassManager::run
+    #[inline(always)]
+    pub unsafe fn FunctionPassManager_run(inst: *mut super::llvm_FunctionPassManager, Function: *mut super::llvm_Function) -> ::libc::c_void {
+        raw::llvm_FunctionPassManager_run(inst, Function)
     }
 
     // ::llvm::FunctionType::classof
@@ -4077,6 +4112,24 @@ pub mod llvm {
     #[inline(always)]
     pub unsafe fn Pass_getPassKind(inst: *const super::llvm_Pass) -> super::llvm_PassKind {
         raw::llvm_Pass_getPassKind(inst)
+    }
+
+    // ::llvm::PassManager::add
+    #[inline(always)]
+    pub unsafe fn PassManager_add(inst: *mut super::llvm_PassManager, Pass: *mut super::llvm_Pass) -> ::libc::c_void {
+        raw::llvm_PassManager_add(inst, Pass)
+    }
+
+    // ::llvm::PassManager::new
+    #[inline(always)]
+    pub unsafe fn PassManager_new() -> *mut super::llvm_PassManager {
+        raw::llvm_PassManager_new()
+    }
+
+    // ::llvm::PassManager::run
+    #[inline(always)]
+    pub unsafe fn PassManager_run(inst: *mut super::llvm_PassManager, Module: *mut super::llvm_Module) -> ::libc::c_void {
+        raw::llvm_PassManager_run(inst, Module)
     }
 
     // ::llvm::PointerType::classof
