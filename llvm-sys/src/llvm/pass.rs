@@ -72,8 +72,18 @@ impl Copy for PassManagerType {}
 pub type BasicBlockPassInner = ::ffi::llvm_BasicBlockPass;
 
 pub trait BasicBlockPassObj: ::llvm::pass::PassObj {
-    fn inner(&self) -> *mut BasicBlockPassInner;
+    unsafe fn get_inner(&self) -> *mut BasicBlockPassInner;
 }
+
+pub trait BasicBlockPassOwned: BasicBlockPassObj + ::core::marker::Sized {
+    #[inline(always)]
+    unsafe fn move_inner(self) -> *mut BasicBlockPassInner {
+        let inner = BasicBlockPassObj::get_inner(&self);
+        ::core::mem::forget(self);
+        return inner;
+    }
+}
+impl<T> BasicBlockPassOwned for T where T: BasicBlockPassObj + ::core::marker::Sized {}
 
 pub trait BasicBlockPassExt: BasicBlockPassObj {
 }
@@ -84,18 +94,21 @@ pub struct BasicBlockPass {
     owned: bool,
 }
 impl ::llvm::pass::PassObj for BasicBlockPass {
-    fn inner(&self) -> *mut ::ffi::llvm_Pass {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut ::ffi::llvm_Pass {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl BasicBlockPassObj for BasicBlockPass {
-    fn inner(&self) -> *mut BasicBlockPassInner {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut BasicBlockPassInner {
         *self.inner
     }
 }
 impl BasicBlockPass {
+    #[inline(always)]
     pub unsafe fn from_inner(inner: *mut BasicBlockPassInner, owned: bool) -> BasicBlockPass {
         BasicBlockPass {
             inner: ::core::nonzero::NonZero::new(inner),
@@ -104,10 +117,11 @@ impl BasicBlockPass {
     }
 }
 impl Drop for BasicBlockPass {
+    #[inline(always)]
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Pass_delete(::llvm::pass::PassObj::inner(self));
+                ::ffi::llvm::Pass_delete(::llvm::pass::PassObj::get_inner(self));
             }
         }
     }
@@ -115,8 +129,18 @@ impl Drop for BasicBlockPass {
 pub type CallGraphSCCPassInner = ::ffi::llvm_CallGraphSCCPass;
 
 pub trait CallGraphSCCPassObj: ::llvm::pass::PassObj {
-    fn inner(&self) -> *mut CallGraphSCCPassInner;
+    unsafe fn get_inner(&self) -> *mut CallGraphSCCPassInner;
 }
+
+pub trait CallGraphSCCPassOwned: CallGraphSCCPassObj + ::core::marker::Sized {
+    #[inline(always)]
+    unsafe fn move_inner(self) -> *mut CallGraphSCCPassInner {
+        let inner = CallGraphSCCPassObj::get_inner(&self);
+        ::core::mem::forget(self);
+        return inner;
+    }
+}
+impl<T> CallGraphSCCPassOwned for T where T: CallGraphSCCPassObj + ::core::marker::Sized {}
 
 pub trait CallGraphSCCPassExt: CallGraphSCCPassObj {
 }
@@ -127,18 +151,21 @@ pub struct CallGraphSCCPass {
     owned: bool,
 }
 impl ::llvm::pass::PassObj for CallGraphSCCPass {
-    fn inner(&self) -> *mut ::ffi::llvm_Pass {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut ::ffi::llvm_Pass {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl CallGraphSCCPassObj for CallGraphSCCPass {
-    fn inner(&self) -> *mut CallGraphSCCPassInner {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut CallGraphSCCPassInner {
         *self.inner
     }
 }
 impl CallGraphSCCPass {
+    #[inline(always)]
     pub unsafe fn from_inner(inner: *mut CallGraphSCCPassInner, owned: bool) -> CallGraphSCCPass {
         CallGraphSCCPass {
             inner: ::core::nonzero::NonZero::new(inner),
@@ -147,10 +174,11 @@ impl CallGraphSCCPass {
     }
 }
 impl Drop for CallGraphSCCPass {
+    #[inline(always)]
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Pass_delete(::llvm::pass::PassObj::inner(self));
+                ::ffi::llvm::Pass_delete(::llvm::pass::PassObj::get_inner(self));
             }
         }
     }
@@ -158,8 +186,18 @@ impl Drop for CallGraphSCCPass {
 pub type FunctionPassInner = ::ffi::llvm_FunctionPass;
 
 pub trait FunctionPassObj: ::llvm::pass::PassObj {
-    fn inner(&self) -> *mut FunctionPassInner;
+    unsafe fn get_inner(&self) -> *mut FunctionPassInner;
 }
+
+pub trait FunctionPassOwned: FunctionPassObj + ::core::marker::Sized {
+    #[inline(always)]
+    unsafe fn move_inner(self) -> *mut FunctionPassInner {
+        let inner = FunctionPassObj::get_inner(&self);
+        ::core::mem::forget(self);
+        return inner;
+    }
+}
+impl<T> FunctionPassOwned for T where T: FunctionPassObj + ::core::marker::Sized {}
 
 pub trait FunctionPassExt: FunctionPassObj {
 }
@@ -170,18 +208,21 @@ pub struct FunctionPass {
     owned: bool,
 }
 impl ::llvm::pass::PassObj for FunctionPass {
-    fn inner(&self) -> *mut ::ffi::llvm_Pass {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut ::ffi::llvm_Pass {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl FunctionPassObj for FunctionPass {
-    fn inner(&self) -> *mut FunctionPassInner {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut FunctionPassInner {
         *self.inner
     }
 }
 impl FunctionPass {
+    #[inline(always)]
     pub unsafe fn from_inner(inner: *mut FunctionPassInner, owned: bool) -> FunctionPass {
         FunctionPass {
             inner: ::core::nonzero::NonZero::new(inner),
@@ -190,10 +231,11 @@ impl FunctionPass {
     }
 }
 impl Drop for FunctionPass {
+    #[inline(always)]
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Pass_delete(::llvm::pass::PassObj::inner(self));
+                ::ffi::llvm::Pass_delete(::llvm::pass::PassObj::get_inner(self));
             }
         }
     }
@@ -201,35 +243,44 @@ impl Drop for FunctionPass {
 pub type FunctionPassManagerInner = ::ffi::llvm_FunctionPassManager;
 
 pub trait FunctionPassManagerObj {
-    fn inner(&self) -> *mut FunctionPassManagerInner;
+    unsafe fn get_inner(&self) -> *mut FunctionPassManagerInner;
 }
+
+pub trait FunctionPassManagerOwned: FunctionPassManagerObj + ::core::marker::Sized {
+    #[inline(always)]
+    unsafe fn move_inner(self) -> *mut FunctionPassManagerInner {
+        let inner = FunctionPassManagerObj::get_inner(&self);
+        ::core::mem::forget(self);
+        return inner;
+    }
+}
+impl<T> FunctionPassManagerOwned for T where T: FunctionPassManagerObj + ::core::marker::Sized {}
 
 pub trait FunctionPassManagerExt: FunctionPassManagerObj {
 
     fn add<A1: ::llvm::pass::FunctionPassObj>(&mut self, pass: A1) {
         unsafe {
-            ::ffi::llvm::FunctionPassManager_add(::llvm::pass::FunctionPassManagerObj::inner(self), ::llvm::pass::FunctionPassObj::inner(&pass));
-            ::std::mem::forget(pass);
+            ::ffi::llvm::FunctionPassManager_add(::llvm::pass::FunctionPassManagerObj::get_inner(self), ::llvm::pass::FunctionPassOwned::move_inner(pass));
         }
     }
 
     fn do_finalization(&mut self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::FunctionPassManager_doFinalization(::llvm::pass::FunctionPassManagerObj::inner(self));
+            let ret = ::ffi::llvm::FunctionPassManager_doFinalization(::llvm::pass::FunctionPassManagerObj::get_inner(self));
             ret
         }
     }
 
     fn do_initialization(&mut self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::FunctionPassManager_doInitialization(::llvm::pass::FunctionPassManagerObj::inner(self));
+            let ret = ::ffi::llvm::FunctionPassManager_doInitialization(::llvm::pass::FunctionPassManagerObj::get_inner(self));
             ret
         }
     }
 
     fn run<A1: ::llvm::value::user::constant::FunctionObj>(&mut self, function: &mut A1) {
         unsafe {
-            ::ffi::llvm::FunctionPassManager_run(::llvm::pass::FunctionPassManagerObj::inner(self), ::llvm::value::user::constant::FunctionObj::inner(function));
+            ::ffi::llvm::FunctionPassManager_run(::llvm::pass::FunctionPassManagerObj::get_inner(self), ::llvm::value::user::constant::FunctionObj::get_inner(function));
         }
     }
 }
@@ -239,11 +290,13 @@ pub struct FunctionPassManager {
     inner: ::core::nonzero::NonZero<*mut FunctionPassManagerInner>,
 }
 impl FunctionPassManagerObj for FunctionPassManager {
-    fn inner(&self) -> *mut FunctionPassManagerInner {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut FunctionPassManagerInner {
         *self.inner
     }
 }
 impl FunctionPassManager {
+    #[inline(always)]
     pub unsafe fn from_inner(inner: *mut FunctionPassManagerInner) -> FunctionPassManager {
         FunctionPassManager {
             inner: ::core::nonzero::NonZero::new(inner),
@@ -252,7 +305,7 @@ impl FunctionPassManager {
 
     pub fn new<A1: ::llvm::ModuleObj>(module: &mut A1) -> ::llvm::pass::FunctionPassManager {
         unsafe {
-            let ret = ::ffi::llvm::FunctionPassManager_new(::llvm::ModuleObj::inner(module));
+            let ret = ::ffi::llvm::FunctionPassManager_new(::llvm::ModuleObj::get_inner(module));
             if ret.is_null() {
                 panic!("::llvm::FunctionPassManager::new returned a null pointer!");
             }
@@ -264,8 +317,18 @@ impl Copy for FunctionPassManager {}
 pub type LoopPassInner = ::ffi::llvm_LoopPass;
 
 pub trait LoopPassObj: ::llvm::pass::PassObj {
-    fn inner(&self) -> *mut LoopPassInner;
+    unsafe fn get_inner(&self) -> *mut LoopPassInner;
 }
+
+pub trait LoopPassOwned: LoopPassObj + ::core::marker::Sized {
+    #[inline(always)]
+    unsafe fn move_inner(self) -> *mut LoopPassInner {
+        let inner = LoopPassObj::get_inner(&self);
+        ::core::mem::forget(self);
+        return inner;
+    }
+}
+impl<T> LoopPassOwned for T where T: LoopPassObj + ::core::marker::Sized {}
 
 pub trait LoopPassExt: LoopPassObj {
 }
@@ -276,18 +339,21 @@ pub struct LoopPass {
     owned: bool,
 }
 impl ::llvm::pass::PassObj for LoopPass {
-    fn inner(&self) -> *mut ::ffi::llvm_Pass {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut ::ffi::llvm_Pass {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl LoopPassObj for LoopPass {
-    fn inner(&self) -> *mut LoopPassInner {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut LoopPassInner {
         *self.inner
     }
 }
 impl LoopPass {
+    #[inline(always)]
     pub unsafe fn from_inner(inner: *mut LoopPassInner, owned: bool) -> LoopPass {
         LoopPass {
             inner: ::core::nonzero::NonZero::new(inner),
@@ -296,10 +362,11 @@ impl LoopPass {
     }
 }
 impl Drop for LoopPass {
+    #[inline(always)]
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Pass_delete(::llvm::pass::PassObj::inner(self));
+                ::ffi::llvm::Pass_delete(::llvm::pass::PassObj::get_inner(self));
             }
         }
     }
@@ -307,8 +374,18 @@ impl Drop for LoopPass {
 pub type ModulePassInner = ::ffi::llvm_ModulePass;
 
 pub trait ModulePassObj: ::llvm::pass::PassObj {
-    fn inner(&self) -> *mut ModulePassInner;
+    unsafe fn get_inner(&self) -> *mut ModulePassInner;
 }
+
+pub trait ModulePassOwned: ModulePassObj + ::core::marker::Sized {
+    #[inline(always)]
+    unsafe fn move_inner(self) -> *mut ModulePassInner {
+        let inner = ModulePassObj::get_inner(&self);
+        ::core::mem::forget(self);
+        return inner;
+    }
+}
+impl<T> ModulePassOwned for T where T: ModulePassObj + ::core::marker::Sized {}
 
 pub trait ModulePassExt: ModulePassObj {
 }
@@ -319,18 +396,21 @@ pub struct ModulePass {
     owned: bool,
 }
 impl ::llvm::pass::PassObj for ModulePass {
-    fn inner(&self) -> *mut ::ffi::llvm_Pass {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut ::ffi::llvm_Pass {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl ModulePassObj for ModulePass {
-    fn inner(&self) -> *mut ModulePassInner {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut ModulePassInner {
         *self.inner
     }
 }
 impl ModulePass {
+    #[inline(always)]
     pub unsafe fn from_inner(inner: *mut ModulePassInner, owned: bool) -> ModulePass {
         ModulePass {
             inner: ::core::nonzero::NonZero::new(inner),
@@ -339,10 +419,11 @@ impl ModulePass {
     }
 }
 impl Drop for ModulePass {
+    #[inline(always)]
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Pass_delete(::llvm::pass::PassObj::inner(self));
+                ::ffi::llvm::Pass_delete(::llvm::pass::PassObj::get_inner(self));
             }
         }
     }
@@ -350,34 +431,44 @@ impl Drop for ModulePass {
 pub type PassInner = ::ffi::llvm_Pass;
 
 pub trait PassObj {
-    fn inner(&self) -> *mut PassInner;
+    unsafe fn get_inner(&self) -> *mut PassInner;
 }
+
+pub trait PassOwned: PassObj + ::core::marker::Sized {
+    #[inline(always)]
+    unsafe fn move_inner(self) -> *mut PassInner {
+        let inner = PassObj::get_inner(&self);
+        ::core::mem::forget(self);
+        return inner;
+    }
+}
+impl<T> PassOwned for T where T: PassObj + ::core::marker::Sized {}
 
 pub trait PassExt: PassObj {
 
     fn do_finalization<A1: ::llvm::ModuleObj>(&mut self, module: &mut A1) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Pass_doFinalization(::llvm::pass::PassObj::inner(self), ::llvm::ModuleObj::inner(module));
+            let ret = ::ffi::llvm::Pass_doFinalization(::llvm::pass::PassObj::get_inner(self), ::llvm::ModuleObj::get_inner(module));
             ret
         }
     }
 
     fn do_initialization<A1: ::llvm::ModuleObj>(&mut self, module: &mut A1) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::Pass_doInitialization(::llvm::pass::PassObj::inner(self), ::llvm::ModuleObj::inner(module));
+            let ret = ::ffi::llvm::Pass_doInitialization(::llvm::pass::PassObj::get_inner(self), ::llvm::ModuleObj::get_inner(module));
             ret
         }
     }
 
     fn dump(&self) {
         unsafe {
-            ::ffi::llvm::Pass_dump(::llvm::pass::PassObj::inner(self) as *const ::ffi::llvm_Pass);
+            ::ffi::llvm::Pass_dump(::llvm::pass::PassObj::get_inner(self) as *const ::ffi::llvm_Pass);
         }
     }
 
     fn get_pass_kind(&self) -> ::llvm::pass::PassKind {
         unsafe {
-            let ret = ::llvm::pass::PassKind::from_ffi(::ffi::llvm::Pass_getPassKind(::llvm::pass::PassObj::inner(self) as *const ::ffi::llvm_Pass));
+            let ret = ::llvm::pass::PassKind::from_ffi(::ffi::llvm::Pass_getPassKind(::llvm::pass::PassObj::get_inner(self) as *const ::ffi::llvm_Pass));
             ret
         }
     }
@@ -389,11 +480,13 @@ pub struct Pass {
     owned: bool,
 }
 impl PassObj for Pass {
-    fn inner(&self) -> *mut PassInner {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut PassInner {
         *self.inner
     }
 }
 impl Pass {
+    #[inline(always)]
     pub unsafe fn from_inner(inner: *mut PassInner, owned: bool) -> Pass {
         Pass {
             inner: ::core::nonzero::NonZero::new(inner),
@@ -402,10 +495,11 @@ impl Pass {
     }
 }
 impl Drop for Pass {
+    #[inline(always)]
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Pass_delete(::llvm::pass::PassObj::inner(self));
+                ::ffi::llvm::Pass_delete(::llvm::pass::PassObj::get_inner(self));
             }
         }
     }
@@ -413,21 +507,30 @@ impl Drop for Pass {
 pub type PassManagerInner = ::ffi::llvm_PassManager;
 
 pub trait PassManagerObj {
-    fn inner(&self) -> *mut PassManagerInner;
+    unsafe fn get_inner(&self) -> *mut PassManagerInner;
 }
+
+pub trait PassManagerOwned: PassManagerObj + ::core::marker::Sized {
+    #[inline(always)]
+    unsafe fn move_inner(self) -> *mut PassManagerInner {
+        let inner = PassManagerObj::get_inner(&self);
+        ::core::mem::forget(self);
+        return inner;
+    }
+}
+impl<T> PassManagerOwned for T where T: PassManagerObj + ::core::marker::Sized {}
 
 pub trait PassManagerExt: PassManagerObj {
 
     fn add<A1: ::llvm::pass::PassObj>(&mut self, pass: A1) {
         unsafe {
-            ::ffi::llvm::PassManager_add(::llvm::pass::PassManagerObj::inner(self), ::llvm::pass::PassObj::inner(&pass));
-            ::std::mem::forget(pass);
+            ::ffi::llvm::PassManager_add(::llvm::pass::PassManagerObj::get_inner(self), ::llvm::pass::PassOwned::move_inner(pass));
         }
     }
 
     fn run<A1: ::llvm::ModuleObj>(&mut self, module: &mut A1) {
         unsafe {
-            ::ffi::llvm::PassManager_run(::llvm::pass::PassManagerObj::inner(self), ::llvm::ModuleObj::inner(module));
+            ::ffi::llvm::PassManager_run(::llvm::pass::PassManagerObj::get_inner(self), ::llvm::ModuleObj::get_inner(module));
         }
     }
 }
@@ -437,11 +540,13 @@ pub struct PassManager {
     inner: ::core::nonzero::NonZero<*mut PassManagerInner>,
 }
 impl PassManagerObj for PassManager {
-    fn inner(&self) -> *mut PassManagerInner {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut PassManagerInner {
         *self.inner
     }
 }
 impl PassManager {
+    #[inline(always)]
     pub unsafe fn from_inner(inner: *mut PassManagerInner) -> PassManager {
         PassManager {
             inner: ::core::nonzero::NonZero::new(inner),
@@ -462,8 +567,18 @@ impl Copy for PassManager {}
 pub type RegionPassInner = ::ffi::llvm_RegionPass;
 
 pub trait RegionPassObj: ::llvm::pass::PassObj {
-    fn inner(&self) -> *mut RegionPassInner;
+    unsafe fn get_inner(&self) -> *mut RegionPassInner;
 }
+
+pub trait RegionPassOwned: RegionPassObj + ::core::marker::Sized {
+    #[inline(always)]
+    unsafe fn move_inner(self) -> *mut RegionPassInner {
+        let inner = RegionPassObj::get_inner(&self);
+        ::core::mem::forget(self);
+        return inner;
+    }
+}
+impl<T> RegionPassOwned for T where T: RegionPassObj + ::core::marker::Sized {}
 
 pub trait RegionPassExt: RegionPassObj {
 }
@@ -474,18 +589,21 @@ pub struct RegionPass {
     owned: bool,
 }
 impl ::llvm::pass::PassObj for RegionPass {
-    fn inner(&self) -> *mut ::ffi::llvm_Pass {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut ::ffi::llvm_Pass {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl RegionPassObj for RegionPass {
-    fn inner(&self) -> *mut RegionPassInner {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut RegionPassInner {
         *self.inner
     }
 }
 impl RegionPass {
+    #[inline(always)]
     pub unsafe fn from_inner(inner: *mut RegionPassInner, owned: bool) -> RegionPass {
         RegionPass {
             inner: ::core::nonzero::NonZero::new(inner),
@@ -494,10 +612,11 @@ impl RegionPass {
     }
 }
 impl Drop for RegionPass {
+    #[inline(always)]
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Pass_delete(::llvm::pass::PassObj::inner(self));
+                ::ffi::llvm::Pass_delete(::llvm::pass::PassObj::get_inner(self));
             }
         }
     }

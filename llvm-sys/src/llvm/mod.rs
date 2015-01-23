@@ -58,8 +58,18 @@ impl Copy for SynchronizationScope {}
 pub type DataLayoutInner = ::ffi::llvm_DataLayout;
 
 pub trait DataLayoutObj {
-    fn inner(&self) -> *mut DataLayoutInner;
+    unsafe fn get_inner(&self) -> *mut DataLayoutInner;
 }
+
+pub trait DataLayoutOwned: DataLayoutObj + ::core::marker::Sized {
+    #[inline(always)]
+    unsafe fn move_inner(self) -> *mut DataLayoutInner {
+        let inner = DataLayoutObj::get_inner(&self);
+        ::core::mem::forget(self);
+        return inner;
+    }
+}
+impl<T> DataLayoutOwned for T where T: DataLayoutObj + ::core::marker::Sized {}
 
 pub trait DataLayoutExt: DataLayoutObj {
 }
@@ -69,11 +79,13 @@ pub struct DataLayout {
     inner: ::core::nonzero::NonZero<*mut DataLayoutInner>,
 }
 impl DataLayoutObj for DataLayout {
-    fn inner(&self) -> *mut DataLayoutInner {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut DataLayoutInner {
         *self.inner
     }
 }
 impl DataLayout {
+    #[inline(always)]
     pub unsafe fn from_inner(inner: *mut DataLayoutInner) -> DataLayout {
         DataLayout {
             inner: ::core::nonzero::NonZero::new(inner),
@@ -84,20 +96,30 @@ impl Copy for DataLayout {}
 pub type DebugLocInner = ::ffi::llvm_DebugLoc;
 
 pub trait DebugLocObj {
-    fn inner(&self) -> *mut DebugLocInner;
+    unsafe fn get_inner(&self) -> *mut DebugLocInner;
 }
+
+pub trait DebugLocOwned: DebugLocObj + ::core::marker::Sized {
+    #[inline(always)]
+    unsafe fn move_inner(self) -> *mut DebugLocInner {
+        let inner = DebugLocObj::get_inner(&self);
+        ::core::mem::forget(self);
+        return inner;
+    }
+}
+impl<T> DebugLocOwned for T where T: DebugLocObj + ::core::marker::Sized {}
 
 pub trait DebugLocExt: DebugLocObj {
 
     fn dump<A1: ::llvm::LLVMContextObj>(&self, ctx: &A1) {
         unsafe {
-            ::ffi::llvm::DebugLoc_dump(::llvm::DebugLocObj::inner(self) as *const ::ffi::llvm_DebugLoc, ::llvm::LLVMContextObj::inner(ctx));
+            ::ffi::llvm::DebugLoc_dump(::llvm::DebugLocObj::get_inner(self) as *const ::ffi::llvm_DebugLoc, ::llvm::LLVMContextObj::get_inner(ctx));
         }
     }
 
     fn get_as_md_node<A1: ::llvm::LLVMContextObj>(&self, ctx: &A1) -> Option<::llvm::value::MDNode> {
         unsafe {
-            let ret = ::ffi::llvm::DebugLoc_getAsMDNode(::llvm::DebugLocObj::inner(self) as *const ::ffi::llvm_DebugLoc, ::llvm::LLVMContextObj::inner(ctx));
+            let ret = ::ffi::llvm::DebugLoc_getAsMDNode(::llvm::DebugLocObj::get_inner(self) as *const ::ffi::llvm_DebugLoc, ::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
                 return None;
             }
@@ -107,14 +129,14 @@ pub trait DebugLocExt: DebugLocObj {
 
     fn get_col(&self) -> u32 {
         unsafe {
-            let ret = ::ffi::llvm::DebugLoc_getCol(::llvm::DebugLocObj::inner(self) as *const ::ffi::llvm_DebugLoc) as u32;
+            let ret = ::ffi::llvm::DebugLoc_getCol(::llvm::DebugLocObj::get_inner(self) as *const ::ffi::llvm_DebugLoc) as u32;
             ret
         }
     }
 
     fn get_inlined_at<A1: ::llvm::LLVMContextObj>(&self, ctx: &A1) -> Option<::llvm::value::MDNode> {
         unsafe {
-            let ret = ::ffi::llvm::DebugLoc_getInlinedAt(::llvm::DebugLocObj::inner(self) as *const ::ffi::llvm_DebugLoc, ::llvm::LLVMContextObj::inner(ctx));
+            let ret = ::ffi::llvm::DebugLoc_getInlinedAt(::llvm::DebugLocObj::get_inner(self) as *const ::ffi::llvm_DebugLoc, ::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
                 return None;
             }
@@ -124,14 +146,14 @@ pub trait DebugLocExt: DebugLocObj {
 
     fn get_line(&self) -> u32 {
         unsafe {
-            let ret = ::ffi::llvm::DebugLoc_getLine(::llvm::DebugLocObj::inner(self) as *const ::ffi::llvm_DebugLoc) as u32;
+            let ret = ::ffi::llvm::DebugLoc_getLine(::llvm::DebugLocObj::get_inner(self) as *const ::ffi::llvm_DebugLoc) as u32;
             ret
         }
     }
 
     fn get_scope<A1: ::llvm::LLVMContextObj>(&self, ctx: &A1) -> Option<::llvm::value::MDNode> {
         unsafe {
-            let ret = ::ffi::llvm::DebugLoc_getScope(::llvm::DebugLocObj::inner(self) as *const ::ffi::llvm_DebugLoc, ::llvm::LLVMContextObj::inner(ctx));
+            let ret = ::ffi::llvm::DebugLoc_getScope(::llvm::DebugLocObj::get_inner(self) as *const ::ffi::llvm_DebugLoc, ::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
                 return None;
             }
@@ -141,7 +163,7 @@ pub trait DebugLocExt: DebugLocObj {
 
     fn get_scope_node<A1: ::llvm::LLVMContextObj>(&self, ctx: &A1) -> Option<::llvm::value::MDNode> {
         unsafe {
-            let ret = ::ffi::llvm::DebugLoc_getScopeNode(::llvm::DebugLocObj::inner(self) as *const ::ffi::llvm_DebugLoc, ::llvm::LLVMContextObj::inner(ctx));
+            let ret = ::ffi::llvm::DebugLoc_getScopeNode(::llvm::DebugLocObj::get_inner(self) as *const ::ffi::llvm_DebugLoc, ::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
                 return None;
             }
@@ -151,7 +173,7 @@ pub trait DebugLocExt: DebugLocObj {
 
     fn is_unknown(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::DebugLoc_isUnknown(::llvm::DebugLocObj::inner(self) as *const ::ffi::llvm_DebugLoc);
+            let ret = ::ffi::llvm::DebugLoc_isUnknown(::llvm::DebugLocObj::get_inner(self) as *const ::ffi::llvm_DebugLoc);
             ret
         }
     }
@@ -162,11 +184,13 @@ pub struct DebugLoc {
     inner: ::core::nonzero::NonZero<*mut DebugLocInner>,
 }
 impl DebugLocObj for DebugLoc {
-    fn inner(&self) -> *mut DebugLocInner {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut DebugLocInner {
         *self.inner
     }
 }
 impl DebugLoc {
+    #[inline(always)]
     pub unsafe fn from_inner(inner: *mut DebugLocInner) -> DebugLoc {
         DebugLoc {
             inner: ::core::nonzero::NonZero::new(inner),
@@ -187,8 +211,18 @@ impl Copy for DebugLoc {}
 pub type IRBuilderInner = ::ffi::llvm_IRBuilder;
 
 pub trait IRBuilderObj: ::llvm::IRBuilderBaseObj {
-    fn inner(&self) -> *mut IRBuilderInner;
+    unsafe fn get_inner(&self) -> *mut IRBuilderInner;
 }
+
+pub trait IRBuilderOwned: IRBuilderObj + ::core::marker::Sized {
+    #[inline(always)]
+    unsafe fn move_inner(self) -> *mut IRBuilderInner {
+        let inner = IRBuilderObj::get_inner(&self);
+        ::core::mem::forget(self);
+        return inner;
+    }
+}
+impl<T> IRBuilderOwned for T where T: IRBuilderObj + ::core::marker::Sized {}
 
 pub trait IRBuilderExt: IRBuilderObj {
 
@@ -199,7 +233,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateAShr(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateAShr(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -211,7 +245,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateAShrByValue(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), rhs as ::libc::uint64_t, c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateAShrByValue(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), rhs as ::libc::uint64_t, c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -223,7 +257,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateAdd(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateAdd(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -235,15 +269,15 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateAddrSpaceCast(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateAddrSpaceCast(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
 
     fn create_aggregate_ret(&mut self, values: &[&::llvm::value::ValueObj]) -> Option<::llvm::value::user::inst::ReturnInst> {
         unsafe {
-            let values_vec: Vec<_> = values.iter().map(|&ty| ::llvm::value::ValueObj::inner(ty)).collect();
-            let ret = ::ffi::llvm::IRBuilder_CreateAggregateRet(::llvm::IRBuilderObj::inner(self), values_vec.as_slice());
+            let values_vec: Vec<_> = values.iter().map(|&ty| ::llvm::value::ValueObj::get_inner(ty)).collect();
+            let ret = ::ffi::llvm::IRBuilder_CreateAggregateRet(::llvm::IRBuilderObj::get_inner(self), values_vec.as_slice());
             if ret.is_null() {
                 return None;
             }
@@ -258,7 +292,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateAlignedLoad(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(ptr), align as ::libc::c_uint, c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateAlignedLoad(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(ptr), align as ::libc::c_uint, c_name);
             ::llvm::value::user::inst::LoadInst::from_inner(ret, false)
         }
     }
@@ -270,7 +304,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateAlignedLoadVolatile(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(ptr), align as ::libc::c_uint, is_volatile, c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateAlignedLoadVolatile(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(ptr), align as ::libc::c_uint, is_volatile, c_name);
             ::llvm::value::user::inst::LoadInst::from_inner(ret, false)
         }
     }
@@ -278,7 +312,7 @@ pub trait IRBuilderExt: IRBuilderObj {
     fn create_aligned_store<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, value: &mut A1, ptr: &mut A2, align: u32, is_volatile: Option<bool>) -> ::llvm::value::user::inst::StoreInst {
         unsafe {
             let is_volatile = is_volatile.unwrap_or(false);
-            let ret = ::ffi::llvm::IRBuilder_CreateAlignedStore(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::value::ValueObj::inner(ptr), align as ::libc::c_uint, is_volatile);
+            let ret = ::ffi::llvm::IRBuilder_CreateAlignedStore(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::value::ValueObj::get_inner(ptr), align as ::libc::c_uint, is_volatile);
             ::llvm::value::user::inst::StoreInst::from_inner(ret, false)
         }
     }
@@ -290,7 +324,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateAlloca(::llvm::IRBuilderObj::inner(self), ::llvm::ty::TypeObj::inner(ty), array_size.map(|array_size| ::llvm::value::ValueObj::inner(array_size)).unwrap_or(::std::ptr::null_mut()), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateAlloca(::llvm::IRBuilderObj::get_inner(self), ::llvm::ty::TypeObj::get_inner(ty), array_size.map(|array_size| ::llvm::value::ValueObj::get_inner(array_size)).unwrap_or(::std::ptr::null_mut()), c_name);
             ::llvm::value::user::inst::AllocaInst::from_inner(ret, false)
         }
     }
@@ -302,7 +336,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateAnd(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateAnd(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -314,7 +348,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateAndByValue(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), rhs as ::libc::uint64_t, c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateAndByValue(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), rhs as ::libc::uint64_t, c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -326,7 +360,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateBinOp(::llvm::IRBuilderObj::inner(self), opcode.to_ffi(), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateBinOp(::llvm::IRBuilderObj::get_inner(self), opcode.to_ffi(), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -338,21 +372,21 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateBitCast(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateBitCast(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
 
     fn create_br<A1: ::llvm::value::BasicBlockObj>(&mut self, dest: &mut A1) -> ::llvm::value::user::inst::BranchInst {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilder_CreateBr(::llvm::IRBuilderObj::inner(self), ::llvm::value::BasicBlockObj::inner(dest));
+            let ret = ::ffi::llvm::IRBuilder_CreateBr(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::BasicBlockObj::get_inner(dest));
             ::llvm::value::user::inst::BranchInst::from_inner(ret, false)
         }
     }
 
     fn create_call<A1: ::llvm::value::ValueObj>(&mut self, callee: &mut A1, args: &[&::llvm::value::ValueObj], name: Option<&str>) -> ::llvm::value::user::inst::CallInst {
         unsafe {
-            let _tmp_args: Vec<_> = args.iter().map(|&ty| ::llvm::value::ValueObj::inner(ty)).collect();
+            let _tmp_args: Vec<_> = args.iter().map(|&ty| ::llvm::value::ValueObj::get_inner(ty)).collect();
             let c_args = ::ffi::llvm_ArrayRef_llvm_Value_ptr {
                 data: _tmp_args.as_ptr(),
                 length: args.len() as ::libc::size_t,
@@ -362,7 +396,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateCall(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(callee), c_args, c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateCall(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(callee), c_args, c_name);
             ::llvm::value::user::inst::CallInst::from_inner(ret, false)
         }
     }
@@ -374,14 +408,14 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateCast(::llvm::IRBuilderObj::inner(self), opcode.to_ffi(), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateCast(::llvm::IRBuilderObj::get_inner(self), opcode.to_ffi(), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
 
     fn create_cond_br<A1: ::llvm::value::ValueObj, A2: ::llvm::value::BasicBlockObj, A3: ::llvm::value::BasicBlockObj>(&mut self, cond: &mut A1, true_block: &mut A2, false_block: &mut A3) -> ::llvm::value::user::inst::BranchInst {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilder_CreateCondBr(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(cond), ::llvm::value::BasicBlockObj::inner(true_block), ::llvm::value::BasicBlockObj::inner(false_block));
+            let ret = ::ffi::llvm::IRBuilder_CreateCondBr(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(cond), ::llvm::value::BasicBlockObj::get_inner(true_block), ::llvm::value::BasicBlockObj::get_inner(false_block));
             ::llvm::value::user::inst::BranchInst::from_inner(ret, false)
         }
     }
@@ -393,7 +427,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateExactSDiv(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateExactSDiv(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -405,7 +439,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateExactUDiv(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateExactUDiv(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -417,7 +451,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateExtractElement(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(vec), ::llvm::value::ValueObj::inner(idx), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateExtractElement(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(vec), ::llvm::value::ValueObj::get_inner(idx), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -428,7 +462,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateExtractInteger(::llvm::IRBuilderObj::inner(self), ::llvm::DataLayoutObj::inner(dl), ::llvm::value::ValueObj::inner(from), ::llvm::ty::IntegerTypeObj::inner(extracted_ty), offset as ::libc::uint64_t, c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateExtractInteger(::llvm::IRBuilderObj::get_inner(self), ::llvm::DataLayoutObj::get_inner(dl), ::llvm::value::ValueObj::get_inner(from), ::llvm::ty::IntegerTypeObj::get_inner(extracted_ty), offset as ::libc::uint64_t, c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -444,7 +478,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateExtractValue(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(agg), c_indexes, c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateExtractValue(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(agg), c_indexes, c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -456,7 +490,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFAdd(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFAdd(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -468,7 +502,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFCmp(::llvm::IRBuilderObj::inner(self), pred.to_ffi(), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFCmp(::llvm::IRBuilderObj::get_inner(self), pred.to_ffi(), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -480,7 +514,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFCmpOEQ(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFCmpOEQ(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -492,7 +526,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFCmpOGE(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFCmpOGE(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -504,7 +538,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFCmpOGT(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFCmpOGT(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -516,7 +550,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFCmpOLE(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFCmpOLE(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -528,7 +562,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFCmpOLT(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFCmpOLT(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -540,7 +574,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFCmpONE(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFCmpONE(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -552,7 +586,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFCmpORD(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFCmpORD(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -564,7 +598,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFCmpUEQ(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFCmpUEQ(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -576,7 +610,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFCmpUGE(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFCmpUGE(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -588,7 +622,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFCmpUGT(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFCmpUGT(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -600,7 +634,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFCmpULE(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFCmpULE(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -612,7 +646,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFCmpULT(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFCmpULT(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -624,7 +658,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFCmpUNE(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFCmpUNE(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -636,7 +670,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFCmpUNO(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFCmpUNO(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -648,7 +682,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFDiv(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFDiv(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -660,7 +694,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFMul(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFMul(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -672,7 +706,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFNeg(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFNeg(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -684,7 +718,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFPCast(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFPCast(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -696,7 +730,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFPExt(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFPExt(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -708,7 +742,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFPToSI(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFPToSI(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -720,7 +754,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFPToUI(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFPToUI(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -732,7 +766,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFPTrunc(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFPTrunc(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -744,7 +778,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFRem(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFRem(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -756,7 +790,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFSub(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFSub(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -769,14 +803,14 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateFence(::llvm::IRBuilderObj::inner(self), ordering.to_ffi(), synch_scope.to_ffi(), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateFence(::llvm::IRBuilderObj::get_inner(self), ordering.to_ffi(), synch_scope.to_ffi(), c_name);
             ::llvm::value::user::inst::FenceInst::from_inner(ret, false)
         }
     }
 
     fn create_gep<A1: ::llvm::value::ValueObj>(&mut self, ptr: &mut A1, indexes: &[&::llvm::value::ValueObj], name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
-            let _tmp_indexes: Vec<_> = indexes.iter().map(|&ty| ::llvm::value::ValueObj::inner(ty)).collect();
+            let _tmp_indexes: Vec<_> = indexes.iter().map(|&ty| ::llvm::value::ValueObj::get_inner(ty)).collect();
             let c_indexes = ::ffi::llvm_ArrayRef_llvm_Value_ptr {
                 data: _tmp_indexes.as_ptr(),
                 length: indexes.len() as ::libc::size_t,
@@ -786,7 +820,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateGEP(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(ptr), c_indexes, c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateGEP(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(ptr), c_indexes, c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -802,7 +836,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateGlobalStringPtr(::llvm::IRBuilderObj::inner(self), c_str, c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateGlobalStringPtr(::llvm::IRBuilderObj::get_inner(self), c_str, c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -814,7 +848,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateICmp(::llvm::IRBuilderObj::inner(self), pred.to_ffi(), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateICmp(::llvm::IRBuilderObj::get_inner(self), pred.to_ffi(), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -826,7 +860,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateICmpEQ(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateICmpEQ(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -838,7 +872,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateICmpNE(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateICmpNE(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -850,7 +884,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateICmpSGE(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateICmpSGE(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -862,7 +896,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateICmpSGT(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateICmpSGT(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -874,7 +908,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateICmpSLE(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateICmpSLE(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -886,7 +920,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateICmpSLT(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateICmpSLT(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -898,7 +932,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateICmpUGE(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateICmpUGE(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -910,7 +944,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateICmpUGT(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateICmpUGT(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -922,7 +956,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateICmpULE(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateICmpULE(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -934,14 +968,14 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateICmpULT(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateICmpULT(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
 
     fn create_in_bounds_gep<A1: ::llvm::value::ValueObj>(&mut self, ptr: &mut A1, indexes: &[&::llvm::value::ValueObj], name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
-            let _tmp_indexes: Vec<_> = indexes.iter().map(|&ty| ::llvm::value::ValueObj::inner(ty)).collect();
+            let _tmp_indexes: Vec<_> = indexes.iter().map(|&ty| ::llvm::value::ValueObj::get_inner(ty)).collect();
             let c_indexes = ::ffi::llvm_ArrayRef_llvm_Value_ptr {
                 data: _tmp_indexes.as_ptr(),
                 length: indexes.len() as ::libc::size_t,
@@ -951,7 +985,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateInBoundsGEP(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(ptr), c_indexes, c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateInBoundsGEP(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(ptr), c_indexes, c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -959,7 +993,7 @@ pub trait IRBuilderExt: IRBuilderObj {
     fn create_indirect_br<A1: ::llvm::value::ValueObj>(&mut self, addr: &mut A1, num_cases: Option<u32>) -> ::llvm::value::user::inst::IndirectBrInst {
         unsafe {
             let num_cases = num_cases.unwrap_or(10);
-            let ret = ::ffi::llvm::IRBuilder_CreateIndirectBr(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(addr), num_cases as ::libc::c_uint);
+            let ret = ::ffi::llvm::IRBuilder_CreateIndirectBr(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(addr), num_cases as ::libc::c_uint);
             ::llvm::value::user::inst::IndirectBrInst::from_inner(ret, false)
         }
     }
@@ -971,7 +1005,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateInsertElement(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(vec), ::llvm::value::ValueObj::inner(new_elt), ::llvm::value::ValueObj::inner(idx), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateInsertElement(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(vec), ::llvm::value::ValueObj::get_inner(new_elt), ::llvm::value::ValueObj::get_inner(idx), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -987,7 +1021,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateInsertValue(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(agg), ::llvm::value::ValueObj::inner(value), c_indexes, c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateInsertValue(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(agg), ::llvm::value::ValueObj::get_inner(value), c_indexes, c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -999,7 +1033,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateIntCast(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), is_signed, c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateIntCast(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), is_signed, c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1011,14 +1045,14 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateIntToPtr(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateIntToPtr(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
 
     fn create_invoke<A1: ::llvm::value::ValueObj, A2: ::llvm::value::BasicBlockObj, A3: ::llvm::value::BasicBlockObj>(&mut self, callee: &mut A1, normal_dest: &mut A2, unwind_dest: &mut A3, args: &[&::llvm::value::ValueObj], name: Option<&str>) -> ::llvm::value::user::inst::InvokeInst {
         unsafe {
-            let _tmp_args: Vec<_> = args.iter().map(|&ty| ::llvm::value::ValueObj::inner(ty)).collect();
+            let _tmp_args: Vec<_> = args.iter().map(|&ty| ::llvm::value::ValueObj::get_inner(ty)).collect();
             let c_args = ::ffi::llvm_ArrayRef_llvm_Value_ptr {
                 data: _tmp_args.as_ptr(),
                 length: args.len() as ::libc::size_t,
@@ -1028,7 +1062,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateInvoke(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(callee), ::llvm::value::BasicBlockObj::inner(normal_dest), ::llvm::value::BasicBlockObj::inner(unwind_dest), c_args, c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateInvoke(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(callee), ::llvm::value::BasicBlockObj::get_inner(normal_dest), ::llvm::value::BasicBlockObj::get_inner(unwind_dest), c_args, c_name);
             ::llvm::value::user::inst::InvokeInst::from_inner(ret, false)
         }
     }
@@ -1040,7 +1074,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateIsNotNull(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(arg), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateIsNotNull(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(arg), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1052,7 +1086,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateIsNull(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(arg), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateIsNull(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(arg), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1064,7 +1098,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateLShr(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateLShr(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1076,7 +1110,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateLShrByValue(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), rhs as ::libc::uint64_t, c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateLShrByValue(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), rhs as ::libc::uint64_t, c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1088,7 +1122,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateLandingPad(::llvm::IRBuilderObj::inner(self), ::llvm::ty::TypeObj::inner(ty), ::llvm::value::ValueObj::inner(pers_fn), num_clauses as ::libc::c_uint, c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateLandingPad(::llvm::IRBuilderObj::get_inner(self), ::llvm::ty::TypeObj::get_inner(ty), ::llvm::value::ValueObj::get_inner(pers_fn), num_clauses as ::libc::c_uint, c_name);
             ::llvm::value::user::inst::LandingPadInst::from_inner(ret, false)
         }
     }
@@ -1100,7 +1134,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateLoad(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(ptr), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateLoad(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(ptr), c_name);
             ::llvm::value::user::inst::LoadInst::from_inner(ret, false)
         }
     }
@@ -1112,7 +1146,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateLoadVolatile(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(ptr), is_volatile, c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateLoadVolatile(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(ptr), is_volatile, c_name);
             ::llvm::value::user::inst::LoadInst::from_inner(ret, false)
         }
     }
@@ -1124,7 +1158,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateMul(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateMul(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1136,7 +1170,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateNSWAdd(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateNSWAdd(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1148,7 +1182,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateNSWMul(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateNSWMul(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1160,7 +1194,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateNSWNeg(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateNSWNeg(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1172,7 +1206,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateNSWSub(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateNSWSub(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1184,7 +1218,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateNUWAdd(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateNUWAdd(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1196,7 +1230,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateNUWMul(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateNUWMul(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1208,7 +1242,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateNUWNeg(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateNUWNeg(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1220,7 +1254,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateNUWSub(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateNUWSub(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1232,7 +1266,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateNeg(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateNeg(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1244,7 +1278,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateNot(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateNot(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1256,7 +1290,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateOr(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateOr(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1268,7 +1302,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateOrByValue(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), rhs as ::libc::uint64_t, c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateOrByValue(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), rhs as ::libc::uint64_t, c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1280,7 +1314,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreatePHI(::llvm::IRBuilderObj::inner(self), ::llvm::ty::TypeObj::inner(ty), num_reserved_values as ::libc::c_uint, c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreatePHI(::llvm::IRBuilderObj::get_inner(self), ::llvm::ty::TypeObj::get_inner(ty), num_reserved_values as ::libc::c_uint, c_name);
             ::llvm::value::user::inst::PHINode::from_inner(ret, false)
         }
     }
@@ -1292,7 +1326,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreatePointerBitCastOrAddrSpaceCast(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreatePointerBitCastOrAddrSpaceCast(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1304,7 +1338,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreatePointerCast(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreatePointerCast(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1316,7 +1350,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreatePtrDiff(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreatePtrDiff(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1328,28 +1362,28 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreatePtrToInt(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreatePtrToInt(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
 
     fn create_resume<A1: ::llvm::value::ValueObj>(&mut self, exn: &mut A1) -> ::llvm::value::user::inst::ResumeInst {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilder_CreateResume(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(exn));
+            let ret = ::ffi::llvm::IRBuilder_CreateResume(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(exn));
             ::llvm::value::user::inst::ResumeInst::from_inner(ret, false)
         }
     }
 
     fn create_ret<A1: ::llvm::value::ValueObj>(&mut self, value: &mut A1) -> ::llvm::value::user::inst::ReturnInst {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilder_CreateRet(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value));
+            let ret = ::ffi::llvm::IRBuilder_CreateRet(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value));
             ::llvm::value::user::inst::ReturnInst::from_inner(ret, false)
         }
     }
 
     fn create_ret_void(&mut self) -> ::llvm::value::user::inst::ReturnInst {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilder_CreateRetVoid(::llvm::IRBuilderObj::inner(self));
+            let ret = ::ffi::llvm::IRBuilder_CreateRetVoid(::llvm::IRBuilderObj::get_inner(self));
             ::llvm::value::user::inst::ReturnInst::from_inner(ret, false)
         }
     }
@@ -1361,7 +1395,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateSDiv(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateSDiv(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1373,7 +1407,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateSExt(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateSExt(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1385,7 +1419,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateSExtOrBitCast(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateSExtOrBitCast(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1397,7 +1431,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateSExtOrTrunc(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateSExtOrTrunc(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1409,7 +1443,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateSIToFP(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateSIToFP(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1421,7 +1455,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateSRem(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateSRem(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1433,7 +1467,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateSelect(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(c), ::llvm::value::ValueObj::inner(true_value), ::llvm::value::ValueObj::inner(false_value), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateSelect(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(c), ::llvm::value::ValueObj::get_inner(true_value), ::llvm::value::ValueObj::get_inner(false_value), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1445,7 +1479,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateShl(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateShl(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1457,7 +1491,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateShlByValue(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), rhs as ::libc::uint64_t, c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateShlByValue(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), rhs as ::libc::uint64_t, c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1469,7 +1503,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateShuffleVector(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(v1), ::llvm::value::ValueObj::inner(p2), ::llvm::value::ValueObj::inner(mask), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateShuffleVector(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(v1), ::llvm::value::ValueObj::get_inner(p2), ::llvm::value::ValueObj::get_inner(mask), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1477,7 +1511,7 @@ pub trait IRBuilderExt: IRBuilderObj {
     fn create_store<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, value: &mut A1, ptr: &mut A2, is_volatile: Option<bool>) -> ::llvm::value::user::inst::StoreInst {
         unsafe {
             let is_volatile = is_volatile.unwrap_or(false);
-            let ret = ::ffi::llvm::IRBuilder_CreateStore(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::value::ValueObj::inner(ptr), is_volatile);
+            let ret = ::ffi::llvm::IRBuilder_CreateStore(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::value::ValueObj::get_inner(ptr), is_volatile);
             ::llvm::value::user::inst::StoreInst::from_inner(ret, false)
         }
     }
@@ -1489,7 +1523,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateStructGEP(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(ptr), index as ::libc::c_uint, c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateStructGEP(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(ptr), index as ::libc::c_uint, c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1501,7 +1535,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateSub(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateSub(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1509,7 +1543,7 @@ pub trait IRBuilderExt: IRBuilderObj {
     fn create_switch<A1: ::llvm::value::ValueObj, A2: ::llvm::value::BasicBlockObj>(&mut self, value: &mut A1, dest: &mut A2, num_cases: Option<u32>) -> ::llvm::value::user::inst::SwitchInst {
         unsafe {
             let num_cases = num_cases.unwrap_or(10);
-            let ret = ::ffi::llvm::IRBuilder_CreateSwitch(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::value::BasicBlockObj::inner(dest), num_cases as ::libc::c_uint);
+            let ret = ::ffi::llvm::IRBuilder_CreateSwitch(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::value::BasicBlockObj::get_inner(dest), num_cases as ::libc::c_uint);
             ::llvm::value::user::inst::SwitchInst::from_inner(ret, false)
         }
     }
@@ -1521,7 +1555,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateTrunc(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateTrunc(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1533,7 +1567,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateTruncOrBitCast(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateTruncOrBitCast(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1545,7 +1579,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateUDiv(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateUDiv(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1557,7 +1591,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateUIToFP(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateUIToFP(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1569,14 +1603,14 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateURem(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateURem(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
 
     fn create_unreachable(&mut self) -> ::llvm::value::user::inst::UnreachableInst {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilder_CreateUnreachable(::llvm::IRBuilderObj::inner(self));
+            let ret = ::ffi::llvm::IRBuilder_CreateUnreachable(::llvm::IRBuilderObj::get_inner(self));
             ::llvm::value::user::inst::UnreachableInst::from_inner(ret, false)
         }
     }
@@ -1588,7 +1622,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateVAArg(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(list), ::llvm::ty::TypeObj::inner(ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateVAArg(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(list), ::llvm::ty::TypeObj::get_inner(ty), c_name);
             ::llvm::value::user::inst::VAArgInst::from_inner(ret, false)
         }
     }
@@ -1600,7 +1634,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateVectorSplat(::llvm::IRBuilderObj::inner(self), num_elements as ::libc::c_uint, ::llvm::value::ValueObj::inner(value), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateVectorSplat(::llvm::IRBuilderObj::get_inner(self), num_elements as ::libc::c_uint, ::llvm::value::ValueObj::get_inner(value), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1612,7 +1646,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateXor(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), ::llvm::value::ValueObj::inner(rhs), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateXor(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), ::llvm::value::ValueObj::get_inner(rhs), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1624,7 +1658,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateXorByValue(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(lhs), rhs as ::libc::uint64_t, c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateXorByValue(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(lhs), rhs as ::libc::uint64_t, c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1636,7 +1670,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateZExt(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateZExt(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1648,7 +1682,7 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateZExtOrBitCast(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateZExtOrBitCast(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
@@ -1660,14 +1694,14 @@ pub trait IRBuilderExt: IRBuilderObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilder_CreateZExtOrTrunc(::llvm::IRBuilderObj::inner(self), ::llvm::value::ValueObj::inner(value), ::llvm::ty::TypeObj::inner(dest_ty), c_name);
+            let ret = ::ffi::llvm::IRBuilder_CreateZExtOrTrunc(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::ty::TypeObj::get_inner(dest_ty), c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
 
     fn is_name_preserving(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilder_isNamePreserving(::llvm::IRBuilderObj::inner(self) as *const ::ffi::llvm_IRBuilder);
+            let ret = ::ffi::llvm::IRBuilder_isNamePreserving(::llvm::IRBuilderObj::get_inner(self) as *const ::ffi::llvm_IRBuilder);
             ret
         }
     }
@@ -1679,18 +1713,21 @@ pub struct IRBuilder {
     owned: bool,
 }
 impl ::llvm::IRBuilderBaseObj for IRBuilder {
-    fn inner(&self) -> *mut ::ffi::llvm_IRBuilderBase {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut ::ffi::llvm_IRBuilderBase {
         unsafe {
             ::core::mem::transmute(self.inner)
         }
     }
 }
 impl IRBuilderObj for IRBuilder {
-    fn inner(&self) -> *mut IRBuilderInner {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut IRBuilderInner {
         *self.inner
     }
 }
 impl IRBuilder {
+    #[inline(always)]
     pub unsafe fn from_inner(inner: *mut IRBuilderInner, owned: bool) -> IRBuilder {
         IRBuilder {
             inner: ::core::nonzero::NonZero::new(inner),
@@ -1701,7 +1738,7 @@ impl IRBuilder {
 
     pub fn new<A1: ::llvm::LLVMContextObj>(context: &mut A1) -> ::llvm::IRBuilder {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilder_new(::llvm::LLVMContextObj::inner(context));
+            let ret = ::ffi::llvm::IRBuilder_new(::llvm::LLVMContextObj::get_inner(context));
             if ret.is_null() {
                 panic!("::llvm::IRBuilder::new returned a null pointer!");
             }
@@ -1711,7 +1748,7 @@ impl IRBuilder {
 
     pub fn new_in_block<A1: ::llvm::value::BasicBlockObj>(bb: &mut A1) -> ::llvm::IRBuilder {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilder_new_in_block(::llvm::value::BasicBlockObj::inner(bb));
+            let ret = ::ffi::llvm::IRBuilder_new_in_block(::llvm::value::BasicBlockObj::get_inner(bb));
             if ret.is_null() {
                 panic!("::llvm::IRBuilder::new_in_block returned a null pointer!");
             }
@@ -1720,10 +1757,11 @@ impl IRBuilder {
     }
 }
 impl Drop for IRBuilder {
+    #[inline(always)]
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::IRBuilder_delete(::llvm::IRBuilderObj::inner(self));
+                ::ffi::llvm::IRBuilder_delete(::llvm::IRBuilderObj::get_inner(self));
             }
         }
     }
@@ -1731,14 +1769,24 @@ impl Drop for IRBuilder {
 pub type IRBuilderBaseInner = ::ffi::llvm_IRBuilderBase;
 
 pub trait IRBuilderBaseObj {
-    fn inner(&self) -> *mut IRBuilderBaseInner;
+    unsafe fn get_inner(&self) -> *mut IRBuilderBaseInner;
 }
+
+pub trait IRBuilderBaseOwned: IRBuilderBaseObj + ::core::marker::Sized {
+    #[inline(always)]
+    unsafe fn move_inner(self) -> *mut IRBuilderBaseInner {
+        let inner = IRBuilderBaseObj::get_inner(&self);
+        ::core::mem::forget(self);
+        return inner;
+    }
+}
+impl<T> IRBuilderBaseOwned for T where T: IRBuilderBaseObj + ::core::marker::Sized {}
 
 pub trait IRBuilderBaseExt: IRBuilderBaseObj {
 
     fn clear_insertion_point(&mut self) {
         unsafe {
-            ::ffi::llvm::IRBuilderBase_ClearInsertionPoint(::llvm::IRBuilderBaseObj::inner(self));
+            ::ffi::llvm::IRBuilderBase_ClearInsertionPoint(::llvm::IRBuilderBaseObj::get_inner(self));
         }
     }
 
@@ -1753,21 +1801,21 @@ pub trait IRBuilderBaseExt: IRBuilderBaseObj {
                 data: name.as_ptr() as *mut ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::IRBuilderBase_CreateGlobalString(::llvm::IRBuilderBaseObj::inner(self), c_str, c_name);
+            let ret = ::ffi::llvm::IRBuilderBase_CreateGlobalString(::llvm::IRBuilderBaseObj::get_inner(self), c_str, c_name);
             ::llvm::value::Value::from_inner(ret, false)
         }
     }
 
     fn create_lifetime_end<A1: ::llvm::value::ValueObj, A2: ::llvm::value::user::constant::ConstantIntObj>(&mut self, ptr: &mut A1, size: Option<&mut A2>) -> ::llvm::value::user::inst::CallInst {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_CreateLifetimeEnd(::llvm::IRBuilderBaseObj::inner(self), ::llvm::value::ValueObj::inner(ptr), size.map(|size| ::llvm::value::user::constant::ConstantIntObj::inner(size)).unwrap_or(::std::ptr::null_mut()));
+            let ret = ::ffi::llvm::IRBuilderBase_CreateLifetimeEnd(::llvm::IRBuilderBaseObj::get_inner(self), ::llvm::value::ValueObj::get_inner(ptr), size.map(|size| ::llvm::value::user::constant::ConstantIntObj::get_inner(size)).unwrap_or(::std::ptr::null_mut()));
             ::llvm::value::user::inst::CallInst::from_inner(ret, false)
         }
     }
 
     fn create_lifetime_start<A1: ::llvm::value::ValueObj, A2: ::llvm::value::user::constant::ConstantIntObj>(&mut self, ptr: &mut A1, size: Option<&mut A2>) -> ::llvm::value::user::inst::CallInst {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_CreateLifetimeStart(::llvm::IRBuilderBaseObj::inner(self), ::llvm::value::ValueObj::inner(ptr), size.map(|size| ::llvm::value::user::constant::ConstantIntObj::inner(size)).unwrap_or(::std::ptr::null_mut()));
+            let ret = ::ffi::llvm::IRBuilderBase_CreateLifetimeStart(::llvm::IRBuilderBaseObj::get_inner(self), ::llvm::value::ValueObj::get_inner(ptr), size.map(|size| ::llvm::value::user::constant::ConstantIntObj::get_inner(size)).unwrap_or(::std::ptr::null_mut()));
             ::llvm::value::user::inst::CallInst::from_inner(ret, false)
         }
     }
@@ -1775,7 +1823,7 @@ pub trait IRBuilderBaseExt: IRBuilderBaseObj {
     fn create_mem_cpy<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj, A3: ::llvm::value::ValueObj>(&mut self, dst: &mut A1, src: &mut A2, size: &mut A3, align: u32, is_volatile: Option<bool>) -> ::llvm::value::user::inst::CallInst {
         unsafe {
             let is_volatile = is_volatile.unwrap_or(false);
-            let ret = ::ffi::llvm::IRBuilderBase_CreateMemCpy(::llvm::IRBuilderBaseObj::inner(self), ::llvm::value::ValueObj::inner(dst), ::llvm::value::ValueObj::inner(src), ::llvm::value::ValueObj::inner(size), align as ::libc::c_uint, is_volatile);
+            let ret = ::ffi::llvm::IRBuilderBase_CreateMemCpy(::llvm::IRBuilderBaseObj::get_inner(self), ::llvm::value::ValueObj::get_inner(dst), ::llvm::value::ValueObj::get_inner(src), ::llvm::value::ValueObj::get_inner(size), align as ::libc::c_uint, is_volatile);
             ::llvm::value::user::inst::CallInst::from_inner(ret, false)
         }
     }
@@ -1783,7 +1831,7 @@ pub trait IRBuilderBaseExt: IRBuilderBaseObj {
     fn create_mem_move<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj, A3: ::llvm::value::ValueObj>(&mut self, dst: &mut A1, src: &mut A2, size: &mut A3, align: u32, is_volatile: Option<bool>) -> ::llvm::value::user::inst::CallInst {
         unsafe {
             let is_volatile = is_volatile.unwrap_or(false);
-            let ret = ::ffi::llvm::IRBuilderBase_CreateMemMove(::llvm::IRBuilderBaseObj::inner(self), ::llvm::value::ValueObj::inner(dst), ::llvm::value::ValueObj::inner(src), ::llvm::value::ValueObj::inner(size), align as ::libc::c_uint, is_volatile);
+            let ret = ::ffi::llvm::IRBuilderBase_CreateMemMove(::llvm::IRBuilderBaseObj::get_inner(self), ::llvm::value::ValueObj::get_inner(dst), ::llvm::value::ValueObj::get_inner(src), ::llvm::value::ValueObj::get_inner(size), align as ::libc::c_uint, is_volatile);
             ::llvm::value::user::inst::CallInst::from_inner(ret, false)
         }
     }
@@ -1791,58 +1839,58 @@ pub trait IRBuilderBaseExt: IRBuilderBaseObj {
     fn create_mem_set<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj, A3: ::llvm::value::ValueObj>(&mut self, ptr: &mut A1, value: &mut A2, size: &mut A3, align: u32, is_volatile: Option<bool>) -> ::llvm::value::user::inst::CallInst {
         unsafe {
             let is_volatile = is_volatile.unwrap_or(false);
-            let ret = ::ffi::llvm::IRBuilderBase_CreateMemSet(::llvm::IRBuilderBaseObj::inner(self), ::llvm::value::ValueObj::inner(ptr), ::llvm::value::ValueObj::inner(value), ::llvm::value::ValueObj::inner(size), align as ::libc::c_uint, is_volatile);
+            let ret = ::ffi::llvm::IRBuilderBase_CreateMemSet(::llvm::IRBuilderBaseObj::get_inner(self), ::llvm::value::ValueObj::get_inner(ptr), ::llvm::value::ValueObj::get_inner(value), ::llvm::value::ValueObj::get_inner(size), align as ::libc::c_uint, is_volatile);
             ::llvm::value::user::inst::CallInst::from_inner(ret, false)
         }
     }
 
     fn get_insert_block(&self) -> ::llvm::value::BasicBlock {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_GetInsertBlock(::llvm::IRBuilderBaseObj::inner(self) as *const ::ffi::llvm_IRBuilderBase);
+            let ret = ::ffi::llvm::IRBuilderBase_GetInsertBlock(::llvm::IRBuilderBaseObj::get_inner(self) as *const ::ffi::llvm_IRBuilderBase);
             ::llvm::value::BasicBlock::from_inner(ret, false)
         }
     }
 
     fn set_current_debug_location<A1: ::llvm::DebugLocObj>(&mut self, loc: &A1) {
         unsafe {
-            ::ffi::llvm::IRBuilderBase_SetCurrentDebugLocation(::llvm::IRBuilderBaseObj::inner(self), ::llvm::DebugLocObj::inner(loc));
+            ::ffi::llvm::IRBuilderBase_SetCurrentDebugLocation(::llvm::IRBuilderBaseObj::get_inner(self), ::llvm::DebugLocObj::get_inner(loc));
         }
     }
 
     fn set_default_fp_math_tag<A1: ::llvm::value::MDNodeObj>(&mut self, fp_math_tag: &mut A1) {
         unsafe {
-            ::ffi::llvm::IRBuilderBase_SetDefaultFPMathTag(::llvm::IRBuilderBaseObj::inner(self), ::llvm::value::MDNodeObj::inner(fp_math_tag));
+            ::ffi::llvm::IRBuilderBase_SetDefaultFPMathTag(::llvm::IRBuilderBaseObj::get_inner(self), ::llvm::value::MDNodeObj::get_inner(fp_math_tag));
         }
     }
 
     fn set_insert_point<A1: ::llvm::value::BasicBlockObj>(&mut self, bb: &mut A1) {
         unsafe {
-            ::ffi::llvm::IRBuilderBase_SetInsertPoint(::llvm::IRBuilderBaseObj::inner(self), ::llvm::value::BasicBlockObj::inner(bb));
+            ::ffi::llvm::IRBuilderBase_SetInsertPoint(::llvm::IRBuilderBaseObj::get_inner(self), ::llvm::value::BasicBlockObj::get_inner(bb));
         }
     }
 
     fn set_insert_point_at_inst<A1: ::llvm::value::user::inst::InstructionObj>(&mut self, inst: &mut A1) {
         unsafe {
-            ::ffi::llvm::IRBuilderBase_SetInsertPointAtInst(::llvm::IRBuilderBaseObj::inner(self), ::llvm::value::user::inst::InstructionObj::inner(inst));
+            ::ffi::llvm::IRBuilderBase_SetInsertPointAtInst(::llvm::IRBuilderBaseObj::get_inner(self), ::llvm::value::user::inst::InstructionObj::get_inner(inst));
         }
     }
 
     fn set_inst_debug_location<A1: ::llvm::value::user::inst::InstructionObj>(&self, inst: &mut A1) {
         unsafe {
-            ::ffi::llvm::IRBuilderBase_SetInstDebugLocation(::llvm::IRBuilderBaseObj::inner(self) as *const ::ffi::llvm_IRBuilderBase, ::llvm::value::user::inst::InstructionObj::inner(inst));
+            ::ffi::llvm::IRBuilderBase_SetInstDebugLocation(::llvm::IRBuilderBaseObj::get_inner(self) as *const ::ffi::llvm_IRBuilderBase, ::llvm::value::user::inst::InstructionObj::get_inner(inst));
         }
     }
 
     fn get_context(&self) -> ::llvm::LLVMContext {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_getContext(::llvm::IRBuilderBaseObj::inner(self) as *const ::ffi::llvm_IRBuilderBase);
+            let ret = ::ffi::llvm::IRBuilderBase_getContext(::llvm::IRBuilderBaseObj::get_inner(self) as *const ::ffi::llvm_IRBuilderBase);
             ::llvm::LLVMContext::from_inner(ret)
         }
     }
 
     fn get_current_function_return_type(&self) -> Option<::llvm::ty::Type> {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_getCurrentFunctionReturnType(::llvm::IRBuilderBaseObj::inner(self) as *const ::ffi::llvm_IRBuilderBase);
+            let ret = ::ffi::llvm::IRBuilderBase_getCurrentFunctionReturnType(::llvm::IRBuilderBaseObj::get_inner(self) as *const ::ffi::llvm_IRBuilderBase);
             if ret.is_null() {
                 return None;
             }
@@ -1852,7 +1900,7 @@ pub trait IRBuilderBaseExt: IRBuilderBaseObj {
 
     fn get_default_fp_math_tag(&self) -> Option<::llvm::value::MDNode> {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_getDefaultFPMathTag(::llvm::IRBuilderBaseObj::inner(self) as *const ::ffi::llvm_IRBuilderBase);
+            let ret = ::ffi::llvm::IRBuilderBase_getDefaultFPMathTag(::llvm::IRBuilderBaseObj::get_inner(self) as *const ::ffi::llvm_IRBuilderBase);
             if ret.is_null() {
                 return None;
             }
@@ -1862,28 +1910,28 @@ pub trait IRBuilderBaseExt: IRBuilderBaseObj {
 
     fn get_double_ty(&mut self) -> ::llvm::ty::Type {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_getDoubleTy(::llvm::IRBuilderBaseObj::inner(self));
+            let ret = ::ffi::llvm::IRBuilderBase_getDoubleTy(::llvm::IRBuilderBaseObj::get_inner(self));
             ::llvm::ty::Type::from_inner(ret)
         }
     }
 
     fn get_false(&mut self) -> ::llvm::value::user::constant::ConstantInt {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_getFalse(::llvm::IRBuilderBaseObj::inner(self));
+            let ret = ::ffi::llvm::IRBuilderBase_getFalse(::llvm::IRBuilderBaseObj::get_inner(self));
             ::llvm::value::user::constant::ConstantInt::from_inner(ret, false)
         }
     }
 
     fn get_float_ty(&mut self) -> ::llvm::ty::Type {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_getFloatTy(::llvm::IRBuilderBaseObj::inner(self));
+            let ret = ::ffi::llvm::IRBuilderBase_getFloatTy(::llvm::IRBuilderBaseObj::get_inner(self));
             ::llvm::ty::Type::from_inner(ret)
         }
     }
 
     fn get_half_ty(&mut self) -> ::llvm::ty::Type {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_getHalfTy(::llvm::IRBuilderBaseObj::inner(self));
+            let ret = ::ffi::llvm::IRBuilderBase_getHalfTy(::llvm::IRBuilderBaseObj::get_inner(self));
             ::llvm::ty::Type::from_inner(ret)
         }
     }
@@ -1897,70 +1945,70 @@ pub trait IRBuilderBaseExt: IRBuilderBaseObj {
                 length: value.1.len() as ::libc::size_t,
             },
             };
-            let ret = ::ffi::llvm::IRBuilderBase_getInt(::llvm::IRBuilderBaseObj::inner(self), c_value);
+            let ret = ::ffi::llvm::IRBuilderBase_getInt(::llvm::IRBuilderBaseObj::get_inner(self), c_value);
             ::llvm::value::user::constant::ConstantInt::from_inner(ret, false)
         }
     }
 
     fn get_int1(&mut self, value: bool) -> ::llvm::value::user::constant::ConstantInt {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_getInt1(::llvm::IRBuilderBaseObj::inner(self), value);
+            let ret = ::ffi::llvm::IRBuilderBase_getInt1(::llvm::IRBuilderBaseObj::get_inner(self), value);
             ::llvm::value::user::constant::ConstantInt::from_inner(ret, false)
         }
     }
 
     fn get_int16(&mut self, value: u16) -> ::llvm::value::user::constant::ConstantInt {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_getInt16(::llvm::IRBuilderBaseObj::inner(self), value as ::libc::uint16_t);
+            let ret = ::ffi::llvm::IRBuilderBase_getInt16(::llvm::IRBuilderBaseObj::get_inner(self), value as ::libc::uint16_t);
             ::llvm::value::user::constant::ConstantInt::from_inner(ret, false)
         }
     }
 
     fn get_int16_ty(&mut self) -> ::llvm::ty::IntegerType {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_getInt16Ty(::llvm::IRBuilderBaseObj::inner(self));
+            let ret = ::ffi::llvm::IRBuilderBase_getInt16Ty(::llvm::IRBuilderBaseObj::get_inner(self));
             ::llvm::ty::IntegerType::from_inner(ret)
         }
     }
 
     fn get_int1_ty(&mut self) -> ::llvm::ty::IntegerType {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_getInt1Ty(::llvm::IRBuilderBaseObj::inner(self));
+            let ret = ::ffi::llvm::IRBuilderBase_getInt1Ty(::llvm::IRBuilderBaseObj::get_inner(self));
             ::llvm::ty::IntegerType::from_inner(ret)
         }
     }
 
     fn get_int32(&mut self, value: u32) -> ::llvm::value::user::constant::ConstantInt {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_getInt32(::llvm::IRBuilderBaseObj::inner(self), value as ::libc::uint32_t);
+            let ret = ::ffi::llvm::IRBuilderBase_getInt32(::llvm::IRBuilderBaseObj::get_inner(self), value as ::libc::uint32_t);
             ::llvm::value::user::constant::ConstantInt::from_inner(ret, false)
         }
     }
 
     fn get_int32_ty(&mut self) -> ::llvm::ty::IntegerType {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_getInt32Ty(::llvm::IRBuilderBaseObj::inner(self));
+            let ret = ::ffi::llvm::IRBuilderBase_getInt32Ty(::llvm::IRBuilderBaseObj::get_inner(self));
             ::llvm::ty::IntegerType::from_inner(ret)
         }
     }
 
     fn get_int64(&mut self, value: u64) -> ::llvm::value::user::constant::ConstantInt {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_getInt64(::llvm::IRBuilderBaseObj::inner(self), value as ::libc::uint64_t);
+            let ret = ::ffi::llvm::IRBuilderBase_getInt64(::llvm::IRBuilderBaseObj::get_inner(self), value as ::libc::uint64_t);
             ::llvm::value::user::constant::ConstantInt::from_inner(ret, false)
         }
     }
 
     fn get_int64_ty(&mut self) -> ::llvm::ty::IntegerType {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_getInt64Ty(::llvm::IRBuilderBaseObj::inner(self));
+            let ret = ::ffi::llvm::IRBuilderBase_getInt64Ty(::llvm::IRBuilderBaseObj::get_inner(self));
             ::llvm::ty::IntegerType::from_inner(ret)
         }
     }
 
     fn get_int8(&mut self, value: u8) -> ::llvm::value::user::constant::ConstantInt {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_getInt8(::llvm::IRBuilderBaseObj::inner(self), value as ::libc::uint8_t);
+            let ret = ::ffi::llvm::IRBuilderBase_getInt8(::llvm::IRBuilderBaseObj::get_inner(self), value as ::libc::uint8_t);
             ::llvm::value::user::constant::ConstantInt::from_inner(ret, false)
         }
     }
@@ -1968,28 +2016,28 @@ pub trait IRBuilderBaseExt: IRBuilderBaseObj {
     fn get_int8_ptr_ty(&mut self, addr_space: Option<u32>) -> ::llvm::ty::seq::PointerType {
         unsafe {
             let addr_space = addr_space.unwrap_or(0);
-            let ret = ::ffi::llvm::IRBuilderBase_getInt8PtrTy(::llvm::IRBuilderBaseObj::inner(self), addr_space as ::libc::c_uint);
+            let ret = ::ffi::llvm::IRBuilderBase_getInt8PtrTy(::llvm::IRBuilderBaseObj::get_inner(self), addr_space as ::libc::c_uint);
             ::llvm::ty::seq::PointerType::from_inner(ret)
         }
     }
 
     fn get_int8_ty(&mut self) -> ::llvm::ty::IntegerType {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_getInt8Ty(::llvm::IRBuilderBaseObj::inner(self));
+            let ret = ::ffi::llvm::IRBuilderBase_getInt8Ty(::llvm::IRBuilderBaseObj::get_inner(self));
             ::llvm::ty::IntegerType::from_inner(ret)
         }
     }
 
     fn get_int_n(&mut self, num_bits: u32, value: u64) -> ::llvm::value::user::constant::ConstantInt {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_getIntN(::llvm::IRBuilderBaseObj::inner(self), num_bits as ::libc::c_uint, value as ::libc::uint64_t);
+            let ret = ::ffi::llvm::IRBuilderBase_getIntN(::llvm::IRBuilderBaseObj::get_inner(self), num_bits as ::libc::c_uint, value as ::libc::uint64_t);
             ::llvm::value::user::constant::ConstantInt::from_inner(ret, false)
         }
     }
 
     fn get_int_n_ty(&mut self, num_bits: u32) -> ::llvm::ty::IntegerType {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_getIntNTy(::llvm::IRBuilderBaseObj::inner(self), num_bits as ::libc::c_uint);
+            let ret = ::ffi::llvm::IRBuilderBase_getIntNTy(::llvm::IRBuilderBaseObj::get_inner(self), num_bits as ::libc::c_uint);
             ::llvm::ty::IntegerType::from_inner(ret)
         }
     }
@@ -1997,21 +2045,21 @@ pub trait IRBuilderBaseExt: IRBuilderBaseObj {
     fn get_int_ptr_ty<A1: ::llvm::DataLayoutObj>(&mut self, dl: &A1, addr_space: Option<u32>) -> ::llvm::ty::IntegerType {
         unsafe {
             let addr_space = addr_space.unwrap_or(0);
-            let ret = ::ffi::llvm::IRBuilderBase_getIntPtrTy(::llvm::IRBuilderBaseObj::inner(self), ::llvm::DataLayoutObj::inner(dl), addr_space as ::libc::c_uint);
+            let ret = ::ffi::llvm::IRBuilderBase_getIntPtrTy(::llvm::IRBuilderBaseObj::get_inner(self), ::llvm::DataLayoutObj::get_inner(dl), addr_space as ::libc::c_uint);
             ::llvm::ty::IntegerType::from_inner(ret)
         }
     }
 
     fn get_true(&mut self) -> ::llvm::value::user::constant::ConstantInt {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_getTrue(::llvm::IRBuilderBaseObj::inner(self));
+            let ret = ::ffi::llvm::IRBuilderBase_getTrue(::llvm::IRBuilderBaseObj::get_inner(self));
             ::llvm::value::user::constant::ConstantInt::from_inner(ret, false)
         }
     }
 
     fn get_void_ty(&mut self) -> ::llvm::ty::Type {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_getVoidTy(::llvm::IRBuilderBaseObj::inner(self));
+            let ret = ::ffi::llvm::IRBuilderBase_getVoidTy(::llvm::IRBuilderBaseObj::get_inner(self));
             ::llvm::ty::Type::from_inner(ret)
         }
     }
@@ -2022,11 +2070,13 @@ pub struct IRBuilderBase {
     inner: ::core::nonzero::NonZero<*mut IRBuilderBaseInner>,
 }
 impl IRBuilderBaseObj for IRBuilderBase {
-    fn inner(&self) -> *mut IRBuilderBaseInner {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut IRBuilderBaseInner {
         *self.inner
     }
 }
 impl IRBuilderBase {
+    #[inline(always)]
     pub unsafe fn from_inner(inner: *mut IRBuilderBaseInner) -> IRBuilderBase {
         IRBuilderBase {
             inner: ::core::nonzero::NonZero::new(inner),
@@ -2035,7 +2085,7 @@ impl IRBuilderBase {
 
     pub fn new<A1: ::llvm::LLVMContextObj>(context: &mut A1) -> ::llvm::IRBuilderBase {
         unsafe {
-            let ret = ::ffi::llvm::IRBuilderBase_new(::llvm::LLVMContextObj::inner(context));
+            let ret = ::ffi::llvm::IRBuilderBase_new(::llvm::LLVMContextObj::get_inner(context));
             if ret.is_null() {
                 panic!("::llvm::IRBuilderBase::new returned a null pointer!");
             }
@@ -2047,8 +2097,18 @@ impl Copy for IRBuilderBase {}
 pub type LLVMContextInner = ::ffi::llvm_LLVMContext;
 
 pub trait LLVMContextObj {
-    fn inner(&self) -> *mut LLVMContextInner;
+    unsafe fn get_inner(&self) -> *mut LLVMContextInner;
 }
+
+pub trait LLVMContextOwned: LLVMContextObj + ::core::marker::Sized {
+    #[inline(always)]
+    unsafe fn move_inner(self) -> *mut LLVMContextInner {
+        let inner = LLVMContextObj::get_inner(&self);
+        ::core::mem::forget(self);
+        return inner;
+    }
+}
+impl<T> LLVMContextOwned for T where T: LLVMContextObj + ::core::marker::Sized {}
 
 pub trait LLVMContextExt: LLVMContextObj {
 }
@@ -2058,11 +2118,13 @@ pub struct LLVMContext {
     inner: ::core::nonzero::NonZero<*mut LLVMContextInner>,
 }
 impl LLVMContextObj for LLVMContext {
-    fn inner(&self) -> *mut LLVMContextInner {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut LLVMContextInner {
         *self.inner
     }
 }
 impl LLVMContext {
+    #[inline(always)]
     pub unsafe fn from_inner(inner: *mut LLVMContextInner) -> LLVMContext {
         LLVMContext {
             inner: ::core::nonzero::NonZero::new(inner),
@@ -2093,8 +2155,18 @@ impl Copy for LLVMContext {}
 pub type ModuleInner = ::ffi::llvm_Module;
 
 pub trait ModuleObj {
-    fn inner(&self) -> *mut ModuleInner;
+    unsafe fn get_inner(&self) -> *mut ModuleInner;
 }
+
+pub trait ModuleOwned: ModuleObj + ::core::marker::Sized {
+    #[inline(always)]
+    unsafe fn move_inner(self) -> *mut ModuleInner {
+        let inner = ModuleObj::get_inner(&self);
+        ::core::mem::forget(self);
+        return inner;
+    }
+}
+impl<T> ModuleOwned for T where T: ModuleObj + ::core::marker::Sized {}
 
 pub trait ModuleExt: ModuleObj {
 
@@ -2104,26 +2176,26 @@ pub trait ModuleExt: ModuleObj {
                 data: asm.as_ptr() as *const ::libc::c_char,
                 length: asm.len() as ::libc::size_t,
             };
-            ::ffi::llvm::Module_appendModuleInlineAsm(::llvm::ModuleObj::inner(self), c_asm);
+            ::ffi::llvm::Module_appendModuleInlineAsm(::llvm::ModuleObj::get_inner(self), c_asm);
         }
     }
 
     fn dump(&self) {
         unsafe {
-            ::ffi::llvm::Module_dump(::llvm::ModuleObj::inner(self) as *const ::ffi::llvm_Module);
+            ::ffi::llvm::Module_dump(::llvm::ModuleObj::get_inner(self) as *const ::ffi::llvm_Module);
         }
     }
 
     fn get_context(&self) -> ::llvm::LLVMContext {
         unsafe {
-            let ret = ::ffi::llvm::Module_getContext(::llvm::ModuleObj::inner(self) as *const ::ffi::llvm_Module);
+            let ret = ::ffi::llvm::Module_getContext(::llvm::ModuleObj::get_inner(self) as *const ::ffi::llvm_Module);
             ::llvm::LLVMContext::from_inner(ret)
         }
     }
 
     fn get_data_layout(&self) -> Option<::llvm::DataLayout> {
         unsafe {
-            let ret = ::ffi::llvm::Module_getDataLayout(::llvm::ModuleObj::inner(self) as *const ::ffi::llvm_Module);
+            let ret = ::ffi::llvm::Module_getDataLayout(::llvm::ModuleObj::get_inner(self) as *const ::ffi::llvm_Module);
             if ret.is_null() {
                 return None;
             }
@@ -2133,7 +2205,7 @@ pub trait ModuleExt: ModuleObj {
 
     fn get_data_layout_str(&self) -> &str {
         unsafe {
-            let ret = ::ffi::llvm::Module_getDataLayoutStr(::llvm::ModuleObj::inner(self) as *const ::ffi::llvm_Module);
+            let ret = ::ffi::llvm::Module_getDataLayoutStr(::llvm::ModuleObj::get_inner(self) as *const ::ffi::llvm_Module);
             let ret = ::core::str::from_utf8_unchecked(::core::mem::transmute(::core::slice::from_raw_buf(&ret.data, ret.length as usize)));
             ret
         }
@@ -2145,7 +2217,7 @@ pub trait ModuleExt: ModuleObj {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::Module_getFunction(::llvm::ModuleObj::inner(self) as *const ::ffi::llvm_Module, c_name);
+            let ret = ::ffi::llvm::Module_getFunction(::llvm::ModuleObj::get_inner(self) as *const ::ffi::llvm_Module, c_name);
             if ret.is_null() {
                 return None;
             }
@@ -2159,14 +2231,14 @@ pub trait ModuleExt: ModuleObj {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::Module_getMDKindID(::llvm::ModuleObj::inner(self) as *const ::ffi::llvm_Module, c_name) as u32;
+            let ret = ::ffi::llvm::Module_getMDKindID(::llvm::ModuleObj::get_inner(self) as *const ::ffi::llvm_Module, c_name) as u32;
             ret
         }
     }
 
     fn get_module_identifier(&self) -> &str {
         unsafe {
-            let ret = ::ffi::llvm::Module_getModuleIdentifier(::llvm::ModuleObj::inner(self) as *const ::ffi::llvm_Module);
+            let ret = ::ffi::llvm::Module_getModuleIdentifier(::llvm::ModuleObj::get_inner(self) as *const ::ffi::llvm_Module);
             let ret = ::core::str::from_utf8_unchecked(::core::mem::transmute(::core::slice::from_raw_buf(&ret.data, ret.length as usize)));
             ret
         }
@@ -2174,7 +2246,7 @@ pub trait ModuleExt: ModuleObj {
 
     fn get_module_inline_asm(&self) -> &str {
         unsafe {
-            let ret = ::ffi::llvm::Module_getModuleInlineAsm(::llvm::ModuleObj::inner(self) as *const ::ffi::llvm_Module);
+            let ret = ::ffi::llvm::Module_getModuleInlineAsm(::llvm::ModuleObj::get_inner(self) as *const ::ffi::llvm_Module);
             let ret = ::core::str::from_utf8_unchecked(::core::mem::transmute(::core::slice::from_raw_buf(&ret.data, ret.length as usize)));
             ret
         }
@@ -2186,7 +2258,7 @@ pub trait ModuleExt: ModuleObj {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::Module_getNamedValue(::llvm::ModuleObj::inner(self) as *const ::ffi::llvm_Module, c_name);
+            let ret = ::ffi::llvm::Module_getNamedValue(::llvm::ModuleObj::get_inner(self) as *const ::ffi::llvm_Module, c_name);
             if ret.is_null() {
                 return None;
             }
@@ -2200,14 +2272,14 @@ pub trait ModuleExt: ModuleObj {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::Module_getOrInsertFunction(::llvm::ModuleObj::inner(self), c_name, ::llvm::ty::FunctionTypeObj::inner(ty));
+            let ret = ::ffi::llvm::Module_getOrInsertFunction(::llvm::ModuleObj::get_inner(self), c_name, ::llvm::ty::FunctionTypeObj::get_inner(ty));
             ::llvm::value::user::constant::Constant::from_inner(ret, false)
         }
     }
 
     fn get_target_triple(&self) -> &str {
         unsafe {
-            let ret = ::ffi::llvm::Module_getTargetTriple(::llvm::ModuleObj::inner(self) as *const ::ffi::llvm_Module);
+            let ret = ::ffi::llvm::Module_getTargetTriple(::llvm::ModuleObj::get_inner(self) as *const ::ffi::llvm_Module);
             let ret = ::core::str::from_utf8_unchecked(::core::mem::transmute(::core::slice::from_raw_buf(&ret.data, ret.length as usize)));
             ret
         }
@@ -2219,7 +2291,7 @@ pub trait ModuleExt: ModuleObj {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::Module_getTypeByName(::llvm::ModuleObj::inner(self) as *const ::ffi::llvm_Module, c_name);
+            let ret = ::ffi::llvm::Module_getTypeByName(::llvm::ModuleObj::get_inner(self) as *const ::ffi::llvm_Module, c_name);
             if ret.is_null() {
                 return None;
             }
@@ -2229,7 +2301,7 @@ pub trait ModuleExt: ModuleObj {
 
     fn set_data_layout<A1: ::llvm::DataLayoutObj>(&mut self, other: &A1) {
         unsafe {
-            ::ffi::llvm::Module_setDataLayout(::llvm::ModuleObj::inner(self), ::llvm::DataLayoutObj::inner(other));
+            ::ffi::llvm::Module_setDataLayout(::llvm::ModuleObj::get_inner(self), ::llvm::DataLayoutObj::get_inner(other));
         }
     }
 
@@ -2239,7 +2311,7 @@ pub trait ModuleExt: ModuleObj {
                 data: desc.as_ptr() as *const ::libc::c_char,
                 length: desc.len() as ::libc::size_t,
             };
-            ::ffi::llvm::Module_setDataLayoutStr(::llvm::ModuleObj::inner(self), c_desc);
+            ::ffi::llvm::Module_setDataLayoutStr(::llvm::ModuleObj::get_inner(self), c_desc);
         }
     }
 
@@ -2249,7 +2321,7 @@ pub trait ModuleExt: ModuleObj {
                 data: id.as_ptr() as *const ::libc::c_char,
                 length: id.len() as ::libc::size_t,
             };
-            ::ffi::llvm::Module_setModuleIdentifier(::llvm::ModuleObj::inner(self), c_id);
+            ::ffi::llvm::Module_setModuleIdentifier(::llvm::ModuleObj::get_inner(self), c_id);
         }
     }
 
@@ -2259,7 +2331,7 @@ pub trait ModuleExt: ModuleObj {
                 data: asm.as_ptr() as *const ::libc::c_char,
                 length: asm.len() as ::libc::size_t,
             };
-            ::ffi::llvm::Module_setModuleInlineAsm(::llvm::ModuleObj::inner(self), c_asm);
+            ::ffi::llvm::Module_setModuleInlineAsm(::llvm::ModuleObj::get_inner(self), c_asm);
         }
     }
 
@@ -2269,7 +2341,7 @@ pub trait ModuleExt: ModuleObj {
                 data: triple.as_ptr() as *const ::libc::c_char,
                 length: triple.len() as ::libc::size_t,
             };
-            ::ffi::llvm::Module_setTargetTriple(::llvm::ModuleObj::inner(self), c_triple);
+            ::ffi::llvm::Module_setTargetTriple(::llvm::ModuleObj::get_inner(self), c_triple);
         }
     }
 }
@@ -2280,11 +2352,13 @@ pub struct Module {
     owned: bool,
 }
 impl ModuleObj for Module {
-    fn inner(&self) -> *mut ModuleInner {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut ModuleInner {
         *self.inner
     }
 }
 impl Module {
+    #[inline(always)]
     pub unsafe fn from_inner(inner: *mut ModuleInner, owned: bool) -> Module {
         Module {
             inner: ::core::nonzero::NonZero::new(inner),
@@ -2298,7 +2372,7 @@ impl Module {
                 data: module_id.as_ptr() as *const ::libc::c_char,
                 length: module_id.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::Module_new(c_module_id, ::llvm::LLVMContextObj::inner(context));
+            let ret = ::ffi::llvm::Module_new(c_module_id, ::llvm::LLVMContextObj::get_inner(context));
             if ret.is_null() {
                 panic!("::llvm::Module::new returned a null pointer!");
             }
@@ -2307,10 +2381,11 @@ impl Module {
     }
 }
 impl Drop for Module {
+    #[inline(always)]
     fn drop(&mut self) {
         if self.owned {
             unsafe {
-                ::ffi::llvm::Module_delete(::llvm::ModuleObj::inner(self));
+                ::ffi::llvm::Module_delete(::llvm::ModuleObj::get_inner(self));
             }
         }
     }
@@ -2318,20 +2393,30 @@ impl Drop for Module {
 pub type ValueSymbolTableInner = ::ffi::llvm_ValueSymbolTable;
 
 pub trait ValueSymbolTableObj {
-    fn inner(&self) -> *mut ValueSymbolTableInner;
+    unsafe fn get_inner(&self) -> *mut ValueSymbolTableInner;
 }
+
+pub trait ValueSymbolTableOwned: ValueSymbolTableObj + ::core::marker::Sized {
+    #[inline(always)]
+    unsafe fn move_inner(self) -> *mut ValueSymbolTableInner {
+        let inner = ValueSymbolTableObj::get_inner(&self);
+        ::core::mem::forget(self);
+        return inner;
+    }
+}
+impl<T> ValueSymbolTableOwned for T where T: ValueSymbolTableObj + ::core::marker::Sized {}
 
 pub trait ValueSymbolTableExt: ValueSymbolTableObj {
 
     fn dump(&self) {
         unsafe {
-            ::ffi::llvm::ValueSymbolTable_dump(::llvm::ValueSymbolTableObj::inner(self) as *const ::ffi::llvm_ValueSymbolTable);
+            ::ffi::llvm::ValueSymbolTable_dump(::llvm::ValueSymbolTableObj::get_inner(self) as *const ::ffi::llvm_ValueSymbolTable);
         }
     }
 
     fn empty(&self) -> bool {
         unsafe {
-            let ret = ::ffi::llvm::ValueSymbolTable_empty(::llvm::ValueSymbolTableObj::inner(self) as *const ::ffi::llvm_ValueSymbolTable);
+            let ret = ::ffi::llvm::ValueSymbolTable_empty(::llvm::ValueSymbolTableObj::get_inner(self) as *const ::ffi::llvm_ValueSymbolTable);
             ret
         }
     }
@@ -2342,7 +2427,7 @@ pub trait ValueSymbolTableExt: ValueSymbolTableObj {
                 data: name.as_ptr() as *const ::libc::c_char,
                 length: name.len() as ::libc::size_t,
             };
-            let ret = ::ffi::llvm::ValueSymbolTable_lookup(::llvm::ValueSymbolTableObj::inner(self) as *const ::ffi::llvm_ValueSymbolTable, c_name);
+            let ret = ::ffi::llvm::ValueSymbolTable_lookup(::llvm::ValueSymbolTableObj::get_inner(self) as *const ::ffi::llvm_ValueSymbolTable, c_name);
             if ret.is_null() {
                 return None;
             }
@@ -2352,7 +2437,7 @@ pub trait ValueSymbolTableExt: ValueSymbolTableObj {
 
     fn size(&self) -> u32 {
         unsafe {
-            let ret = ::ffi::llvm::ValueSymbolTable_size(::llvm::ValueSymbolTableObj::inner(self) as *const ::ffi::llvm_ValueSymbolTable) as u32;
+            let ret = ::ffi::llvm::ValueSymbolTable_size(::llvm::ValueSymbolTableObj::get_inner(self) as *const ::ffi::llvm_ValueSymbolTable) as u32;
             ret
         }
     }
@@ -2363,11 +2448,13 @@ pub struct ValueSymbolTable {
     inner: ::core::nonzero::NonZero<*mut ValueSymbolTableInner>,
 }
 impl ValueSymbolTableObj for ValueSymbolTable {
-    fn inner(&self) -> *mut ValueSymbolTableInner {
+    #[inline(always)]
+    fn get_inner(&self) -> *mut ValueSymbolTableInner {
         *self.inner
     }
 }
 impl ValueSymbolTable {
+    #[inline(always)]
     pub unsafe fn from_inner(inner: *mut ValueSymbolTableInner) -> ValueSymbolTable {
         ValueSymbolTable {
             inner: ::core::nonzero::NonZero::new(inner),
@@ -2405,14 +2492,14 @@ pub fn get_global_context() -> ::llvm::LLVMContext {
 
 pub fn verify_function<A1: ::llvm::value::user::constant::FunctionObj>(function: &A1) -> bool {
     unsafe {
-        let ret = ::ffi::llvm::verifyFunction(::llvm::value::user::constant::FunctionObj::inner(function));
+        let ret = ::ffi::llvm::verifyFunction(::llvm::value::user::constant::FunctionObj::get_inner(function));
         ret
     }
 }
 
 pub fn verify_module<A1: ::llvm::ModuleObj>(module: &A1) -> bool {
     unsafe {
-        let ret = ::ffi::llvm::verifyModule(::llvm::ModuleObj::inner(module));
+        let ret = ::ffi::llvm::verifyModule(::llvm::ModuleObj::get_inner(module));
         ret
     }
 }
