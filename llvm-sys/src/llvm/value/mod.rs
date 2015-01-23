@@ -280,13 +280,13 @@ pub trait BasicBlockExt: BasicBlockObj {
         }
     }
 
-    fn move_after<A1: ::llvm::value::BasicBlockObj>(&mut self, move_pos: &mut A1) {
+    fn move_after<A1: ::llvm::value::BasicBlockObj = ::llvm::value::BasicBlock>(&mut self, move_pos: &mut A1) {
         unsafe {
             ::ffi::llvm::BasicBlock_moveAfter(::llvm::value::BasicBlockObj::get_inner(self), ::llvm::value::BasicBlockObj::get_inner(move_pos));
         }
     }
 
-    fn move_before<A1: ::llvm::value::BasicBlockObj>(&mut self, move_pos: &mut A1) {
+    fn move_before<A1: ::llvm::value::BasicBlockObj = ::llvm::value::BasicBlock>(&mut self, move_pos: &mut A1) {
         unsafe {
             ::ffi::llvm::BasicBlock_moveBefore(::llvm::value::BasicBlockObj::get_inner(self), ::llvm::value::BasicBlockObj::get_inner(move_pos));
         }
@@ -298,14 +298,14 @@ pub trait BasicBlockExt: BasicBlockObj {
         }
     }
 
-    fn remove_predecessor<A1: ::llvm::value::BasicBlockObj>(&mut self, pred: &mut A1, dont_delete_useless_ph_is: Option<bool>) {
+    fn remove_predecessor<A1: ::llvm::value::BasicBlockObj = ::llvm::value::BasicBlock>(&mut self, pred: &mut A1, dont_delete_useless_ph_is: Option<bool>) {
         unsafe {
             let dont_delete_useless_ph_is = dont_delete_useless_ph_is.unwrap_or(false);
             ::ffi::llvm::BasicBlock_removePredecessor(::llvm::value::BasicBlockObj::get_inner(self), ::llvm::value::BasicBlockObj::get_inner(pred), dont_delete_useless_ph_is);
         }
     }
 
-    fn replace_successors_phi_uses_with<A1: ::llvm::value::BasicBlockObj>(&mut self, new: &mut A1) {
+    fn replace_successors_phi_uses_with<A1: ::llvm::value::BasicBlockObj = ::llvm::value::BasicBlock>(&mut self, new: &mut A1) {
         unsafe {
             ::ffi::llvm::BasicBlock_replaceSuccessorsPhiUsesWith(::llvm::value::BasicBlockObj::get_inner(self), ::llvm::value::BasicBlockObj::get_inner(new));
         }
@@ -340,7 +340,7 @@ impl BasicBlock {
         }
     }
 
-    pub fn create<A1: ::llvm::LLVMContextObj, A3: ::llvm::value::user::constant::FunctionObj, A4: ::llvm::value::BasicBlockObj>(context: &mut A1, name: Option<&str>, parent: Option<&mut A3>, insert_before: Option<&mut A4>) -> ::llvm::value::BasicBlock {
+    pub fn create<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext, A3: ::llvm::value::user::constant::FunctionObj = ::llvm::value::user::constant::Function, A4: ::llvm::value::BasicBlockObj = ::llvm::value::BasicBlock>(context: &mut A1, name: Option<&str>, parent: Option<&mut A3>, insert_before: Option<&mut A4>) -> ::llvm::value::BasicBlock {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -355,7 +355,7 @@ impl BasicBlock {
         }
     }
 
-    pub fn classof<A1: ::llvm::value::ValueObj>(val: &A1) -> bool {
+    pub fn classof<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(val: &A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::BasicBlock_classof(::llvm::value::ValueObj::get_inner(val));
             ret
@@ -711,20 +711,20 @@ pub trait ValueExt: ValueObj {
         }
     }
 
-    fn is_used_in_basic_block<A1: ::llvm::value::BasicBlockObj>(&self, bb: &A1) -> bool {
+    fn is_used_in_basic_block<A1: ::llvm::value::BasicBlockObj = ::llvm::value::BasicBlock>(&self, bb: &A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::Value_isUsedInBasicBlock(::llvm::value::ValueObj::get_inner(self) as *const ::ffi::llvm_Value, ::llvm::value::BasicBlockObj::get_inner(bb));
             ret
         }
     }
 
-    fn mutate_type<A1: ::llvm::ty::TypeObj>(&mut self, ty: &mut A1) {
+    fn mutate_type<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, ty: &mut A1) {
         unsafe {
             ::ffi::llvm::Value_mutateType(::llvm::value::ValueObj::get_inner(self), ::llvm::ty::TypeObj::get_inner(ty));
         }
     }
 
-    fn replace_all_uses_with<A1: ::llvm::value::ValueObj>(&mut self, value: &mut A1) {
+    fn replace_all_uses_with<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, value: &mut A1) {
         unsafe {
             ::ffi::llvm::Value_replaceAllUsesWith(::llvm::value::ValueObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value));
         }
@@ -740,7 +740,7 @@ pub trait ValueExt: ValueObj {
         }
     }
 
-    fn take_name<A1: ::llvm::value::ValueObj>(&mut self, value: &mut A1) {
+    fn take_name<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, value: &mut A1) {
         unsafe {
             ::ffi::llvm::Value_takeName(::llvm::value::ValueObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value));
         }

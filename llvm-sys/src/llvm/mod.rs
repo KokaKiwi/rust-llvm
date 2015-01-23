@@ -111,13 +111,13 @@ impl<T> DebugLocOwned for T where T: DebugLocObj + ::core::marker::Sized {}
 
 pub trait DebugLocExt: DebugLocObj {
 
-    fn dump<A1: ::llvm::LLVMContextObj>(&self, ctx: &A1) {
+    fn dump<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(&self, ctx: &A1) {
         unsafe {
             ::ffi::llvm::DebugLoc_dump(::llvm::DebugLocObj::get_inner(self) as *const ::ffi::llvm_DebugLoc, ::llvm::LLVMContextObj::get_inner(ctx));
         }
     }
 
-    fn get_as_md_node<A1: ::llvm::LLVMContextObj>(&self, ctx: &A1) -> Option<::llvm::value::MDNode> {
+    fn get_as_md_node<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(&self, ctx: &A1) -> Option<::llvm::value::MDNode> {
         unsafe {
             let ret = ::ffi::llvm::DebugLoc_getAsMDNode(::llvm::DebugLocObj::get_inner(self) as *const ::ffi::llvm_DebugLoc, ::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -134,7 +134,7 @@ pub trait DebugLocExt: DebugLocObj {
         }
     }
 
-    fn get_inlined_at<A1: ::llvm::LLVMContextObj>(&self, ctx: &A1) -> Option<::llvm::value::MDNode> {
+    fn get_inlined_at<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(&self, ctx: &A1) -> Option<::llvm::value::MDNode> {
         unsafe {
             let ret = ::ffi::llvm::DebugLoc_getInlinedAt(::llvm::DebugLocObj::get_inner(self) as *const ::ffi::llvm_DebugLoc, ::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -151,7 +151,7 @@ pub trait DebugLocExt: DebugLocObj {
         }
     }
 
-    fn get_scope<A1: ::llvm::LLVMContextObj>(&self, ctx: &A1) -> Option<::llvm::value::MDNode> {
+    fn get_scope<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(&self, ctx: &A1) -> Option<::llvm::value::MDNode> {
         unsafe {
             let ret = ::ffi::llvm::DebugLoc_getScope(::llvm::DebugLocObj::get_inner(self) as *const ::ffi::llvm_DebugLoc, ::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -161,7 +161,7 @@ pub trait DebugLocExt: DebugLocObj {
         }
     }
 
-    fn get_scope_node<A1: ::llvm::LLVMContextObj>(&self, ctx: &A1) -> Option<::llvm::value::MDNode> {
+    fn get_scope_node<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(&self, ctx: &A1) -> Option<::llvm::value::MDNode> {
         unsafe {
             let ret = ::ffi::llvm::DebugLoc_getScopeNode(::llvm::DebugLocObj::get_inner(self) as *const ::ffi::llvm_DebugLoc, ::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -226,7 +226,7 @@ impl<T> IRBuilderOwned for T where T: IRBuilderObj + ::core::marker::Sized {}
 
 pub trait IRBuilderExt: IRBuilderObj {
 
-    fn create_a_shr<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_a_shr<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -238,7 +238,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_a_shr_by_value<A1: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: u64, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_a_shr_by_value<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: u64, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -250,7 +250,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_add<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_add<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -262,7 +262,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_addr_space_cast<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_addr_space_cast<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -285,7 +285,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_aligned_load<A1: ::llvm::value::ValueObj>(&mut self, ptr: &mut A1, align: u32, name: Option<&str>) -> ::llvm::value::user::inst::LoadInst {
+    fn create_aligned_load<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, ptr: &mut A1, align: u32, name: Option<&str>) -> ::llvm::value::user::inst::LoadInst {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -297,7 +297,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_aligned_load_volatile<A1: ::llvm::value::ValueObj>(&mut self, ptr: &mut A1, align: u32, is_volatile: bool, name: Option<&str>) -> ::llvm::value::user::inst::LoadInst {
+    fn create_aligned_load_volatile<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, ptr: &mut A1, align: u32, is_volatile: bool, name: Option<&str>) -> ::llvm::value::user::inst::LoadInst {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -309,7 +309,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_aligned_store<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, value: &mut A1, ptr: &mut A2, align: u32, is_volatile: Option<bool>) -> ::llvm::value::user::inst::StoreInst {
+    fn create_aligned_store<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, value: &mut A1, ptr: &mut A2, align: u32, is_volatile: Option<bool>) -> ::llvm::value::user::inst::StoreInst {
         unsafe {
             let is_volatile = is_volatile.unwrap_or(false);
             let ret = ::ffi::llvm::IRBuilder_CreateAlignedStore(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::value::ValueObj::get_inner(ptr), align as ::libc::c_uint, is_volatile);
@@ -317,7 +317,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_alloca<A1: ::llvm::ty::TypeObj, A2: ::llvm::value::ValueObj>(&mut self, ty: &mut A1, array_size: Option<&mut A2>, name: Option<&str>) -> ::llvm::value::user::inst::AllocaInst {
+    fn create_alloca<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, ty: &mut A1, array_size: Option<&mut A2>, name: Option<&str>) -> ::llvm::value::user::inst::AllocaInst {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -329,7 +329,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_and<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_and<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -341,7 +341,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_and_by_value<A1: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: u64, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_and_by_value<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: u64, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -353,7 +353,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_bin_op<A2: ::llvm::value::ValueObj, A3: ::llvm::value::ValueObj>(&mut self, opcode: ::llvm::value::user::inst::BinaryOps, lhs: &mut A2, rhs: &mut A3, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_bin_op<A2: ::llvm::value::ValueObj = ::llvm::value::Value, A3: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, opcode: ::llvm::value::user::inst::BinaryOps, lhs: &mut A2, rhs: &mut A3, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -365,7 +365,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_bit_cast<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_bit_cast<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -377,14 +377,14 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_br<A1: ::llvm::value::BasicBlockObj>(&mut self, dest: &mut A1) -> ::llvm::value::user::inst::BranchInst {
+    fn create_br<A1: ::llvm::value::BasicBlockObj = ::llvm::value::BasicBlock>(&mut self, dest: &mut A1) -> ::llvm::value::user::inst::BranchInst {
         unsafe {
             let ret = ::ffi::llvm::IRBuilder_CreateBr(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::BasicBlockObj::get_inner(dest));
             ::llvm::value::user::inst::BranchInst::from_inner(ret, false)
         }
     }
 
-    fn create_call<A1: ::llvm::value::ValueObj>(&mut self, callee: &mut A1, args: &[&::llvm::value::ValueObj], name: Option<&str>) -> ::llvm::value::user::inst::CallInst {
+    fn create_call<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, callee: &mut A1, args: &[&::llvm::value::ValueObj], name: Option<&str>) -> ::llvm::value::user::inst::CallInst {
         unsafe {
             let _tmp_args: Vec<_> = args.iter().map(|&ty| ::llvm::value::ValueObj::get_inner(ty)).collect();
             let c_args = ::ffi::llvm_ArrayRef_llvm_Value_ptr {
@@ -401,7 +401,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_cast<A2: ::llvm::value::ValueObj, A3: ::llvm::ty::TypeObj>(&mut self, opcode: ::llvm::value::user::inst::CastOps, value: &mut A2, dest_ty: &mut A3, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_cast<A2: ::llvm::value::ValueObj = ::llvm::value::Value, A3: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, opcode: ::llvm::value::user::inst::CastOps, value: &mut A2, dest_ty: &mut A3, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -413,14 +413,14 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_cond_br<A1: ::llvm::value::ValueObj, A2: ::llvm::value::BasicBlockObj, A3: ::llvm::value::BasicBlockObj>(&mut self, cond: &mut A1, true_block: &mut A2, false_block: &mut A3) -> ::llvm::value::user::inst::BranchInst {
+    fn create_cond_br<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::BasicBlockObj = ::llvm::value::BasicBlock, A3: ::llvm::value::BasicBlockObj = ::llvm::value::BasicBlock>(&mut self, cond: &mut A1, true_block: &mut A2, false_block: &mut A3) -> ::llvm::value::user::inst::BranchInst {
         unsafe {
             let ret = ::ffi::llvm::IRBuilder_CreateCondBr(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(cond), ::llvm::value::BasicBlockObj::get_inner(true_block), ::llvm::value::BasicBlockObj::get_inner(false_block));
             ::llvm::value::user::inst::BranchInst::from_inner(ret, false)
         }
     }
 
-    fn create_exact_s_div<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_exact_s_div<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -432,7 +432,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_exact_u_div<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_exact_u_div<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -444,7 +444,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_extract_element<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, vec: &mut A1, idx: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_extract_element<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, vec: &mut A1, idx: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -456,7 +456,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_extract_integer<A1: ::llvm::DataLayoutObj, A2: ::llvm::value::ValueObj, A3: ::llvm::ty::IntegerTypeObj>(&mut self, dl: &A1, from: &mut A2, extracted_ty: &mut A3, offset: u64, name: &str) -> ::llvm::value::Value {
+    fn create_extract_integer<A1: ::llvm::DataLayoutObj = ::llvm::DataLayout, A2: ::llvm::value::ValueObj = ::llvm::value::Value, A3: ::llvm::ty::IntegerTypeObj = ::llvm::ty::IntegerType>(&mut self, dl: &A1, from: &mut A2, extracted_ty: &mut A3, offset: u64, name: &str) -> ::llvm::value::Value {
         unsafe {
             let c_name = ::ffi::std_string {
                 data: name.as_ptr() as *mut ::libc::c_char,
@@ -467,7 +467,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_extract_value<A1: ::llvm::value::ValueObj>(&mut self, agg: &mut A1, indexes: &[u32], name: Option<&str>) -> ::llvm::value::Value {
+    fn create_extract_value<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, agg: &mut A1, indexes: &[u32], name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let c_indexes = ::ffi::llvm_ArrayRef__libc_c_uint {
                 data: indexes.as_ptr(),
@@ -483,7 +483,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_f_add<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_f_add<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -495,7 +495,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_f_cmp<A2: ::llvm::value::ValueObj, A3: ::llvm::value::ValueObj>(&mut self, pred: ::llvm::value::user::inst::Predicate, lhs: &mut A2, rhs: &mut A3, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_f_cmp<A2: ::llvm::value::ValueObj = ::llvm::value::Value, A3: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, pred: ::llvm::value::user::inst::Predicate, lhs: &mut A2, rhs: &mut A3, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -507,7 +507,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_f_cmp_oeq<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_f_cmp_oeq<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -519,7 +519,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_f_cmp_oge<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_f_cmp_oge<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -531,7 +531,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_f_cmp_ogt<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_f_cmp_ogt<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -543,7 +543,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_f_cmp_ole<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_f_cmp_ole<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -555,7 +555,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_f_cmp_olt<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_f_cmp_olt<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -567,7 +567,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_f_cmp_one<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_f_cmp_one<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -579,7 +579,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_f_cmp_ord<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_f_cmp_ord<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -591,7 +591,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_f_cmp_ueq<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_f_cmp_ueq<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -603,7 +603,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_f_cmp_uge<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_f_cmp_uge<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -615,7 +615,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_f_cmp_ugt<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_f_cmp_ugt<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -627,7 +627,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_f_cmp_ule<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_f_cmp_ule<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -639,7 +639,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_f_cmp_ult<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_f_cmp_ult<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -651,7 +651,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_f_cmp_une<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_f_cmp_une<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -663,7 +663,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_f_cmp_uno<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_f_cmp_uno<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -675,7 +675,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_f_div<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_f_div<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -687,7 +687,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_f_mul<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_f_mul<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -699,7 +699,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_f_neg<A1: ::llvm::value::ValueObj>(&mut self, value: &mut A1, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_f_neg<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, value: &mut A1, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -711,7 +711,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_fp_cast<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_fp_cast<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -723,7 +723,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_fp_ext<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_fp_ext<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -735,7 +735,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_fp_to_si<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_fp_to_si<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -747,7 +747,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_fp_to_ui<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_fp_to_ui<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -759,7 +759,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_fp_trunc<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_fp_trunc<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -771,7 +771,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_f_rem<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_f_rem<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -783,7 +783,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_f_sub<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_f_sub<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -808,7 +808,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_gep<A1: ::llvm::value::ValueObj>(&mut self, ptr: &mut A1, indexes: &[&::llvm::value::ValueObj], name: Option<&str>) -> ::llvm::value::Value {
+    fn create_gep<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, ptr: &mut A1, indexes: &[&::llvm::value::ValueObj], name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let _tmp_indexes: Vec<_> = indexes.iter().map(|&ty| ::llvm::value::ValueObj::get_inner(ty)).collect();
             let c_indexes = ::ffi::llvm_ArrayRef_llvm_Value_ptr {
@@ -841,7 +841,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_i_cmp<A2: ::llvm::value::ValueObj, A3: ::llvm::value::ValueObj>(&mut self, pred: ::llvm::value::user::inst::Predicate, lhs: &mut A2, rhs: &mut A3, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_i_cmp<A2: ::llvm::value::ValueObj = ::llvm::value::Value, A3: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, pred: ::llvm::value::user::inst::Predicate, lhs: &mut A2, rhs: &mut A3, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -853,7 +853,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_i_cmp_eq<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_i_cmp_eq<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -865,7 +865,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_i_cmp_ne<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_i_cmp_ne<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -877,7 +877,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_i_cmp_sge<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_i_cmp_sge<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -889,7 +889,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_i_cmp_sgt<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_i_cmp_sgt<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -901,7 +901,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_i_cmp_sle<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_i_cmp_sle<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -913,7 +913,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_i_cmp_slt<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_i_cmp_slt<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -925,7 +925,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_i_cmp_uge<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_i_cmp_uge<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -937,7 +937,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_i_cmp_ugt<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_i_cmp_ugt<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -949,7 +949,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_i_cmp_ule<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_i_cmp_ule<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -961,7 +961,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_i_cmp_ult<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_i_cmp_ult<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -973,7 +973,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_in_bounds_gep<A1: ::llvm::value::ValueObj>(&mut self, ptr: &mut A1, indexes: &[&::llvm::value::ValueObj], name: Option<&str>) -> ::llvm::value::Value {
+    fn create_in_bounds_gep<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, ptr: &mut A1, indexes: &[&::llvm::value::ValueObj], name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let _tmp_indexes: Vec<_> = indexes.iter().map(|&ty| ::llvm::value::ValueObj::get_inner(ty)).collect();
             let c_indexes = ::ffi::llvm_ArrayRef_llvm_Value_ptr {
@@ -990,7 +990,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_indirect_br<A1: ::llvm::value::ValueObj>(&mut self, addr: &mut A1, num_cases: Option<u32>) -> ::llvm::value::user::inst::IndirectBrInst {
+    fn create_indirect_br<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, addr: &mut A1, num_cases: Option<u32>) -> ::llvm::value::user::inst::IndirectBrInst {
         unsafe {
             let num_cases = num_cases.unwrap_or(10);
             let ret = ::ffi::llvm::IRBuilder_CreateIndirectBr(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(addr), num_cases as ::libc::c_uint);
@@ -998,7 +998,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_insert_element<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj, A3: ::llvm::value::ValueObj>(&mut self, vec: &mut A1, new_elt: &mut A2, idx: &mut A3, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_insert_element<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value, A3: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, vec: &mut A1, new_elt: &mut A2, idx: &mut A3, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1010,7 +1010,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_insert_value<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, agg: &mut A1, value: &mut A2, indexes: &[u32], name: Option<&str>) -> ::llvm::value::Value {
+    fn create_insert_value<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, agg: &mut A1, value: &mut A2, indexes: &[u32], name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let c_indexes = ::ffi::llvm_ArrayRef__libc_c_uint {
                 data: indexes.as_ptr(),
@@ -1026,7 +1026,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_int_cast<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, is_signed: bool, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_int_cast<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, is_signed: bool, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1038,7 +1038,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_int_to_ptr<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_int_to_ptr<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1050,7 +1050,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_invoke<A1: ::llvm::value::ValueObj, A2: ::llvm::value::BasicBlockObj, A3: ::llvm::value::BasicBlockObj>(&mut self, callee: &mut A1, normal_dest: &mut A2, unwind_dest: &mut A3, args: &[&::llvm::value::ValueObj], name: Option<&str>) -> ::llvm::value::user::inst::InvokeInst {
+    fn create_invoke<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::BasicBlockObj = ::llvm::value::BasicBlock, A3: ::llvm::value::BasicBlockObj = ::llvm::value::BasicBlock>(&mut self, callee: &mut A1, normal_dest: &mut A2, unwind_dest: &mut A3, args: &[&::llvm::value::ValueObj], name: Option<&str>) -> ::llvm::value::user::inst::InvokeInst {
         unsafe {
             let _tmp_args: Vec<_> = args.iter().map(|&ty| ::llvm::value::ValueObj::get_inner(ty)).collect();
             let c_args = ::ffi::llvm_ArrayRef_llvm_Value_ptr {
@@ -1067,7 +1067,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_is_not_null<A1: ::llvm::value::ValueObj>(&mut self, arg: &mut A1, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_is_not_null<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, arg: &mut A1, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1079,7 +1079,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_is_null<A1: ::llvm::value::ValueObj>(&mut self, arg: &mut A1, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_is_null<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, arg: &mut A1, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1091,7 +1091,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_l_shr<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_l_shr<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1103,7 +1103,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_l_shr_by_value<A1: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: u64, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_l_shr_by_value<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: u64, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1115,7 +1115,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_landing_pad<A1: ::llvm::ty::TypeObj, A2: ::llvm::value::ValueObj>(&mut self, ty: &mut A1, pers_fn: &mut A2, num_clauses: u32, name: Option<&str>) -> ::llvm::value::user::inst::LandingPadInst {
+    fn create_landing_pad<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, ty: &mut A1, pers_fn: &mut A2, num_clauses: u32, name: Option<&str>) -> ::llvm::value::user::inst::LandingPadInst {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1127,7 +1127,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_load<A1: ::llvm::value::ValueObj>(&mut self, ptr: &mut A1, name: Option<&str>) -> ::llvm::value::user::inst::LoadInst {
+    fn create_load<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, ptr: &mut A1, name: Option<&str>) -> ::llvm::value::user::inst::LoadInst {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1139,7 +1139,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_load_volatile<A1: ::llvm::value::ValueObj>(&mut self, ptr: &mut A1, is_volatile: bool, name: Option<&str>) -> ::llvm::value::user::inst::LoadInst {
+    fn create_load_volatile<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, ptr: &mut A1, is_volatile: bool, name: Option<&str>) -> ::llvm::value::user::inst::LoadInst {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1151,7 +1151,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_mul<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_mul<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1163,7 +1163,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_nsw_add<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_nsw_add<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1175,7 +1175,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_nsw_mul<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_nsw_mul<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1187,7 +1187,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_nsw_neg<A1: ::llvm::value::ValueObj>(&mut self, value: &mut A1, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_nsw_neg<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, value: &mut A1, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1199,7 +1199,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_nsw_sub<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_nsw_sub<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1211,7 +1211,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_nuw_add<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_nuw_add<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1223,7 +1223,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_nuw_mul<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_nuw_mul<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1235,7 +1235,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_nuw_neg<A1: ::llvm::value::ValueObj>(&mut self, value: &mut A1, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_nuw_neg<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, value: &mut A1, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1247,7 +1247,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_nuw_sub<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_nuw_sub<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1259,7 +1259,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_neg<A1: ::llvm::value::ValueObj>(&mut self, value: &mut A1, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_neg<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, value: &mut A1, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1271,7 +1271,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_not<A1: ::llvm::value::ValueObj>(&mut self, value: &mut A1, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_not<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, value: &mut A1, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1283,7 +1283,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_or<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_or<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1295,7 +1295,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_or_by_value<A1: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: u64, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_or_by_value<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: u64, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1307,7 +1307,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_phi<A1: ::llvm::ty::TypeObj>(&mut self, ty: &mut A1, num_reserved_values: u32, name: Option<&str>) -> ::llvm::value::user::inst::PHINode {
+    fn create_phi<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, ty: &mut A1, num_reserved_values: u32, name: Option<&str>) -> ::llvm::value::user::inst::PHINode {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1319,7 +1319,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_pointer_bit_cast_or_addr_space_cast<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_pointer_bit_cast_or_addr_space_cast<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1331,7 +1331,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_pointer_cast<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_pointer_cast<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1343,7 +1343,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_ptr_diff<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_ptr_diff<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1355,7 +1355,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_ptr_to_int<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_ptr_to_int<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1367,14 +1367,14 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_resume<A1: ::llvm::value::ValueObj>(&mut self, exn: &mut A1) -> ::llvm::value::user::inst::ResumeInst {
+    fn create_resume<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, exn: &mut A1) -> ::llvm::value::user::inst::ResumeInst {
         unsafe {
             let ret = ::ffi::llvm::IRBuilder_CreateResume(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(exn));
             ::llvm::value::user::inst::ResumeInst::from_inner(ret, false)
         }
     }
 
-    fn create_ret<A1: ::llvm::value::ValueObj>(&mut self, value: &mut A1) -> ::llvm::value::user::inst::ReturnInst {
+    fn create_ret<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, value: &mut A1) -> ::llvm::value::user::inst::ReturnInst {
         unsafe {
             let ret = ::ffi::llvm::IRBuilder_CreateRet(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value));
             ::llvm::value::user::inst::ReturnInst::from_inner(ret, false)
@@ -1388,7 +1388,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_s_div<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_s_div<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1400,7 +1400,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_s_ext<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_s_ext<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1412,7 +1412,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_s_ext_or_bit_cast<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_s_ext_or_bit_cast<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1424,7 +1424,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_s_ext_or_trunc<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_s_ext_or_trunc<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1436,7 +1436,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_si_to_fp<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_si_to_fp<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1448,7 +1448,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_s_rem<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_s_rem<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1460,7 +1460,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_select<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj, A3: ::llvm::value::ValueObj>(&mut self, c: &mut A1, true_value: &mut A2, false_value: &mut A3, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_select<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value, A3: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, c: &mut A1, true_value: &mut A2, false_value: &mut A3, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1472,7 +1472,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_shl<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_shl<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1484,7 +1484,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_shl_by_value<A1: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: u64, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_shl_by_value<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: u64, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1496,7 +1496,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_shuffle_vector<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj, A3: ::llvm::value::ValueObj>(&mut self, v1: &mut A1, p2: &mut A2, mask: &mut A3, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_shuffle_vector<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value, A3: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, v1: &mut A1, p2: &mut A2, mask: &mut A3, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1508,7 +1508,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_store<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, value: &mut A1, ptr: &mut A2, is_volatile: Option<bool>) -> ::llvm::value::user::inst::StoreInst {
+    fn create_store<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, value: &mut A1, ptr: &mut A2, is_volatile: Option<bool>) -> ::llvm::value::user::inst::StoreInst {
         unsafe {
             let is_volatile = is_volatile.unwrap_or(false);
             let ret = ::ffi::llvm::IRBuilder_CreateStore(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::value::ValueObj::get_inner(ptr), is_volatile);
@@ -1516,7 +1516,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_struct_gep<A1: ::llvm::value::ValueObj>(&mut self, ptr: &mut A1, index: u32, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_struct_gep<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, ptr: &mut A1, index: u32, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1528,7 +1528,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_sub<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_sub<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1540,7 +1540,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_switch<A1: ::llvm::value::ValueObj, A2: ::llvm::value::BasicBlockObj>(&mut self, value: &mut A1, dest: &mut A2, num_cases: Option<u32>) -> ::llvm::value::user::inst::SwitchInst {
+    fn create_switch<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::BasicBlockObj = ::llvm::value::BasicBlock>(&mut self, value: &mut A1, dest: &mut A2, num_cases: Option<u32>) -> ::llvm::value::user::inst::SwitchInst {
         unsafe {
             let num_cases = num_cases.unwrap_or(10);
             let ret = ::ffi::llvm::IRBuilder_CreateSwitch(::llvm::IRBuilderObj::get_inner(self), ::llvm::value::ValueObj::get_inner(value), ::llvm::value::BasicBlockObj::get_inner(dest), num_cases as ::libc::c_uint);
@@ -1548,7 +1548,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_trunc<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_trunc<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1560,7 +1560,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_trunc_or_bit_cast<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_trunc_or_bit_cast<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1572,7 +1572,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_u_div<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_u_div<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1584,7 +1584,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_ui_to_fp<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_ui_to_fp<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1596,7 +1596,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_u_rem<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_u_rem<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1615,7 +1615,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_va_arg<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, list: &mut A1, ty: &mut A2, name: Option<&str>) -> ::llvm::value::user::inst::VAArgInst {
+    fn create_va_arg<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, list: &mut A1, ty: &mut A2, name: Option<&str>) -> ::llvm::value::user::inst::VAArgInst {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1627,7 +1627,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_vector_splat<A2: ::llvm::value::ValueObj>(&mut self, num_elements: u32, value: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_vector_splat<A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, num_elements: u32, value: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1639,7 +1639,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_xor<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_xor<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1651,7 +1651,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_xor_by_value<A1: ::llvm::value::ValueObj>(&mut self, lhs: &mut A1, rhs: u64, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_xor_by_value<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, lhs: &mut A1, rhs: u64, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1663,7 +1663,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_z_ext<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_z_ext<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1675,7 +1675,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_z_ext_or_bit_cast<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_z_ext_or_bit_cast<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1687,7 +1687,7 @@ pub trait IRBuilderExt: IRBuilderObj {
         }
     }
 
-    fn create_z_ext_or_trunc<A1: ::llvm::value::ValueObj, A2: ::llvm::ty::TypeObj>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
+    fn create_z_ext_or_trunc<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type>(&mut self, value: &mut A1, dest_ty: &mut A2, name: Option<&str>) -> ::llvm::value::Value {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1736,7 +1736,7 @@ impl IRBuilder {
     }
 
 
-    pub fn new<A1: ::llvm::LLVMContextObj>(context: &mut A1) -> ::llvm::IRBuilder {
+    pub fn new<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(context: &mut A1) -> ::llvm::IRBuilder {
         unsafe {
             let ret = ::ffi::llvm::IRBuilder_new(::llvm::LLVMContextObj::get_inner(context));
             if ret.is_null() {
@@ -1746,7 +1746,7 @@ impl IRBuilder {
         }
     }
 
-    pub fn new_in_block<A1: ::llvm::value::BasicBlockObj>(bb: &mut A1) -> ::llvm::IRBuilder {
+    pub fn new_in_block<A1: ::llvm::value::BasicBlockObj = ::llvm::value::BasicBlock>(bb: &mut A1) -> ::llvm::IRBuilder {
         unsafe {
             let ret = ::ffi::llvm::IRBuilder_new_in_block(::llvm::value::BasicBlockObj::get_inner(bb));
             if ret.is_null() {
@@ -1806,21 +1806,21 @@ pub trait IRBuilderBaseExt: IRBuilderBaseObj {
         }
     }
 
-    fn create_lifetime_end<A1: ::llvm::value::ValueObj, A2: ::llvm::value::user::constant::ConstantIntObj>(&mut self, ptr: &mut A1, size: Option<&mut A2>) -> ::llvm::value::user::inst::CallInst {
+    fn create_lifetime_end<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::user::constant::ConstantIntObj = ::llvm::value::user::constant::ConstantInt>(&mut self, ptr: &mut A1, size: Option<&mut A2>) -> ::llvm::value::user::inst::CallInst {
         unsafe {
             let ret = ::ffi::llvm::IRBuilderBase_CreateLifetimeEnd(::llvm::IRBuilderBaseObj::get_inner(self), ::llvm::value::ValueObj::get_inner(ptr), size.map(|size| ::llvm::value::user::constant::ConstantIntObj::get_inner(size)).unwrap_or(::std::ptr::null_mut()));
             ::llvm::value::user::inst::CallInst::from_inner(ret, false)
         }
     }
 
-    fn create_lifetime_start<A1: ::llvm::value::ValueObj, A2: ::llvm::value::user::constant::ConstantIntObj>(&mut self, ptr: &mut A1, size: Option<&mut A2>) -> ::llvm::value::user::inst::CallInst {
+    fn create_lifetime_start<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::user::constant::ConstantIntObj = ::llvm::value::user::constant::ConstantInt>(&mut self, ptr: &mut A1, size: Option<&mut A2>) -> ::llvm::value::user::inst::CallInst {
         unsafe {
             let ret = ::ffi::llvm::IRBuilderBase_CreateLifetimeStart(::llvm::IRBuilderBaseObj::get_inner(self), ::llvm::value::ValueObj::get_inner(ptr), size.map(|size| ::llvm::value::user::constant::ConstantIntObj::get_inner(size)).unwrap_or(::std::ptr::null_mut()));
             ::llvm::value::user::inst::CallInst::from_inner(ret, false)
         }
     }
 
-    fn create_mem_cpy<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj, A3: ::llvm::value::ValueObj>(&mut self, dst: &mut A1, src: &mut A2, size: &mut A3, align: u32, is_volatile: Option<bool>) -> ::llvm::value::user::inst::CallInst {
+    fn create_mem_cpy<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value, A3: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, dst: &mut A1, src: &mut A2, size: &mut A3, align: u32, is_volatile: Option<bool>) -> ::llvm::value::user::inst::CallInst {
         unsafe {
             let is_volatile = is_volatile.unwrap_or(false);
             let ret = ::ffi::llvm::IRBuilderBase_CreateMemCpy(::llvm::IRBuilderBaseObj::get_inner(self), ::llvm::value::ValueObj::get_inner(dst), ::llvm::value::ValueObj::get_inner(src), ::llvm::value::ValueObj::get_inner(size), align as ::libc::c_uint, is_volatile);
@@ -1828,7 +1828,7 @@ pub trait IRBuilderBaseExt: IRBuilderBaseObj {
         }
     }
 
-    fn create_mem_move<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj, A3: ::llvm::value::ValueObj>(&mut self, dst: &mut A1, src: &mut A2, size: &mut A3, align: u32, is_volatile: Option<bool>) -> ::llvm::value::user::inst::CallInst {
+    fn create_mem_move<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value, A3: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, dst: &mut A1, src: &mut A2, size: &mut A3, align: u32, is_volatile: Option<bool>) -> ::llvm::value::user::inst::CallInst {
         unsafe {
             let is_volatile = is_volatile.unwrap_or(false);
             let ret = ::ffi::llvm::IRBuilderBase_CreateMemMove(::llvm::IRBuilderBaseObj::get_inner(self), ::llvm::value::ValueObj::get_inner(dst), ::llvm::value::ValueObj::get_inner(src), ::llvm::value::ValueObj::get_inner(size), align as ::libc::c_uint, is_volatile);
@@ -1836,7 +1836,7 @@ pub trait IRBuilderBaseExt: IRBuilderBaseObj {
         }
     }
 
-    fn create_mem_set<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj, A3: ::llvm::value::ValueObj>(&mut self, ptr: &mut A1, value: &mut A2, size: &mut A3, align: u32, is_volatile: Option<bool>) -> ::llvm::value::user::inst::CallInst {
+    fn create_mem_set<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value, A3: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, ptr: &mut A1, value: &mut A2, size: &mut A3, align: u32, is_volatile: Option<bool>) -> ::llvm::value::user::inst::CallInst {
         unsafe {
             let is_volatile = is_volatile.unwrap_or(false);
             let ret = ::ffi::llvm::IRBuilderBase_CreateMemSet(::llvm::IRBuilderBaseObj::get_inner(self), ::llvm::value::ValueObj::get_inner(ptr), ::llvm::value::ValueObj::get_inner(value), ::llvm::value::ValueObj::get_inner(size), align as ::libc::c_uint, is_volatile);
@@ -1851,31 +1851,31 @@ pub trait IRBuilderBaseExt: IRBuilderBaseObj {
         }
     }
 
-    fn set_current_debug_location<A1: ::llvm::DebugLocObj>(&mut self, loc: &A1) {
+    fn set_current_debug_location<A1: ::llvm::DebugLocObj = ::llvm::DebugLoc>(&mut self, loc: &A1) {
         unsafe {
             ::ffi::llvm::IRBuilderBase_SetCurrentDebugLocation(::llvm::IRBuilderBaseObj::get_inner(self), ::llvm::DebugLocObj::get_inner(loc));
         }
     }
 
-    fn set_default_fp_math_tag<A1: ::llvm::value::MDNodeObj>(&mut self, fp_math_tag: &mut A1) {
+    fn set_default_fp_math_tag<A1: ::llvm::value::MDNodeObj = ::llvm::value::MDNode>(&mut self, fp_math_tag: &mut A1) {
         unsafe {
             ::ffi::llvm::IRBuilderBase_SetDefaultFPMathTag(::llvm::IRBuilderBaseObj::get_inner(self), ::llvm::value::MDNodeObj::get_inner(fp_math_tag));
         }
     }
 
-    fn set_insert_point<A1: ::llvm::value::BasicBlockObj>(&mut self, bb: &mut A1) {
+    fn set_insert_point<A1: ::llvm::value::BasicBlockObj = ::llvm::value::BasicBlock>(&mut self, bb: &mut A1) {
         unsafe {
             ::ffi::llvm::IRBuilderBase_SetInsertPoint(::llvm::IRBuilderBaseObj::get_inner(self), ::llvm::value::BasicBlockObj::get_inner(bb));
         }
     }
 
-    fn set_insert_point_at_inst<A1: ::llvm::value::user::inst::InstructionObj>(&mut self, inst: &mut A1) {
+    fn set_insert_point_at_inst<A1: ::llvm::value::user::inst::InstructionObj = ::llvm::value::user::inst::Instruction>(&mut self, inst: &mut A1) {
         unsafe {
             ::ffi::llvm::IRBuilderBase_SetInsertPointAtInst(::llvm::IRBuilderBaseObj::get_inner(self), ::llvm::value::user::inst::InstructionObj::get_inner(inst));
         }
     }
 
-    fn set_inst_debug_location<A1: ::llvm::value::user::inst::InstructionObj>(&self, inst: &mut A1) {
+    fn set_inst_debug_location<A1: ::llvm::value::user::inst::InstructionObj = ::llvm::value::user::inst::Instruction>(&self, inst: &mut A1) {
         unsafe {
             ::ffi::llvm::IRBuilderBase_SetInstDebugLocation(::llvm::IRBuilderBaseObj::get_inner(self) as *const ::ffi::llvm_IRBuilderBase, ::llvm::value::user::inst::InstructionObj::get_inner(inst));
         }
@@ -2042,7 +2042,7 @@ pub trait IRBuilderBaseExt: IRBuilderBaseObj {
         }
     }
 
-    fn get_int_ptr_ty<A1: ::llvm::DataLayoutObj>(&mut self, dl: &A1, addr_space: Option<u32>) -> ::llvm::ty::IntegerType {
+    fn get_int_ptr_ty<A1: ::llvm::DataLayoutObj = ::llvm::DataLayout>(&mut self, dl: &A1, addr_space: Option<u32>) -> ::llvm::ty::IntegerType {
         unsafe {
             let addr_space = addr_space.unwrap_or(0);
             let ret = ::ffi::llvm::IRBuilderBase_getIntPtrTy(::llvm::IRBuilderBaseObj::get_inner(self), ::llvm::DataLayoutObj::get_inner(dl), addr_space as ::libc::c_uint);
@@ -2083,7 +2083,7 @@ impl IRBuilderBase {
         }
     }
 
-    pub fn new<A1: ::llvm::LLVMContextObj>(context: &mut A1) -> ::llvm::IRBuilderBase {
+    pub fn new<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(context: &mut A1) -> ::llvm::IRBuilderBase {
         unsafe {
             let ret = ::ffi::llvm::IRBuilderBase_new(::llvm::LLVMContextObj::get_inner(context));
             if ret.is_null() {
@@ -2266,7 +2266,7 @@ pub trait ModuleExt: ModuleObj {
         }
     }
 
-    fn get_or_insert_function<A2: ::llvm::ty::FunctionTypeObj>(&mut self, name: &str, ty: &mut A2) -> ::llvm::value::user::constant::Constant {
+    fn get_or_insert_function<A2: ::llvm::ty::FunctionTypeObj = ::llvm::ty::FunctionType>(&mut self, name: &str, ty: &mut A2) -> ::llvm::value::user::constant::Constant {
         unsafe {
             let c_name = ::ffi::llvm_StringRef {
                 data: name.as_ptr() as *const ::libc::c_char,
@@ -2299,7 +2299,7 @@ pub trait ModuleExt: ModuleObj {
         }
     }
 
-    fn set_data_layout<A1: ::llvm::DataLayoutObj>(&mut self, other: &A1) {
+    fn set_data_layout<A1: ::llvm::DataLayoutObj = ::llvm::DataLayout>(&mut self, other: &A1) {
         unsafe {
             ::ffi::llvm::Module_setDataLayout(::llvm::ModuleObj::get_inner(self), ::llvm::DataLayoutObj::get_inner(other));
         }
@@ -2366,7 +2366,7 @@ impl Module {
         }
     }
 
-    pub fn new<A2: ::llvm::LLVMContextObj>(module_id: &str, context: &mut A2) -> ::llvm::Module {
+    pub fn new<A2: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(module_id: &str, context: &mut A2) -> ::llvm::Module {
         unsafe {
             let c_module_id = ::ffi::llvm_StringRef {
                 data: module_id.as_ptr() as *const ::libc::c_char,
@@ -2490,14 +2490,14 @@ pub fn get_global_context() -> ::llvm::LLVMContext {
     }
 }
 
-pub fn verify_function<A1: ::llvm::value::user::constant::FunctionObj>(function: &A1) -> bool {
+pub fn verify_function<A1: ::llvm::value::user::constant::FunctionObj = ::llvm::value::user::constant::Function>(function: &A1) -> bool {
     unsafe {
         let ret = ::ffi::llvm::verifyFunction(::llvm::value::user::constant::FunctionObj::get_inner(function));
         ret
     }
 }
 
-pub fn verify_module<A1: ::llvm::ModuleObj>(module: &A1) -> bool {
+pub fn verify_module<A1: ::llvm::ModuleObj = ::llvm::Module>(module: &A1) -> bool {
     unsafe {
         let ret = ::ffi::llvm::verifyModule(::llvm::ModuleObj::get_inner(module));
         ret

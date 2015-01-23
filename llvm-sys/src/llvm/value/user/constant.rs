@@ -138,7 +138,7 @@ pub trait ConstantExt: ConstantObj {
         }
     }
 
-    fn get_aggregate_element_constant<A1: ::llvm::value::user::constant::ConstantObj>(&self, elt: &mut A1) -> Option<::llvm::value::user::constant::Constant> {
+    fn get_aggregate_element_constant<A1: ::llvm::value::user::constant::ConstantObj = ::llvm::value::user::constant::Constant>(&self, elt: &mut A1) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
             let ret = ::ffi::llvm::Constant_getAggregateElementConstant(::llvm::value::user::constant::ConstantObj::get_inner(self) as *const ::ffi::llvm_Constant, ::llvm::value::user::constant::ConstantObj::get_inner(elt));
             if ret.is_null() {
@@ -277,14 +277,14 @@ impl Constant {
         }
     }
 
-    pub fn classof<A1: ::llvm::value::ValueObj>(v: &A1) -> bool {
+    pub fn classof<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(v: &A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::Constant_classof(::llvm::value::ValueObj::get_inner(v));
             ret
         }
     }
 
-    pub fn get_all_ones_value<A1: ::llvm::ty::TypeObj>(ty: &mut A1) -> Option<::llvm::value::user::constant::Constant> {
+    pub fn get_all_ones_value<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &mut A1) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
             let ret = ::ffi::llvm::Constant_getAllOnesValue(::llvm::ty::TypeObj::get_inner(ty));
             if ret.is_null() {
@@ -294,7 +294,7 @@ impl Constant {
         }
     }
 
-    pub fn get_integer_value<A1: ::llvm::ty::TypeObj>(ty: &mut A1, value: (u32, &[u64])) -> Option<::llvm::value::user::constant::Constant> {
+    pub fn get_integer_value<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &mut A1, value: (u32, &[u64])) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
             let c_value = ::ffi::llvm_APInt {
                 num_bits: value.0 as ::libc::c_uint,
@@ -311,7 +311,7 @@ impl Constant {
         }
     }
 
-    pub fn get_null_value<A1: ::llvm::ty::TypeObj>(ty: &mut A1) -> Option<::llvm::value::user::constant::Constant> {
+    pub fn get_null_value<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &mut A1) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
             let ret = ::ffi::llvm::Constant_getNullValue(::llvm::ty::TypeObj::get_inner(ty));
             if ret.is_null() {
@@ -477,14 +477,14 @@ impl ConstantArray {
         }
     }
 
-    pub fn classof<A1: ::llvm::value::ValueObj>(v: &A1) -> bool {
+    pub fn classof<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(v: &A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::ConstantArray_classof(::llvm::value::ValueObj::get_inner(v));
             ret
         }
     }
 
-    pub fn get<A1: ::llvm::ty::seq::ArrayTypeObj>(ty: &mut A1, values: &[&::llvm::value::user::constant::ConstantObj]) -> Option<::llvm::value::user::constant::Constant> {
+    pub fn get<A1: ::llvm::ty::seq::ArrayTypeObj = ::llvm::ty::seq::ArrayType>(ty: &mut A1, values: &[&::llvm::value::user::constant::ConstantObj]) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
             let _tmp_values: Vec<_> = values.iter().map(|&ty| ::llvm::value::user::constant::ConstantObj::get_inner(ty)).collect();
             let c_values = ::ffi::llvm_ArrayRef_llvm_Constant_ptr {
@@ -908,14 +908,14 @@ impl ConstantFP {
         }
     }
 
-    pub fn classof<A1: ::llvm::value::ValueObj>(v: &A1) -> bool {
+    pub fn classof<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(v: &A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::ConstantFP_classof(::llvm::value::ValueObj::get_inner(v));
             ret
         }
     }
 
-    pub fn from_str<A1: ::llvm::ty::TypeObj>(ty: &mut A1, val: &str) -> Option<::llvm::value::user::constant::Constant> {
+    pub fn from_str<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &mut A1, val: &str) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
             let c_val = ::ffi::llvm_StringRef {
                 data: val.as_ptr() as *const ::libc::c_char,
@@ -929,7 +929,7 @@ impl ConstantFP {
         }
     }
 
-    pub fn get<A1: ::llvm::ty::TypeObj>(ty: &mut A1, val: f64) -> Option<::llvm::value::user::constant::Constant> {
+    pub fn get<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &mut A1, val: f64) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
             let ret = ::ffi::llvm::ConstantFP_get(::llvm::ty::TypeObj::get_inner(ty), val as ::libc::c_double);
             if ret.is_null() {
@@ -939,7 +939,7 @@ impl ConstantFP {
         }
     }
 
-    pub fn get_infinity<A1: ::llvm::ty::TypeObj>(ty: &mut A1) -> Option<::llvm::value::user::constant::Constant> {
+    pub fn get_infinity<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &mut A1) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
             let ret = ::ffi::llvm::ConstantFP_getInfinity(::llvm::ty::TypeObj::get_inner(ty));
             if ret.is_null() {
@@ -949,7 +949,7 @@ impl ConstantFP {
         }
     }
 
-    pub fn get_negative_zero<A1: ::llvm::ty::TypeObj>(ty: &mut A1) -> Option<::llvm::value::user::constant::Constant> {
+    pub fn get_negative_zero<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &mut A1) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
             let ret = ::ffi::llvm::ConstantFP_getNegativeZero(::llvm::ty::TypeObj::get_inner(ty));
             if ret.is_null() {
@@ -959,7 +959,7 @@ impl ConstantFP {
         }
     }
 
-    pub fn get_zero_value_for_negation<A1: ::llvm::ty::TypeObj>(ty: &mut A1) -> Option<::llvm::value::user::constant::Constant> {
+    pub fn get_zero_value_for_negation<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &mut A1) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
             let ret = ::ffi::llvm::ConstantFP_getZeroValueForNegation(::llvm::ty::TypeObj::get_inner(ty));
             if ret.is_null() {
@@ -1129,14 +1129,14 @@ impl ConstantInt {
         }
     }
 
-    pub fn classof<A1: ::llvm::value::ValueObj>(val: &A1) -> bool {
+    pub fn classof<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(val: &A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::ConstantInt_classof(::llvm::value::ValueObj::get_inner(val));
             ret
         }
     }
 
-    pub fn from_ap_int<A1: ::llvm::LLVMContextObj>(context: &mut A1, val: (u32, &[u64])) -> Option<::llvm::value::user::constant::ConstantInt> {
+    pub fn from_ap_int<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(context: &mut A1, val: (u32, &[u64])) -> Option<::llvm::value::user::constant::ConstantInt> {
         unsafe {
             let c_val = ::ffi::llvm_APInt {
                 num_bits: val.0 as ::libc::c_uint,
@@ -1153,7 +1153,7 @@ impl ConstantInt {
         }
     }
 
-    pub fn from_str<A1: ::llvm::ty::IntegerTypeObj>(ty: &mut A1, str: &str, radix: u8) -> Option<::llvm::value::user::constant::ConstantInt> {
+    pub fn from_str<A1: ::llvm::ty::IntegerTypeObj = ::llvm::ty::IntegerType>(ty: &mut A1, str: &str, radix: u8) -> Option<::llvm::value::user::constant::ConstantInt> {
         unsafe {
             let c_str = ::ffi::llvm_StringRef {
                 data: str.as_ptr() as *const ::libc::c_char,
@@ -1167,7 +1167,7 @@ impl ConstantInt {
         }
     }
 
-    pub fn get<A1: ::llvm::ty::IntegerTypeObj>(ty: &mut A1, value: u64) -> Option<::llvm::value::user::constant::ConstantInt> {
+    pub fn get<A1: ::llvm::ty::IntegerTypeObj = ::llvm::ty::IntegerType>(ty: &mut A1, value: u64) -> Option<::llvm::value::user::constant::ConstantInt> {
         unsafe {
             let ret = ::ffi::llvm::ConstantInt_get(::llvm::ty::IntegerTypeObj::get_inner(ty), value as ::libc::uint64_t);
             if ret.is_null() {
@@ -1177,7 +1177,7 @@ impl ConstantInt {
         }
     }
 
-    pub fn get_false<A1: ::llvm::ty::TypeObj>(ty: &mut A1) -> Option<::llvm::value::user::constant::Constant> {
+    pub fn get_false<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &mut A1) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
             let ret = ::ffi::llvm::ConstantInt_getFalse(::llvm::ty::TypeObj::get_inner(ty));
             if ret.is_null() {
@@ -1187,7 +1187,7 @@ impl ConstantInt {
         }
     }
 
-    pub fn get_false_with_context<A1: ::llvm::LLVMContextObj>(context: &mut A1) -> Option<::llvm::value::user::constant::ConstantInt> {
+    pub fn get_false_with_context<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(context: &mut A1) -> Option<::llvm::value::user::constant::ConstantInt> {
         unsafe {
             let ret = ::ffi::llvm::ConstantInt_getFalseWithContext(::llvm::LLVMContextObj::get_inner(context));
             if ret.is_null() {
@@ -1197,7 +1197,7 @@ impl ConstantInt {
         }
     }
 
-    pub fn get_signed<A1: ::llvm::ty::IntegerTypeObj>(ty: &mut A1, value: u64, is_signed: bool) -> Option<::llvm::value::user::constant::ConstantInt> {
+    pub fn get_signed<A1: ::llvm::ty::IntegerTypeObj = ::llvm::ty::IntegerType>(ty: &mut A1, value: u64, is_signed: bool) -> Option<::llvm::value::user::constant::ConstantInt> {
         unsafe {
             let ret = ::ffi::llvm::ConstantInt_getSigned(::llvm::ty::IntegerTypeObj::get_inner(ty), value as ::libc::uint64_t, is_signed);
             if ret.is_null() {
@@ -1207,7 +1207,7 @@ impl ConstantInt {
         }
     }
 
-    pub fn get_true<A1: ::llvm::ty::TypeObj>(ty: &mut A1) -> Option<::llvm::value::user::constant::Constant> {
+    pub fn get_true<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &mut A1) -> Option<::llvm::value::user::constant::Constant> {
         unsafe {
             let ret = ::ffi::llvm::ConstantInt_getTrue(::llvm::ty::TypeObj::get_inner(ty));
             if ret.is_null() {
@@ -1217,7 +1217,7 @@ impl ConstantInt {
         }
     }
 
-    pub fn get_true_with_context<A1: ::llvm::LLVMContextObj>(context: &mut A1) -> Option<::llvm::value::user::constant::ConstantInt> {
+    pub fn get_true_with_context<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(context: &mut A1) -> Option<::llvm::value::user::constant::ConstantInt> {
         unsafe {
             let ret = ::ffi::llvm::ConstantInt_getTrueWithContext(::llvm::LLVMContextObj::get_inner(context));
             if ret.is_null() {
@@ -1227,14 +1227,14 @@ impl ConstantInt {
         }
     }
 
-    pub fn is_signed_value_valid_for_type<A1: ::llvm::ty::TypeObj>(ty: &mut A1, val: i64) -> bool {
+    pub fn is_signed_value_valid_for_type<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &mut A1, val: i64) -> bool {
         unsafe {
             let ret = ::ffi::llvm::ConstantInt_isSignedValueValidForType(::llvm::ty::TypeObj::get_inner(ty), val as ::libc::int64_t);
             ret
         }
     }
 
-    pub fn is_value_valid_for_type<A1: ::llvm::ty::TypeObj>(ty: &mut A1, val: u64) -> bool {
+    pub fn is_value_valid_for_type<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &mut A1, val: u64) -> bool {
         unsafe {
             let ret = ::ffi::llvm::ConstantInt_isValueValidForType(::llvm::ty::TypeObj::get_inner(ty), val as ::libc::uint64_t);
             ret
@@ -1330,14 +1330,14 @@ impl ConstantPointerNull {
         }
     }
 
-    pub fn classof<A1: ::llvm::value::ValueObj>(val: &A1) -> bool {
+    pub fn classof<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(val: &A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::ConstantPointerNull_classof(::llvm::value::ValueObj::get_inner(val));
             ret
         }
     }
 
-    pub fn get<A1: ::llvm::ty::seq::PointerTypeObj>(ty: &mut A1) -> Option<::llvm::value::user::constant::ConstantPointerNull> {
+    pub fn get<A1: ::llvm::ty::seq::PointerTypeObj = ::llvm::ty::seq::PointerType>(ty: &mut A1) -> Option<::llvm::value::user::constant::ConstantPointerNull> {
         unsafe {
             let ret = ::ffi::llvm::ConstantPointerNull_get(::llvm::ty::seq::PointerTypeObj::get_inner(ty));
             if ret.is_null() {
@@ -1558,7 +1558,7 @@ pub trait FunctionExt: FunctionObj {
         }
     }
 
-    fn copy_attributes_from<A1: ::llvm::value::user::constant::GlobalValueObj>(&mut self, src: &mut A1) {
+    fn copy_attributes_from<A1: ::llvm::value::user::constant::GlobalValueObj = ::llvm::value::user::constant::GlobalValue>(&mut self, src: &mut A1) {
         unsafe {
             ::ffi::llvm::Function_copyAttributesFrom(::llvm::value::user::constant::FunctionObj::get_inner(self), ::llvm::value::user::constant::GlobalValueObj::get_inner(src));
         }
@@ -1873,7 +1873,7 @@ impl Function {
         }
     }
 
-    pub fn create<A1: ::llvm::ty::FunctionTypeObj, A4: ::llvm::ModuleObj>(ty: &mut A1, linkage: ::llvm::value::user::constant::LinkageTypes, name: Option<&str>, module: Option<&mut A4>) -> ::llvm::value::user::constant::Function {
+    pub fn create<A1: ::llvm::ty::FunctionTypeObj = ::llvm::ty::FunctionType, A4: ::llvm::ModuleObj = ::llvm::Module>(ty: &mut A1, linkage: ::llvm::value::user::constant::LinkageTypes, name: Option<&str>, module: Option<&mut A4>) -> ::llvm::value::user::constant::Function {
         unsafe {
             let name = name.unwrap_or("");
             let c_name = ::ffi::std_string {
@@ -1888,7 +1888,7 @@ impl Function {
         }
     }
 
-    pub fn classof<A1: ::llvm::value::ValueObj>(val: &A1) -> bool {
+    pub fn classof<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(val: &A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::Function_classof(::llvm::value::ValueObj::get_inner(val));
             ret
@@ -2141,7 +2141,7 @@ impl<T> GlobalValueOwned for T where T: GlobalValueObj + ::core::marker::Sized {
 
 pub trait GlobalValueExt: GlobalValueObj {
 
-    fn copy_attributes_from<A1: ::llvm::value::user::constant::GlobalValueObj>(&mut self, src: &mut A1) {
+    fn copy_attributes_from<A1: ::llvm::value::user::constant::GlobalValueObj = ::llvm::value::user::constant::GlobalValue>(&mut self, src: &mut A1) {
         unsafe {
             ::ffi::llvm::GlobalValue_copyAttributesFrom(::llvm::value::user::constant::GlobalValueObj::get_inner(self), ::llvm::value::user::constant::GlobalValueObj::get_inner(src));
         }
@@ -2465,7 +2465,7 @@ impl<T> GlobalVariableOwned for T where T: GlobalVariableObj + ::core::marker::S
 
 pub trait GlobalVariableExt: GlobalVariableObj {
 
-    fn copy_attributes_from<A1: ::llvm::value::user::constant::GlobalValueObj>(&mut self, src: &mut A1) {
+    fn copy_attributes_from<A1: ::llvm::value::user::constant::GlobalValueObj = ::llvm::value::user::constant::GlobalValue>(&mut self, src: &mut A1) {
         unsafe {
             ::ffi::llvm::GlobalVariable_copyAttributesFrom(::llvm::value::user::constant::GlobalVariableObj::get_inner(self), ::llvm::value::user::constant::GlobalValueObj::get_inner(src));
         }
@@ -2550,7 +2550,7 @@ pub trait GlobalVariableExt: GlobalVariableObj {
         }
     }
 
-    fn set_initializer<A1: ::llvm::value::user::constant::ConstantObj>(&mut self, init_val: &mut A1) {
+    fn set_initializer<A1: ::llvm::value::user::constant::ConstantObj = ::llvm::value::user::constant::Constant>(&mut self, init_val: &mut A1) {
         unsafe {
             ::ffi::llvm::GlobalVariable_setInitializer(::llvm::value::user::constant::GlobalVariableObj::get_inner(self), ::llvm::value::user::constant::ConstantObj::get_inner(init_val));
         }
@@ -2617,7 +2617,7 @@ impl GlobalVariable {
         }
     }
 
-    pub fn new<A1: ::llvm::ty::TypeObj>(ty: &mut A1, is_constant: bool, linkage: ::llvm::value::user::constant::LinkageTypes) -> ::llvm::value::user::constant::GlobalVariable {
+    pub fn new<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &mut A1, is_constant: bool, linkage: ::llvm::value::user::constant::LinkageTypes) -> ::llvm::value::user::constant::GlobalVariable {
         unsafe {
             let ret = ::ffi::llvm::GlobalVariable_new(::llvm::ty::TypeObj::get_inner(ty), is_constant, linkage.to_ffi());
             if ret.is_null() {
@@ -2627,7 +2627,7 @@ impl GlobalVariable {
         }
     }
 
-    pub fn new_with_module<A1: ::llvm::ModuleObj, A2: ::llvm::ty::TypeObj, A5: ::llvm::value::user::constant::ConstantObj>(module: &mut A1, ty: &mut A2, is_constant: bool, linkage: ::llvm::value::user::constant::LinkageTypes, initializer: &mut A5) -> ::llvm::value::user::constant::GlobalVariable {
+    pub fn new_with_module<A1: ::llvm::ModuleObj = ::llvm::Module, A2: ::llvm::ty::TypeObj = ::llvm::ty::Type, A5: ::llvm::value::user::constant::ConstantObj = ::llvm::value::user::constant::Constant>(module: &mut A1, ty: &mut A2, is_constant: bool, linkage: ::llvm::value::user::constant::LinkageTypes, initializer: &mut A5) -> ::llvm::value::user::constant::GlobalVariable {
         unsafe {
             let ret = ::ffi::llvm::GlobalVariable_newWithModule(::llvm::ModuleObj::get_inner(module), ::llvm::ty::TypeObj::get_inner(ty), is_constant, linkage.to_ffi(), ::llvm::value::user::constant::ConstantObj::get_inner(initializer));
             if ret.is_null() {

@@ -258,7 +258,7 @@ impl<T> FunctionPassManagerOwned for T where T: FunctionPassManagerObj + ::core:
 
 pub trait FunctionPassManagerExt: FunctionPassManagerObj {
 
-    fn add<A1: ::llvm::pass::FunctionPassObj>(&mut self, pass: A1) {
+    fn add<A1: ::llvm::pass::FunctionPassObj = ::llvm::pass::FunctionPass>(&mut self, pass: A1) {
         unsafe {
             ::ffi::llvm::FunctionPassManager_add(::llvm::pass::FunctionPassManagerObj::get_inner(self), ::llvm::pass::FunctionPassOwned::move_inner(pass));
         }
@@ -278,7 +278,7 @@ pub trait FunctionPassManagerExt: FunctionPassManagerObj {
         }
     }
 
-    fn run<A1: ::llvm::value::user::constant::FunctionObj>(&mut self, function: &mut A1) {
+    fn run<A1: ::llvm::value::user::constant::FunctionObj = ::llvm::value::user::constant::Function>(&mut self, function: &mut A1) {
         unsafe {
             ::ffi::llvm::FunctionPassManager_run(::llvm::pass::FunctionPassManagerObj::get_inner(self), ::llvm::value::user::constant::FunctionObj::get_inner(function));
         }
@@ -303,7 +303,7 @@ impl FunctionPassManager {
         }
     }
 
-    pub fn new<A1: ::llvm::ModuleObj>(module: &mut A1) -> ::llvm::pass::FunctionPassManager {
+    pub fn new<A1: ::llvm::ModuleObj = ::llvm::Module>(module: &mut A1) -> ::llvm::pass::FunctionPassManager {
         unsafe {
             let ret = ::ffi::llvm::FunctionPassManager_new(::llvm::ModuleObj::get_inner(module));
             if ret.is_null() {
@@ -446,14 +446,14 @@ impl<T> PassOwned for T where T: PassObj + ::core::marker::Sized {}
 
 pub trait PassExt: PassObj {
 
-    fn do_finalization<A1: ::llvm::ModuleObj>(&mut self, module: &mut A1) -> bool {
+    fn do_finalization<A1: ::llvm::ModuleObj = ::llvm::Module>(&mut self, module: &mut A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::Pass_doFinalization(::llvm::pass::PassObj::get_inner(self), ::llvm::ModuleObj::get_inner(module));
             ret
         }
     }
 
-    fn do_initialization<A1: ::llvm::ModuleObj>(&mut self, module: &mut A1) -> bool {
+    fn do_initialization<A1: ::llvm::ModuleObj = ::llvm::Module>(&mut self, module: &mut A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::Pass_doInitialization(::llvm::pass::PassObj::get_inner(self), ::llvm::ModuleObj::get_inner(module));
             ret
@@ -522,13 +522,13 @@ impl<T> PassManagerOwned for T where T: PassManagerObj + ::core::marker::Sized {
 
 pub trait PassManagerExt: PassManagerObj {
 
-    fn add<A1: ::llvm::pass::PassObj>(&mut self, pass: A1) {
+    fn add<A1: ::llvm::pass::PassObj = ::llvm::pass::Pass>(&mut self, pass: A1) {
         unsafe {
             ::ffi::llvm::PassManager_add(::llvm::pass::PassManagerObj::get_inner(self), ::llvm::pass::PassOwned::move_inner(pass));
         }
     }
 
-    fn run<A1: ::llvm::ModuleObj>(&mut self, module: &mut A1) {
+    fn run<A1: ::llvm::ModuleObj = ::llvm::Module>(&mut self, module: &mut A1) {
         unsafe {
             ::ffi::llvm::PassManager_run(::llvm::pass::PassManagerObj::get_inner(self), ::llvm::ModuleObj::get_inner(module));
         }

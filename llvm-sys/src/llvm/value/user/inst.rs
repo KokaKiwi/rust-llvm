@@ -1864,7 +1864,7 @@ pub trait InstructionExt: InstructionObj {
         }
     }
 
-    fn copy_fast_math_flags<A1: ::llvm::value::user::inst::InstructionObj>(&mut self, inst: &A1) {
+    fn copy_fast_math_flags<A1: ::llvm::value::user::inst::InstructionObj = ::llvm::value::user::inst::Instruction>(&mut self, inst: &A1) {
         unsafe {
             ::ffi::llvm::Instruction_copyFastMathFlags(::llvm::value::user::inst::InstructionObj::get_inner(self), ::llvm::value::user::inst::InstructionObj::get_inner(inst));
         }
@@ -2009,13 +2009,13 @@ pub trait InstructionExt: InstructionObj {
         }
     }
 
-    fn insert_after<A1: ::llvm::value::user::inst::InstructionObj>(&mut self, insert_pos: &mut A1) {
+    fn insert_after<A1: ::llvm::value::user::inst::InstructionObj = ::llvm::value::user::inst::Instruction>(&mut self, insert_pos: &mut A1) {
         unsafe {
             ::ffi::llvm::Instruction_insertAfter(::llvm::value::user::inst::InstructionObj::get_inner(self), ::llvm::value::user::inst::InstructionObj::get_inner(insert_pos));
         }
     }
 
-    fn insert_before<A1: ::llvm::value::user::inst::InstructionObj>(&mut self, insert_pos: &mut A1) {
+    fn insert_before<A1: ::llvm::value::user::inst::InstructionObj = ::llvm::value::user::inst::Instruction>(&mut self, insert_pos: &mut A1) {
         unsafe {
             ::ffi::llvm::Instruction_insertBefore(::llvm::value::user::inst::InstructionObj::get_inner(self), ::llvm::value::user::inst::InstructionObj::get_inner(insert_pos));
         }
@@ -2063,14 +2063,14 @@ pub trait InstructionExt: InstructionObj {
         }
     }
 
-    fn is_identical_to<A1: ::llvm::value::user::inst::InstructionObj>(&self, inst: &A1) -> bool {
+    fn is_identical_to<A1: ::llvm::value::user::inst::InstructionObj = ::llvm::value::user::inst::Instruction>(&self, inst: &A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::Instruction_isIdenticalTo(::llvm::value::user::inst::InstructionObj::get_inner(self) as *const ::ffi::llvm_Instruction, ::llvm::value::user::inst::InstructionObj::get_inner(inst));
             ret
         }
     }
 
-    fn is_identical_to_when_defined<A1: ::llvm::value::user::inst::InstructionObj>(&self, inst: &A1) -> bool {
+    fn is_identical_to_when_defined<A1: ::llvm::value::user::inst::InstructionObj = ::llvm::value::user::inst::Instruction>(&self, inst: &A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::Instruction_isIdenticalToWhenDefined(::llvm::value::user::inst::InstructionObj::get_inner(self) as *const ::ffi::llvm_Instruction, ::llvm::value::user::inst::InstructionObj::get_inner(inst));
             ret
@@ -2091,7 +2091,7 @@ pub trait InstructionExt: InstructionObj {
         }
     }
 
-    fn is_same_operation_as<A1: ::llvm::value::user::inst::InstructionObj>(&self, inst: &A1, flags: u32) -> bool {
+    fn is_same_operation_as<A1: ::llvm::value::user::inst::InstructionObj = ::llvm::value::user::inst::Instruction>(&self, inst: &A1, flags: u32) -> bool {
         unsafe {
             let ret = ::ffi::llvm::Instruction_isSameOperationAs(::llvm::value::user::inst::InstructionObj::get_inner(self) as *const ::ffi::llvm_Instruction, ::llvm::value::user::inst::InstructionObj::get_inner(inst), flags as ::libc::c_uint);
             ret
@@ -2112,7 +2112,7 @@ pub trait InstructionExt: InstructionObj {
         }
     }
 
-    fn is_used_outside_of_block<A1: ::llvm::value::BasicBlockObj>(&self, bb: &A1) -> bool {
+    fn is_used_outside_of_block<A1: ::llvm::value::BasicBlockObj = ::llvm::value::BasicBlock>(&self, bb: &A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::Instruction_isUsedOutsideOfBlock(::llvm::value::user::inst::InstructionObj::get_inner(self) as *const ::ffi::llvm_Instruction, ::llvm::value::BasicBlockObj::get_inner(bb));
             ret
@@ -2161,7 +2161,7 @@ pub trait InstructionExt: InstructionObj {
         }
     }
 
-    fn move_before<A1: ::llvm::value::user::inst::InstructionObj>(&mut self, move_pos: &mut A1) {
+    fn move_before<A1: ::llvm::value::user::inst::InstructionObj = ::llvm::value::user::inst::Instruction>(&mut self, move_pos: &mut A1) {
         unsafe {
             ::ffi::llvm::Instruction_moveBefore(::llvm::value::user::inst::InstructionObj::get_inner(self), ::llvm::value::user::inst::InstructionObj::get_inner(move_pos));
         }
@@ -2173,7 +2173,7 @@ pub trait InstructionExt: InstructionObj {
         }
     }
 
-    fn set_debug_loc<A1: ::llvm::DebugLocObj>(&mut self, loc: &A1) {
+    fn set_debug_loc<A1: ::llvm::DebugLocObj = ::llvm::DebugLoc>(&mut self, loc: &A1) {
         unsafe {
             ::ffi::llvm::Instruction_setDebugLoc(::llvm::value::user::inst::InstructionObj::get_inner(self), ::llvm::DebugLocObj::get_inner(loc));
         }
@@ -2209,13 +2209,13 @@ pub trait InstructionExt: InstructionObj {
         }
     }
 
-    fn set_metadata<A2: ::llvm::value::MDNodeObj>(&mut self, kind_id: u32, node: &mut A2) {
+    fn set_metadata<A2: ::llvm::value::MDNodeObj = ::llvm::value::MDNode>(&mut self, kind_id: u32, node: &mut A2) {
         unsafe {
             ::ffi::llvm::Instruction_setMetadata(::llvm::value::user::inst::InstructionObj::get_inner(self), kind_id as ::libc::c_uint, ::llvm::value::MDNodeObj::get_inner(node));
         }
     }
 
-    fn set_metadata_str<A2: ::llvm::value::MDNodeObj>(&mut self, kind: &str, node: &mut A2) {
+    fn set_metadata_str<A2: ::llvm::value::MDNodeObj = ::llvm::value::MDNode>(&mut self, kind: &str, node: &mut A2) {
         unsafe {
             let c_kind = ::ffi::llvm_StringRef {
                 data: kind.as_ptr() as *const ::libc::c_char,

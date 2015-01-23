@@ -61,7 +61,7 @@ impl CompositeType {
         }
     }
 
-    pub fn classof<A1: ::llvm::ty::TypeObj>(ty: &A1) -> bool {
+    pub fn classof<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::CompositeType_classof(::llvm::ty::TypeObj::get_inner(ty));
             ret
@@ -148,14 +148,14 @@ impl FunctionType {
         }
     }
 
-    pub fn classof<A1: ::llvm::ty::TypeObj>(ty: &A1) -> bool {
+    pub fn classof<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::FunctionType_classof(::llvm::ty::TypeObj::get_inner(ty));
             ret
         }
     }
 
-    pub fn get<A1: ::llvm::ty::TypeObj>(result: &mut A1, params: &[&::llvm::ty::TypeObj], is_var_arg: bool) -> Option<::llvm::ty::FunctionType> {
+    pub fn get<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(result: &mut A1, params: &[&::llvm::ty::TypeObj], is_var_arg: bool) -> Option<::llvm::ty::FunctionType> {
         unsafe {
             let _tmp_params: Vec<_> = params.iter().map(|&ty| ::llvm::ty::TypeObj::get_inner(ty)).collect();
             let c_params = ::ffi::llvm_ArrayRef_llvm_Type_ptr {
@@ -170,14 +170,14 @@ impl FunctionType {
         }
     }
 
-    pub fn is_valid_argument_type<A1: ::llvm::ty::TypeObj>(ty: &mut A1) -> bool {
+    pub fn is_valid_argument_type<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &mut A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::FunctionType_isValidArgumentType(::llvm::ty::TypeObj::get_inner(ty));
             ret
         }
     }
 
-    pub fn is_valid_return_type<A1: ::llvm::ty::TypeObj>(ty: &mut A1) -> bool {
+    pub fn is_valid_return_type<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &mut A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::FunctionType_isValidReturnType(::llvm::ty::TypeObj::get_inner(ty));
             ret
@@ -258,14 +258,14 @@ impl IntegerType {
         }
     }
 
-    pub fn classof<A1: ::llvm::ty::TypeObj>(ty: &A1) -> bool {
+    pub fn classof<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::IntegerType_classof(::llvm::ty::TypeObj::get_inner(ty));
             ret
         }
     }
 
-    pub fn get<A1: ::llvm::LLVMContextObj>(ctx: &mut A1, num_bits: u32) -> Option<::llvm::ty::IntegerType> {
+    pub fn get<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1, num_bits: u32) -> Option<::llvm::ty::IntegerType> {
         unsafe {
             let ret = ::ffi::llvm::IntegerType_get(::llvm::LLVMContextObj::get_inner(ctx), num_bits as ::libc::c_uint);
             if ret.is_null() {
@@ -326,7 +326,7 @@ pub trait StructTypeExt: StructTypeObj {
         }
     }
 
-    fn is_layout_identical<A1: ::llvm::ty::StructTypeObj>(&self, other: &mut A1) -> bool {
+    fn is_layout_identical<A1: ::llvm::ty::StructTypeObj = ::llvm::ty::StructType>(&self, other: &mut A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::StructType_isLayoutIdentical(::llvm::ty::StructTypeObj::get_inner(self) as *const ::ffi::llvm_StructType, ::llvm::ty::StructTypeObj::get_inner(other));
             ret
@@ -428,14 +428,14 @@ impl StructType {
         }
     }
 
-    pub fn classof<A1: ::llvm::ty::TypeObj>(ty: &A1) -> bool {
+    pub fn classof<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::StructType_classof(::llvm::ty::TypeObj::get_inner(ty));
             ret
         }
     }
 
-    pub fn create<A1: ::llvm::LLVMContextObj>(ctx: &mut A1, elements: &[&::llvm::ty::TypeObj], name: &str) -> Option<::llvm::ty::StructType> {
+    pub fn create<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1, elements: &[&::llvm::ty::TypeObj], name: &str) -> Option<::llvm::ty::StructType> {
         unsafe {
             let _tmp_elements: Vec<_> = elements.iter().map(|&ty| ::llvm::ty::TypeObj::get_inner(ty)).collect();
             let c_elements = ::ffi::llvm_ArrayRef_llvm_Type_ptr {
@@ -454,7 +454,7 @@ impl StructType {
         }
     }
 
-    pub fn create_packed<A1: ::llvm::LLVMContextObj>(ctx: &mut A1, elements: &[&::llvm::ty::TypeObj], name: &str, is_packed: bool) -> Option<::llvm::ty::StructType> {
+    pub fn create_packed<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1, elements: &[&::llvm::ty::TypeObj], name: &str, is_packed: bool) -> Option<::llvm::ty::StructType> {
         unsafe {
             let _tmp_elements: Vec<_> = elements.iter().map(|&ty| ::llvm::ty::TypeObj::get_inner(ty)).collect();
             let c_elements = ::ffi::llvm_ArrayRef_llvm_Type_ptr {
@@ -473,7 +473,7 @@ impl StructType {
         }
     }
 
-    pub fn is_valid_element_type<A1: ::llvm::ty::TypeObj>(ty: &mut A1) -> bool {
+    pub fn is_valid_element_type<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &mut A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::StructType_isValidElementType(::llvm::ty::TypeObj::get_inner(ty));
             ret
@@ -877,7 +877,7 @@ impl Type {
         }
     }
 
-    pub fn get_double_ptr_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
+    pub fn get_double_ptr_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
         unsafe {
             let ret = ::ffi::llvm::Type_getDoublePtrTy(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -887,7 +887,7 @@ impl Type {
         }
     }
 
-    pub fn get_double_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::Type> {
+    pub fn get_double_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::Type> {
         unsafe {
             let ret = ::ffi::llvm::Type_getDoubleTy(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -897,7 +897,7 @@ impl Type {
         }
     }
 
-    pub fn get_fp128_ptr_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
+    pub fn get_fp128_ptr_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
         unsafe {
             let ret = ::ffi::llvm::Type_getFP128PtrTy(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -907,7 +907,7 @@ impl Type {
         }
     }
 
-    pub fn get_fp128_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::Type> {
+    pub fn get_fp128_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::Type> {
         unsafe {
             let ret = ::ffi::llvm::Type_getFP128Ty(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -917,7 +917,7 @@ impl Type {
         }
     }
 
-    pub fn get_float_ptr_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
+    pub fn get_float_ptr_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
         unsafe {
             let ret = ::ffi::llvm::Type_getFloatPtrTy(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -927,7 +927,7 @@ impl Type {
         }
     }
 
-    pub fn get_float_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::Type> {
+    pub fn get_float_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::Type> {
         unsafe {
             let ret = ::ffi::llvm::Type_getFloatTy(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -937,7 +937,7 @@ impl Type {
         }
     }
 
-    pub fn get_half_ptr_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
+    pub fn get_half_ptr_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
         unsafe {
             let ret = ::ffi::llvm::Type_getHalfPtrTy(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -947,7 +947,7 @@ impl Type {
         }
     }
 
-    pub fn get_half_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::Type> {
+    pub fn get_half_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::Type> {
         unsafe {
             let ret = ::ffi::llvm::Type_getHalfTy(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -957,7 +957,7 @@ impl Type {
         }
     }
 
-    pub fn get_int16_ptr_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
+    pub fn get_int16_ptr_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
         unsafe {
             let ret = ::ffi::llvm::Type_getInt16PtrTy(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -967,7 +967,7 @@ impl Type {
         }
     }
 
-    pub fn get_int16_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::IntegerType> {
+    pub fn get_int16_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::IntegerType> {
         unsafe {
             let ret = ::ffi::llvm::Type_getInt16Ty(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -977,7 +977,7 @@ impl Type {
         }
     }
 
-    pub fn get_int1_ptr_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
+    pub fn get_int1_ptr_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
         unsafe {
             let ret = ::ffi::llvm::Type_getInt1PtrTy(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -987,7 +987,7 @@ impl Type {
         }
     }
 
-    pub fn get_int1_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::IntegerType> {
+    pub fn get_int1_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::IntegerType> {
         unsafe {
             let ret = ::ffi::llvm::Type_getInt1Ty(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -997,7 +997,7 @@ impl Type {
         }
     }
 
-    pub fn get_int32_ptr_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
+    pub fn get_int32_ptr_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
         unsafe {
             let ret = ::ffi::llvm::Type_getInt32PtrTy(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -1007,7 +1007,7 @@ impl Type {
         }
     }
 
-    pub fn get_int32_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::IntegerType> {
+    pub fn get_int32_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::IntegerType> {
         unsafe {
             let ret = ::ffi::llvm::Type_getInt32Ty(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -1017,7 +1017,7 @@ impl Type {
         }
     }
 
-    pub fn get_int64_ptr_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
+    pub fn get_int64_ptr_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
         unsafe {
             let ret = ::ffi::llvm::Type_getInt64PtrTy(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -1027,7 +1027,7 @@ impl Type {
         }
     }
 
-    pub fn get_int64_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::IntegerType> {
+    pub fn get_int64_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::IntegerType> {
         unsafe {
             let ret = ::ffi::llvm::Type_getInt64Ty(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -1037,7 +1037,7 @@ impl Type {
         }
     }
 
-    pub fn get_int8_ptr_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
+    pub fn get_int8_ptr_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
         unsafe {
             let ret = ::ffi::llvm::Type_getInt8PtrTy(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -1047,7 +1047,7 @@ impl Type {
         }
     }
 
-    pub fn get_int8_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::IntegerType> {
+    pub fn get_int8_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::IntegerType> {
         unsafe {
             let ret = ::ffi::llvm::Type_getInt8Ty(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -1057,7 +1057,7 @@ impl Type {
         }
     }
 
-    pub fn get_int_n_ptr_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1, size: u32) -> Option<::llvm::ty::seq::PointerType> {
+    pub fn get_int_n_ptr_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1, size: u32) -> Option<::llvm::ty::seq::PointerType> {
         unsafe {
             let ret = ::ffi::llvm::Type_getIntNPtrTy(::llvm::LLVMContextObj::get_inner(ctx), size as ::libc::c_uint);
             if ret.is_null() {
@@ -1067,7 +1067,7 @@ impl Type {
         }
     }
 
-    pub fn get_int_n_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1, size: u32) -> Option<::llvm::ty::IntegerType> {
+    pub fn get_int_n_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1, size: u32) -> Option<::llvm::ty::IntegerType> {
         unsafe {
             let ret = ::ffi::llvm::Type_getIntNTy(::llvm::LLVMContextObj::get_inner(ctx), size as ::libc::c_uint);
             if ret.is_null() {
@@ -1077,7 +1077,7 @@ impl Type {
         }
     }
 
-    pub fn get_label_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::Type> {
+    pub fn get_label_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::Type> {
         unsafe {
             let ret = ::ffi::llvm::Type_getLabelTy(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -1087,7 +1087,7 @@ impl Type {
         }
     }
 
-    pub fn get_metadata_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::Type> {
+    pub fn get_metadata_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::Type> {
         unsafe {
             let ret = ::ffi::llvm::Type_getMetadataTy(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -1097,7 +1097,7 @@ impl Type {
         }
     }
 
-    pub fn get_ppc_fp128_ptr_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
+    pub fn get_ppc_fp128_ptr_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
         unsafe {
             let ret = ::ffi::llvm::Type_getPPC_FP128PtrTy(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -1107,7 +1107,7 @@ impl Type {
         }
     }
 
-    pub fn get_ppc_fp128_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::Type> {
+    pub fn get_ppc_fp128_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::Type> {
         unsafe {
             let ret = ::ffi::llvm::Type_getPPC_FP128Ty(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -1117,7 +1117,7 @@ impl Type {
         }
     }
 
-    pub fn get_void_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::Type> {
+    pub fn get_void_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::Type> {
         unsafe {
             let ret = ::ffi::llvm::Type_getVoidTy(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -1127,7 +1127,7 @@ impl Type {
         }
     }
 
-    pub fn get_x86_fp80_ptr_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
+    pub fn get_x86_fp80_ptr_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
         unsafe {
             let ret = ::ffi::llvm::Type_getX86_FP80PtrTy(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -1137,7 +1137,7 @@ impl Type {
         }
     }
 
-    pub fn get_x86_fp80_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::Type> {
+    pub fn get_x86_fp80_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::Type> {
         unsafe {
             let ret = ::ffi::llvm::Type_getX86_FP80Ty(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -1147,7 +1147,7 @@ impl Type {
         }
     }
 
-    pub fn get_x86_mmx_ptr_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
+    pub fn get_x86_mmx_ptr_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
         unsafe {
             let ret = ::ffi::llvm::Type_getX86_MMXPtrTy(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {
@@ -1157,7 +1157,7 @@ impl Type {
         }
     }
 
-    pub fn get_x86_mmx_ty<A1: ::llvm::LLVMContextObj>(ctx: &mut A1) -> Option<::llvm::ty::Type> {
+    pub fn get_x86_mmx_ty<A1: ::llvm::LLVMContextObj = ::llvm::LLVMContext>(ctx: &mut A1) -> Option<::llvm::ty::Type> {
         unsafe {
             let ret = ::ffi::llvm::Type_getX86_MMXTy(::llvm::LLVMContextObj::get_inner(ctx));
             if ret.is_null() {

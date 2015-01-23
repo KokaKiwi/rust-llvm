@@ -66,14 +66,14 @@ impl ArrayType {
         }
     }
 
-    pub fn classof<A1: ::llvm::ty::TypeObj>(ty: &A1) -> bool {
+    pub fn classof<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::ArrayType_classof(::llvm::ty::TypeObj::get_inner(ty));
             ret
         }
     }
 
-    pub fn get<A1: ::llvm::ty::TypeObj>(element_type: &mut A1, num_elements: u64) -> Option<::llvm::ty::seq::ArrayType> {
+    pub fn get<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(element_type: &mut A1, num_elements: u64) -> Option<::llvm::ty::seq::ArrayType> {
         unsafe {
             let ret = ::ffi::llvm::ArrayType_get(::llvm::ty::TypeObj::get_inner(element_type), num_elements as ::libc::uint64_t);
             if ret.is_null() {
@@ -83,7 +83,7 @@ impl ArrayType {
         }
     }
 
-    pub fn is_valid_element_type<A1: ::llvm::ty::TypeObj>(ty: &mut A1) -> bool {
+    pub fn is_valid_element_type<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &mut A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::ArrayType_isValidElementType(::llvm::ty::TypeObj::get_inner(ty));
             ret
@@ -159,14 +159,14 @@ impl PointerType {
         }
     }
 
-    pub fn classof<A1: ::llvm::ty::TypeObj>(ty: &A1) -> bool {
+    pub fn classof<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::PointerType_classof(::llvm::ty::TypeObj::get_inner(ty));
             ret
         }
     }
 
-    pub fn get<A1: ::llvm::ty::TypeObj>(element_type: &mut A1, address_space: u32) -> Option<::llvm::ty::seq::PointerType> {
+    pub fn get<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(element_type: &mut A1, address_space: u32) -> Option<::llvm::ty::seq::PointerType> {
         unsafe {
             let ret = ::ffi::llvm::PointerType_get(::llvm::ty::TypeObj::get_inner(element_type), address_space as ::libc::c_uint);
             if ret.is_null() {
@@ -176,7 +176,7 @@ impl PointerType {
         }
     }
 
-    pub fn get_unqual<A1: ::llvm::ty::TypeObj>(element_type: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
+    pub fn get_unqual<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(element_type: &mut A1) -> Option<::llvm::ty::seq::PointerType> {
         unsafe {
             let ret = ::ffi::llvm::PointerType_getUnqual(::llvm::ty::TypeObj::get_inner(element_type));
             if ret.is_null() {
@@ -186,7 +186,7 @@ impl PointerType {
         }
     }
 
-    pub fn is_valid_element_type<A1: ::llvm::ty::TypeObj>(ty: &mut A1) -> bool {
+    pub fn is_valid_element_type<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &mut A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::PointerType_isValidElementType(::llvm::ty::TypeObj::get_inner(ty));
             ret
@@ -257,7 +257,7 @@ impl SequentialType {
         }
     }
 
-    pub fn classof<A1: ::llvm::ty::TypeObj>(ty: &A1) -> bool {
+    pub fn classof<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::SequentialType_classof(::llvm::ty::TypeObj::get_inner(ty));
             ret
@@ -340,14 +340,14 @@ impl VectorType {
         }
     }
 
-    pub fn classof<A1: ::llvm::ty::TypeObj>(ty: &A1) -> bool {
+    pub fn classof<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::VectorType_classof(::llvm::ty::TypeObj::get_inner(ty));
             ret
         }
     }
 
-    pub fn get<A1: ::llvm::ty::TypeObj>(ty: &mut A1, num_elements: u32) -> Option<::llvm::ty::seq::VectorType> {
+    pub fn get<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &mut A1, num_elements: u32) -> Option<::llvm::ty::seq::VectorType> {
         unsafe {
             let ret = ::ffi::llvm::VectorType_get(::llvm::ty::TypeObj::get_inner(ty), num_elements as ::libc::c_uint);
             if ret.is_null() {
@@ -357,7 +357,7 @@ impl VectorType {
         }
     }
 
-    pub fn get_double_elements_vector_type<A1: ::llvm::ty::seq::VectorTypeObj>(ty: &mut A1) -> Option<::llvm::ty::seq::VectorType> {
+    pub fn get_double_elements_vector_type<A1: ::llvm::ty::seq::VectorTypeObj = ::llvm::ty::seq::VectorType>(ty: &mut A1) -> Option<::llvm::ty::seq::VectorType> {
         unsafe {
             let ret = ::ffi::llvm::VectorType_getDoubleElementsVectorType(::llvm::ty::seq::VectorTypeObj::get_inner(ty));
             if ret.is_null() {
@@ -367,7 +367,7 @@ impl VectorType {
         }
     }
 
-    pub fn get_extended_element_vector_type<A1: ::llvm::ty::seq::VectorTypeObj>(ty: &mut A1) -> Option<::llvm::ty::seq::VectorType> {
+    pub fn get_extended_element_vector_type<A1: ::llvm::ty::seq::VectorTypeObj = ::llvm::ty::seq::VectorType>(ty: &mut A1) -> Option<::llvm::ty::seq::VectorType> {
         unsafe {
             let ret = ::ffi::llvm::VectorType_getExtendedElementVectorType(::llvm::ty::seq::VectorTypeObj::get_inner(ty));
             if ret.is_null() {
@@ -377,7 +377,7 @@ impl VectorType {
         }
     }
 
-    pub fn get_half_elements_vector_type<A1: ::llvm::ty::seq::VectorTypeObj>(ty: &mut A1) -> Option<::llvm::ty::seq::VectorType> {
+    pub fn get_half_elements_vector_type<A1: ::llvm::ty::seq::VectorTypeObj = ::llvm::ty::seq::VectorType>(ty: &mut A1) -> Option<::llvm::ty::seq::VectorType> {
         unsafe {
             let ret = ::ffi::llvm::VectorType_getHalfElementsVectorType(::llvm::ty::seq::VectorTypeObj::get_inner(ty));
             if ret.is_null() {
@@ -387,7 +387,7 @@ impl VectorType {
         }
     }
 
-    pub fn get_integer<A1: ::llvm::ty::seq::VectorTypeObj>(ty: &mut A1) -> Option<::llvm::ty::seq::VectorType> {
+    pub fn get_integer<A1: ::llvm::ty::seq::VectorTypeObj = ::llvm::ty::seq::VectorType>(ty: &mut A1) -> Option<::llvm::ty::seq::VectorType> {
         unsafe {
             let ret = ::ffi::llvm::VectorType_getInteger(::llvm::ty::seq::VectorTypeObj::get_inner(ty));
             if ret.is_null() {
@@ -397,7 +397,7 @@ impl VectorType {
         }
     }
 
-    pub fn get_truncated_element_vector_type<A1: ::llvm::ty::seq::VectorTypeObj>(ty: &mut A1) -> Option<::llvm::ty::seq::VectorType> {
+    pub fn get_truncated_element_vector_type<A1: ::llvm::ty::seq::VectorTypeObj = ::llvm::ty::seq::VectorType>(ty: &mut A1) -> Option<::llvm::ty::seq::VectorType> {
         unsafe {
             let ret = ::ffi::llvm::VectorType_getTruncatedElementVectorType(::llvm::ty::seq::VectorTypeObj::get_inner(ty));
             if ret.is_null() {
@@ -407,7 +407,7 @@ impl VectorType {
         }
     }
 
-    pub fn is_valid_element_type<A1: ::llvm::ty::TypeObj>(ty: &mut A1) -> bool {
+    pub fn is_valid_element_type<A1: ::llvm::ty::TypeObj = ::llvm::ty::Type>(ty: &mut A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::VectorType_isValidElementType(::llvm::ty::TypeObj::get_inner(ty));
             ret

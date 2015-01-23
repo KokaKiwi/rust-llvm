@@ -127,13 +127,13 @@ pub trait UseExt: UseObj {
         }
     }
 
-    fn set<A1: ::llvm::value::ValueObj>(&mut self, val: &mut A1) {
+    fn set<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, val: &mut A1) {
         unsafe {
             ::ffi::llvm::Use_set(::llvm::value::user::UseObj::get_inner(self), ::llvm::value::ValueObj::get_inner(val));
         }
     }
 
-    fn swap<A1: ::llvm::value::user::UseObj>(&mut self, rhs: &mut A1) {
+    fn swap<A1: ::llvm::value::user::UseObj = ::llvm::value::user::Use>(&mut self, rhs: &mut A1) {
         unsafe {
             ::ffi::llvm::Use_swap(::llvm::value::user::UseObj::get_inner(self), ::llvm::value::user::UseObj::get_inner(rhs));
         }
@@ -158,7 +158,7 @@ impl Use {
         }
     }
 
-    pub fn init_tags<A1: ::llvm::value::user::UseObj, A2: ::llvm::value::user::UseObj>(start: &mut A1, stop: &mut A2) -> Option<::llvm::value::user::Use> {
+    pub fn init_tags<A1: ::llvm::value::user::UseObj = ::llvm::value::user::Use, A2: ::llvm::value::user::UseObj = ::llvm::value::user::Use>(start: &mut A1, stop: &mut A2) -> Option<::llvm::value::user::Use> {
         unsafe {
             let ret = ::ffi::llvm::Use_initTags(::llvm::value::user::UseObj::get_inner(start), ::llvm::value::user::UseObj::get_inner(stop));
             if ret.is_null() {
@@ -210,13 +210,13 @@ pub trait UserExt: UserObj {
         }
     }
 
-    fn replace_uses_of_with<A1: ::llvm::value::ValueObj, A2: ::llvm::value::ValueObj>(&mut self, from: &mut A1, to: &mut A2) {
+    fn replace_uses_of_with<A1: ::llvm::value::ValueObj = ::llvm::value::Value, A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, from: &mut A1, to: &mut A2) {
         unsafe {
             ::ffi::llvm::User_replaceUsesOfWith(::llvm::value::user::UserObj::get_inner(self), ::llvm::value::ValueObj::get_inner(from), ::llvm::value::ValueObj::get_inner(to));
         }
     }
 
-    fn set_operand<A2: ::llvm::value::ValueObj>(&mut self, idx: u32, val: &mut A2) {
+    fn set_operand<A2: ::llvm::value::ValueObj = ::llvm::value::Value>(&mut self, idx: u32, val: &mut A2) {
         unsafe {
             ::ffi::llvm::User_setOperand(::llvm::value::user::UserObj::get_inner(self), idx as ::libc::c_uint, ::llvm::value::ValueObj::get_inner(val));
         }
@@ -251,7 +251,7 @@ impl User {
         }
     }
 
-    pub fn classof<A1: ::llvm::value::ValueObj>(v: &mut A1) -> bool {
+    pub fn classof<A1: ::llvm::value::ValueObj = ::llvm::value::Value>(v: &mut A1) -> bool {
         unsafe {
             let ret = ::ffi::llvm::User_classof(::llvm::value::ValueObj::get_inner(v));
             ret
