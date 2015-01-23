@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `GlobalVariableOwned` trait in crate `llvm-sys`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, GlobalVariableOwned">
+
+    <title>llvm-sys::llvm::value::user::constant::GlobalVariableOwned - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../../../index.html'>llvm-sys</a>::<wbr><a href='../../../index.html'>llvm</a>::<wbr><a href='../../index.html'>value</a>::<wbr><a href='../index.html'>user</a>::<wbr><a href='index.html'>constant</a></p><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.BlockAddress.html'>BlockAddress</a><a class='struct ' href='struct.Constant.html'>Constant</a><a class='struct ' href='struct.ConstantAggregateZero.html'>ConstantAggregateZero</a><a class='struct ' href='struct.ConstantArray.html'>ConstantArray</a><a class='struct ' href='struct.ConstantDataArray.html'>ConstantDataArray</a><a class='struct ' href='struct.ConstantDataSequential.html'>ConstantDataSequential</a><a class='struct ' href='struct.ConstantDataVector.html'>ConstantDataVector</a><a class='struct ' href='struct.ConstantExpr.html'>ConstantExpr</a><a class='struct ' href='struct.ConstantFP.html'>ConstantFP</a><a class='struct ' href='struct.ConstantInt.html'>ConstantInt</a><a class='struct ' href='struct.ConstantPointerNull.html'>ConstantPointerNull</a><a class='struct ' href='struct.ConstantStruct.html'>ConstantStruct</a><a class='struct ' href='struct.ConstantVector.html'>ConstantVector</a><a class='struct ' href='struct.Function.html'>Function</a><a class='struct ' href='struct.GlobalAlias.html'>GlobalAlias</a><a class='struct ' href='struct.GlobalObject.html'>GlobalObject</a><a class='struct ' href='struct.GlobalValue.html'>GlobalValue</a><a class='struct ' href='struct.GlobalVariable.html'>GlobalVariable</a><a class='struct ' href='struct.UndefValue.html'>UndefValue</a></div><div class='block enum'><h2>Enums</h2><a class='enum ' href='enum.LinkageTypes.html'>LinkageTypes</a></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='trait.BlockAddressExt.html'>BlockAddressExt</a><a class='trait ' href='trait.BlockAddressObj.html'>BlockAddressObj</a><a class='trait ' href='trait.BlockAddressOwned.html'>BlockAddressOwned</a><a class='trait ' href='trait.ConstantAggregateZeroExt.html'>ConstantAggregateZeroExt</a><a class='trait ' href='trait.ConstantAggregateZeroObj.html'>ConstantAggregateZeroObj</a><a class='trait ' href='trait.ConstantAggregateZeroOwned.html'>ConstantAggregateZeroOwned</a><a class='trait ' href='trait.ConstantArrayExt.html'>ConstantArrayExt</a><a class='trait ' href='trait.ConstantArrayObj.html'>ConstantArrayObj</a><a class='trait ' href='trait.ConstantArrayOwned.html'>ConstantArrayOwned</a><a class='trait ' href='trait.ConstantDataArrayExt.html'>ConstantDataArrayExt</a><a class='trait ' href='trait.ConstantDataArrayObj.html'>ConstantDataArrayObj</a><a class='trait ' href='trait.ConstantDataArrayOwned.html'>ConstantDataArrayOwned</a><a class='trait ' href='trait.ConstantDataSequentialExt.html'>ConstantDataSequentialExt</a><a class='trait ' href='trait.ConstantDataSequentialObj.html'>ConstantDataSequentialObj</a><a class='trait ' href='trait.ConstantDataSequentialOwned.html'>ConstantDataSequentialOwned</a><a class='trait ' href='trait.ConstantDataVectorExt.html'>ConstantDataVectorExt</a><a class='trait ' href='trait.ConstantDataVectorObj.html'>ConstantDataVectorObj</a><a class='trait ' href='trait.ConstantDataVectorOwned.html'>ConstantDataVectorOwned</a><a class='trait ' href='trait.ConstantExprExt.html'>ConstantExprExt</a><a class='trait ' href='trait.ConstantExprObj.html'>ConstantExprObj</a><a class='trait ' href='trait.ConstantExprOwned.html'>ConstantExprOwned</a><a class='trait ' href='trait.ConstantExt.html'>ConstantExt</a><a class='trait ' href='trait.ConstantFPExt.html'>ConstantFPExt</a><a class='trait ' href='trait.ConstantFPObj.html'>ConstantFPObj</a><a class='trait ' href='trait.ConstantFPOwned.html'>ConstantFPOwned</a><a class='trait ' href='trait.ConstantIntExt.html'>ConstantIntExt</a><a class='trait ' href='trait.ConstantIntObj.html'>ConstantIntObj</a><a class='trait ' href='trait.ConstantIntOwned.html'>ConstantIntOwned</a><a class='trait ' href='trait.ConstantObj.html'>ConstantObj</a><a class='trait ' href='trait.ConstantOwned.html'>ConstantOwned</a><a class='trait ' href='trait.ConstantPointerNullExt.html'>ConstantPointerNullExt</a><a class='trait ' href='trait.ConstantPointerNullObj.html'>ConstantPointerNullObj</a><a class='trait ' href='trait.ConstantPointerNullOwned.html'>ConstantPointerNullOwned</a><a class='trait ' href='trait.ConstantStructExt.html'>ConstantStructExt</a><a class='trait ' href='trait.ConstantStructObj.html'>ConstantStructObj</a><a class='trait ' href='trait.ConstantStructOwned.html'>ConstantStructOwned</a><a class='trait ' href='trait.ConstantVectorExt.html'>ConstantVectorExt</a><a class='trait ' href='trait.ConstantVectorObj.html'>ConstantVectorObj</a><a class='trait ' href='trait.ConstantVectorOwned.html'>ConstantVectorOwned</a><a class='trait ' href='trait.FunctionExt.html'>FunctionExt</a><a class='trait ' href='trait.FunctionObj.html'>FunctionObj</a><a class='trait ' href='trait.FunctionOwned.html'>FunctionOwned</a><a class='trait ' href='trait.GlobalAliasExt.html'>GlobalAliasExt</a><a class='trait ' href='trait.GlobalAliasObj.html'>GlobalAliasObj</a><a class='trait ' href='trait.GlobalAliasOwned.html'>GlobalAliasOwned</a><a class='trait ' href='trait.GlobalObjectExt.html'>GlobalObjectExt</a><a class='trait ' href='trait.GlobalObjectObj.html'>GlobalObjectObj</a><a class='trait ' href='trait.GlobalObjectOwned.html'>GlobalObjectOwned</a><a class='trait ' href='trait.GlobalValueExt.html'>GlobalValueExt</a><a class='trait ' href='trait.GlobalValueObj.html'>GlobalValueObj</a><a class='trait ' href='trait.GlobalValueOwned.html'>GlobalValueOwned</a><a class='trait ' href='trait.GlobalVariableExt.html'>GlobalVariableExt</a><a class='trait ' href='trait.GlobalVariableObj.html'>GlobalVariableObj</a><a class='trait current' href='trait.GlobalVariableOwned.html'>GlobalVariableOwned</a><a class='trait ' href='trait.UndefValueExt.html'>UndefValueExt</a><a class='trait ' href='trait.UndefValueObj.html'>UndefValueObj</a><a class='trait ' href='trait.UndefValueOwned.html'>UndefValueOwned</a></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../../../../index.html'>llvm-sys</a>::<wbr><a href='../../../index.html'>llvm</a>::<wbr><a href='../../index.html'>value</a>::<wbr><a href='../index.html'>user</a>::<wbr><a href='index.html'>constant</a>::<wbr><a class='trait' href=''>GlobalVariableOwned</a><wbr><a class='stability Experimental' title=''>Experimental</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]
+            </a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-30623' href='../../../../../src/llvm-sys/llvm/value/user/constant.rs.html#2456-2463'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait GlobalVariableOwned: <a class='trait' href='../../../../../llvm-sys/llvm/value/user/constant/trait.GlobalVariableObj.html' title='llvm-sys::llvm::value::user::constant::GlobalVariableObj'>GlobalVariableObj</a> + <a class='trait' href='http://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a> {
+    unsafe fn <a href='#method.move_inner' class='fnname'>move_inner</a>(self) -&gt; *mut <a class='type' href='../../../../../llvm-sys/llvm/value/user/constant/type.GlobalVariableInner.html' title='llvm-sys::llvm::value::user::constant::GlobalVariableInner'>GlobalVariableInner</a> { ... }
+}</pre>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='method.move_inner' class='method'><a class='stability Experimental' title='Experimental'></a><code>unsafe fn <a href='#method.move_inner' class='fnname'>move_inner</a>(self) -&gt; *mut <a class='type' href='../../../../../llvm-sys/llvm/value/user/constant/type.GlobalVariableInner.html' title='llvm-sys::llvm::value::user::constant::GlobalVariableInner'>GlobalVariableInner</a></code></h3></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><a class='stability Experimental' title='Experimental'></a><code>impl&lt;T&gt; <a class='trait' href='../../../../../llvm-sys/llvm/value/user/constant/trait.GlobalVariableOwned.html' title='llvm-sys::llvm::value::user::constant::GlobalVariableOwned'>GlobalVariableOwned</a> for T <span class='where'>where T: <a class='trait' href='../../../../../llvm-sys/llvm/value/user/constant/trait.GlobalVariableObj.html' title='llvm-sys::llvm::value::user::constant::GlobalVariableObj'>GlobalVariableObj</a> + <a class='trait' href='http://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span></code></li>
+</ul><script type="text/javascript" async
+                              src="../../../../../implementors/llvm-sys/llvm/value/user/constant/trait.GlobalVariableOwned.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../../../";
+        window.currentCrate = "llvm-sys";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../../../jquery.js"></script>
+    <script src="../../../../../main.js"></script>
+    
+    <script async src="../../../../../search-index.js"></script>
+</body>
+</html>

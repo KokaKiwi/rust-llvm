@@ -214,180 +214,354 @@
 <span id="172">172</span>
 <span id="173">173</span>
 <span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
 </pre><pre class='rust '>
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>BlockAddressObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>BlockAddressOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>BlockAddressExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantAggregateZeroObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantAggregateZeroOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantAggregateZeroExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantArrayObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantArrayOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantArrayExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantDataArrayObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantDataArrayOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantDataArrayExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantDataSequentialObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantDataSequentialOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantDataSequentialExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantDataVectorObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantDataVectorOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantDataVectorExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantExprObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantExprOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantExprExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantFPObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantFPOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantFPExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantIntObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantIntOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantIntExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantPointerNullObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantPointerNullOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantPointerNullExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantStructObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantStructOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantStructExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantVectorObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantVectorOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>ConstantVectorExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>FunctionObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>FunctionOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>FunctionExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>GlobalAliasObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>GlobalAliasOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>GlobalAliasExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>GlobalObjectObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>GlobalObjectOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>GlobalObjectExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>GlobalValueObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>GlobalValueOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>GlobalValueExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>GlobalVariableObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>GlobalVariableOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>GlobalVariableExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>UndefValueObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>UndefValueOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>constant</span>::<span class='ident'>UndefValueExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>AddrSpaceCastInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>AddrSpaceCastInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>AddrSpaceCastInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>AllocaInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>AllocaInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>AllocaInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>AtomicCmpXchgInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>AtomicCmpXchgInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>AtomicCmpXchgInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>AtomicRMWInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>AtomicRMWInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>AtomicRMWInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>BinaryOperatorObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>BinaryOperatorOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>BinaryOperatorExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>BitCastInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>BitCastInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>BitCastInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>BranchInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>BranchInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>BranchInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>CallInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>CallInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>CallInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>CastInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>CastInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>CastInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>CmpInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>CmpInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>CmpInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>ExtractElementInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>ExtractElementInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>ExtractElementInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>ExtractValueInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>ExtractValueInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>ExtractValueInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>FPExtInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>FPExtInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>FPExtInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>FPToSIInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>FPToSIInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>FPToSIInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>FenceInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>FenceInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>FenceInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>GetElementPtrInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>GetElementPtrInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>GetElementPtrInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>IndirectBrInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>IndirectBrInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>IndirectBrInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>InsertElementInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>InsertElementInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>InsertElementInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>InsertValueInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>InsertValueInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>InsertValueInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>InstructionObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>InstructionOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>InstructionExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>InvokeInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>InvokeInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>InvokeInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>LandingPadInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>LandingPadInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>LandingPadInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>LoadInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>LoadInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>LoadInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>PHINodeObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>PHINodeOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>PHINodeExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>ResumeInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>ResumeInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>ResumeInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>ReturnInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>ReturnInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>ReturnInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>SelectInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>SelectInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>SelectInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>ShuffleVectorInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>ShuffleVectorInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>ShuffleVectorInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>StoreInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>StoreInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>StoreInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>SwitchInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>SwitchInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>SwitchInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>TerminatorInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>TerminatorInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>TerminatorInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>UnaryInstructionObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>UnaryInstructionOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>UnaryInstructionExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>UnreachableInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>UnreachableInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>UnreachableInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>VAArgInstObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>VAArgInstOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>inst</span>::<span class='ident'>VAArgInstExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>OperatorObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>OperatorOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>OperatorExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UseObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UseOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UseExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>user</span>::<span class='ident'>UserExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ArgumentObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ArgumentOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ArgumentExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>BasicBlockObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>BasicBlockOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>BasicBlockExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>InlineAsmObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>InlineAsmOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>InlineAsmExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>MDNodeObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>MDNodeOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>MDNodeExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>MDStringObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>MDStringOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>MDStringExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>value</span>::<span class='ident'>ValueExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>seq</span>::<span class='ident'>ArrayTypeObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>seq</span>::<span class='ident'>ArrayTypeOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>seq</span>::<span class='ident'>ArrayTypeExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>seq</span>::<span class='ident'>PointerTypeObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>seq</span>::<span class='ident'>PointerTypeOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>seq</span>::<span class='ident'>PointerTypeExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>seq</span>::<span class='ident'>SequentialTypeObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>seq</span>::<span class='ident'>SequentialTypeOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>seq</span>::<span class='ident'>SequentialTypeExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>seq</span>::<span class='ident'>VectorTypeObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>seq</span>::<span class='ident'>VectorTypeOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>seq</span>::<span class='ident'>VectorTypeExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>CompositeTypeObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>CompositeTypeOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>CompositeTypeExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>FunctionTypeObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>FunctionTypeOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>FunctionTypeExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>IntegerTypeObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>IntegerTypeOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>IntegerTypeExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>StructTypeObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>StructTypeOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>StructTypeExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>TypeObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>TypeOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ty</span>::<span class='ident'>TypeExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>BasicBlockPassObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>BasicBlockPassOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>BasicBlockPassExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>CallGraphSCCPassObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>CallGraphSCCPassOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>CallGraphSCCPassExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>FunctionPassObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>FunctionPassOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>FunctionPassExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>FunctionPassManagerObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>FunctionPassManagerOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>FunctionPassManagerExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>LoopPassObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>LoopPassOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>LoopPassExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>ModulePassObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>ModulePassOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>ModulePassExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>PassObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>PassOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>PassExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>PassManagerObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>PassManagerOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>PassManagerExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>RegionPassObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>RegionPassOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>pass</span>::<span class='ident'>RegionPassExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>DataLayoutObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>DataLayoutOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>DataLayoutExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>DebugLocObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>DebugLocOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>DebugLocExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>IRBuilderObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>IRBuilderOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>IRBuilderExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>IRBuilderBaseObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>IRBuilderBaseOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>IRBuilderBaseExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>LLVMContextObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>LLVMContextOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>LLVMContextExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ModuleObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ModuleOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ModuleExt</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ValueSymbolTableObj</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ValueSymbolTableOwned</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> ::<span class='ident'>llvm</span>::<span class='ident'>ValueSymbolTableExt</span>;
 </pre>
 </section>

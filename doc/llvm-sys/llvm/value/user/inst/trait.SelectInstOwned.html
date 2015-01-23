@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `SelectInstOwned` trait in crate `llvm-sys`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, SelectInstOwned">
+
+    <title>llvm-sys::llvm::value::user::inst::SelectInstOwned - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../../../../index.html'>llvm-sys</a>::<wbr><a href='../../../index.html'>llvm</a>::<wbr><a href='../../index.html'>value</a>::<wbr><a href='../index.html'>user</a>::<wbr><a href='index.html'>inst</a></p><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.AddrSpaceCastInst.html'>AddrSpaceCastInst</a><a class='struct ' href='struct.AllocaInst.html'>AllocaInst</a><a class='struct ' href='struct.AtomicCmpXchgInst.html'>AtomicCmpXchgInst</a><a class='struct ' href='struct.AtomicRMWInst.html'>AtomicRMWInst</a><a class='struct ' href='struct.BinaryOperator.html'>BinaryOperator</a><a class='struct ' href='struct.BitCastInst.html'>BitCastInst</a><a class='struct ' href='struct.BranchInst.html'>BranchInst</a><a class='struct ' href='struct.CallInst.html'>CallInst</a><a class='struct ' href='struct.CastInst.html'>CastInst</a><a class='struct ' href='struct.CmpInst.html'>CmpInst</a><a class='struct ' href='struct.ExtractElementInst.html'>ExtractElementInst</a><a class='struct ' href='struct.ExtractValueInst.html'>ExtractValueInst</a><a class='struct ' href='struct.FPExtInst.html'>FPExtInst</a><a class='struct ' href='struct.FPToSIInst.html'>FPToSIInst</a><a class='struct ' href='struct.FenceInst.html'>FenceInst</a><a class='struct ' href='struct.GetElementPtrInst.html'>GetElementPtrInst</a><a class='struct ' href='struct.IndirectBrInst.html'>IndirectBrInst</a><a class='struct ' href='struct.InsertElementInst.html'>InsertElementInst</a><a class='struct ' href='struct.InsertValueInst.html'>InsertValueInst</a><a class='struct ' href='struct.Instruction.html'>Instruction</a><a class='struct ' href='struct.InvokeInst.html'>InvokeInst</a><a class='struct ' href='struct.LandingPadInst.html'>LandingPadInst</a><a class='struct ' href='struct.LoadInst.html'>LoadInst</a><a class='struct ' href='struct.PHINode.html'>PHINode</a><a class='struct ' href='struct.ResumeInst.html'>ResumeInst</a><a class='struct ' href='struct.ReturnInst.html'>ReturnInst</a><a class='struct ' href='struct.SelectInst.html'>SelectInst</a><a class='struct ' href='struct.ShuffleVectorInst.html'>ShuffleVectorInst</a><a class='struct ' href='struct.StoreInst.html'>StoreInst</a><a class='struct ' href='struct.SwitchInst.html'>SwitchInst</a><a class='struct ' href='struct.TerminatorInst.html'>TerminatorInst</a><a class='struct ' href='struct.UnaryInstruction.html'>UnaryInstruction</a><a class='struct ' href='struct.UnreachableInst.html'>UnreachableInst</a><a class='struct ' href='struct.VAArgInst.html'>VAArgInst</a></div><div class='block enum'><h2>Enums</h2><a class='enum ' href='enum.BinaryOps.html'>BinaryOps</a><a class='enum ' href='enum.CastOps.html'>CastOps</a><a class='enum ' href='enum.MemoryOps.html'>MemoryOps</a><a class='enum ' href='enum.OtherOps.html'>OtherOps</a><a class='enum ' href='enum.Predicate.html'>Predicate</a><a class='enum ' href='enum.TermOps.html'>TermOps</a></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='trait.AddrSpaceCastInstExt.html'>AddrSpaceCastInstExt</a><a class='trait ' href='trait.AddrSpaceCastInstObj.html'>AddrSpaceCastInstObj</a><a class='trait ' href='trait.AddrSpaceCastInstOwned.html'>AddrSpaceCastInstOwned</a><a class='trait ' href='trait.AllocaInstExt.html'>AllocaInstExt</a><a class='trait ' href='trait.AllocaInstObj.html'>AllocaInstObj</a><a class='trait ' href='trait.AllocaInstOwned.html'>AllocaInstOwned</a><a class='trait ' href='trait.AtomicCmpXchgInstExt.html'>AtomicCmpXchgInstExt</a><a class='trait ' href='trait.AtomicCmpXchgInstObj.html'>AtomicCmpXchgInstObj</a><a class='trait ' href='trait.AtomicCmpXchgInstOwned.html'>AtomicCmpXchgInstOwned</a><a class='trait ' href='trait.AtomicRMWInstExt.html'>AtomicRMWInstExt</a><a class='trait ' href='trait.AtomicRMWInstObj.html'>AtomicRMWInstObj</a><a class='trait ' href='trait.AtomicRMWInstOwned.html'>AtomicRMWInstOwned</a><a class='trait ' href='trait.BinaryOperatorExt.html'>BinaryOperatorExt</a><a class='trait ' href='trait.BinaryOperatorObj.html'>BinaryOperatorObj</a><a class='trait ' href='trait.BinaryOperatorOwned.html'>BinaryOperatorOwned</a><a class='trait ' href='trait.BitCastInstExt.html'>BitCastInstExt</a><a class='trait ' href='trait.BitCastInstObj.html'>BitCastInstObj</a><a class='trait ' href='trait.BitCastInstOwned.html'>BitCastInstOwned</a><a class='trait ' href='trait.BranchInstExt.html'>BranchInstExt</a><a class='trait ' href='trait.BranchInstObj.html'>BranchInstObj</a><a class='trait ' href='trait.BranchInstOwned.html'>BranchInstOwned</a><a class='trait ' href='trait.CallInstExt.html'>CallInstExt</a><a class='trait ' href='trait.CallInstObj.html'>CallInstObj</a><a class='trait ' href='trait.CallInstOwned.html'>CallInstOwned</a><a class='trait ' href='trait.CastInstExt.html'>CastInstExt</a><a class='trait ' href='trait.CastInstObj.html'>CastInstObj</a><a class='trait ' href='trait.CastInstOwned.html'>CastInstOwned</a><a class='trait ' href='trait.CmpInstExt.html'>CmpInstExt</a><a class='trait ' href='trait.CmpInstObj.html'>CmpInstObj</a><a class='trait ' href='trait.CmpInstOwned.html'>CmpInstOwned</a><a class='trait ' href='trait.ExtractElementInstExt.html'>ExtractElementInstExt</a><a class='trait ' href='trait.ExtractElementInstObj.html'>ExtractElementInstObj</a><a class='trait ' href='trait.ExtractElementInstOwned.html'>ExtractElementInstOwned</a><a class='trait ' href='trait.ExtractValueInstExt.html'>ExtractValueInstExt</a><a class='trait ' href='trait.ExtractValueInstObj.html'>ExtractValueInstObj</a><a class='trait ' href='trait.ExtractValueInstOwned.html'>ExtractValueInstOwned</a><a class='trait ' href='trait.FPExtInstExt.html'>FPExtInstExt</a><a class='trait ' href='trait.FPExtInstObj.html'>FPExtInstObj</a><a class='trait ' href='trait.FPExtInstOwned.html'>FPExtInstOwned</a><a class='trait ' href='trait.FPToSIInstExt.html'>FPToSIInstExt</a><a class='trait ' href='trait.FPToSIInstObj.html'>FPToSIInstObj</a><a class='trait ' href='trait.FPToSIInstOwned.html'>FPToSIInstOwned</a><a class='trait ' href='trait.FenceInstExt.html'>FenceInstExt</a><a class='trait ' href='trait.FenceInstObj.html'>FenceInstObj</a><a class='trait ' href='trait.FenceInstOwned.html'>FenceInstOwned</a><a class='trait ' href='trait.GetElementPtrInstExt.html'>GetElementPtrInstExt</a><a class='trait ' href='trait.GetElementPtrInstObj.html'>GetElementPtrInstObj</a><a class='trait ' href='trait.GetElementPtrInstOwned.html'>GetElementPtrInstOwned</a><a class='trait ' href='trait.IndirectBrInstExt.html'>IndirectBrInstExt</a><a class='trait ' href='trait.IndirectBrInstObj.html'>IndirectBrInstObj</a><a class='trait ' href='trait.IndirectBrInstOwned.html'>IndirectBrInstOwned</a><a class='trait ' href='trait.InsertElementInstExt.html'>InsertElementInstExt</a><a class='trait ' href='trait.InsertElementInstObj.html'>InsertElementInstObj</a><a class='trait ' href='trait.InsertElementInstOwned.html'>InsertElementInstOwned</a><a class='trait ' href='trait.InsertValueInstExt.html'>InsertValueInstExt</a><a class='trait ' href='trait.InsertValueInstObj.html'>InsertValueInstObj</a><a class='trait ' href='trait.InsertValueInstOwned.html'>InsertValueInstOwned</a><a class='trait ' href='trait.InstructionExt.html'>InstructionExt</a><a class='trait ' href='trait.InstructionObj.html'>InstructionObj</a><a class='trait ' href='trait.InstructionOwned.html'>InstructionOwned</a><a class='trait ' href='trait.InvokeInstExt.html'>InvokeInstExt</a><a class='trait ' href='trait.InvokeInstObj.html'>InvokeInstObj</a><a class='trait ' href='trait.InvokeInstOwned.html'>InvokeInstOwned</a><a class='trait ' href='trait.LandingPadInstExt.html'>LandingPadInstExt</a><a class='trait ' href='trait.LandingPadInstObj.html'>LandingPadInstObj</a><a class='trait ' href='trait.LandingPadInstOwned.html'>LandingPadInstOwned</a><a class='trait ' href='trait.LoadInstExt.html'>LoadInstExt</a><a class='trait ' href='trait.LoadInstObj.html'>LoadInstObj</a><a class='trait ' href='trait.LoadInstOwned.html'>LoadInstOwned</a><a class='trait ' href='trait.PHINodeExt.html'>PHINodeExt</a><a class='trait ' href='trait.PHINodeObj.html'>PHINodeObj</a><a class='trait ' href='trait.PHINodeOwned.html'>PHINodeOwned</a><a class='trait ' href='trait.ResumeInstExt.html'>ResumeInstExt</a><a class='trait ' href='trait.ResumeInstObj.html'>ResumeInstObj</a><a class='trait ' href='trait.ResumeInstOwned.html'>ResumeInstOwned</a><a class='trait ' href='trait.ReturnInstExt.html'>ReturnInstExt</a><a class='trait ' href='trait.ReturnInstObj.html'>ReturnInstObj</a><a class='trait ' href='trait.ReturnInstOwned.html'>ReturnInstOwned</a><a class='trait ' href='trait.SelectInstExt.html'>SelectInstExt</a><a class='trait ' href='trait.SelectInstObj.html'>SelectInstObj</a><a class='trait current' href='trait.SelectInstOwned.html'>SelectInstOwned</a><a class='trait ' href='trait.ShuffleVectorInstExt.html'>ShuffleVectorInstExt</a><a class='trait ' href='trait.ShuffleVectorInstObj.html'>ShuffleVectorInstObj</a><a class='trait ' href='trait.ShuffleVectorInstOwned.html'>ShuffleVectorInstOwned</a><a class='trait ' href='trait.StoreInstExt.html'>StoreInstExt</a><a class='trait ' href='trait.StoreInstObj.html'>StoreInstObj</a><a class='trait ' href='trait.StoreInstOwned.html'>StoreInstOwned</a><a class='trait ' href='trait.SwitchInstExt.html'>SwitchInstExt</a><a class='trait ' href='trait.SwitchInstObj.html'>SwitchInstObj</a><a class='trait ' href='trait.SwitchInstOwned.html'>SwitchInstOwned</a><a class='trait ' href='trait.TerminatorInstExt.html'>TerminatorInstExt</a><a class='trait ' href='trait.TerminatorInstObj.html'>TerminatorInstObj</a><a class='trait ' href='trait.TerminatorInstOwned.html'>TerminatorInstOwned</a><a class='trait ' href='trait.UnaryInstructionExt.html'>UnaryInstructionExt</a><a class='trait ' href='trait.UnaryInstructionObj.html'>UnaryInstructionObj</a><a class='trait ' href='trait.UnaryInstructionOwned.html'>UnaryInstructionOwned</a><a class='trait ' href='trait.UnreachableInstExt.html'>UnreachableInstExt</a><a class='trait ' href='trait.UnreachableInstObj.html'>UnreachableInstObj</a><a class='trait ' href='trait.UnreachableInstOwned.html'>UnreachableInstOwned</a><a class='trait ' href='trait.VAArgInstExt.html'>VAArgInstExt</a><a class='trait ' href='trait.VAArgInstObj.html'>VAArgInstObj</a><a class='trait ' href='trait.VAArgInstOwned.html'>VAArgInstOwned</a></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../../../../index.html'>llvm-sys</a>::<wbr><a href='../../../index.html'>llvm</a>::<wbr><a href='../../index.html'>value</a>::<wbr><a href='../index.html'>user</a>::<wbr><a href='index.html'>inst</a>::<wbr><a class='trait' href=''>SelectInstOwned</a><wbr><a class='stability Experimental' title=''>Experimental</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]
+            </a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-39093' href='../../../../../src/llvm-sys/llvm/value/user/inst.rs.html#2771-2778'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait SelectInstOwned: <a class='trait' href='../../../../../llvm-sys/llvm/value/user/inst/trait.SelectInstObj.html' title='llvm-sys::llvm::value::user::inst::SelectInstObj'>SelectInstObj</a> + <a class='trait' href='http://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a> {
+    unsafe fn <a href='#method.move_inner' class='fnname'>move_inner</a>(self) -&gt; *mut <a class='type' href='../../../../../llvm-sys/llvm/value/user/inst/type.SelectInstInner.html' title='llvm-sys::llvm::value::user::inst::SelectInstInner'>SelectInstInner</a> { ... }
+}</pre>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='method.move_inner' class='method'><a class='stability Experimental' title='Experimental'></a><code>unsafe fn <a href='#method.move_inner' class='fnname'>move_inner</a>(self) -&gt; *mut <a class='type' href='../../../../../llvm-sys/llvm/value/user/inst/type.SelectInstInner.html' title='llvm-sys::llvm::value::user::inst::SelectInstInner'>SelectInstInner</a></code></h3></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><a class='stability Experimental' title='Experimental'></a><code>impl&lt;T&gt; <a class='trait' href='../../../../../llvm-sys/llvm/value/user/inst/trait.SelectInstOwned.html' title='llvm-sys::llvm::value::user::inst::SelectInstOwned'>SelectInstOwned</a> for T <span class='where'>where T: <a class='trait' href='../../../../../llvm-sys/llvm/value/user/inst/trait.SelectInstObj.html' title='llvm-sys::llvm::value::user::inst::SelectInstObj'>SelectInstObj</a> + <a class='trait' href='http://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span></code></li>
+</ul><script type="text/javascript" async
+                              src="../../../../../implementors/llvm-sys/llvm/value/user/inst/trait.SelectInstOwned.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../../../../";
+        window.currentCrate = "llvm-sys";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../../../jquery.js"></script>
+    <script src="../../../../../main.js"></script>
+    
+    <script async src="../../../../../search-index.js"></script>
+</body>
+</html>
