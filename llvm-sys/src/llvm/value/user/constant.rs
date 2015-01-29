@@ -1521,27 +1521,18 @@ impl<T> FunctionOwned for T where T: FunctionObj + ::core::marker::Sized {}
 
 pub trait FunctionExt: FunctionObj {
 
-    fn add_fn_attr(&mut self, kind: &str) {
+    fn add_fn_attr(&mut self, kind: &str, val: Option<&str>) {
         unsafe {
             let c_kind = ::ffi::llvm_StringRef {
                 data: kind.as_ptr() as *const ::libc::c_char,
                 length: kind.len() as ::libc::size_t,
             };
-            ::ffi::llvm::Function_addFnAttr(::llvm::value::user::constant::FunctionObj::get_inner(self), c_kind);
-        }
-    }
-
-    fn add_fn_attr_with_value(&mut self, kind: &str, val: &str) {
-        unsafe {
-            let c_kind = ::ffi::llvm_StringRef {
-                data: kind.as_ptr() as *const ::libc::c_char,
-                length: kind.len() as ::libc::size_t,
-            };
+            let val = val.unwrap_or("");
             let c_val = ::ffi::llvm_StringRef {
                 data: val.as_ptr() as *const ::libc::c_char,
                 length: val.len() as ::libc::size_t,
             };
-            ::ffi::llvm::Function_addFnAttrWithValue(::llvm::value::user::constant::FunctionObj::get_inner(self), c_kind, c_val);
+            ::ffi::llvm::Function_addFnAttr(::llvm::value::user::constant::FunctionObj::get_inner(self), c_kind, c_val);
         }
     }
 

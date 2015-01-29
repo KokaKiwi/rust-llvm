@@ -835,15 +835,7 @@ extern "C"
 
 // ::llvm::Function::addFnAttr
 extern "C"
-void llvm_Function_addFnAttr(::llvm::Function* inst, llvm_StringRef _Kind)
-{
-    auto Kind = ::llvm::StringRef(_Kind.data, _Kind.length);
-    inst->addFnAttr(Kind);
-}
-
-// ::llvm::Function::addFnAttrWithValue
-extern "C"
-void llvm_Function_addFnAttrWithValue(::llvm::Function* inst, llvm_StringRef _Kind, llvm_StringRef _Val)
+void llvm_Function_addFnAttr(::llvm::Function* inst, llvm_StringRef _Kind, llvm_StringRef _Val)
 {
     auto Kind = ::llvm::StringRef(_Kind.data, _Kind.length);
     auto Val = ::llvm::StringRef(_Val.data, _Val.length);

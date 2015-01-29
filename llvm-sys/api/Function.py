@@ -28,8 +28,7 @@ class Function:
     getCallingConv = Method(CallingConv.ID, const=True)
     setCallingConv = Method(Void, (CallingConv.ID, 'CC'))
 
-    addFnAttr = Method(Void, (StringRef, 'Kind'))
-    addFnAttrWithValue = Method(Void, (StringRef, 'Kind'), (StringRef, 'Val')).with_call_name('addFnAttr')
+    addFnAttr = Method(Void, (StringRef, 'Kind'), (Option(StringRef, '""'), 'Val'))
     hasFnAttr = Method(Bool, (StringRef, 'Kind'), const=True).with_call_name('hasFnAttribute')
 
     hasGC = Method(Bool, const=True)

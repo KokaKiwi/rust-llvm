@@ -704,8 +704,7 @@ mod raw {
         pub fn llvm_IRBuilderBase_SetInstDebugLocation(inst: *const super::llvm_IRBuilderBase, Inst: *mut super::llvm_Instruction) -> ::libc::c_void;
         pub fn llvm_FunctionPassManager_add(inst: *mut super::llvm_FunctionPassManager, Pass: *mut super::llvm_FunctionPass) -> ::libc::c_void;
         pub fn llvm_PassManager_add(inst: *mut super::llvm_PassManager, Pass: *mut super::llvm_Pass) -> ::libc::c_void;
-        pub fn llvm_Function_addFnAttr(inst: *mut super::llvm_Function, Kind: super::llvm_StringRef) -> ::libc::c_void;
-        pub fn llvm_Function_addFnAttrWithValue(inst: *mut super::llvm_Function, Kind: super::llvm_StringRef, Val: super::llvm_StringRef) -> ::libc::c_void;
+        pub fn llvm_Function_addFnAttr(inst: *mut super::llvm_Function, Kind: super::llvm_StringRef, Val: super::llvm_StringRef) -> ::libc::c_void;
         pub fn llvm_Module_appendModuleInlineAsm(inst: *mut super::llvm_Module, Asm: super::llvm_StringRef) -> ::libc::c_void;
         pub fn llvm_Constant_canTrap(inst: *const super::llvm_Constant) -> ::libc::c_int;
         pub fn llvm_Function_cannotDuplicate(inst: *const super::llvm_Function) -> ::libc::c_int;
@@ -1940,14 +1939,8 @@ pub mod llvm {
 
     // ::llvm::Function::addFnAttr
     #[inline(always)]
-    pub unsafe fn Function_addFnAttr(inst: *mut super::llvm_Function, Kind: super::llvm_StringRef) -> ::libc::c_void {
-        raw::llvm_Function_addFnAttr(inst, Kind)
-    }
-
-    // ::llvm::Function::addFnAttrWithValue
-    #[inline(always)]
-    pub unsafe fn Function_addFnAttrWithValue(inst: *mut super::llvm_Function, Kind: super::llvm_StringRef, Val: super::llvm_StringRef) -> ::libc::c_void {
-        raw::llvm_Function_addFnAttrWithValue(inst, Kind, Val)
+    pub unsafe fn Function_addFnAttr(inst: *mut super::llvm_Function, Kind: super::llvm_StringRef, Val: super::llvm_StringRef) -> ::libc::c_void {
+        raw::llvm_Function_addFnAttr(inst, Kind, Val)
     }
 
     // ::llvm::Function::cannotDuplicate
