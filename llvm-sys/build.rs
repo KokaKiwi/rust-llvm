@@ -1,13 +1,13 @@
-#![allow(unstable)]
+#![feature(env)]
 extern crate "llvm-config" as llvm_config;
 extern crate gxx;
 
 use std::default::Default;
-use std::os;
+use std::env;
 
 fn main() {
-    let static_link: bool = os::getenv("LLVM_STATIC_LINK")
-                            .and_then(|value| value.parse())
+    let static_link: bool = env::var("LLVM_STATIC_LINK").ok()
+                            .and_then(|value| value.parse().ok())
                             .unwrap_or(false);
 
     // Build library

@@ -1,3 +1,4 @@
+#![unstable]
 #![feature(io, path, env)]
 use std::old_io as io;
 use std::default::Default;

@@ -1,3 +1,4 @@
+#![unstable]
 #![feature(io, path, env)]
 use std::env;
 use std::old_io::Command;

@@ -1,5 +1,5 @@
-#![experimental]
-#![allow(unstable)]
+#![unstable]
+#![feature(core, libc)]
 
 extern crate core;
 extern crate libc;
