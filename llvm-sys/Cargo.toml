@@ -9,6 +9,8 @@ build = "build.rs"
 
 [build-dependencies.gxx]
 path = "../gxx"
+version = "0.0.1"
 
 [build-dependencies.llvm-config]
 path = "../llvm-config"
+version = "0.0.1"
