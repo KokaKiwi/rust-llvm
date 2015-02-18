@@ -1,15 +1,15 @@
 #![allow(unstable)]
-use std::io::Command;
-use std::io::process::ProcessExit;
+use std::process::Command;
+use std::process::ExitStatus;
 use std::os;
 
 pub fn llvm_config(args: &[&str]) -> String {
     let llvm_config = os::getenv("LLVM_CONFIG").unwrap_or("llvm-config".to_string());
 
-    let mut cmd = Command::new(llvm_config);
+    let mut cmd = Command::new(&llvm_config);
     cmd.args(args);
 
-    let (output, _, _) = run(&cmd);
+    let (output, _, _) = run(&mut cmd);
     output
 }
 
@@ -59,14 +59,14 @@ fn split(s: &str) -> Vec<&str> {
     s.split(is_sep).collect()
 }
 
-fn run(cmd: &Command) -> (String, String, ProcessExit) {
+fn run(cmd: &mut Command) -> (String, String, ExitStatus) {
     let mut process = cmd.spawn().unwrap();
 
     let status = process.wait().unwrap();
     let output = process.wait_with_output().unwrap();
 
-    let stdout = String::from_utf8(output.output).unwrap();
-    let stderr = String::from_utf8(output.error).unwrap();
+    let stdout = String::from_utf8(output.stdout).unwrap();
+    let stderr = String::from_utf8(output.stderr).unwrap();
 
     if !status.success() {
         panic!("nonzero exit status: {}", status);
