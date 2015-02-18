@@ -1,10 +1,10 @@
-#![allow(unstable)]
-use std::io::Command;
-use std::io::process::ProcessExit;
-use std::os;
+#![feature(io, path, env)]
+use std::env;
+use std::old_io::Command;
+use std::old_io::process::ProcessExit;
 
 pub fn llvm_config(args: &[&str]) -> String {
-    let llvm_config = os::getenv("LLVM_CONFIG").unwrap_or("llvm-config".to_string());
+    let llvm_config = env::var("LLVM_CONFIG").unwrap_or("llvm-config".to_string());
 
     let mut cmd = Command::new(llvm_config);
     cmd.args(args);

@@ -1,8 +1,9 @@
-#![allow(unstable)]
+#![feature(io, path, env)]
+use std::old_io as io;
 use std::default::Default;
-use std::io::Command;
-use std::io::process::ProcessExit;
-use std::os;
+use std::env;
+use std::old_io::Command;
+use std::old_io::process::ProcessExit;
 
 pub struct Config {
     pub include_dirs: Vec<Path>,
@@ -23,11 +24,11 @@ impl Default for Config {
 pub fn compile_library(name: &str, config: &Config, sources: &[&str]) {
     let output = format!("lib{}.a", name);
 
-    let opt_level = os::getenv("OPT_LEVEL").unwrap();
-    let gxx = os::getenv("CXX").unwrap_or("g++".to_string());
-    let ar = os::getenv("AR").unwrap_or("ar".to_string());
-    let root_dir = Path::new(os::getenv("CARGO_MANIFEST_DIR").unwrap());
-    let out_dir = Path::new(os::getenv("OUT_DIR").unwrap());
+    let opt_level = env::var("OPT_LEVEL").unwrap();
+    let gxx = env::var("CXX").unwrap_or("g++".to_string());
+    let ar = env::var("AR").unwrap_or("ar".to_string());
+    let root_dir = Path::new(env::var("CARGO_MANIFEST_DIR").unwrap());
+    let out_dir = Path::new(env::var("OUT_DIR").unwrap());
 
     let mut cmd = Command::new(gxx);
     cmd.arg(format!("-O{}", opt_level));
@@ -50,7 +51,7 @@ pub fn compile_library(name: &str, config: &Config, sources: &[&str]) {
     let mut objects = Vec::new();
     for source in sources.iter() {
         let object = out_dir.join(*source).with_extension("o");
-        ::std::io::fs::mkdir_recursive(&object.dir_path(), ::std::io::USER_RWX).unwrap();
+        io::fs::mkdir_recursive(&object.dir_path(), io::USER_RWX).unwrap();
         run(cmd.clone().arg(root_dir.join(*source)).arg("-o").arg(&object));
 
         objects.push(object);
@@ -65,7 +66,7 @@ pub fn compile_library(name: &str, config: &Config, sources: &[&str]) {
 }
 
 fn run(cmd: &Command) -> (String, String, ProcessExit) {
-    println!("running: {}", cmd);
+    println!("running: {:?}", cmd);
 
     let mut process = cmd.spawn().unwrap();
 
