@@ -53,9 +53,9 @@ pub fn compile_library(name: &str, config: &Config, sources: &[&str]) {
 
         let object = out_dir.join(*source).with_extension("o");
         ::std::fs::create_dir_all(&object.dir_path());
-        let mut perms = ::std::fs::metadata(&object.dir_path()).unwrap().permissions();
-        perms.set_mode(0x777);
-        ::std::fs::set_permissions(&object.dir_path(), perms).unwrap();
+        //let mut perms = ::std::fs::metadata(&object.dir_path()).unwrap().permissions();
+        //perms.set_mode(0x777);
+        //::std::fs::set_permissions(&object.dir_path(), perms).unwrap();
         
         run(cmd.arg(&root_dir.join(*source)).arg("-o").arg(&object));
 
