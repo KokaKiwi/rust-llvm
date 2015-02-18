@@ -50,8 +50,7 @@ pub fn link_dirs() -> Vec<Path> {
 pub fn cxxflags() -> Vec<String> {
     let flags_str = llvm_config(&["--cxxflags"]);
     let flags = split(&flags_str[]);
-
-    flags.into_iter().map(|flag| flag.to_string()).collect()
+    flags.into_iter().filter(|&e| e != "").map(|flag| flag.to_string()).collect()
 }
 
 fn split(s: &str) -> Vec<&str> {
@@ -60,14 +59,12 @@ fn split(s: &str) -> Vec<&str> {
 }
 
 fn run(cmd: &mut Command) -> (String, String, ExitStatus) {
-    let mut process = cmd.spawn().unwrap();
 
-    let status = process.wait().unwrap();
-    let output = process.wait_with_output().unwrap();
+    let output = cmd.output().unwrap();
 
     let stdout = String::from_utf8(output.stdout).unwrap();
     let stderr = String::from_utf8(output.stderr).unwrap();
-
+    let status = output.status;
     if !status.success() {
         panic!("nonzero exit status: {}", status);
     }

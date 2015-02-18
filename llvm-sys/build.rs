@@ -7,8 +7,8 @@ use std::os;
 
 fn main() {
     let static_link: bool = os::getenv("LLVM_STATIC_LINK")
-                            .and_then(|value| value.parse())
-                            .unwrap_or(false);
+        .and_then(|value| value.parse().ok())
+        .unwrap_or(false);
 
     // Build library
     let mut config: gxx::Config = Default::default();
