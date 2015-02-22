@@ -1,10 +1,11 @@
 #![unstable]
-#![feature(io, path, env)]
-use std::old_io as io;
+#![feature(fs, old_path, process, env)]
 use std::default::Default;
 use std::env;
-use std::old_io::Command;
-use std::old_io::process::ProcessExit;
+use std::process::Command;
+use std::process::ExitStatus;
+// XXX_ How to set permissions the portable way
+// use std::os::unix::prelude::PermissionsExt;
 
 pub struct Config {
     pub include_dirs: Vec<Path>,
@@ -31,8 +32,9 @@ pub fn compile_library(name: &str, config: &Config, sources: &[&str]) {
     let root_dir = Path::new(env::var("CARGO_MANIFEST_DIR").unwrap());
     let out_dir = Path::new(env::var("OUT_DIR").unwrap());
 
-    let mut cmd = Command::new(gxx);
-    cmd.arg(format!("-O{}", opt_level));
+    let mut cmd = Command::new(&gxx);
+
+    cmd.arg(&format!("-O{}", opt_level));
     cmd.args(&["-c", "-ffunction-sections", "-fdata-sections"]);
 
     for include_dir in config.include_dirs.iter() {
@@ -41,32 +43,34 @@ pub fn compile_library(name: &str, config: &Config, sources: &[&str]) {
 
     for &(ref key, ref value) in config.definitions.iter() {
         if let &Some(ref value) = value {
-            cmd.arg(format!("-D{}={}", key, value));
+            cmd.arg(&format!("-D{}={}", key, value));
         } else {
-            cmd.arg(format!("-D{}", key));
+            cmd.arg(&format!("-D{}", key));
         }
     }
 
-    cmd.args(&config.flags[]);
+    cmd.args(&config.flags);
 
     let mut objects = Vec::new();
     for source in sources.iter() {
+
         let object = out_dir.join(*source).with_extension("o");
-        io::fs::mkdir_recursive(&object.dir_path(), io::USER_RWX).unwrap();
-        run(cmd.clone().arg(root_dir.join(*source)).arg("-o").arg(&object));
+        ::std::fs::create_dir_all(&object.dir_path()).unwrap();
+
+        run(cmd.arg(&root_dir.join(*source)).arg("-o").arg(&object));
 
         objects.push(object);
     }
 
-    run(Command::new(ar)
+    run(Command::new(&ar)
         .arg("crus")
-        .arg(out_dir.join(output))
-        .args(&objects[]));
+        .arg(&out_dir.join(output))
+        .args(&objects));
 
     println!("cargo:rustc-flags=-L native={} -l {}:static", out_dir.display(), name);
 }
 
-fn run(cmd: &Command) -> (String, String, ProcessExit) {
+fn run(cmd: &mut Command) -> (String, String, ExitStatus) {
     println!("running: {:?}", cmd);
 
     let mut process = cmd.spawn().unwrap();
@@ -74,8 +78,8 @@ fn run(cmd: &Command) -> (String, String, ProcessExit) {
     let status = process.wait().unwrap();
     let output = process.wait_with_output().unwrap();
 
-    let stdout = String::from_utf8(output.output).unwrap();
-    let stderr = String::from_utf8(output.error).unwrap();
+    let stdout = String::from_utf8(output.stdout).unwrap();
+    let stderr = String::from_utf8(output.stderr).unwrap();
 
     if !status.success() {
         panic!("nonzero exit status: {}\n{}", status, stderr);
