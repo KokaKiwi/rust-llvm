@@ -12,3 +12,8 @@ Warning
 =======
 
 The library is actuable unusable, as the bindings is not complete, and the API will change to a better design.
+
+Building
+========
+
+LLVM_CONFIG=llvm-config-3.5 cargo build
