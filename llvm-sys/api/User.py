@@ -1,7 +1,4 @@
-from bindgen.ast.objects import *
-from bindgen.ast.utils import submodpath, copymodpath
-from .ns import llvm
-from .defs import *
+from .prelude import *
 
 @User.body
 class User:
@@ -33,6 +30,4 @@ class Use:
 
 @Operator.body
 class Operator:
-    _includes_ = ['llvm/IR/Operator.h']
-
     getOpcode = Method(UnsignedInt, const=True)

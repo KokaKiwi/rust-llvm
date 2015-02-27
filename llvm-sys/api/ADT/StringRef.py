@@ -1,66 +1,130 @@
-from bindgen.ast.objects import *
+from bindgen.ast import *
+from bindgen.gen.c import CBindingGenerator
+from bindgen.gen.c.gen.ty import CTypeGenerator, TypeConvert
+from bindgen.gen.c.gen.ty import ENTRY as C_TYPE_ENTRY
+from bindgen.gen.rust import RustBindingGenerator
+from bindgen.gen.rust.ffi.gen.ty import RustFFITypeGenerator
+from bindgen.gen.rust.ffi.gen.ty import ENTRY as RUST_FFI_TYPE_ENTRY
+from bindgen.gen.registry import register
 from ..ns import llvm
 
+
 @llvm.body
-class llvm_body:
-    _includes_ = ['llvm/ADT/StringRef.h', 'llvm/ADT/Twine.h']
+class llvm:
+    _includes_ = {
+        'llvm/ADT/StringRef.h',
+        'llvm/ADT/Twine.h',
+    }
 
-class _StringRef(ConvertibleType):
-    def write_def(self, lang, writer):
-        if lang == 'rust':
-            writer.attr('repr', ['C'])
-            writer.attr('allow', ['raw_pointer_derive'])
 
-        writer.struct(members=[
-            (ptr(Char, const=True).ffi_name(lang), 'data'),
-            (SizeTy.ffi_name(lang), 'length'),
-        ], name=self.flat_name())
+class StringRefCTypeGenerator(CTypeGenerator):
 
-        if lang == 'rust':
-            writer.writeln('impl Copy for %s {}' % (self.flat_name()))
+    def generate_def(self, writer):
+        data_tygen = self.typegen(self.data_type)
 
-    def flat_name(self):
+        struct_def = writer.gen.struct_def([
+            (data_tygen.ffi_name, 'data'),
+            ('size_t', 'length'),
+        ])
+        writer.typedef(self.ffi_name, struct_def)
+
+    @property
+    def data_type(self):
+        from bindgen.ast import Pointer, Char
+        return Pointer(Char, const=True)
+
+    @property
+    def cpp_name(self):
+        return 'llvm::StringRef'
+
+    @property
+    def ffi_name(self):
         return 'llvm_StringRef'
 
-    def ffi_name(self, lang, **kwargs):
-        path = kwargs.get('path', []) + [self.flat_name()]
-        return '::'.join(path)
+    @property
+    def flat_name(self):
+        return self.ffi_name
 
-    def lib_name(self, lang, **kwargs):
-        if lang == 'rust':
-            return '&str'
+    def convert(self, out=False):
+        def convert_in(writer, dest, expr):
+            data = writer.gen.member(expr, 'data')
+            length = writer.gen.member(expr, 'length')
 
-        return super().lib_name(lang, **kwargs)
+            writer.writeln('%s %s(%s, %s);' %
+                           (self.cpp_name, dest, data, length))
 
-    def convert_from_ffi(self, writer, lang, expr, **kwargs):
-        if lang == 'c':
-            args = [writer.gen.member(expr, 'data'), writer.gen.member(expr, 'length')]
-            return writer.gen.call('::llvm::StringRef', args)
-        elif lang == 'rust':
-            data = writer.gen.borrow(writer.gen.member(expr, 'data'))
-            length = writer.gen.cast(writer.gen.member(expr, 'length'), 'usize')
-            slice = writer.gen.call('::core::slice::from_raw_buf', [data, length])
-            slice = writer.gen.call('::core::mem::transmute', [slice])
-            result = writer.gen.call('::core::str::from_utf8_unchecked', [slice])
+        def convert_out(writer, expr):
+            data_meth = writer.gen.member(expr, 'data')
+            data = writer.gen.call(data_meth)
 
-            return result
+            length_meth = writer.gen.member(expr, 'size')
+            length = writer.gen.call(length_meth)
 
-        return super().convert_from_ffi(writer, lang, expr, **kwargs)
-
-    def convert_to_ffi(self, writer, lang, expr, **kwargs):
-        if lang == 'c':
-            members = [
-                ('data', writer.gen.member(expr, writer.gen.call('data'))),
-                ('length', writer.gen.member(expr, writer.gen.call('size'))),
-            ]
-            return writer.gen.init_struct(members)
-        elif lang == 'rust':
-            struct_name = '::ffi::%s' % (self.ffi_name(lang))
-            return writer.gen.init_struct(struct_name, [
-                ('data', writer.gen.cast(writer.gen.call(writer.gen.member(expr, 'as_ptr')), ptr(Char, const=True).ffi_name(lang))),
-                ('length', writer.gen.cast(writer.gen.call(writer.gen.member(expr, 'len')), SizeTy.ffi_name(lang))),
+            return writer.gen.struct_init([
+                ('data', data),
+                ('length', length),
             ])
 
-        return super().convert_to_ffi(writer, lang, expr, **kwargs)
+        if out:
+            return TypeConvert('inline', convert_out)
+        else:
+            return TypeConvert('complex', convert_in)
+
+
+class StringRefRustFFITypeGenerator(RustFFITypeGenerator):
+
+    def generate_def(self, writer):
+        data_tygen = self.typegen(self.data_type)
+        size_tygen = self.typegen(SizeTy)
+
+        writer.writeln()
+        writer.attr('repr(C)')
+        writer.struct_def(self.ffi_name(), [
+            (data_tygen.ffi_name(), 'data', True),
+            (size_tygen.ffi_name(), 'length', True),
+        ], pub=True)
+
+    @property
+    def data_type(self):
+        from bindgen.ast import Pointer, Char
+        return Pointer(Char, const=True)
+
+    def proxy(self, root=[], out=False):
+        from bindgen.gen.rust.ffi.gen.ty import Proxy
+
+        name = self.ffi_name(root) if out else '&str'
+
+        size_ty = self.typegen(SizeTy)
+        size_proxy = size_ty.proxy(root, out=out)
+
+        def convert_in(writer, expr):
+            data = '%s.as_ptr()' % (expr)
+            data = 'unsafe { ::std::mem::transmute(%s) }' % (data)
+
+            length = size_proxy(writer, '%s.len()' % (expr))
+
+            return writer.gen.struct_init(self.ffi_name(root), [
+                ('data', data),
+                ('length', length),
+            ])
+
+        def convert_out(writer, expr):
+            return expr
+
+        return Proxy(name, convert_out if out else convert_in)
+
+    def ffi_name(self, root=[]):
+        name = 'llvm_StringRef'
+        return self.gen_rust_name(root + [name])
+
+    @property
+    def flat_name(self):
+        return self.ffi_name()
+
+
+@register(C_TYPE_ENTRY, CBindingGenerator.LANG, StringRefCTypeGenerator)
+@register(RUST_FFI_TYPE_ENTRY, RustBindingGenerator.LANG, StringRefRustFFITypeGenerator)
+class _StringRef(Type):
+    pass
 
 StringRef = _StringRef()

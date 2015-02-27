@@ -1,20 +1,16 @@
-from bindgen.ast.objects import *
-from bindgen.ast.utils import submodpath
-from .ns import llvm
+from bindgen import ast
+from bindgen.ast import *
+from .ns import llvm, CallingConv
 from .defs import *
 from .ADT.ArrayRef import ArrayRef
 from .ADT.StringRef import StringRef
-
-@llvm.body
-class llvm_body:
-    _includes_ = ['llvm/IR/Instruction.h', 'llvm/IR/Instructions.h']
 
 @Instruction.body
 class Instruction:
     delete = Destructor()
 
     user_back = Method(ptr(Instruction, const=True), const=True)
-    user_back_mut = Method(ptr(Instruction)).with_call_name('user_back')
+    user_back_mut = Method(ptr(Instruction)).with_real_name('user_back')
 
     getDataLayout = Method(ptr(DataLayout, const=True), const=True)
 
@@ -39,7 +35,7 @@ class Instruction:
     hasMetadataOtherThanDebugLoc = Method(Bool, const=True)
 
     dropUnknownMetadata = Method(Void)
-    dropUnknownMetadataFromIDS = Method(Void, (ArrayRef(UnsignedInt), 'KnownIDs')).with_call_name('dropUnknownMetadata')
+    dropUnknownMetadataFromIDS = Method(Void, (ArrayRef(UnsignedInt), 'KnownIDs')).with_real_name('dropUnknownMetadata')
 
     setDebugLoc = Method(Void, (ref(DebugLoc, const=True), 'Loc'))
     getDebugLoc = Method(ref(DebugLoc, const=True), const=True)
@@ -77,12 +73,12 @@ class Instruction:
     isSameOperationAs = Method(Bool, (ptr(Instruction, const=True), 'Inst'), (UnsignedInt, 'flags'), const=True)
 
     getParent = Method(ptr(BasicBlock, const=True), const=True)
-    getParentMut = Method(ptr(BasicBlock)).with_call_name('getParent')
+    getParentMut = Method(ptr(BasicBlock)).with_real_name('getParent')
 
     getMetadata = Method(ptr(MDNode), (UnsignedInt, 'KindID'), const=True)
-    getMetadataStr = Method(ptr(MDNode), (StringRef, 'Kind'), const=True).with_call_name('getMetadata')
+    getMetadataStr = Method(ptr(MDNode), (StringRef, 'Kind'), const=True).with_real_name('getMetadata')
 
     setMetadata = Method(Void, (UnsignedInt, 'KindID'), (ptr(MDNode), 'Node'))
-    setMetadataStr = Method(Void, (StringRef, 'Kind'), (ptr(MDNode), 'Node')).with_call_name('setMetadata')
+    setMetadataStr = Method(Void, (StringRef, 'Kind'), (ptr(MDNode), 'Node')).with_real_name('setMetadata')
 
     isUsedOutsideOfBlock = Method(Bool, (ptr(BasicBlock, const=True), 'BB'), const=True)

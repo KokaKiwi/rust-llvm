@@ -1,22 +1,44 @@
-from bindgen.ast.objects import *
-from bindgen.ast.utils import submodpath, copymodpath
+from bindgen.ast import *
 from .ns import llvm
 
+# Includes
+@llvm.body
+class llvm:
+    _includes_ = {
+        'llvm/Analysis/CallGraphSCCPass.h',
+        'llvm/IR/Constants.h',
+        'llvm/IR/DataLayout.h',
+        'llvm/IR/DerivedTypes.h',
+        'llvm/IR/Instruction.h',
+        'llvm/IR/Instructions.h',
+        'llvm/IR/IRBuilder.h',
+        'llvm/IR/LLVMContext.h',
+        'llvm/IR/Module.h',
+        'llvm/IR/Operator.h',
+        'llvm/IR/Type.h',
+        'llvm/IR/Value.h',
+        'llvm/IR/ValueSymbolTable.h',
+        'llvm/IR/Verifier.h',
+        'llvm/LinkAllPasses.h',
+        'llvm/PassManager.h',
+    }
+
+# Values
 Value = llvm.Class('Value')
-Value.modpath = submodpath(['value'])
 
 BasicBlock = llvm.Class('BasicBlock', Value)
 
-User = llvm.Class('User', Value)
-User.modpath = submodpath(['user'])
+Argument = llvm.Class('Argument', Value)
+InlineAsm = llvm.Class('InlineAsm', Value)
+MDNode = llvm.Class('MDNode', Value)
+MDString = llvm.Class('MDString', Value)
 
+User = llvm.Class('User', Value)
 Use = llvm.Class('Use')
-Use.modpath = copymodpath(User)
 
 Operator = llvm.Class('Operator', User)
-
 Constant = llvm.Class('Constant', User)
-Constant.modpath = submodpath(['constant'])
+Instruction = llvm.Class('Instruction', User)
 
 BlockAddress = llvm.Class('BlockAddress', Constant)
 ConstantAggregateZero = llvm.Class('ConstantAggregateZero', Constant)
@@ -38,22 +60,9 @@ GlobalAlias = llvm.Class('GlobalAlias', GlobalValue)
 GlobalObject = llvm.Class('GlobalObject', GlobalValue)
 
 GlobalVariable = llvm.Class('GlobalVariable', GlobalObject)
-
-DataLayout = llvm.Class('DataLayout')
-
-DebugLoc = llvm.Class('DebugLoc')
-
-CallingConv = llvm.Namespace('CallingConv')
-CallingConv.modpath = submodpath(['calling_conv'])
-
 Function = llvm.Class('Function', GlobalObject)
 
-IRBuilderBase = llvm.Class('IRBuilderBase')
-IRBuilder = llvm.Class('IRBuilder', IRBuilderBase)
-
-Instruction = llvm.Class('Instruction', User)
-Instruction.modpath = submodpath(['inst'])
-
+# Instructions
 AtomicCmpXchgInst = llvm.Class('AtomicCmpXchgInst', Instruction)
 AtomicRMWInst = llvm.Class('AtomicRMWInst', Instruction)
 BinaryOperator = llvm.Class('BinaryOperator', Instruction)
@@ -91,34 +100,22 @@ BitCastInst = llvm.Class('BitCastInst', CastInst)
 FPExtInst = llvm.Class('FPExtInst', CastInst)
 FPToSIInst = llvm.Class('FPToSIInst', CastInst)
 
-LLVMContext = llvm.Class('LLVMContext')
-
-Module = llvm.Class('Module')
-
+# Types
 Type = llvm.Class('Type')
-Type.modpath = submodpath(['ty'])
 
 CompositeType = llvm.Class('CompositeType', Type)
 FunctionType = llvm.Class('FunctionType', Type)
 IntegerType = llvm.Class('IntegerType', Type)
 
 SequentialType = llvm.Class('SequentialType', CompositeType)
-SequentialType.modpath = submodpath(['seq'])
 StructType = llvm.Class('StructType', CompositeType)
 
 ArrayType = llvm.Class('ArrayType', SequentialType)
 PointerType = llvm.Class('PointerType', SequentialType)
 VectorType = llvm.Class('VectorType', SequentialType)
 
-Argument = llvm.Class('Argument', Value)
-InlineAsm = llvm.Class('InlineAsm', Value)
-MDNode = llvm.Class('MDNode', Value)
-MDString = llvm.Class('MDString', Value)
-
-ValueSymbolTable = llvm.Class('ValueSymbolTable')
-
+# Passes
 Pass = llvm.Class('Pass')
-Pass.modpath = submodpath(['pass'])
 
 BasicBlockPass = llvm.Class('BasicBlockPass', Pass)
 CallGraphSCCPass = llvm.Class('CallGraphSCCPass', Pass)
@@ -128,9 +125,17 @@ ModulePass = llvm.Class('ModulePass', Pass)
 RegionPass = llvm.Class('RegionPass', Pass)
 
 FunctionPassManager = llvm.Class('FunctionPassManager')
-FunctionPassManager.modpath = submodpath(['pass'])
 PassManager = llvm.Class('PassManager')
-PassManager.modpath = submodpath(['pass'])
 # PassManagerBuilder = llvm.Class('PassManagerBuilder')
 
-from . import enums
+# IR Builder
+IRBuilderBase = llvm.Class('IRBuilderBase')
+IRBuilder = llvm.Class('IRBuilder', IRBuilderBase)
+IRBuilder.real_name = 'IRBuilder<>'
+
+# Other classes
+DataLayout = llvm.Class('DataLayout')
+DebugLoc = llvm.Class('DebugLoc')
+LLVMContext = llvm.Class('LLVMContext')
+Module = llvm.Class('Module')
+ValueSymbolTable = llvm.Class('ValueSymbolTable')

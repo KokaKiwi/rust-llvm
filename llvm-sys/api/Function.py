@@ -1,19 +1,16 @@
-from bindgen.ast.objects import *
-from bindgen.ast.utils import submodpath
-from .ns import llvm
-from .defs import *
+from .prelude import *
 from .ADT.StringRef import StringRef
 
 @llvm.body
 class llvm_body:
-    verifyFunction = fn(Bool, (ref(Function, const=True), 'Function'))
+    verifyFunction = ast.Function(Bool, (ref(Function, const=True), 'Function'))
 
 @Function.body
 class Function:
     delete = Destructor()
 
     # We panic if this method return null, as it's like a constructor.
-    Create = StaticMethod(ptr(Function, null=Pointer.Null.panic), (ptr(FunctionType), 'Ty'), (GlobalValue.LinkageTypes, 'Linkage'), (OptionString(), 'Name'), (Option(ptr(Module)), 'Module'))
+    Create = StaticMethod(ptr(Function), (ptr(FunctionType), 'Ty'), (GlobalValue['LinkageTypes'], 'Linkage'), (OptionString(), 'Name'), (OptionPointer(Module), 'Module'))
 
     classof = StaticMethod(Bool, (ptr(Value, const=True), 'Val'))
 
@@ -25,11 +22,11 @@ class Function:
     getIntrinsicID = Method(UnsignedInt, const=True)
     isIntrinsic = Method(Bool, const=True)
 
-    getCallingConv = Method(CallingConv.ID, const=True)
-    setCallingConv = Method(Void, (CallingConv.ID, 'CC'))
+    getCallingConv = Method(CallingConv['ID'], const=True)
+    setCallingConv = Method(Void, (CallingConv['ID'], 'CC'))
 
     addFnAttr = Method(Void, (StringRef, 'Kind'), (Option(StringRef, '""'), 'Val'))
-    hasFnAttr = Method(Bool, (StringRef, 'Kind'), const=True).with_call_name('hasFnAttribute')
+    hasFnAttr = Method(Bool, (StringRef, 'Kind'), const=True).with_real_name('hasFnAttribute')
 
     hasGC = Method(Bool, const=True)
     # getGC = Method(ptr(Char, const=True), const=True)
@@ -66,11 +63,11 @@ class Function:
     doesNotCapture = Method(Bool, (UnsignedInt, 'n'), const=True)
     setDoesNotCapture = Method(Void, (UnsignedInt, 'n'))
 
-    doesNotAccessMemoryParam = Method(Bool, (UnsignedInt, 'n'), const=True).with_call_name('doesNotAccessMemory')
-    setDoesNotAccessMemoryParam = Method(Void, (UnsignedInt, 'n')).with_call_name('setDoesNotAccessMemory')
+    doesNotAccessMemoryParam = Method(Bool, (UnsignedInt, 'n'), const=True).with_real_name('doesNotAccessMemory')
+    setDoesNotAccessMemoryParam = Method(Void, (UnsignedInt, 'n')).with_real_name('setDoesNotAccessMemory')
 
-    onlyReadsMemoryParam = Method(Bool, (UnsignedInt, 'n'), const=True).with_call_name('onlyReadsMemory')
-    setOnlyReadsMemoryParam = Method(Void, (UnsignedInt, 'n')).with_call_name('setOnlyReadsMemory')
+    onlyReadsMemoryParam = Method(Bool, (UnsignedInt, 'n'), const=True).with_real_name('onlyReadsMemory')
+    setOnlyReadsMemoryParam = Method(Void, (UnsignedInt, 'n')).with_real_name('setOnlyReadsMemory')
 
     copyAttributesFrom = Method(Void, (ptr(GlobalValue), 'Src'))
 

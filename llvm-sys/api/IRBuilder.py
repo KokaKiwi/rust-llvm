@@ -1,123 +1,14 @@
-from bindgen.ast.objects import *
-from .ns import llvm
+from bindgen import ast
+from bindgen.ast import *
+from .ns import llvm, CallingConv
 from .defs import *
 from .ADT.APInt import APInt
 from .ADT.ArrayRef import ArrayRef
 from .ADT.StringRef import StringRef
-from . import Instruction as inst
-
-class CreateAggregateRet(RawMethod):
-    @property
-    def ffi_function(self):
-        func = Method(ptr(ReturnInst), (ptr(ptr(Value), const=True), 'retVals'), (UnsignedInt, 'N'))
-        func.name = 'CreateAggregateRet'
-        func.parent = self.parent
-
-        return func
-
-    @property
-    def ret_ty(self):
-        return ptr(ReturnInst)
-
-    def generate_c(self, builder, **kwargs):
-        builder.generate_function(self.ffi_function)
-
-    def generate_rust_ffi_decl(self, builder, **kwargs):
-        builder.generate_ffi_function(self.ffi_function)
-
-    def generate_rust_ffi(self, builder, **kwargs):
-        writer = builder.writer
-
-        path = self.namespace.path[1:]
-        super = ['super'] * len(path)
-
-        name = builder.c_name(self.path[-2:])
-        ret_ty = self.ret_ty
-        ret_tyname = ret_ty.ffi_name('rust', path=super)
-        args = [
-            (ptr(self.parent).ffi_name('rust', path=super), 'inst'),
-            ('&[%s]' % (ptr(Value).ffi_name('rust', path=super)), 'values'),
-        ]
-
-        with writer.function(name, ret_tyname, args, unsafe=True):
-            data_ptr = writer.gen.call(writer.gen.member('values', 'as_ptr'))
-            data_len = writer.gen.call(writer.gen.member('values', 'len'))
-            call_args = [
-                'inst',
-                data_ptr,
-                writer.gen.cast(data_len, UnsignedInt.ffi_name('rust')),
-            ]
-
-            call_name = 'raw::%s' % (builder.c_name(self.path))
-            ret = writer.gen.call(call_name, call_args)
-            ret = ret_ty.transform('rust', ret, out=True)
-            writer.expr(ret)
-
-    def generate_rust(self, builder, **kwargs):
-        writer = builder.writer
-        tree = builder.tree
-
-        pub = kwargs.get('pub', False)
-
-        name = builder.camelcase_to_underscore(self.name)
-        ret_tyname = tree.resolve_type(self.ret_ty, impl=True)
-        ret_tyname = 'Option<%s>' % (ret_tyname)
-
-        value_tyname = tree.resolve_type(ptr(Value))
-
-        args = [
-            '&mut self',
-            ('&[&%s]' % (value_tyname), 'values'),
-        ]
-
-        with writer.function(name, ret_tyname, args, pub=pub):
-            with writer.unsafe():
-                # Get self argument
-                self_arg = builder.get_inner(tree, writer, ptr(self.parent), 'self')
-
-                # Get values argument
-                inner = builder.get_inner(tree, writer, ptr(Value), 'ty')
-                values_vec = '%s.iter().map(|&ty| %s).collect()' % ('values', inner)
-                values_arg = 'values_vec'
-                writer.declare_var(values_arg, 'Vec<_>', values_vec)
-                values_ptr = writer.gen.call(writer.gen.member(values_arg, 'as_slice'))
-
-                # Let's call!
-                call_args = [self_arg, values_ptr]
-
-                cls_path = self.path[:-1]
-                ffi_name = '%s_%s' % ('::'.join(cls_path), self.name)
-                ffi_name = '::ffi' + ffi_name
-                call_name = ffi_name
-
-                ret = writer.gen.call(call_name, call_args)
-                ret = self.ret_ty.transform('rustlib', ret, out=True)
-
-                writer.declare_var('ret', init=ret)
-                ret = 'ret'
-
-                builder.check_ptr(self.ret_ty, ret, '::'.join(self.path))
-
-                cls = self.ret_ty.subtype
-                cls_name = tree.resolve_type(cls)
-                from_inner = writer.gen.member(cls_name, 'from_inner', static=True)
-
-                args = [ret]
-                if cls.destructor is not None:
-                    owned = self.ret_ty.owned
-
-                    owned = 'true' if owned else 'false'
-                    args.append(owned)
-                ret = writer.gen.call(from_inner, args)
-
-                writer.expr('Some(%s)' % (ret))
-
 # We assume that pointers returned by IRBuilderBase and subclasses are valid.
 
 @IRBuilderBase.body
 class IRBuilderBase:
-    _includes_ = ['llvm/IR/IRBuilder.h']
-
     new = Constructor((ref(LLVMContext), 'Context'))
 
     getContext = Method(ref(LLVMContext), const=True)
@@ -125,7 +16,7 @@ class IRBuilderBase:
     ClearInsertionPoint = Method()
     GetInsertBlock = Method(sptr(BasicBlock), const=True)
     SetInsertPoint = Method(Void, (ptr(BasicBlock), 'BB'))
-    SetInsertPointAtInst = Method(Void, (ptr(Instruction), 'Inst')).with_call_name('SetInsertPoint')
+    SetInsertPointAtInst = Method(Void, (ptr(Instruction), 'Inst')).with_real_name('SetInsertPoint')
 
     SetCurrentDebugLocation = Method(Void, (ref(DebugLoc, const=True), 'Loc'))
     SetInstDebugLocation = Method(Void, (ptr(Instruction), 'Inst'), const=True)
@@ -172,13 +63,11 @@ class IRBuilderBase:
     CreateMemCpy = Method(sptr(CallInst), (ptr(Value), 'Dst'), (ptr(Value), 'Src'), (ptr(Value), 'Size'), (UnsignedInt, 'Align'), (Option(Bool, 'false'), 'isVolatile'))
     CreateMemMove = Method(sptr(CallInst), (ptr(Value), 'Dst'), (ptr(Value), 'Src'), (ptr(Value), 'Size'), (UnsignedInt, 'Align'), (Option(Bool, 'false'), 'isVolatile'))
 
-    CreateLifetimeStart = Method(sptr(CallInst), (ptr(Value), 'Ptr'), (Option(ptr(ConstantInt)), 'Size'))
-    CreateLifetimeEnd = Method(sptr(CallInst), (ptr(Value), 'Ptr'), (Option(ptr(ConstantInt)), 'Size'))
+    CreateLifetimeStart = Method(sptr(CallInst), (ptr(Value), 'Ptr'), (OptionPointer(ConstantInt), 'Size'))
+    CreateLifetimeEnd = Method(sptr(CallInst), (ptr(Value), 'Ptr'), (OptionPointer(ConstantInt), 'Size'))
 
 @IRBuilder.body
 class IRBuilder:
-    _realname_ = 'IRBuilder<>'
-
     new = Constructor((ref(LLVMContext), 'Context'))
     new_in_block = Constructor((ptr(BasicBlock), 'BB'))
     delete = Destructor()
@@ -187,7 +76,7 @@ class IRBuilder:
 
     CreateRetVoid = Method(sptr(ReturnInst))
     CreateRet = Method(sptr(ReturnInst), (ptr(Value), 'Value'))
-    CreateAggregateRet = CreateAggregateRet()
+    # CreateAggregateRet = CreateAggregateRet()
 
     CreateBr = Method(sptr(BranchInst), (ptr(BasicBlock), 'Dest'))
     CreateCondBr = Method(sptr(BranchInst), (ptr(Value), 'Cond'), (ptr(BasicBlock), 'TrueBlock'), (ptr(BasicBlock), 'FalseBlock'))
@@ -227,24 +116,24 @@ class IRBuilder:
     CreateFRem = Method(sptr(Value), (ptr(Value), 'LHS'), (ptr(Value), 'RHS'), (OptionString(), 'Name'))
 
     CreateShl = Method(sptr(Value), (ptr(Value), 'LHS'), (ptr(Value), 'RHS'), (OptionString(), 'Name'))
-    CreateShlByValue = Method(sptr(Value), (ptr(Value), 'LHS'), (UnsignedInt64, 'RHS'), (OptionString(), 'Name')).with_call_name('CreateShl')
+    CreateShlByValue = Method(sptr(Value), (ptr(Value), 'LHS'), (UnsignedInt64, 'RHS'), (OptionString(), 'Name')).with_real_name('CreateShl')
 
     CreateLShr = Method(sptr(Value), (ptr(Value), 'LHS'), (ptr(Value), 'RHS'), (OptionString(), 'Name'))
-    CreateLShrByValue = Method(sptr(Value), (ptr(Value), 'LHS'), (UnsignedInt64, 'RHS'), (OptionString(), 'Name')).with_call_name('CreateLShr')
+    CreateLShrByValue = Method(sptr(Value), (ptr(Value), 'LHS'), (UnsignedInt64, 'RHS'), (OptionString(), 'Name')).with_real_name('CreateLShr')
 
     CreateAShr = Method(sptr(Value), (ptr(Value), 'LHS'), (ptr(Value), 'RHS'), (OptionString(), 'Name'))
-    CreateAShrByValue = Method(sptr(Value), (ptr(Value), 'LHS'), (UnsignedInt64, 'RHS'), (OptionString(), 'Name')).with_call_name('CreateAShr')
+    CreateAShrByValue = Method(sptr(Value), (ptr(Value), 'LHS'), (UnsignedInt64, 'RHS'), (OptionString(), 'Name')).with_real_name('CreateAShr')
 
     CreateAnd = Method(sptr(Value), (ptr(Value), 'LHS'), (ptr(Value), 'RHS'), (OptionString(), 'Name'))
-    CreateAndByValue = Method(sptr(Value), (ptr(Value), 'LHS'), (UnsignedInt64, 'RHS'), (OptionString(), 'Name')).with_call_name('CreateAnd')
+    CreateAndByValue = Method(sptr(Value), (ptr(Value), 'LHS'), (UnsignedInt64, 'RHS'), (OptionString(), 'Name')).with_real_name('CreateAnd')
 
     CreateOr = Method(sptr(Value), (ptr(Value), 'LHS'), (ptr(Value), 'RHS'), (OptionString(), 'Name'))
-    CreateOrByValue = Method(sptr(Value), (ptr(Value), 'LHS'), (UnsignedInt64, 'RHS'), (OptionString(), 'Name')).with_call_name('CreateOr')
+    CreateOrByValue = Method(sptr(Value), (ptr(Value), 'LHS'), (UnsignedInt64, 'RHS'), (OptionString(), 'Name')).with_real_name('CreateOr')
 
     CreateXor = Method(sptr(Value), (ptr(Value), 'LHS'), (ptr(Value), 'RHS'), (OptionString(), 'Name'))
-    CreateXorByValue = Method(sptr(Value), (ptr(Value), 'LHS'), (UnsignedInt64, 'RHS'), (OptionString(), 'Name')).with_call_name('CreateXor')
+    CreateXorByValue = Method(sptr(Value), (ptr(Value), 'LHS'), (UnsignedInt64, 'RHS'), (OptionString(), 'Name')).with_real_name('CreateXor')
 
-    CreateBinOp = Method(sptr(Value), (Instruction.BinaryOps, 'Opcode'), (ptr(Value), 'LHS'), (ptr(Value), 'RHS'), (OptionString(), 'Name'))
+    CreateBinOp = Method(sptr(Value), (Instruction['BinaryOps'], 'Opcode'), (ptr(Value), 'LHS'), (ptr(Value), 'RHS'), (OptionString(), 'Name'))
 
     CreateNeg = Method(sptr(Value), (ptr(Value), 'Value'), (OptionString(), 'Name'))
     CreateNSWNeg = Method(sptr(Value), (ptr(Value), 'Value'), (OptionString(), 'Name'))
@@ -253,17 +142,17 @@ class IRBuilder:
 
     CreateNot = Method(sptr(Value), (ptr(Value), 'Value'), (OptionString(), 'Name'))
 
-    CreateAlloca = Method(sptr(AllocaInst), (ptr(Type), 'Ty'), (Option(ptr(Value)), 'ArraySize'), (OptionString(), 'Name'))
+    CreateAlloca = Method(sptr(AllocaInst), (ptr(Type), 'Ty'), (OptionPointer(Value), 'ArraySize'), (OptionString(), 'Name'))
 
     CreateLoad = Method(sptr(LoadInst), (ptr(Value), 'Ptr'), (OptionString(), 'Name'))
-    CreateLoadVolatile = Method(sptr(LoadInst), (ptr(Value), 'Ptr'), (Bool, 'isVolatile'), (OptionString(), 'Name')).with_call_name('CreateLoad')
+    CreateLoadVolatile = Method(sptr(LoadInst), (ptr(Value), 'Ptr'), (Bool, 'isVolatile'), (OptionString(), 'Name')).with_real_name('CreateLoad')
     CreateStore = Method(sptr(StoreInst), (ptr(Value), 'Value'), (ptr(Value), 'Ptr'), (Option(Bool, 'false'), 'isVolatile'))
 
     CreateAlignedLoad = Method(sptr(LoadInst), (ptr(Value), 'Ptr'), (UnsignedInt, 'Align'), (OptionString(), 'Name'))
-    CreateAlignedLoadVolatile = Method(sptr(LoadInst), (ptr(Value), 'Ptr'), (UnsignedInt, 'Align'), (Bool, 'isVolatile'), (OptionString(), 'Name')).with_call_name('CreateAlignedLoad')
+    CreateAlignedLoadVolatile = Method(sptr(LoadInst), (ptr(Value), 'Ptr'), (UnsignedInt, 'Align'), (Bool, 'isVolatile'), (OptionString(), 'Name')).with_real_name('CreateAlignedLoad')
     CreateAlignedStore = Method(sptr(StoreInst), (ptr(Value), 'Value'), (ptr(Value), 'Ptr'), (UnsignedInt, 'Align'), (Option(Bool, 'false'), 'isVolatile'))
 
-    CreateFence = Method(sptr(FenceInst), (llvm.AtomicOrdering, 'Ordering'), (Option(llvm.SynchronizationScope, 'SynchronizationScope::CrossThread'), 'SynchScope'), (OptionString(), 'Name'))
+    CreateFence = Method(sptr(FenceInst), (llvm['AtomicOrdering'], 'Ordering'), (Option(llvm['SynchronizationScope'], 'llvm::SynchronizationScope::CrossThread'), 'SynchScope'), (OptionString(), 'Name'))
 
     # CreateAtomicCmpXchg
     # CreateAtomicRMW
@@ -297,7 +186,7 @@ class IRBuilder:
     CreateSExtOrBitCast = Method(sptr(Value), (ptr(Value), 'Value'), (ptr(Type), 'DestTy'), (OptionString(), 'Name'))
     CreateTruncOrBitCast = Method(sptr(Value), (ptr(Value), 'Value'), (ptr(Type), 'DestTy'), (OptionString(), 'Name'))
 
-    CreateCast = Method(sptr(Value), (Instruction.CastOps, 'Opcode'), (ptr(Value), 'Value'), (ptr(Type), 'DestTy'), (OptionString(), 'Name'))
+    CreateCast = Method(sptr(Value), (Instruction['CastOps'], 'Opcode'), (ptr(Value), 'Value'), (ptr(Type), 'DestTy'), (OptionString(), 'Name'))
     CreatePointerCast = Method(sptr(Value), (ptr(Value), 'Value'), (ptr(Type), 'DestTy'), (OptionString(), 'Name'))
     CreatePointerBitCastOrAddrSpaceCast = Method(sptr(Value), (ptr(Value), 'Value'), (ptr(Type), 'DestTy'), (OptionString(), 'Name'))
     CreateIntCast = Method(sptr(Value), (ptr(Value), 'Value'), (ptr(Type), 'DestTy'), (Bool, 'isSigned'), (OptionString(), 'Name'))
@@ -328,8 +217,8 @@ class IRBuilder:
     CreateFCmpULE = Method(sptr(Value), (ptr(Value), 'LHS'), (ptr(Value), 'RHS'), (OptionString(), 'Name'))
     CreateFCmpUNE = Method(sptr(Value), (ptr(Value), 'LHS'), (ptr(Value), 'RHS'), (OptionString(), 'Name'))
 
-    CreateICmp = Method(sptr(Value), (CmpInst.Predicate, 'Pred'), (ptr(Value), 'LHS'), (ptr(Value), 'RHS'), (OptionString(), 'Name'))
-    CreateFCmp = Method(sptr(Value), (CmpInst.Predicate, 'Pred'), (ptr(Value), 'LHS'), (ptr(Value), 'RHS'), (OptionString(), 'Name'))
+    CreateICmp = Method(sptr(Value), (CmpInst['Predicate'], 'Pred'), (ptr(Value), 'LHS'), (ptr(Value), 'RHS'), (OptionString(), 'Name'))
+    CreateFCmp = Method(sptr(Value), (CmpInst['Predicate'], 'Pred'), (ptr(Value), 'LHS'), (ptr(Value), 'RHS'), (OptionString(), 'Name'))
 
     CreatePHI = Method(sptr(PHINode), (ptr(Type), 'Ty'), (UnsignedInt, 'NumReservedValues'), (OptionString(), 'Name'))
 

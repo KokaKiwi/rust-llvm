@@ -1,12 +1,8 @@
-from bindgen.ast.objects import *
-from .ns import llvm
-from .defs import *
+from .prelude import *
 
 @llvm.body
 class llvm_body:
-    _includes_ = ['llvm/IR/LLVMContext.h']
-
-    getGlobalContext = fn(ref(LLVMContext))
+    getGlobalContext = ast.Function(ref(LLVMContext))
 
 @LLVMContext.body
 class LLVMContext:

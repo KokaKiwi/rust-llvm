@@ -1,12 +1,4 @@
-from bindgen.ast.objects import *
-from bindgen.ast.utils import submodpath, copymodpath
-from .ns import llvm
-from .defs import *
-from .ADT.StringRef import StringRef
-
-@llvm.body
-class llvm_body:
-    _includes_ = ['llvm/PassManager.h']
+from .prelude import *
 
 @FunctionPassManager.body
 class FunctionPassManager:

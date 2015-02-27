@@ -1,25 +1,13 @@
-from bindgen.ast.objects import *
-from bindgen.ast.utils import submodpath
-from .ns import llvm
-from .defs import *
+from .prelude import *
 from .ADT.ArrayRef import ArrayRef
 from .ADT.StringRef import StringRef
 
 @Type.body
 class Type:
-    _includes_ = ['llvm/IR/Type.h']
-
-    TypeID = Enum(values=[
-        ('VoidTyID', 0), 'HalfTyID', 'FloatTyID', 'DoubleTyID',
-        'X86_FP80TyID', 'FP128TyID', 'PPC_FP128TyID', 'LabelTyID',
-        'MetadataTyID', 'X86_MMXTyID', 'IntegerTyID', 'FunctionTyID',
-        'StructTyID', 'ArrayTyID', 'PointerTyID', 'VectorTyID',
-    ])
-
     getContext = Method(ref(LLVMContext), const=True)
     dump = Method(const=True)
 
-    getTypeID = Method(TypeID, const=True)
+    getTypeID = Method(Type['TypeID'], const=True)
 
     def type_checker():
         return Method(Bool, const=True)
@@ -108,10 +96,6 @@ class Type:
     getPointerAddressSpace = Method(UnsignedInt, const=True)
     getPointerTo = Method(ptr(PointerType), (UnsignedInt, 'idx'))
 
-@llvm.body
-class llvm_body:
-    _includes_ = ['llvm/IR/DerivedTypes.h']
-
 def classof_method():
     return StaticMethod(Bool, (ptr(Type, const=True), 'ty'))
 
@@ -161,7 +145,7 @@ class StructType:
     setName = Method(Void, (StringRef, 'Name'))
 
     setBody = Method(Void, (ArrayRef(ptr(Type)), 'Elements'))
-    setBodyPacked = Method(Void, (ArrayRef(ptr(Type)), 'Elements'), (Bool, 'isPacked')).with_call_name('setBody')
+    setBodyPacked = Method(Void, (ArrayRef(ptr(Type)), 'Elements'), (Bool, 'isPacked')).with_real_name('setBody')
 
     isLayoutIdentical = Method(Bool, (ptr(StructType), 'Other'), const=True)
 
@@ -169,7 +153,7 @@ class StructType:
     getElementType = Method(ptr(Type), (UnsignedInt, 'idx'), const=True)
 
     create = StaticMethod(ptr(StructType), (ref(LLVMContext), 'ctx'), (ArrayRef(ptr(Type)), 'Elements'), (StringRef, 'Name'))
-    createPacked = StaticMethod(ptr(StructType), (ref(LLVMContext), 'ctx'), (ArrayRef(ptr(Type)), 'Elements'), (StringRef, 'Name'), (Bool, 'isPacked')).with_call_name('create')
+    createPacked = StaticMethod(ptr(StructType), (ref(LLVMContext), 'ctx'), (ArrayRef(ptr(Type)), 'Elements'), (StringRef, 'Name'), (Bool, 'isPacked')).with_real_name('create')
 
     isValidElementType = StaticMethod(Bool, (ptr(Type), 'ty'))
 

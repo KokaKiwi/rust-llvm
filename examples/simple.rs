@@ -1,37 +1,39 @@
-#![allow(unstable)]
 extern crate llvm;
 
-use llvm::api;
-use llvm::api::{Module, IRBuilder};
-use llvm::api::ty::{Type, FunctionType};
-use llvm::api::value::{BasicBlock};
-use llvm::traits::*;
+use llvm::ffi;
 
-fn create_main_fntype<Ctx: LLVMContextObj>(ctx: &mut Ctx) -> FunctionType {
-    let mut ret_ty = Type::get_int32_ty(ctx).unwrap();
+macro_rules! cast(
+    ($expr:expr) => ($expr as *mut _)
+);
 
-    let arg_tys = [
-        &Type::get_int32_ty(ctx).unwrap() as &TypeObj,
-        &Type::get_int8_ptr_ty(ctx).unwrap() as &TypeObj,
-    ];
-
-    FunctionType::get(&mut ret_ty, &arg_tys, false).unwrap()
-}
+macro_rules! objects(
+    ($($elem:expr),+) => ([$(cast!($elem)),+])
+);
 
 fn main() {
-    let mut ctx = api::get_global_context();
-    let mut m = Module::new("simple", &mut ctx);
+    let ctx = ffi::llvm_getGlobalContext();
+    let module = ffi::llvm_Module_new("simple", ctx);
 
-    let mut main_fn_ty = create_main_fntype(&mut ctx);
-    m.get_or_insert_function("main", &mut main_fn_ty);
-    let mut function = m.get_function("main").unwrap();
+    // Make main function type
+    let ret_ty = ffi::llvm_Type_getInt32Ty(ctx);
 
-    let mut entry = BasicBlock::create(&mut ctx, Some("entry"), Some(&mut function), None::<&mut BasicBlock>);
+    let argc_ty = ffi::llvm_Type_getInt32Ty(ctx);
+    let argv_ty = ffi::llvm_Type_getInt8PtrTy(ctx);
 
-    let mut builder = IRBuilder::new(&mut ctx);
-    builder.set_insert_point(&mut entry);
+    let main_fn_args = objects![argc_ty, argv_ty];
+    let main_fn_ty = ffi::llvm_FunctionType_get(ret_ty as *mut _, &main_fn_args, false);
 
-    builder.create_ret_void();
+    let main_fn = ffi::llvm_Module_getOrInsertFunction(module, "main", main_fn_ty);
 
-    function.dump();
+    let entry_block = ffi::llvm_BasicBlock_Create(ctx, Some("entry"), Some(main_fn as *mut _), None);
+
+    let builder = ffi::llvm_IRBuilder_new_in_block(entry_block);
+
+    let ret = ffi::llvm_ConstantInt_get(ret_ty, 0);
+    ffi::llvm_IRBuilder_CreateRet(builder, ret as *mut _);
+
+    ffi::llvm_IRBuilder_delete(builder);
+
+    ffi::llvm_Module_dump(module);
+    ffi::llvm_Module_delete(module);
 }

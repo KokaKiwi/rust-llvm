@@ -1,22 +1,8 @@
-from bindgen.ast.objects import *
-from bindgen.ast.utils import submodpath
-from .ns import llvm
-from .defs import *
+from .prelude import *
 from .ADT.StringRef import StringRef
 
 @Value.body
 class Value:
-    _includes_ = ['llvm/IR/Value.h']
-
-    ValueTy = Enum(values=[
-        'ArgumentVal', 'BasicBlockVal', 'FunctionVal', 'GlobalAliasVal',
-        'GlobalVariableVal', 'UndefValueVal', 'BlockAddressVal', 'ConstantExprVal',
-        'ConstantAggregateZeroVal', 'ConstantDataArrayVal', 'ConstantDataVectorVal', 'ConstantIntVal',
-        'ConstantFPVal', 'ConstantArrayVal', 'ConstantStructVal', 'ConstantVectorVal',
-        'ConstantPointerNullVal', 'MetadataAsValueVal', 'InlineAsmVal', 'InstructionVal',
-        ('ConstantFirstVal', 'FunctionVal'), ('ConstantLastVal', 'ConstantPointerNullVal'),
-    ])
-
     delete = Destructor()
 
     dump = Method(const=True)

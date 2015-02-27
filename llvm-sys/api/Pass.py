@@ -1,7 +1,4 @@
-from bindgen.ast.objects import *
-from bindgen.ast.utils import submodpath, copymodpath
-from .ns import llvm
-from .defs import *
+from .prelude import *
 
 AnalysisID = ptr(Void, const=True)
 
@@ -9,7 +6,7 @@ AnalysisID = ptr(Void, const=True)
 class Pass:
     delete = Destructor()
 
-    getPassKind = Method(llvm.PassKind, const=True)
+    getPassKind = Method(llvm['PassKind'], const=True)
     # getPassName
     # getPassID = Method(AnalysisID, const=True)
 
@@ -19,15 +16,12 @@ class Pass:
     dump = Method(const=True)
 
 def CreatePassFunction(ty, *args, **kwargs):
-    func = fn(ptr(ty, owned=True), *args, **kwargs)
-    func.modpath = submodpath(['pass'])
+    func = ast.Function(ptr(ty, owned=True), *args, **kwargs)
 
     return func
 
 @llvm.body
 class llvm_body:
-    _includes_ = ['llvm/LinkAllPasses.h']
-
     createGCOVProfilerPass = CreatePassFunction(ModulePass)
     createAddressSanitizerFunctionPass = CreatePassFunction(FunctionPass)
     createAddressSanitizerModulePass = CreatePassFunction(ModulePass)
@@ -46,7 +40,7 @@ class llvm_body:
     createGlobalDCEPass = CreatePassFunction(ModulePass)
     # createGVExtractionPass = CreatePassFunction(ModulePass)
     createFunctionInliningPass = CreatePassFunction(Pass)
-    createFunctionInliningPass.withOptLevel = CreatePassFunction(Pass, (UnsignedInt, 'OptLevel'), (UnsignedInt, 'SizeOptLevel')).with_call_name('createFunctionInliningPass')
+    createFunctionInliningPassWithOptLevel = CreatePassFunction(Pass, (UnsignedInt, 'OptLevel'), (UnsignedInt, 'SizeOptLevel')).with_real_name('createFunctionInliningPass')
     createAlwaysInlinerPass = CreatePassFunction(Pass, (Option(Bool, 'false'), 'InsertLifetime'))
     createPruneEHPass = CreatePassFunction(Pass)
     createInternalizePass = CreatePassFunction(ModulePass)
