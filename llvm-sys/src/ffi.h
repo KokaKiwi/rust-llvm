@@ -855,16 +855,6 @@ typedef struct {
 } llvm_ArrayRef_ptr_llvm_Value;
 
 typedef struct {
-    char* data;
-    size_t length;
-} std_string;
-
-typedef struct {
-    char const* data;
-    size_t length;
-} std_string_const;
-
-typedef struct {
     unsigned int numbits;
     llvm_ArrayRef_uint64 data;
 } llvm_APInt;
@@ -873,6 +863,16 @@ typedef struct {
     char const* data;
     size_t length;
 } llvm_StringRef;
+
+typedef struct {
+    char* data;
+    size_t length;
+} std_string;
+
+typedef struct {
+    char const* data;
+    size_t length;
+} std_string_const;
 
 extern "C"
 llvm_FunctionPass* llvm_createAddDiscriminatorsPass();

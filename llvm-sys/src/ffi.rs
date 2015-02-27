@@ -223,18 +223,6 @@ pub struct llvm_ArrayRef_ptr_llvm_Value {
 }
 
 #[repr(C)]
-pub struct std_string {
-    pub data: *mut libc::c_char,
-    pub length: libc::size_t,
-}
-
-#[repr(C)]
-pub struct std_string_const {
-    pub data: *const libc::c_char,
-    pub length: libc::size_t,
-}
-
-#[repr(C)]
 pub struct llvm_APInt {
     pub numbits: libc::c_uint,
     pub data: llvm_ArrayRef_uint64,
@@ -242,6 +230,18 @@ pub struct llvm_APInt {
 
 #[repr(C)]
 pub struct llvm_StringRef {
+    pub data: *const libc::c_char,
+    pub length: libc::size_t,
+}
+
+#[repr(C)]
+pub struct std_string {
+    pub data: *mut libc::c_char,
+    pub length: libc::size_t,
+}
+
+#[repr(C)]
+pub struct std_string_const {
     pub data: *const libc::c_char,
     pub length: libc::size_t,
 }
