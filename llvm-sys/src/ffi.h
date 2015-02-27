@@ -25,129 +25,15 @@
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
-typedef ::llvm::Value llvm_Value;
+typedef ::llvm::AddrSpaceCastInst llvm_AddrSpaceCastInst;
 #else
-typedef struct {} llvm_Value;
+typedef struct {} llvm_AddrSpaceCastInst;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
-typedef ::llvm::Type llvm_Type;
+typedef ::llvm::AllocaInst llvm_AllocaInst;
 #else
-typedef struct {} llvm_Type;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::LLVMContext llvm_LLVMContext;
-#else
-typedef struct {} llvm_LLVMContext;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::PointerType llvm_PointerType;
-#else
-typedef struct {} llvm_PointerType;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::IntegerType llvm_IntegerType;
-#else
-typedef struct {} llvm_IntegerType;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::BasicBlock llvm_BasicBlock;
-#else
-typedef struct {} llvm_BasicBlock;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::Function llvm_Function;
-#else
-typedef struct {} llvm_Function;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::GlobalValue llvm_GlobalValue;
-#else
-typedef struct {} llvm_GlobalValue;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::Module llvm_Module;
-#else
-typedef struct {} llvm_Module;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::DataLayout llvm_DataLayout;
-#else
-typedef struct {} llvm_DataLayout;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::Constant llvm_Constant;
-#else
-typedef struct {} llvm_Constant;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::Use llvm_Use;
-#else
-typedef struct {} llvm_Use;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::User llvm_User;
-#else
-typedef struct {} llvm_User;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::FunctionType llvm_FunctionType;
-#else
-typedef struct {} llvm_FunctionType;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::StructType llvm_StructType;
-#else
-typedef struct {} llvm_StructType;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::Instruction llvm_Instruction;
-#else
-typedef struct {} llvm_Instruction;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::MDNode llvm_MDNode;
-#else
-typedef struct {} llvm_MDNode;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::DebugLoc llvm_DebugLoc;
-#else
-typedef struct {} llvm_DebugLoc;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::ValueSymbolTable llvm_ValueSymbolTable;
-#else
-typedef struct {} llvm_ValueSymbolTable;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::LandingPadInst llvm_LandingPadInst;
-#else
-typedef struct {} llvm_LandingPadInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::TerminatorInst llvm_TerminatorInst;
-#else
-typedef struct {} llvm_TerminatorInst;
+typedef struct {} llvm_AllocaInst;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
@@ -157,27 +43,93 @@ typedef struct {} llvm_Argument;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
-typedef ::llvm::InlineAsm llvm_InlineAsm;
+typedef ::llvm::ArrayType llvm_ArrayType;
 #else
-typedef struct {} llvm_InlineAsm;
+typedef struct {} llvm_ArrayType;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
-typedef ::llvm::MDString llvm_MDString;
+typedef ::llvm::AtomicCmpXchgInst llvm_AtomicCmpXchgInst;
 #else
-typedef struct {} llvm_MDString;
+typedef struct {} llvm_AtomicCmpXchgInst;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
-typedef ::llvm::Operator llvm_Operator;
+typedef ::llvm::AtomicRMWInst llvm_AtomicRMWInst;
 #else
-typedef struct {} llvm_Operator;
+typedef struct {} llvm_AtomicRMWInst;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::BasicBlock llvm_BasicBlock;
+#else
+typedef struct {} llvm_BasicBlock;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::BasicBlockPass llvm_BasicBlockPass;
+#else
+typedef struct {} llvm_BasicBlockPass;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::BinaryOperator llvm_BinaryOperator;
+#else
+typedef struct {} llvm_BinaryOperator;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::BitCastInst llvm_BitCastInst;
+#else
+typedef struct {} llvm_BitCastInst;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
 typedef ::llvm::BlockAddress llvm_BlockAddress;
 #else
 typedef struct {} llvm_BlockAddress;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::BranchInst llvm_BranchInst;
+#else
+typedef struct {} llvm_BranchInst;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::CallGraphSCCPass llvm_CallGraphSCCPass;
+#else
+typedef struct {} llvm_CallGraphSCCPass;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::CallInst llvm_CallInst;
+#else
+typedef struct {} llvm_CallInst;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::CastInst llvm_CastInst;
+#else
+typedef struct {} llvm_CastInst;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::CmpInst llvm_CmpInst;
+#else
+typedef struct {} llvm_CmpInst;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::CompositeType llvm_CompositeType;
+#else
+typedef struct {} llvm_CompositeType;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::Constant llvm_Constant;
+#else
+typedef struct {} llvm_Constant;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
@@ -193,15 +145,21 @@ typedef struct {} llvm_ConstantArray;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
-typedef ::llvm::ArrayType llvm_ArrayType;
+typedef ::llvm::ConstantDataArray llvm_ConstantDataArray;
 #else
-typedef struct {} llvm_ArrayType;
+typedef struct {} llvm_ConstantDataArray;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
 typedef ::llvm::ConstantDataSequential llvm_ConstantDataSequential;
 #else
 typedef struct {} llvm_ConstantDataSequential;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::ConstantDataVector llvm_ConstantDataVector;
+#else
+typedef struct {} llvm_ConstantDataVector;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
@@ -241,69 +199,15 @@ typedef struct {} llvm_ConstantVector;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
-typedef ::llvm::UndefValue llvm_UndefValue;
+typedef ::llvm::DataLayout llvm_DataLayout;
 #else
-typedef struct {} llvm_UndefValue;
+typedef struct {} llvm_DataLayout;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
-typedef ::llvm::ConstantDataArray llvm_ConstantDataArray;
+typedef ::llvm::DebugLoc llvm_DebugLoc;
 #else
-typedef struct {} llvm_ConstantDataArray;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::ConstantDataVector llvm_ConstantDataVector;
-#else
-typedef struct {} llvm_ConstantDataVector;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::GlobalAlias llvm_GlobalAlias;
-#else
-typedef struct {} llvm_GlobalAlias;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::GlobalObject llvm_GlobalObject;
-#else
-typedef struct {} llvm_GlobalObject;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::GlobalVariable llvm_GlobalVariable;
-#else
-typedef struct {} llvm_GlobalVariable;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::AtomicCmpXchgInst llvm_AtomicCmpXchgInst;
-#else
-typedef struct {} llvm_AtomicCmpXchgInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::AtomicRMWInst llvm_AtomicRMWInst;
-#else
-typedef struct {} llvm_AtomicRMWInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::BinaryOperator llvm_BinaryOperator;
-#else
-typedef struct {} llvm_BinaryOperator;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::CallInst llvm_CallInst;
-#else
-typedef struct {} llvm_CallInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::CmpInst llvm_CmpInst;
-#else
-typedef struct {} llvm_CmpInst;
+typedef struct {} llvm_DebugLoc;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
@@ -313,141 +217,9 @@ typedef struct {} llvm_ExtractElementInst;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
-typedef ::llvm::FenceInst llvm_FenceInst;
-#else
-typedef struct {} llvm_FenceInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::GetElementPtrInst llvm_GetElementPtrInst;
-#else
-typedef struct {} llvm_GetElementPtrInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::InsertElementInst llvm_InsertElementInst;
-#else
-typedef struct {} llvm_InsertElementInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::InsertValueInst llvm_InsertValueInst;
-#else
-typedef struct {} llvm_InsertValueInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::PHINode llvm_PHINode;
-#else
-typedef struct {} llvm_PHINode;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::SelectInst llvm_SelectInst;
-#else
-typedef struct {} llvm_SelectInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::ShuffleVectorInst llvm_ShuffleVectorInst;
-#else
-typedef struct {} llvm_ShuffleVectorInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::StoreInst llvm_StoreInst;
-#else
-typedef struct {} llvm_StoreInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::UnaryInstruction llvm_UnaryInstruction;
-#else
-typedef struct {} llvm_UnaryInstruction;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::BranchInst llvm_BranchInst;
-#else
-typedef struct {} llvm_BranchInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::IndirectBrInst llvm_IndirectBrInst;
-#else
-typedef struct {} llvm_IndirectBrInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::InvokeInst llvm_InvokeInst;
-#else
-typedef struct {} llvm_InvokeInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::ResumeInst llvm_ResumeInst;
-#else
-typedef struct {} llvm_ResumeInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::ReturnInst llvm_ReturnInst;
-#else
-typedef struct {} llvm_ReturnInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::SwitchInst llvm_SwitchInst;
-#else
-typedef struct {} llvm_SwitchInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::UnreachableInst llvm_UnreachableInst;
-#else
-typedef struct {} llvm_UnreachableInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::AllocaInst llvm_AllocaInst;
-#else
-typedef struct {} llvm_AllocaInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::CastInst llvm_CastInst;
-#else
-typedef struct {} llvm_CastInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
 typedef ::llvm::ExtractValueInst llvm_ExtractValueInst;
 #else
 typedef struct {} llvm_ExtractValueInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::LoadInst llvm_LoadInst;
-#else
-typedef struct {} llvm_LoadInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::VAArgInst llvm_VAArgInst;
-#else
-typedef struct {} llvm_VAArgInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::AddrSpaceCastInst llvm_AddrSpaceCastInst;
-#else
-typedef struct {} llvm_AddrSpaceCastInst;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::BitCastInst llvm_BitCastInst;
-#else
-typedef struct {} llvm_BitCastInst;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
@@ -463,39 +235,15 @@ typedef struct {} llvm_FPToSIInst;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
-typedef ::llvm::CompositeType llvm_CompositeType;
+typedef ::llvm::FenceInst llvm_FenceInst;
 #else
-typedef struct {} llvm_CompositeType;
+typedef struct {} llvm_FenceInst;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
-typedef ::llvm::SequentialType llvm_SequentialType;
+typedef ::llvm::Function llvm_Function;
 #else
-typedef struct {} llvm_SequentialType;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::VectorType llvm_VectorType;
-#else
-typedef struct {} llvm_VectorType;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::Pass llvm_Pass;
-#else
-typedef struct {} llvm_Pass;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::BasicBlockPass llvm_BasicBlockPass;
-#else
-typedef struct {} llvm_BasicBlockPass;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::CallGraphSCCPass llvm_CallGraphSCCPass;
-#else
-typedef struct {} llvm_CallGraphSCCPass;
+typedef struct {} llvm_Function;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
@@ -505,33 +253,51 @@ typedef struct {} llvm_FunctionPass;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
-typedef ::llvm::LoopPass llvm_LoopPass;
-#else
-typedef struct {} llvm_LoopPass;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::ModulePass llvm_ModulePass;
-#else
-typedef struct {} llvm_ModulePass;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::RegionPass llvm_RegionPass;
-#else
-typedef struct {} llvm_RegionPass;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
 typedef ::llvm::FunctionPassManager llvm_FunctionPassManager;
 #else
 typedef struct {} llvm_FunctionPassManager;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
-typedef ::llvm::PassManager llvm_PassManager;
+typedef ::llvm::FunctionType llvm_FunctionType;
 #else
-typedef struct {} llvm_PassManager;
+typedef struct {} llvm_FunctionType;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::GetElementPtrInst llvm_GetElementPtrInst;
+#else
+typedef struct {} llvm_GetElementPtrInst;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::GlobalAlias llvm_GlobalAlias;
+#else
+typedef struct {} llvm_GlobalAlias;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::GlobalObject llvm_GlobalObject;
+#else
+typedef struct {} llvm_GlobalObject;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::GlobalValue llvm_GlobalValue;
+#else
+typedef struct {} llvm_GlobalValue;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::GlobalVariable llvm_GlobalVariable;
+#else
+typedef struct {} llvm_GlobalVariable;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::IRBuilder<> llvm_IRBuilder;
+#else
+typedef struct {} llvm_IRBuilder;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
@@ -541,9 +307,302 @@ typedef struct {} llvm_IRBuilderBase;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
-typedef ::llvm::IRBuilder<> llvm_IRBuilder;
+typedef ::llvm::IndirectBrInst llvm_IndirectBrInst;
 #else
-typedef struct {} llvm_IRBuilder;
+typedef struct {} llvm_IndirectBrInst;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::InlineAsm llvm_InlineAsm;
+#else
+typedef struct {} llvm_InlineAsm;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::InsertElementInst llvm_InsertElementInst;
+#else
+typedef struct {} llvm_InsertElementInst;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::InsertValueInst llvm_InsertValueInst;
+#else
+typedef struct {} llvm_InsertValueInst;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::Instruction llvm_Instruction;
+#else
+typedef struct {} llvm_Instruction;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::IntegerType llvm_IntegerType;
+#else
+typedef struct {} llvm_IntegerType;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::InvokeInst llvm_InvokeInst;
+#else
+typedef struct {} llvm_InvokeInst;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::LLVMContext llvm_LLVMContext;
+#else
+typedef struct {} llvm_LLVMContext;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::LandingPadInst llvm_LandingPadInst;
+#else
+typedef struct {} llvm_LandingPadInst;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::LoadInst llvm_LoadInst;
+#else
+typedef struct {} llvm_LoadInst;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::LoopPass llvm_LoopPass;
+#else
+typedef struct {} llvm_LoopPass;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::MDNode llvm_MDNode;
+#else
+typedef struct {} llvm_MDNode;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::MDString llvm_MDString;
+#else
+typedef struct {} llvm_MDString;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::Module llvm_Module;
+#else
+typedef struct {} llvm_Module;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::ModulePass llvm_ModulePass;
+#else
+typedef struct {} llvm_ModulePass;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::Operator llvm_Operator;
+#else
+typedef struct {} llvm_Operator;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::PHINode llvm_PHINode;
+#else
+typedef struct {} llvm_PHINode;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::Pass llvm_Pass;
+#else
+typedef struct {} llvm_Pass;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::PassManager llvm_PassManager;
+#else
+typedef struct {} llvm_PassManager;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::PointerType llvm_PointerType;
+#else
+typedef struct {} llvm_PointerType;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::RegionPass llvm_RegionPass;
+#else
+typedef struct {} llvm_RegionPass;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::ResumeInst llvm_ResumeInst;
+#else
+typedef struct {} llvm_ResumeInst;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::ReturnInst llvm_ReturnInst;
+#else
+typedef struct {} llvm_ReturnInst;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::SelectInst llvm_SelectInst;
+#else
+typedef struct {} llvm_SelectInst;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::SequentialType llvm_SequentialType;
+#else
+typedef struct {} llvm_SequentialType;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::ShuffleVectorInst llvm_ShuffleVectorInst;
+#else
+typedef struct {} llvm_ShuffleVectorInst;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::StoreInst llvm_StoreInst;
+#else
+typedef struct {} llvm_StoreInst;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::StructType llvm_StructType;
+#else
+typedef struct {} llvm_StructType;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::SwitchInst llvm_SwitchInst;
+#else
+typedef struct {} llvm_SwitchInst;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::TerminatorInst llvm_TerminatorInst;
+#else
+typedef struct {} llvm_TerminatorInst;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::Type llvm_Type;
+#else
+typedef struct {} llvm_Type;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::UnaryInstruction llvm_UnaryInstruction;
+#else
+typedef struct {} llvm_UnaryInstruction;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::UndefValue llvm_UndefValue;
+#else
+typedef struct {} llvm_UndefValue;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::UnreachableInst llvm_UnreachableInst;
+#else
+typedef struct {} llvm_UnreachableInst;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::Use llvm_Use;
+#else
+typedef struct {} llvm_Use;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::User llvm_User;
+#else
+typedef struct {} llvm_User;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::VAArgInst llvm_VAArgInst;
+#else
+typedef struct {} llvm_VAArgInst;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::Value llvm_Value;
+#else
+typedef struct {} llvm_Value;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::ValueSymbolTable llvm_ValueSymbolTable;
+#else
+typedef struct {} llvm_ValueSymbolTable;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::VectorType llvm_VectorType;
+#else
+typedef struct {} llvm_VectorType;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::AtomicOrdering llvm_AtomicOrdering;
+#else
+typedef enum {
+    AtomicOrdering_NotAtomic = 0,
+    AtomicOrdering_Unordered = 1,
+    AtomicOrdering_Monotonic = 2,
+    AtomicOrdering_Acquire = 4,
+    AtomicOrdering_Release = 5,
+    AtomicOrdering_AcquireRelease = 6,
+    AtomicOrdering_SequentiallyConsistent = 7,
+} llvm_AtomicOrdering;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::Instruction::BinaryOps llvm_Instruction_BinaryOps;
+#else
+typedef enum {
+    BinaryOps_Add = 8,
+    BinaryOps_FAdd = 9,
+    BinaryOps_Sub = 10,
+    BinaryOps_FSub = 11,
+    BinaryOps_Mul = 12,
+    BinaryOps_FMul = 13,
+    BinaryOps_UDiv = 14,
+    BinaryOps_SDiv = 15,
+    BinaryOps_FDiv = 16,
+    BinaryOps_URem = 17,
+    BinaryOps_SRem = 18,
+    BinaryOps_FRem = 19,
+    BinaryOps_Shl = 20,
+    BinaryOps_LShr = 21,
+    BinaryOps_AShr = 22,
+    BinaryOps_And = 23,
+    BinaryOps_Or = 24,
+    BinaryOps_Xor = 25,
+} llvm_Instruction_BinaryOps;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
+typedef ::llvm::Instruction::CastOps llvm_Instruction_CastOps;
+#else
+typedef enum {
+    CastOps_Trunc = 33,
+    CastOps_ZExt = 34,
+    CastOps_SExt = 35,
+    CastOps_FPToUI = 36,
+    CastOps_FPToSI = 37,
+    CastOps_UIToFP = 38,
+    CastOps_SIToFP = 39,
+    CastOps_FPTrunc = 40,
+    CastOps_FPExt = 41,
+    CastOps_PtrToInt = 42,
+    CastOps_IntToPtr = 43,
+    CastOps_BitCast = 44,
+    CastOps_AddrSpaceCast = 45,
+} llvm_Instruction_CastOps;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
@@ -578,57 +637,6 @@ typedef enum {
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
-typedef ::llvm::Value::ValueTy llvm_Value_ValueTy;
-#else
-typedef enum {
-    ValueTy_ArgumentVal = 0,
-    ValueTy_BasicBlockVal = 1,
-    ValueTy_FunctionVal = 2,
-    ValueTy_GlobalAliasVal = 3,
-    ValueTy_GlobalVariableVal = 4,
-    ValueTy_UndefValueVal = 5,
-    ValueTy_BlockAddressVal = 6,
-    ValueTy_ConstantExprVal = 7,
-    ValueTy_ConstantAggregateZeroVal = 8,
-    ValueTy_ConstantDataArrayVal = 9,
-    ValueTy_ConstantDataVectorVal = 10,
-    ValueTy_ConstantIntVal = 11,
-    ValueTy_ConstantFPVal = 12,
-    ValueTy_ConstantArrayVal = 13,
-    ValueTy_ConstantStructVal = 14,
-    ValueTy_ConstantVectorVal = 15,
-    ValueTy_ConstantPointerNullVal = 16,
-    ValueTy_MetadataAsValueVal = 17,
-    ValueTy_InlineAsmVal = 18,
-    ValueTy_InstructionVal = 19,
-    ValueTy_ConstantFirstVal = ValueTy_FunctionVal,
-    ValueTy_ConstantLastVal = ValueTy_ConstantPointerNullVal,
-} llvm_Value_ValueTy;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::Type::TypeID llvm_Type_TypeID;
-#else
-typedef enum {
-    TypeID_VoidTyID = 0,
-    TypeID_FloatTyID = 1,
-    TypeID_DoubleTyID = 2,
-    TypeID_X86_FP80TyID = 3,
-    TypeID_FP128TyID = 4,
-    TypeID_PPC_FP128TyID = 5,
-    TypeID_LabelTyID = 6,
-    TypeID_MetadataTyID = 7,
-    TypeID_X86_MMXTyID = 8,
-    TypeID_IntegerTyID = 9,
-    TypeID_FunctionTyID = 10,
-    TypeID_StructTyID = 11,
-    TypeID_ArrayTyID = 12,
-    TypeID_PointerTyID = 13,
-    TypeID_VectorTyID = 14,
-} llvm_Type_TypeID;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
 typedef ::llvm::GlobalValue::LinkageTypes llvm_GlobalValue_LinkageTypes;
 #else
 typedef enum {
@@ -646,23 +654,17 @@ typedef enum {
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
-typedef ::llvm::Instruction::CastOps llvm_Instruction_CastOps;
+typedef ::llvm::Instruction::MemoryOps llvm_Instruction_MemoryOps;
 #else
 typedef enum {
-    CastOps_Trunc = 33,
-    CastOps_ZExt = 34,
-    CastOps_SExt = 35,
-    CastOps_FPToUI = 36,
-    CastOps_FPToSI = 37,
-    CastOps_UIToFP = 38,
-    CastOps_SIToFP = 39,
-    CastOps_FPTrunc = 40,
-    CastOps_FPExt = 41,
-    CastOps_PtrToInt = 42,
-    CastOps_IntToPtr = 43,
-    CastOps_BitCast = 44,
-    CastOps_AddrSpaceCast = 45,
-} llvm_Instruction_CastOps;
+    MemoryOps_Alloca = 26,
+    MemoryOps_Load = 27,
+    MemoryOps_Store = 28,
+    MemoryOps_GetElementPtr = 29,
+    MemoryOps_Fence = 30,
+    MemoryOps_AtomicCmpXchg = 31,
+    MemoryOps_AtomicRMW = 32,
+} llvm_Instruction_MemoryOps;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
@@ -687,56 +689,32 @@ typedef enum {
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
-typedef ::llvm::Instruction::MemoryOps llvm_Instruction_MemoryOps;
+typedef ::llvm::PassKind llvm_PassKind;
 #else
 typedef enum {
-    MemoryOps_Alloca = 26,
-    MemoryOps_Load = 27,
-    MemoryOps_Store = 28,
-    MemoryOps_GetElementPtr = 29,
-    MemoryOps_Fence = 30,
-    MemoryOps_AtomicCmpXchg = 31,
-    MemoryOps_AtomicRMW = 32,
-} llvm_Instruction_MemoryOps;
+    PassKind_PT_BasicBlock = 0,
+    PassKind_PT_Region = 1,
+    PassKind_PT_Loop = 2,
+    PassKind_PT_Function = 3,
+    PassKind_PT_CallGraphSCC = 4,
+    PassKind_PT_Module = 5,
+    PassKind_PT_PassManager = 6,
+} llvm_PassKind;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
-typedef ::llvm::Instruction::BinaryOps llvm_Instruction_BinaryOps;
+typedef ::llvm::PassManagerType llvm_PassManagerType;
 #else
 typedef enum {
-    BinaryOps_Add = 8,
-    BinaryOps_FAdd = 9,
-    BinaryOps_Sub = 10,
-    BinaryOps_FSub = 11,
-    BinaryOps_Mul = 12,
-    BinaryOps_FMul = 13,
-    BinaryOps_UDiv = 14,
-    BinaryOps_SDiv = 15,
-    BinaryOps_FDiv = 16,
-    BinaryOps_URem = 17,
-    BinaryOps_SRem = 18,
-    BinaryOps_FRem = 19,
-    BinaryOps_Shl = 20,
-    BinaryOps_LShr = 21,
-    BinaryOps_AShr = 22,
-    BinaryOps_And = 23,
-    BinaryOps_Or = 24,
-    BinaryOps_Xor = 25,
-} llvm_Instruction_BinaryOps;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::Instruction::TermOps llvm_Instruction_TermOps;
-#else
-typedef enum {
-    TermOps_Ret = 1,
-    TermOps_Br = 2,
-    TermOps_Switch = 3,
-    TermOps_IndirectBr = 4,
-    TermOps_Invoke = 5,
-    TermOps_Resume = 6,
-    TermOps_Unreachable = 7,
-} llvm_Instruction_TermOps;
+    PassManagerType_PMT_Unknown = 0,
+    PassManagerType_PMT_ModulePassManager = 1,
+    PassManagerType_PMT_CallGraphPassManager = 2,
+    PassManagerType_PMT_FunctionPassManager = 3,
+    PassManagerType_PMT_LoopPassManager = 4,
+    PassManagerType_PMT_RegionPassManager = 5,
+    PassManagerType_PMT_BasicBlockPassManager = 6,
+    PassManagerType_PMT_Last = 7,
+} llvm_PassManagerType;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
@@ -779,34 +757,6 @@ typedef enum {
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
-typedef ::llvm::PassKind llvm_PassKind;
-#else
-typedef enum {
-    PassKind_PT_BasicBlock = 0,
-    PassKind_PT_Region = 1,
-    PassKind_PT_Loop = 2,
-    PassKind_PT_Function = 3,
-    PassKind_PT_CallGraphSCC = 4,
-    PassKind_PT_Module = 5,
-    PassKind_PT_PassManager = 6,
-} llvm_PassKind;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
-typedef ::llvm::AtomicOrdering llvm_AtomicOrdering;
-#else
-typedef enum {
-    AtomicOrdering_NotAtomic = 0,
-    AtomicOrdering_Unordered = 1,
-    AtomicOrdering_Monotonic = 2,
-    AtomicOrdering_Acquire = 4,
-    AtomicOrdering_Release = 5,
-    AtomicOrdering_AcquireRelease = 6,
-    AtomicOrdering_SequentiallyConsistent = 7,
-} llvm_AtomicOrdering;
-#endif /* __cplusplus */
-
-#ifdef __cplusplus
 typedef ::llvm::SynchronizationScope llvm_SynchronizationScope;
 #else
 typedef enum {
@@ -815,49 +765,74 @@ typedef enum {
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
-typedef ::llvm::PassManagerType llvm_PassManagerType;
+typedef ::llvm::Instruction::TermOps llvm_Instruction_TermOps;
 #else
 typedef enum {
-    PassManagerType_PMT_Unknown = 0,
-    PassManagerType_PMT_ModulePassManager = 1,
-    PassManagerType_PMT_CallGraphPassManager = 2,
-    PassManagerType_PMT_FunctionPassManager = 3,
-    PassManagerType_PMT_LoopPassManager = 4,
-    PassManagerType_PMT_RegionPassManager = 5,
-    PassManagerType_PMT_BasicBlockPassManager = 6,
-    PassManagerType_PMT_Last = 7,
-} llvm_PassManagerType;
+    TermOps_Ret = 1,
+    TermOps_Br = 2,
+    TermOps_Switch = 3,
+    TermOps_IndirectBr = 4,
+    TermOps_Invoke = 5,
+    TermOps_Resume = 6,
+    TermOps_Unreachable = 7,
+} llvm_Instruction_TermOps;
 #endif /* __cplusplus */
 
-typedef struct {
-    char const* data;
-    size_t length;
-} llvm_StringRef;
+#ifdef __cplusplus
+typedef ::llvm::Type::TypeID llvm_Type_TypeID;
+#else
+typedef enum {
+    TypeID_VoidTyID = 0,
+    TypeID_FloatTyID = 1,
+    TypeID_DoubleTyID = 2,
+    TypeID_X86_FP80TyID = 3,
+    TypeID_FP128TyID = 4,
+    TypeID_PPC_FP128TyID = 5,
+    TypeID_LabelTyID = 6,
+    TypeID_MetadataTyID = 7,
+    TypeID_X86_MMXTyID = 8,
+    TypeID_IntegerTyID = 9,
+    TypeID_FunctionTyID = 10,
+    TypeID_StructTyID = 11,
+    TypeID_ArrayTyID = 12,
+    TypeID_PointerTyID = 13,
+    TypeID_VectorTyID = 14,
+} llvm_Type_TypeID;
+#endif /* __cplusplus */
 
-typedef struct {
-    char const* data;
-    size_t length;
-} std_string_const;
+#ifdef __cplusplus
+typedef ::llvm::Value::ValueTy llvm_Value_ValueTy;
+#else
+typedef enum {
+    ValueTy_ArgumentVal = 0,
+    ValueTy_BasicBlockVal = 1,
+    ValueTy_FunctionVal = 2,
+    ValueTy_GlobalAliasVal = 3,
+    ValueTy_GlobalVariableVal = 4,
+    ValueTy_UndefValueVal = 5,
+    ValueTy_BlockAddressVal = 6,
+    ValueTy_ConstantExprVal = 7,
+    ValueTy_ConstantAggregateZeroVal = 8,
+    ValueTy_ConstantDataArrayVal = 9,
+    ValueTy_ConstantDataVectorVal = 10,
+    ValueTy_ConstantIntVal = 11,
+    ValueTy_ConstantFPVal = 12,
+    ValueTy_ConstantArrayVal = 13,
+    ValueTy_ConstantStructVal = 14,
+    ValueTy_ConstantVectorVal = 15,
+    ValueTy_ConstantPointerNullVal = 16,
+    ValueTy_MetadataAsValueVal = 17,
+    ValueTy_InlineAsmVal = 18,
+    ValueTy_InstructionVal = 19,
+    ValueTy_ConstantFirstVal = ValueTy_FunctionVal,
+    ValueTy_ConstantLastVal = ValueTy_ConstantPointerNullVal,
+} llvm_Value_ValueTy;
+#endif /* __cplusplus */
 
 typedef struct {
     uint64_t const* data;
     size_t size;
 } llvm_ArrayRef_uint64;
-
-typedef struct {
-    unsigned int numbits;
-    llvm_ArrayRef_uint64 data;
-} llvm_APInt;
-
-typedef struct {
-    llvm_Type* const* data;
-    size_t size;
-} llvm_ArrayRef_ptr_llvm_Type;
-
-typedef struct {
-    char* data;
-    size_t length;
-} std_string;
 
 typedef struct {
     unsigned int const* data;
@@ -870,9 +845,34 @@ typedef struct {
 } llvm_ArrayRef_ptr_llvm_Constant;
 
 typedef struct {
+    llvm_Type* const* data;
+    size_t size;
+} llvm_ArrayRef_ptr_llvm_Type;
+
+typedef struct {
     llvm_Value* const* data;
     size_t size;
 } llvm_ArrayRef_ptr_llvm_Value;
+
+typedef struct {
+    char* data;
+    size_t length;
+} std_string;
+
+typedef struct {
+    char const* data;
+    size_t length;
+} std_string_const;
+
+typedef struct {
+    unsigned int numbits;
+    llvm_ArrayRef_uint64 data;
+} llvm_APInt;
+
+typedef struct {
+    char const* data;
+    size_t length;
+} llvm_StringRef;
 
 extern "C"
 llvm_FunctionPass* llvm_createAddDiscriminatorsPass();
@@ -953,10 +953,10 @@ extern "C"
 llvm_Pass* llvm_createFunctionAttrsPass();
 
 extern "C"
-llvm_Pass* llvm_createFunctionInliningPassWithOptLevel(unsigned int OptLevel, unsigned int SizeOptLevel);
+llvm_Pass* llvm_createFunctionInliningPass();
 
 extern "C"
-llvm_Pass* llvm_createFunctionInliningPass();
+llvm_Pass* llvm_createFunctionInliningPassWithOptLevel(unsigned int OptLevel, unsigned int SizeOptLevel);
 
 extern "C"
 llvm_ModulePass* llvm_createGCOVProfilerPass();
@@ -1181,28 +1181,28 @@ extern "C"
 llvm_DataLayout const* llvm_BasicBlock_getDataLayout(llvm_BasicBlock const* self);
 
 extern "C"
-llvm_Instruction* llvm_BasicBlock_getFirstNonPHIMut(llvm_BasicBlock* self);
-
-extern "C"
 llvm_Instruction const* llvm_BasicBlock_getFirstNonPHI(llvm_BasicBlock const* self);
 
 extern "C"
-llvm_Instruction* llvm_BasicBlock_getFirstNonPHIOrDbgMut(llvm_BasicBlock* self);
+llvm_Instruction* llvm_BasicBlock_getFirstNonPHIMut(llvm_BasicBlock* self);
 
 extern "C"
 llvm_Instruction const* llvm_BasicBlock_getFirstNonPHIOrDbg(llvm_BasicBlock const* self);
 
 extern "C"
-llvm_Instruction* llvm_BasicBlock_getFirstNonPHIOrDbgOrLifetimeMut(llvm_BasicBlock* self);
+llvm_Instruction* llvm_BasicBlock_getFirstNonPHIOrDbgMut(llvm_BasicBlock* self);
 
 extern "C"
 llvm_Instruction const* llvm_BasicBlock_getFirstNonPHIOrDbgOrLifetime(llvm_BasicBlock const* self);
 
 extern "C"
-llvm_LandingPadInst* llvm_BasicBlock_getLandingPadInstMut(llvm_BasicBlock* self);
+llvm_Instruction* llvm_BasicBlock_getFirstNonPHIOrDbgOrLifetimeMut(llvm_BasicBlock* self);
 
 extern "C"
 llvm_LandingPadInst const* llvm_BasicBlock_getLandingPadInst(llvm_BasicBlock const* self);
+
+extern "C"
+llvm_LandingPadInst* llvm_BasicBlock_getLandingPadInstMut(llvm_BasicBlock* self);
 
 extern "C"
 llvm_Function const* llvm_BasicBlock_getParent(llvm_BasicBlock const* self);
@@ -1223,10 +1223,10 @@ extern "C"
 llvm_TerminatorInst* llvm_BasicBlock_getTerminatorMut(llvm_BasicBlock* self);
 
 extern "C"
-llvm_BasicBlock* llvm_BasicBlock_getUniquePredecessorMut(llvm_BasicBlock* self);
+llvm_BasicBlock const* llvm_BasicBlock_getUniquePredecessor(llvm_BasicBlock const* self);
 
 extern "C"
-llvm_BasicBlock const* llvm_BasicBlock_getUniquePredecessor(llvm_BasicBlock const* self);
+llvm_BasicBlock* llvm_BasicBlock_getUniquePredecessorMut(llvm_BasicBlock* self);
 
 extern "C"
 llvm_ValueSymbolTable* llvm_BasicBlock_getValueSymbolTable(llvm_BasicBlock* self);
@@ -1269,6 +1269,126 @@ llvm_Type* llvm_CompositeType_getTypeAtIndex(llvm_CompositeType* self, unsigned 
 
 extern "C"
 int llvm_CompositeType_indexValid(llvm_CompositeType const* self, unsigned int idx);
+
+extern "C"
+int llvm_ConstantArray_classof(llvm_Value const* V);
+
+extern "C"
+llvm_Constant* llvm_ConstantArray_get(llvm_ArrayType* Ty, llvm_ArrayRef_ptr_llvm_Constant Values);
+
+extern "C"
+llvm_Type* llvm_ConstantArray_getType(llvm_ConstantArray const* self);
+
+extern "C"
+int llvm_ConstantFP_classof(llvm_Value const* V);
+
+extern "C"
+llvm_Constant* llvm_ConstantFP_fromStr(llvm_Type* Ty, llvm_StringRef Val);
+
+extern "C"
+llvm_Constant* llvm_ConstantFP_get(llvm_Type* Ty, double Val);
+
+extern "C"
+llvm_Constant* llvm_ConstantFP_getInfinity(llvm_Type* Ty);
+
+extern "C"
+llvm_Constant* llvm_ConstantFP_getNegativeZero(llvm_Type* Ty);
+
+extern "C"
+llvm_Constant* llvm_ConstantFP_getZeroValueForNegation(llvm_Type* Ty);
+
+extern "C"
+int llvm_ConstantFP_isExactlyValueFloat(llvm_ConstantFP const* self, double Val);
+
+extern "C"
+int llvm_ConstantFP_isNaN(llvm_ConstantFP const* self);
+
+extern "C"
+int llvm_ConstantFP_isNegative(llvm_ConstantFP const* self);
+
+extern "C"
+int llvm_ConstantFP_isZero(llvm_ConstantFP const* self);
+
+extern "C"
+int llvm_ConstantInt_classof(llvm_Value const* Val);
+
+extern "C"
+int llvm_ConstantInt_equalsInt(llvm_ConstantInt const* self, uint64_t Val);
+
+extern "C"
+llvm_ConstantInt* llvm_ConstantInt_fromAPInt(llvm_LLVMContext* Context, llvm_APInt Val);
+
+extern "C"
+llvm_ConstantInt* llvm_ConstantInt_fromStr(llvm_IntegerType* Ty, llvm_StringRef Str, uint8_t radix);
+
+extern "C"
+llvm_ConstantInt* llvm_ConstantInt_get(llvm_IntegerType* Ty, uint64_t Value);
+
+extern "C"
+unsigned int llvm_ConstantInt_getBitWidth(llvm_ConstantInt const* self);
+
+extern "C"
+llvm_Constant* llvm_ConstantInt_getFalse(llvm_Type* Ty);
+
+extern "C"
+llvm_ConstantInt* llvm_ConstantInt_getFalseWithContext(llvm_LLVMContext* Context);
+
+extern "C"
+int64_t llvm_ConstantInt_getSExtValue(llvm_ConstantInt const* self);
+
+extern "C"
+llvm_ConstantInt* llvm_ConstantInt_getSigned(llvm_IntegerType* Ty, uint64_t Value, int isSigned);
+
+extern "C"
+llvm_Constant* llvm_ConstantInt_getTrue(llvm_Type* Ty);
+
+extern "C"
+llvm_ConstantInt* llvm_ConstantInt_getTrueWithContext(llvm_LLVMContext* Context);
+
+extern "C"
+llvm_IntegerType* llvm_ConstantInt_getType(llvm_ConstantInt const* self);
+
+extern "C"
+uint64_t llvm_ConstantInt_getZExtValue(llvm_ConstantInt const* self);
+
+extern "C"
+int llvm_ConstantInt_isMaxValue(llvm_ConstantInt const* self, int isSigned);
+
+extern "C"
+int llvm_ConstantInt_isMinValue(llvm_ConstantInt const* self, int isSigned);
+
+extern "C"
+int llvm_ConstantInt_isMinusOne(llvm_ConstantInt const* self);
+
+extern "C"
+int llvm_ConstantInt_isNegative(llvm_ConstantInt const* self);
+
+extern "C"
+int llvm_ConstantInt_isOne(llvm_ConstantInt const* self);
+
+extern "C"
+int llvm_ConstantInt_isSignedValueValidForType(llvm_Type* Ty, int64_t Val);
+
+extern "C"
+int llvm_ConstantInt_isValueValidForType(llvm_Type* Ty, uint64_t Val);
+
+extern "C"
+int llvm_ConstantInt_isZero(llvm_ConstantInt const* self);
+
+extern "C"
+int llvm_ConstantInt_uge(llvm_ConstantInt const* self, uint64_t Num);
+
+extern "C"
+int llvm_ConstantPointerNull_classof(llvm_Value const* Val);
+
+extern "C"
+void llvm_ConstantPointerNull_destroyConstant(llvm_ConstantPointerNull* self);
+
+extern "C"
+llvm_ConstantPointerNull* llvm_ConstantPointerNull_get(llvm_PointerType* Ty);
+
+extern "C"
+llvm_PointerType* llvm_ConstantPointerNull_getType(llvm_ConstantPointerNull const* self);
 
 extern "C"
 int llvm_Constant_canTrap(llvm_Constant const* self);
@@ -1334,124 +1454,43 @@ extern "C"
 llvm_Constant* llvm_Constant_stripPointerCastsMut(llvm_Constant* self);
 
 extern "C"
-int llvm_ConstantArray_classof(llvm_Value const* V);
+void llvm_FunctionPassManager_add(llvm_FunctionPassManager* self, llvm_FunctionPass* Pass);
 
 extern "C"
-llvm_Constant* llvm_ConstantArray_get(llvm_ArrayType* Ty, llvm_ArrayRef_ptr_llvm_Constant Values);
+int llvm_FunctionPassManager_doFinalization(llvm_FunctionPassManager* self);
 
 extern "C"
-llvm_Type* llvm_ConstantArray_getType(llvm_ConstantArray const* self);
+int llvm_FunctionPassManager_doInitialization(llvm_FunctionPassManager* self);
 
 extern "C"
-int llvm_ConstantFP_classof(llvm_Value const* V);
+llvm_FunctionPassManager* llvm_FunctionPassManager_new(llvm_Module* Module);
 
 extern "C"
-llvm_Constant* llvm_ConstantFP_get(llvm_Type* Ty, double Val);
+void llvm_FunctionPassManager_run(llvm_FunctionPassManager* self, llvm_Function* Function);
 
 extern "C"
-llvm_Constant* llvm_ConstantFP_fromStr(llvm_Type* Ty, llvm_StringRef Val);
+int llvm_FunctionType_classof(llvm_Type const* ty);
 
 extern "C"
-llvm_Constant* llvm_ConstantFP_getInfinity(llvm_Type* Ty);
+llvm_FunctionType* llvm_FunctionType_get(llvm_Type* Result, llvm_ArrayRef_ptr_llvm_Type Params, int isVarArg);
 
 extern "C"
-llvm_Constant* llvm_ConstantFP_getNegativeZero(llvm_Type* Ty);
+unsigned int llvm_FunctionType_getNumParams(llvm_FunctionType const* self);
 
 extern "C"
-llvm_Constant* llvm_ConstantFP_getZeroValueForNegation(llvm_Type* Ty);
+llvm_Type* llvm_FunctionType_getParamType(llvm_FunctionType const* self, unsigned int idx);
 
 extern "C"
-int llvm_ConstantFP_isExactlyValueFloat(llvm_ConstantFP const* self, double Val);
+llvm_Type* llvm_FunctionType_getReturnType(llvm_FunctionType const* self);
 
 extern "C"
-int llvm_ConstantFP_isNaN(llvm_ConstantFP const* self);
+int llvm_FunctionType_isValidArgumentType(llvm_Type* ty);
 
 extern "C"
-int llvm_ConstantFP_isNegative(llvm_ConstantFP const* self);
+int llvm_FunctionType_isValidReturnType(llvm_Type* ty);
 
 extern "C"
-int llvm_ConstantFP_isZero(llvm_ConstantFP const* self);
-
-extern "C"
-int llvm_ConstantInt_classof(llvm_Value const* Val);
-
-extern "C"
-int llvm_ConstantInt_equalsInt(llvm_ConstantInt const* self, uint64_t Val);
-
-extern "C"
-llvm_ConstantInt* llvm_ConstantInt_fromAPInt(llvm_LLVMContext* Context, llvm_APInt Val);
-
-extern "C"
-llvm_ConstantInt* llvm_ConstantInt_get(llvm_IntegerType* Ty, uint64_t Value);
-
-extern "C"
-llvm_ConstantInt* llvm_ConstantInt_fromStr(llvm_IntegerType* Ty, llvm_StringRef Str, uint8_t radix);
-
-extern "C"
-llvm_ConstantInt* llvm_ConstantInt_getSigned(llvm_IntegerType* Ty, uint64_t Value, int isSigned);
-
-extern "C"
-unsigned int llvm_ConstantInt_getBitWidth(llvm_ConstantInt const* self);
-
-extern "C"
-llvm_Constant* llvm_ConstantInt_getFalse(llvm_Type* Ty);
-
-extern "C"
-llvm_ConstantInt* llvm_ConstantInt_getFalseWithContext(llvm_LLVMContext* Context);
-
-extern "C"
-int64_t llvm_ConstantInt_getSExtValue(llvm_ConstantInt const* self);
-
-extern "C"
-llvm_Constant* llvm_ConstantInt_getTrue(llvm_Type* Ty);
-
-extern "C"
-llvm_ConstantInt* llvm_ConstantInt_getTrueWithContext(llvm_LLVMContext* Context);
-
-extern "C"
-llvm_IntegerType* llvm_ConstantInt_getType(llvm_ConstantInt const* self);
-
-extern "C"
-uint64_t llvm_ConstantInt_getZExtValue(llvm_ConstantInt const* self);
-
-extern "C"
-int llvm_ConstantInt_isMaxValue(llvm_ConstantInt const* self, int isSigned);
-
-extern "C"
-int llvm_ConstantInt_isMinValue(llvm_ConstantInt const* self, int isSigned);
-
-extern "C"
-int llvm_ConstantInt_isMinusOne(llvm_ConstantInt const* self);
-
-extern "C"
-int llvm_ConstantInt_isNegative(llvm_ConstantInt const* self);
-
-extern "C"
-int llvm_ConstantInt_isOne(llvm_ConstantInt const* self);
-
-extern "C"
-int llvm_ConstantInt_isValueValidForType(llvm_Type* Ty, uint64_t Val);
-
-extern "C"
-int llvm_ConstantInt_isSignedValueValidForType(llvm_Type* Ty, int64_t Val);
-
-extern "C"
-int llvm_ConstantInt_isZero(llvm_ConstantInt const* self);
-
-extern "C"
-int llvm_ConstantInt_uge(llvm_ConstantInt const* self, uint64_t Num);
-
-extern "C"
-int llvm_ConstantPointerNull_classof(llvm_Value const* Val);
-
-extern "C"
-void llvm_ConstantPointerNull_destroyConstant(llvm_ConstantPointerNull* self);
-
-extern "C"
-llvm_ConstantPointerNull* llvm_ConstantPointerNull_get(llvm_PointerType* Ty);
-
-extern "C"
-llvm_PointerType* llvm_ConstantPointerNull_getType(llvm_ConstantPointerNull const* self);
+int llvm_FunctionType_isVarArg(llvm_FunctionType const* self);
 
 extern "C"
 llvm_Function* llvm_Function_Create(llvm_FunctionType* Ty, llvm_GlobalValue_LinkageTypes Linkage, std_string* Name, llvm_Module** Module);
@@ -1541,10 +1580,10 @@ extern "C"
 int llvm_Function_needsUnwindTableEntry(llvm_Function const* self);
 
 extern "C"
-int llvm_Function_onlyReadsMemoryParam(llvm_Function const* self, unsigned int n);
+int llvm_Function_onlyReadsMemory(llvm_Function const* self);
 
 extern "C"
-int llvm_Function_onlyReadsMemory(llvm_Function const* self);
+int llvm_Function_onlyReadsMemoryParam(llvm_Function const* self, unsigned int n);
 
 extern "C"
 void llvm_Function_removeFromParent(llvm_Function* self);
@@ -1581,45 +1620,6 @@ void llvm_Function_setOnlyReadsMemory(llvm_Function* self);
 
 extern "C"
 void llvm_Function_setOnlyReadsMemoryParam(llvm_Function* self, unsigned int n);
-
-extern "C"
-void llvm_FunctionPassManager_add(llvm_FunctionPassManager* self, llvm_FunctionPass* Pass);
-
-extern "C"
-int llvm_FunctionPassManager_doFinalization(llvm_FunctionPassManager* self);
-
-extern "C"
-int llvm_FunctionPassManager_doInitialization(llvm_FunctionPassManager* self);
-
-extern "C"
-llvm_FunctionPassManager* llvm_FunctionPassManager_new(llvm_Module* Module);
-
-extern "C"
-void llvm_FunctionPassManager_run(llvm_FunctionPassManager* self, llvm_Function* Function);
-
-extern "C"
-int llvm_FunctionType_classof(llvm_Type const* ty);
-
-extern "C"
-llvm_FunctionType* llvm_FunctionType_get(llvm_Type* Result, llvm_ArrayRef_ptr_llvm_Type Params, int isVarArg);
-
-extern "C"
-unsigned int llvm_FunctionType_getNumParams(llvm_FunctionType const* self);
-
-extern "C"
-llvm_Type* llvm_FunctionType_getParamType(llvm_FunctionType const* self, unsigned int idx);
-
-extern "C"
-llvm_Type* llvm_FunctionType_getReturnType(llvm_FunctionType const* self);
-
-extern "C"
-int llvm_FunctionType_isValidArgumentType(llvm_Type* ty);
-
-extern "C"
-int llvm_FunctionType_isValidReturnType(llvm_Type* ty);
-
-extern "C"
-int llvm_FunctionType_isVarArg(llvm_FunctionType const* self);
 
 extern "C"
 void llvm_GlobalObject_setSection(llvm_GlobalObject* self, llvm_StringRef S);
@@ -1781,10 +1781,124 @@ extern "C"
 void llvm_GlobalVariable_setInitializer(llvm_GlobalVariable* self, llvm_Constant* InitVal);
 
 extern "C"
-llvm_Value* llvm_IRBuilder_CreateAShrByValue(llvm_IRBuilder* self, llvm_Value* LHS, uint64_t RHS, std_string* Name);
+void llvm_IRBuilderBase_ClearInsertionPoint(llvm_IRBuilderBase* self);
+
+extern "C"
+llvm_Value* llvm_IRBuilderBase_CreateGlobalString(llvm_IRBuilderBase* self, llvm_StringRef Str, std_string* Name);
+
+extern "C"
+llvm_CallInst* llvm_IRBuilderBase_CreateLifetimeEnd(llvm_IRBuilderBase* self, llvm_Value* Ptr, llvm_ConstantInt** Size);
+
+extern "C"
+llvm_CallInst* llvm_IRBuilderBase_CreateLifetimeStart(llvm_IRBuilderBase* self, llvm_Value* Ptr, llvm_ConstantInt** Size);
+
+extern "C"
+llvm_CallInst* llvm_IRBuilderBase_CreateMemCpy(llvm_IRBuilderBase* self, llvm_Value* Dst, llvm_Value* Src, llvm_Value* Size, unsigned int Align, int* isVolatile);
+
+extern "C"
+llvm_CallInst* llvm_IRBuilderBase_CreateMemMove(llvm_IRBuilderBase* self, llvm_Value* Dst, llvm_Value* Src, llvm_Value* Size, unsigned int Align, int* isVolatile);
+
+extern "C"
+llvm_CallInst* llvm_IRBuilderBase_CreateMemSet(llvm_IRBuilderBase* self, llvm_Value* Ptr, llvm_Value* Value, llvm_Value* Size, unsigned int Align, int* isVolatile);
+
+extern "C"
+llvm_BasicBlock* llvm_IRBuilderBase_GetInsertBlock(llvm_IRBuilderBase const* self);
+
+extern "C"
+void llvm_IRBuilderBase_SetCurrentDebugLocation(llvm_IRBuilderBase* self, llvm_DebugLoc const* Loc);
+
+extern "C"
+void llvm_IRBuilderBase_SetDefaultFPMathTag(llvm_IRBuilderBase* self, llvm_MDNode* FPMathTag);
+
+extern "C"
+void llvm_IRBuilderBase_SetInsertPoint(llvm_IRBuilderBase* self, llvm_BasicBlock* BB);
+
+extern "C"
+void llvm_IRBuilderBase_SetInsertPointAtInst(llvm_IRBuilderBase* self, llvm_Instruction* Inst);
+
+extern "C"
+void llvm_IRBuilderBase_SetInstDebugLocation(llvm_IRBuilderBase const* self, llvm_Instruction* Inst);
+
+extern "C"
+llvm_LLVMContext* llvm_IRBuilderBase_getContext(llvm_IRBuilderBase const* self);
+
+extern "C"
+llvm_Type* llvm_IRBuilderBase_getCurrentFunctionReturnType(llvm_IRBuilderBase const* self);
+
+extern "C"
+llvm_MDNode* llvm_IRBuilderBase_getDefaultFPMathTag(llvm_IRBuilderBase const* self);
+
+extern "C"
+llvm_Type* llvm_IRBuilderBase_getDoubleTy(llvm_IRBuilderBase* self);
+
+extern "C"
+llvm_ConstantInt* llvm_IRBuilderBase_getFalse(llvm_IRBuilderBase* self);
+
+extern "C"
+llvm_Type* llvm_IRBuilderBase_getFloatTy(llvm_IRBuilderBase* self);
+
+extern "C"
+llvm_Type* llvm_IRBuilderBase_getHalfTy(llvm_IRBuilderBase* self);
+
+extern "C"
+llvm_ConstantInt* llvm_IRBuilderBase_getInt(llvm_IRBuilderBase* self, llvm_APInt Value);
+
+extern "C"
+llvm_ConstantInt* llvm_IRBuilderBase_getInt1(llvm_IRBuilderBase* self, int Value);
+
+extern "C"
+llvm_ConstantInt* llvm_IRBuilderBase_getInt16(llvm_IRBuilderBase* self, uint16_t Value);
+
+extern "C"
+llvm_IntegerType* llvm_IRBuilderBase_getInt16Ty(llvm_IRBuilderBase* self);
+
+extern "C"
+llvm_IntegerType* llvm_IRBuilderBase_getInt1Ty(llvm_IRBuilderBase* self);
+
+extern "C"
+llvm_ConstantInt* llvm_IRBuilderBase_getInt32(llvm_IRBuilderBase* self, uint32_t Value);
+
+extern "C"
+llvm_IntegerType* llvm_IRBuilderBase_getInt32Ty(llvm_IRBuilderBase* self);
+
+extern "C"
+llvm_ConstantInt* llvm_IRBuilderBase_getInt64(llvm_IRBuilderBase* self, uint64_t Value);
+
+extern "C"
+llvm_IntegerType* llvm_IRBuilderBase_getInt64Ty(llvm_IRBuilderBase* self);
+
+extern "C"
+llvm_ConstantInt* llvm_IRBuilderBase_getInt8(llvm_IRBuilderBase* self, uint8_t Value);
+
+extern "C"
+llvm_PointerType* llvm_IRBuilderBase_getInt8PtrTy(llvm_IRBuilderBase* self, unsigned int* AddrSpace);
+
+extern "C"
+llvm_IntegerType* llvm_IRBuilderBase_getInt8Ty(llvm_IRBuilderBase* self);
+
+extern "C"
+llvm_ConstantInt* llvm_IRBuilderBase_getIntN(llvm_IRBuilderBase* self, unsigned int NumBits, uint64_t Value);
+
+extern "C"
+llvm_IntegerType* llvm_IRBuilderBase_getIntNTy(llvm_IRBuilderBase* self, unsigned int NumBits);
+
+extern "C"
+llvm_IntegerType* llvm_IRBuilderBase_getIntPtrTy(llvm_IRBuilderBase* self, llvm_DataLayout const* DL, unsigned int* AddrSpace);
+
+extern "C"
+llvm_ConstantInt* llvm_IRBuilderBase_getTrue(llvm_IRBuilderBase* self);
+
+extern "C"
+llvm_Type* llvm_IRBuilderBase_getVoidTy(llvm_IRBuilderBase* self);
+
+extern "C"
+llvm_IRBuilderBase* llvm_IRBuilderBase_new(llvm_LLVMContext* Context);
 
 extern "C"
 llvm_Value* llvm_IRBuilder_CreateAShr(llvm_IRBuilder* self, llvm_Value* LHS, llvm_Value* RHS, std_string* Name);
+
+extern "C"
+llvm_Value* llvm_IRBuilder_CreateAShrByValue(llvm_IRBuilder* self, llvm_Value* LHS, uint64_t RHS, std_string* Name);
 
 extern "C"
 llvm_Value* llvm_IRBuilder_CreateAdd(llvm_IRBuilder* self, llvm_Value* LHS, llvm_Value* RHS, std_string* Name);
@@ -1793,10 +1907,10 @@ extern "C"
 llvm_Value* llvm_IRBuilder_CreateAddrSpaceCast(llvm_IRBuilder* self, llvm_Value* Value, llvm_Type* DestTy, std_string* Name);
 
 extern "C"
-llvm_LoadInst* llvm_IRBuilder_CreateAlignedLoadVolatile(llvm_IRBuilder* self, llvm_Value* Ptr, unsigned int Align, int isVolatile, std_string* Name);
+llvm_LoadInst* llvm_IRBuilder_CreateAlignedLoad(llvm_IRBuilder* self, llvm_Value* Ptr, unsigned int Align, std_string* Name);
 
 extern "C"
-llvm_LoadInst* llvm_IRBuilder_CreateAlignedLoad(llvm_IRBuilder* self, llvm_Value* Ptr, unsigned int Align, std_string* Name);
+llvm_LoadInst* llvm_IRBuilder_CreateAlignedLoadVolatile(llvm_IRBuilder* self, llvm_Value* Ptr, unsigned int Align, int isVolatile, std_string* Name);
 
 extern "C"
 llvm_StoreInst* llvm_IRBuilder_CreateAlignedStore(llvm_IRBuilder* self, llvm_Value* Value, llvm_Value* Ptr, unsigned int Align, int* isVolatile);
@@ -1805,10 +1919,10 @@ extern "C"
 llvm_AllocaInst* llvm_IRBuilder_CreateAlloca(llvm_IRBuilder* self, llvm_Type* Ty, llvm_Value** ArraySize, std_string* Name);
 
 extern "C"
-llvm_Value* llvm_IRBuilder_CreateAndByValue(llvm_IRBuilder* self, llvm_Value* LHS, uint64_t RHS, std_string* Name);
+llvm_Value* llvm_IRBuilder_CreateAnd(llvm_IRBuilder* self, llvm_Value* LHS, llvm_Value* RHS, std_string* Name);
 
 extern "C"
-llvm_Value* llvm_IRBuilder_CreateAnd(llvm_IRBuilder* self, llvm_Value* LHS, llvm_Value* RHS, std_string* Name);
+llvm_Value* llvm_IRBuilder_CreateAndByValue(llvm_IRBuilder* self, llvm_Value* LHS, uint64_t RHS, std_string* Name);
 
 extern "C"
 llvm_Value* llvm_IRBuilder_CreateBinOp(llvm_IRBuilder* self, llvm_Instruction_BinaryOps Opcode, llvm_Value* LHS, llvm_Value* RHS, std_string* Name);
@@ -2000,10 +2114,10 @@ extern "C"
 llvm_LandingPadInst* llvm_IRBuilder_CreateLandingPad(llvm_IRBuilder* self, llvm_Type* Ty, llvm_Value* PersFn, unsigned int NumClauses, std_string* Name);
 
 extern "C"
-llvm_LoadInst* llvm_IRBuilder_CreateLoadVolatile(llvm_IRBuilder* self, llvm_Value* Ptr, int isVolatile, std_string* Name);
+llvm_LoadInst* llvm_IRBuilder_CreateLoad(llvm_IRBuilder* self, llvm_Value* Ptr, std_string* Name);
 
 extern "C"
-llvm_LoadInst* llvm_IRBuilder_CreateLoad(llvm_IRBuilder* self, llvm_Value* Ptr, std_string* Name);
+llvm_LoadInst* llvm_IRBuilder_CreateLoadVolatile(llvm_IRBuilder* self, llvm_Value* Ptr, int isVolatile, std_string* Name);
 
 extern "C"
 llvm_Value* llvm_IRBuilder_CreateMul(llvm_IRBuilder* self, llvm_Value* LHS, llvm_Value* RHS, std_string* Name);
@@ -2039,10 +2153,10 @@ extern "C"
 llvm_Value* llvm_IRBuilder_CreateNot(llvm_IRBuilder* self, llvm_Value* Value, std_string* Name);
 
 extern "C"
-llvm_Value* llvm_IRBuilder_CreateOrByValue(llvm_IRBuilder* self, llvm_Value* LHS, uint64_t RHS, std_string* Name);
+llvm_Value* llvm_IRBuilder_CreateOr(llvm_IRBuilder* self, llvm_Value* LHS, llvm_Value* RHS, std_string* Name);
 
 extern "C"
-llvm_Value* llvm_IRBuilder_CreateOr(llvm_IRBuilder* self, llvm_Value* LHS, llvm_Value* RHS, std_string* Name);
+llvm_Value* llvm_IRBuilder_CreateOrByValue(llvm_IRBuilder* self, llvm_Value* LHS, uint64_t RHS, std_string* Name);
 
 extern "C"
 llvm_PHINode* llvm_IRBuilder_CreatePHI(llvm_IRBuilder* self, llvm_Type* Ty, unsigned int NumReservedValues, std_string* Name);
@@ -2090,10 +2204,10 @@ extern "C"
 llvm_Value* llvm_IRBuilder_CreateSelect(llvm_IRBuilder* self, llvm_Value* C, llvm_Value* TrueValue, llvm_Value* FalseValue, std_string* Name);
 
 extern "C"
-llvm_Value* llvm_IRBuilder_CreateShlByValue(llvm_IRBuilder* self, llvm_Value* LHS, uint64_t RHS, std_string* Name);
+llvm_Value* llvm_IRBuilder_CreateShl(llvm_IRBuilder* self, llvm_Value* LHS, llvm_Value* RHS, std_string* Name);
 
 extern "C"
-llvm_Value* llvm_IRBuilder_CreateShl(llvm_IRBuilder* self, llvm_Value* LHS, llvm_Value* RHS, std_string* Name);
+llvm_Value* llvm_IRBuilder_CreateShlByValue(llvm_IRBuilder* self, llvm_Value* LHS, uint64_t RHS, std_string* Name);
 
 extern "C"
 llvm_Value* llvm_IRBuilder_CreateShuffleVector(llvm_IRBuilder* self, llvm_Value* V1, llvm_Value* P2, llvm_Value* Mask, std_string* Name);
@@ -2162,120 +2276,6 @@ extern "C"
 llvm_IRBuilder* llvm_IRBuilder_new_in_block(llvm_BasicBlock* BB);
 
 extern "C"
-void llvm_IRBuilderBase_ClearInsertionPoint(llvm_IRBuilderBase* self);
-
-extern "C"
-llvm_Value* llvm_IRBuilderBase_CreateGlobalString(llvm_IRBuilderBase* self, llvm_StringRef Str, std_string* Name);
-
-extern "C"
-llvm_CallInst* llvm_IRBuilderBase_CreateLifetimeEnd(llvm_IRBuilderBase* self, llvm_Value* Ptr, llvm_ConstantInt** Size);
-
-extern "C"
-llvm_CallInst* llvm_IRBuilderBase_CreateLifetimeStart(llvm_IRBuilderBase* self, llvm_Value* Ptr, llvm_ConstantInt** Size);
-
-extern "C"
-llvm_CallInst* llvm_IRBuilderBase_CreateMemCpy(llvm_IRBuilderBase* self, llvm_Value* Dst, llvm_Value* Src, llvm_Value* Size, unsigned int Align, int* isVolatile);
-
-extern "C"
-llvm_CallInst* llvm_IRBuilderBase_CreateMemMove(llvm_IRBuilderBase* self, llvm_Value* Dst, llvm_Value* Src, llvm_Value* Size, unsigned int Align, int* isVolatile);
-
-extern "C"
-llvm_CallInst* llvm_IRBuilderBase_CreateMemSet(llvm_IRBuilderBase* self, llvm_Value* Ptr, llvm_Value* Value, llvm_Value* Size, unsigned int Align, int* isVolatile);
-
-extern "C"
-llvm_BasicBlock* llvm_IRBuilderBase_GetInsertBlock(llvm_IRBuilderBase const* self);
-
-extern "C"
-void llvm_IRBuilderBase_SetCurrentDebugLocation(llvm_IRBuilderBase* self, llvm_DebugLoc const* Loc);
-
-extern "C"
-void llvm_IRBuilderBase_SetDefaultFPMathTag(llvm_IRBuilderBase* self, llvm_MDNode* FPMathTag);
-
-extern "C"
-void llvm_IRBuilderBase_SetInsertPointAtInst(llvm_IRBuilderBase* self, llvm_Instruction* Inst);
-
-extern "C"
-void llvm_IRBuilderBase_SetInsertPoint(llvm_IRBuilderBase* self, llvm_BasicBlock* BB);
-
-extern "C"
-void llvm_IRBuilderBase_SetInstDebugLocation(llvm_IRBuilderBase const* self, llvm_Instruction* Inst);
-
-extern "C"
-llvm_LLVMContext* llvm_IRBuilderBase_getContext(llvm_IRBuilderBase const* self);
-
-extern "C"
-llvm_Type* llvm_IRBuilderBase_getCurrentFunctionReturnType(llvm_IRBuilderBase const* self);
-
-extern "C"
-llvm_MDNode* llvm_IRBuilderBase_getDefaultFPMathTag(llvm_IRBuilderBase const* self);
-
-extern "C"
-llvm_Type* llvm_IRBuilderBase_getDoubleTy(llvm_IRBuilderBase* self);
-
-extern "C"
-llvm_ConstantInt* llvm_IRBuilderBase_getFalse(llvm_IRBuilderBase* self);
-
-extern "C"
-llvm_Type* llvm_IRBuilderBase_getFloatTy(llvm_IRBuilderBase* self);
-
-extern "C"
-llvm_Type* llvm_IRBuilderBase_getHalfTy(llvm_IRBuilderBase* self);
-
-extern "C"
-llvm_ConstantInt* llvm_IRBuilderBase_getInt(llvm_IRBuilderBase* self, llvm_APInt Value);
-
-extern "C"
-llvm_ConstantInt* llvm_IRBuilderBase_getInt1(llvm_IRBuilderBase* self, int Value);
-
-extern "C"
-llvm_ConstantInt* llvm_IRBuilderBase_getInt16(llvm_IRBuilderBase* self, uint16_t Value);
-
-extern "C"
-llvm_IntegerType* llvm_IRBuilderBase_getInt16Ty(llvm_IRBuilderBase* self);
-
-extern "C"
-llvm_IntegerType* llvm_IRBuilderBase_getInt1Ty(llvm_IRBuilderBase* self);
-
-extern "C"
-llvm_ConstantInt* llvm_IRBuilderBase_getInt32(llvm_IRBuilderBase* self, uint32_t Value);
-
-extern "C"
-llvm_IntegerType* llvm_IRBuilderBase_getInt32Ty(llvm_IRBuilderBase* self);
-
-extern "C"
-llvm_ConstantInt* llvm_IRBuilderBase_getInt64(llvm_IRBuilderBase* self, uint64_t Value);
-
-extern "C"
-llvm_IntegerType* llvm_IRBuilderBase_getInt64Ty(llvm_IRBuilderBase* self);
-
-extern "C"
-llvm_ConstantInt* llvm_IRBuilderBase_getInt8(llvm_IRBuilderBase* self, uint8_t Value);
-
-extern "C"
-llvm_PointerType* llvm_IRBuilderBase_getInt8PtrTy(llvm_IRBuilderBase* self, unsigned int* AddrSpace);
-
-extern "C"
-llvm_IntegerType* llvm_IRBuilderBase_getInt8Ty(llvm_IRBuilderBase* self);
-
-extern "C"
-llvm_ConstantInt* llvm_IRBuilderBase_getIntN(llvm_IRBuilderBase* self, unsigned int NumBits, uint64_t Value);
-
-extern "C"
-llvm_IntegerType* llvm_IRBuilderBase_getIntNTy(llvm_IRBuilderBase* self, unsigned int NumBits);
-
-extern "C"
-llvm_IntegerType* llvm_IRBuilderBase_getIntPtrTy(llvm_IRBuilderBase* self, llvm_DataLayout const* DL, unsigned int* AddrSpace);
-
-extern "C"
-llvm_ConstantInt* llvm_IRBuilderBase_getTrue(llvm_IRBuilderBase* self);
-
-extern "C"
-llvm_Type* llvm_IRBuilderBase_getVoidTy(llvm_IRBuilderBase* self);
-
-extern "C"
-llvm_IRBuilderBase* llvm_IRBuilderBase_new(llvm_LLVMContext* Context);
-
-extern "C"
 llvm_Instruction* llvm_Instruction_clone(llvm_Instruction const* self);
 
 extern "C"
@@ -2285,10 +2285,10 @@ extern "C"
 void llvm_Instruction_delete(llvm_Instruction* self);
 
 extern "C"
-void llvm_Instruction_dropUnknownMetadataFromIDS(llvm_Instruction* self, llvm_ArrayRef_uint KnownIDs);
+void llvm_Instruction_dropUnknownMetadata(llvm_Instruction* self);
 
 extern "C"
-void llvm_Instruction_dropUnknownMetadata(llvm_Instruction* self);
+void llvm_Instruction_dropUnknownMetadataFromIDS(llvm_Instruction* self, llvm_ArrayRef_uint KnownIDs);
 
 extern "C"
 void llvm_Instruction_eraseFromParent(llvm_Instruction* self);
@@ -2300,19 +2300,19 @@ extern "C"
 llvm_DebugLoc const* llvm_Instruction_getDebugLoc(llvm_Instruction const* self);
 
 extern "C"
-llvm_MDNode* llvm_Instruction_getMetadataStr(llvm_Instruction const* self, llvm_StringRef Kind);
+llvm_MDNode* llvm_Instruction_getMetadata(llvm_Instruction const* self, unsigned int KindID);
 
 extern "C"
-llvm_MDNode* llvm_Instruction_getMetadata(llvm_Instruction const* self, unsigned int KindID);
+llvm_MDNode* llvm_Instruction_getMetadataStr(llvm_Instruction const* self, llvm_StringRef Kind);
 
 extern "C"
 unsigned int llvm_Instruction_getOpcode(llvm_Instruction const* self);
 
 extern "C"
-llvm_BasicBlock* llvm_Instruction_getParentMut(llvm_Instruction* self);
+llvm_BasicBlock const* llvm_Instruction_getParent(llvm_Instruction const* self);
 
 extern "C"
-llvm_BasicBlock const* llvm_Instruction_getParent(llvm_Instruction const* self);
+llvm_BasicBlock* llvm_Instruction_getParentMut(llvm_Instruction* self);
 
 extern "C"
 int llvm_Instruction_hasAllowReciprocal(llvm_Instruction const* self);
@@ -2525,6 +2525,15 @@ extern "C"
 unsigned int llvm_Operator_getOpcode(llvm_Operator const* self);
 
 extern "C"
+void llvm_PassManager_add(llvm_PassManager* self, llvm_Pass* Pass);
+
+extern "C"
+llvm_PassManager* llvm_PassManager_new();
+
+extern "C"
+void llvm_PassManager_run(llvm_PassManager* self, llvm_Module* Module);
+
+extern "C"
 void llvm_Pass_delete(llvm_Pass* self);
 
 extern "C"
@@ -2538,15 +2547,6 @@ void llvm_Pass_dump(llvm_Pass const* self);
 
 extern "C"
 llvm_PassKind llvm_Pass_getPassKind(llvm_Pass const* self);
-
-extern "C"
-void llvm_PassManager_add(llvm_PassManager* self, llvm_Pass* Pass);
-
-extern "C"
-llvm_PassManager* llvm_PassManager_new();
-
-extern "C"
-void llvm_PassManager_run(llvm_PassManager* self, llvm_Module* Module);
 
 extern "C"
 int llvm_PointerType_classof(llvm_Type const* ty);
@@ -2609,10 +2609,10 @@ extern "C"
 int llvm_StructType_isValidElementType(llvm_Type* ty);
 
 extern "C"
-void llvm_StructType_setBodyPacked(llvm_StructType* self, llvm_ArrayRef_ptr_llvm_Type Elements, int isPacked);
+void llvm_StructType_setBody(llvm_StructType* self, llvm_ArrayRef_ptr_llvm_Type Elements);
 
 extern "C"
-void llvm_StructType_setBody(llvm_StructType* self, llvm_ArrayRef_ptr_llvm_Type Elements);
+void llvm_StructType_setBodyPacked(llvm_StructType* self, llvm_ArrayRef_ptr_llvm_Type Elements, int isPacked);
 
 extern "C"
 void llvm_StructType_setName(llvm_StructType* self, llvm_StringRef Name);
@@ -2867,6 +2867,24 @@ extern "C"
 void llvm_User_setOperand(llvm_User* self, unsigned int idx, llvm_Value* Val);
 
 extern "C"
+llvm_ValueSymbolTable* llvm_ValueSymbolTable_delete();
+
+extern "C"
+void llvm_ValueSymbolTable_dump(llvm_ValueSymbolTable const* self);
+
+extern "C"
+int llvm_ValueSymbolTable_empty(llvm_ValueSymbolTable const* self);
+
+extern "C"
+llvm_Value* llvm_ValueSymbolTable_lookup(llvm_ValueSymbolTable const* self, llvm_StringRef Name);
+
+extern "C"
+llvm_ValueSymbolTable* llvm_ValueSymbolTable_new();
+
+extern "C"
+unsigned int llvm_ValueSymbolTable_size(llvm_ValueSymbolTable const* self);
+
+extern "C"
 void llvm_Value_delete(llvm_Value* self);
 
 extern "C"
@@ -2913,24 +2931,6 @@ void llvm_Value_setName(llvm_Value* self, llvm_StringRef Name);
 
 extern "C"
 void llvm_Value_takeName(llvm_Value* self, llvm_Value* Value);
-
-extern "C"
-llvm_ValueSymbolTable* llvm_ValueSymbolTable_delete();
-
-extern "C"
-void llvm_ValueSymbolTable_dump(llvm_ValueSymbolTable const* self);
-
-extern "C"
-int llvm_ValueSymbolTable_empty(llvm_ValueSymbolTable const* self);
-
-extern "C"
-llvm_Value* llvm_ValueSymbolTable_lookup(llvm_ValueSymbolTable const* self, llvm_StringRef Name);
-
-extern "C"
-llvm_ValueSymbolTable* llvm_ValueSymbolTable_new();
-
-extern "C"
-unsigned int llvm_ValueSymbolTable_size(llvm_ValueSymbolTable const* self);
 
 extern "C"
 int llvm_VectorType_classof(llvm_Type const* ty);

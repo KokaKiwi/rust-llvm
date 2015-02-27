@@ -185,15 +185,15 @@ llvm_Pass* llvm_createFunctionAttrsPass()
 }
 
 extern "C"
-llvm_Pass* llvm_createFunctionInliningPassWithOptLevel(unsigned int OptLevel, unsigned int SizeOptLevel)
-{
-    return ::llvm::createFunctionInliningPass(OptLevel, SizeOptLevel);
-}
-
-extern "C"
 llvm_Pass* llvm_createFunctionInliningPass()
 {
     return ::llvm::createFunctionInliningPass();
+}
+
+extern "C"
+llvm_Pass* llvm_createFunctionInliningPassWithOptLevel(unsigned int OptLevel, unsigned int SizeOptLevel)
+{
+    return ::llvm::createFunctionInliningPass(OptLevel, SizeOptLevel);
 }
 
 extern "C"
@@ -678,21 +678,15 @@ llvm_DataLayout const* llvm_BasicBlock_getDataLayout(llvm_BasicBlock const* self
 }
 
 extern "C"
-llvm_Instruction* llvm_BasicBlock_getFirstNonPHIMut(llvm_BasicBlock* self)
-{
-    return self->getFirstNonPHI();
-}
-
-extern "C"
 llvm_Instruction const* llvm_BasicBlock_getFirstNonPHI(llvm_BasicBlock const* self)
 {
     return self->getFirstNonPHI();
 }
 
 extern "C"
-llvm_Instruction* llvm_BasicBlock_getFirstNonPHIOrDbgMut(llvm_BasicBlock* self)
+llvm_Instruction* llvm_BasicBlock_getFirstNonPHIMut(llvm_BasicBlock* self)
 {
-    return self->getFirstNonPHIOrDbg();
+    return self->getFirstNonPHI();
 }
 
 extern "C"
@@ -702,9 +696,9 @@ llvm_Instruction const* llvm_BasicBlock_getFirstNonPHIOrDbg(llvm_BasicBlock cons
 }
 
 extern "C"
-llvm_Instruction* llvm_BasicBlock_getFirstNonPHIOrDbgOrLifetimeMut(llvm_BasicBlock* self)
+llvm_Instruction* llvm_BasicBlock_getFirstNonPHIOrDbgMut(llvm_BasicBlock* self)
 {
-    return self->getFirstNonPHIOrDbgOrLifetime();
+    return self->getFirstNonPHIOrDbg();
 }
 
 extern "C"
@@ -714,13 +708,19 @@ llvm_Instruction const* llvm_BasicBlock_getFirstNonPHIOrDbgOrLifetime(llvm_Basic
 }
 
 extern "C"
-llvm_LandingPadInst* llvm_BasicBlock_getLandingPadInstMut(llvm_BasicBlock* self)
+llvm_Instruction* llvm_BasicBlock_getFirstNonPHIOrDbgOrLifetimeMut(llvm_BasicBlock* self)
+{
+    return self->getFirstNonPHIOrDbgOrLifetime();
+}
+
+extern "C"
+llvm_LandingPadInst const* llvm_BasicBlock_getLandingPadInst(llvm_BasicBlock const* self)
 {
     return self->getLandingPadInst();
 }
 
 extern "C"
-llvm_LandingPadInst const* llvm_BasicBlock_getLandingPadInst(llvm_BasicBlock const* self)
+llvm_LandingPadInst* llvm_BasicBlock_getLandingPadInstMut(llvm_BasicBlock* self)
 {
     return self->getLandingPadInst();
 }
@@ -762,13 +762,13 @@ llvm_TerminatorInst* llvm_BasicBlock_getTerminatorMut(llvm_BasicBlock* self)
 }
 
 extern "C"
-llvm_BasicBlock* llvm_BasicBlock_getUniquePredecessorMut(llvm_BasicBlock* self)
+llvm_BasicBlock const* llvm_BasicBlock_getUniquePredecessor(llvm_BasicBlock const* self)
 {
     return self->getUniquePredecessor();
 }
 
 extern "C"
-llvm_BasicBlock const* llvm_BasicBlock_getUniquePredecessor(llvm_BasicBlock const* self)
+llvm_BasicBlock* llvm_BasicBlock_getUniquePredecessorMut(llvm_BasicBlock* self)
 {
     return self->getUniquePredecessor();
 }
@@ -859,6 +859,251 @@ extern "C"
 int llvm_CompositeType_indexValid(llvm_CompositeType const* self, unsigned int idx)
 {
     return (self->indexValid(idx) ? 1 : 0);
+}
+
+extern "C"
+int llvm_ConstantArray_classof(llvm_Value const* V)
+{
+    return (::llvm::ConstantArray::classof(V) ? 1 : 0);
+}
+
+extern "C"
+llvm_Constant* llvm_ConstantArray_get(llvm_ArrayType* Ty, llvm_ArrayRef_ptr_llvm_Constant _Values)
+{
+    llvm::ArrayRef<::llvm::Constant*> Values(_Values.data, _Values.size);
+    return ::llvm::ConstantArray::get(Ty, Values);
+}
+
+extern "C"
+llvm_Type* llvm_ConstantArray_getType(llvm_ConstantArray const* self)
+{
+    return self->getType();
+}
+
+extern "C"
+int llvm_ConstantFP_classof(llvm_Value const* V)
+{
+    return (::llvm::ConstantFP::classof(V) ? 1 : 0);
+}
+
+extern "C"
+llvm_Constant* llvm_ConstantFP_fromStr(llvm_Type* Ty, llvm_StringRef _Val)
+{
+    llvm::StringRef Val(_Val.data, _Val.length);
+    return ::llvm::ConstantFP::get(Ty, Val);
+}
+
+extern "C"
+llvm_Constant* llvm_ConstantFP_get(llvm_Type* Ty, double Val)
+{
+    return ::llvm::ConstantFP::get(Ty, Val);
+}
+
+extern "C"
+llvm_Constant* llvm_ConstantFP_getInfinity(llvm_Type* Ty)
+{
+    return ::llvm::ConstantFP::getInfinity(Ty);
+}
+
+extern "C"
+llvm_Constant* llvm_ConstantFP_getNegativeZero(llvm_Type* Ty)
+{
+    return ::llvm::ConstantFP::getNegativeZero(Ty);
+}
+
+extern "C"
+llvm_Constant* llvm_ConstantFP_getZeroValueForNegation(llvm_Type* Ty)
+{
+    return ::llvm::ConstantFP::getZeroValueForNegation(Ty);
+}
+
+extern "C"
+int llvm_ConstantFP_isExactlyValueFloat(llvm_ConstantFP const* self, double Val)
+{
+    return (self->isExactlyValue(Val) ? 1 : 0);
+}
+
+extern "C"
+int llvm_ConstantFP_isNaN(llvm_ConstantFP const* self)
+{
+    return (self->isNaN() ? 1 : 0);
+}
+
+extern "C"
+int llvm_ConstantFP_isNegative(llvm_ConstantFP const* self)
+{
+    return (self->isNegative() ? 1 : 0);
+}
+
+extern "C"
+int llvm_ConstantFP_isZero(llvm_ConstantFP const* self)
+{
+    return (self->isZero() ? 1 : 0);
+}
+
+extern "C"
+int llvm_ConstantInt_classof(llvm_Value const* Val)
+{
+    return (::llvm::ConstantInt::classof(Val) ? 1 : 0);
+}
+
+extern "C"
+int llvm_ConstantInt_equalsInt(llvm_ConstantInt const* self, uint64_t Val)
+{
+    return (self->equalsInt(Val) ? 1 : 0);
+}
+
+extern "C"
+llvm_ConstantInt* llvm_ConstantInt_fromAPInt(llvm_LLVMContext* Context, llvm_APInt _Val)
+{
+    llvm::ArrayRef<uint64_t> __Val_data(_Val.data.data, _Val.data.size);
+    llvm::APInt Val(_Val.numbits, __Val_data);
+    return ::llvm::ConstantInt::get(*Context, Val);
+}
+
+extern "C"
+llvm_ConstantInt* llvm_ConstantInt_fromStr(llvm_IntegerType* Ty, llvm_StringRef _Str, uint8_t radix)
+{
+    llvm::StringRef Str(_Str.data, _Str.length);
+    return ::llvm::ConstantInt::get(Ty, Str, radix);
+}
+
+extern "C"
+llvm_ConstantInt* llvm_ConstantInt_get(llvm_IntegerType* Ty, uint64_t Value)
+{
+    return ::llvm::ConstantInt::get(Ty, Value);
+}
+
+extern "C"
+unsigned int llvm_ConstantInt_getBitWidth(llvm_ConstantInt const* self)
+{
+    return self->getBitWidth();
+}
+
+extern "C"
+llvm_Constant* llvm_ConstantInt_getFalse(llvm_Type* Ty)
+{
+    return ::llvm::ConstantInt::getFalse(Ty);
+}
+
+extern "C"
+llvm_ConstantInt* llvm_ConstantInt_getFalseWithContext(llvm_LLVMContext* Context)
+{
+    return ::llvm::ConstantInt::getFalse(*Context);
+}
+
+extern "C"
+int64_t llvm_ConstantInt_getSExtValue(llvm_ConstantInt const* self)
+{
+    return self->getSExtValue();
+}
+
+extern "C"
+llvm_ConstantInt* llvm_ConstantInt_getSigned(llvm_IntegerType* Ty, uint64_t Value, int isSigned)
+{
+    return ::llvm::ConstantInt::get(Ty, Value, (isSigned == 1 ? true : false));
+}
+
+extern "C"
+llvm_Constant* llvm_ConstantInt_getTrue(llvm_Type* Ty)
+{
+    return ::llvm::ConstantInt::getTrue(Ty);
+}
+
+extern "C"
+llvm_ConstantInt* llvm_ConstantInt_getTrueWithContext(llvm_LLVMContext* Context)
+{
+    return ::llvm::ConstantInt::getTrue(*Context);
+}
+
+extern "C"
+llvm_IntegerType* llvm_ConstantInt_getType(llvm_ConstantInt const* self)
+{
+    return self->getType();
+}
+
+extern "C"
+uint64_t llvm_ConstantInt_getZExtValue(llvm_ConstantInt const* self)
+{
+    return self->getZExtValue();
+}
+
+extern "C"
+int llvm_ConstantInt_isMaxValue(llvm_ConstantInt const* self, int isSigned)
+{
+    return (self->isMaxValue((isSigned == 1 ? true : false)) ? 1 : 0);
+}
+
+extern "C"
+int llvm_ConstantInt_isMinValue(llvm_ConstantInt const* self, int isSigned)
+{
+    return (self->isMinValue((isSigned == 1 ? true : false)) ? 1 : 0);
+}
+
+extern "C"
+int llvm_ConstantInt_isMinusOne(llvm_ConstantInt const* self)
+{
+    return (self->isMinusOne() ? 1 : 0);
+}
+
+extern "C"
+int llvm_ConstantInt_isNegative(llvm_ConstantInt const* self)
+{
+    return (self->isNegative() ? 1 : 0);
+}
+
+extern "C"
+int llvm_ConstantInt_isOne(llvm_ConstantInt const* self)
+{
+    return (self->isOne() ? 1 : 0);
+}
+
+extern "C"
+int llvm_ConstantInt_isSignedValueValidForType(llvm_Type* Ty, int64_t Val)
+{
+    return (::llvm::ConstantInt::isValueValidForType(Ty, Val) ? 1 : 0);
+}
+
+extern "C"
+int llvm_ConstantInt_isValueValidForType(llvm_Type* Ty, uint64_t Val)
+{
+    return (::llvm::ConstantInt::isValueValidForType(Ty, Val) ? 1 : 0);
+}
+
+extern "C"
+int llvm_ConstantInt_isZero(llvm_ConstantInt const* self)
+{
+    return (self->isZero() ? 1 : 0);
+}
+
+extern "C"
+int llvm_ConstantInt_uge(llvm_ConstantInt const* self, uint64_t Num)
+{
+    return (self->uge(Num) ? 1 : 0);
+}
+
+extern "C"
+int llvm_ConstantPointerNull_classof(llvm_Value const* Val)
+{
+    return (::llvm::ConstantPointerNull::classof(Val) ? 1 : 0);
+}
+
+extern "C"
+void llvm_ConstantPointerNull_destroyConstant(llvm_ConstantPointerNull* self)
+{
+    self->destroyConstant();
+}
+
+extern "C"
+llvm_ConstantPointerNull* llvm_ConstantPointerNull_get(llvm_PointerType* Ty)
+{
+    return ::llvm::ConstantPointerNull::get(Ty);
+}
+
+extern "C"
+llvm_PointerType* llvm_ConstantPointerNull_getType(llvm_ConstantPointerNull const* self)
+{
+    return self->getType();
 }
 
 extern "C"
@@ -990,248 +1235,82 @@ llvm_Constant* llvm_Constant_stripPointerCastsMut(llvm_Constant* self)
 }
 
 extern "C"
-int llvm_ConstantArray_classof(llvm_Value const* V)
+void llvm_FunctionPassManager_add(llvm_FunctionPassManager* self, llvm_FunctionPass* Pass)
 {
-    return (::llvm::ConstantArray::classof(V) ? 1 : 0);
+    self->add(Pass);
 }
 
 extern "C"
-llvm_Constant* llvm_ConstantArray_get(llvm_ArrayType* Ty, llvm_ArrayRef_ptr_llvm_Constant _Values)
+int llvm_FunctionPassManager_doFinalization(llvm_FunctionPassManager* self)
 {
-    llvm::ArrayRef<::llvm::Constant*> Values(_Values.data, _Values.size);
-    return ::llvm::ConstantArray::get(Ty, Values);
+    return (self->doFinalization() ? 1 : 0);
 }
 
 extern "C"
-llvm_Type* llvm_ConstantArray_getType(llvm_ConstantArray const* self)
+int llvm_FunctionPassManager_doInitialization(llvm_FunctionPassManager* self)
 {
-    return self->getType();
+    return (self->doInitialization() ? 1 : 0);
 }
 
 extern "C"
-int llvm_ConstantFP_classof(llvm_Value const* V)
+llvm_FunctionPassManager* llvm_FunctionPassManager_new(llvm_Module* Module)
 {
-    return (::llvm::ConstantFP::classof(V) ? 1 : 0);
+    return new(std::nothrow) ::llvm::FunctionPassManager(Module);
 }
 
 extern "C"
-llvm_Constant* llvm_ConstantFP_get(llvm_Type* Ty, double Val)
+void llvm_FunctionPassManager_run(llvm_FunctionPassManager* self, llvm_Function* Function)
 {
-    return ::llvm::ConstantFP::get(Ty, Val);
+    self->run(*Function);
 }
 
 extern "C"
-llvm_Constant* llvm_ConstantFP_fromStr(llvm_Type* Ty, llvm_StringRef _Val)
+int llvm_FunctionType_classof(llvm_Type const* ty)
 {
-    llvm::StringRef Val(_Val.data, _Val.length);
-    return ::llvm::ConstantFP::get(Ty, Val);
+    return (::llvm::FunctionType::classof(ty) ? 1 : 0);
 }
 
 extern "C"
-llvm_Constant* llvm_ConstantFP_getInfinity(llvm_Type* Ty)
+llvm_FunctionType* llvm_FunctionType_get(llvm_Type* Result, llvm_ArrayRef_ptr_llvm_Type _Params, int isVarArg)
 {
-    return ::llvm::ConstantFP::getInfinity(Ty);
+    llvm::ArrayRef<::llvm::Type*> Params(_Params.data, _Params.size);
+    return ::llvm::FunctionType::get(Result, Params, (isVarArg == 1 ? true : false));
 }
 
 extern "C"
-llvm_Constant* llvm_ConstantFP_getNegativeZero(llvm_Type* Ty)
+unsigned int llvm_FunctionType_getNumParams(llvm_FunctionType const* self)
 {
-    return ::llvm::ConstantFP::getNegativeZero(Ty);
+    return self->getNumParams();
 }
 
 extern "C"
-llvm_Constant* llvm_ConstantFP_getZeroValueForNegation(llvm_Type* Ty)
+llvm_Type* llvm_FunctionType_getParamType(llvm_FunctionType const* self, unsigned int idx)
 {
-    return ::llvm::ConstantFP::getZeroValueForNegation(Ty);
+    return self->getParamType(idx);
 }
 
 extern "C"
-int llvm_ConstantFP_isExactlyValueFloat(llvm_ConstantFP const* self, double Val)
+llvm_Type* llvm_FunctionType_getReturnType(llvm_FunctionType const* self)
 {
-    return (self->isExactlyValue(Val) ? 1 : 0);
+    return self->getReturnType();
 }
 
 extern "C"
-int llvm_ConstantFP_isNaN(llvm_ConstantFP const* self)
+int llvm_FunctionType_isValidArgumentType(llvm_Type* ty)
 {
-    return (self->isNaN() ? 1 : 0);
+    return (::llvm::FunctionType::isValidArgumentType(ty) ? 1 : 0);
 }
 
 extern "C"
-int llvm_ConstantFP_isNegative(llvm_ConstantFP const* self)
+int llvm_FunctionType_isValidReturnType(llvm_Type* ty)
 {
-    return (self->isNegative() ? 1 : 0);
+    return (::llvm::FunctionType::isValidReturnType(ty) ? 1 : 0);
 }
 
 extern "C"
-int llvm_ConstantFP_isZero(llvm_ConstantFP const* self)
+int llvm_FunctionType_isVarArg(llvm_FunctionType const* self)
 {
-    return (self->isZero() ? 1 : 0);
-}
-
-extern "C"
-int llvm_ConstantInt_classof(llvm_Value const* Val)
-{
-    return (::llvm::ConstantInt::classof(Val) ? 1 : 0);
-}
-
-extern "C"
-int llvm_ConstantInt_equalsInt(llvm_ConstantInt const* self, uint64_t Val)
-{
-    return (self->equalsInt(Val) ? 1 : 0);
-}
-
-extern "C"
-llvm_ConstantInt* llvm_ConstantInt_fromAPInt(llvm_LLVMContext* Context, llvm_APInt _Val)
-{
-    llvm::ArrayRef<uint64_t> __Val_data(_Val.data.data, _Val.data.size);
-    llvm::APInt Val(_Val.numbits, __Val_data);
-    return ::llvm::ConstantInt::get(*Context, Val);
-}
-
-extern "C"
-llvm_ConstantInt* llvm_ConstantInt_get(llvm_IntegerType* Ty, uint64_t Value)
-{
-    return ::llvm::ConstantInt::get(Ty, Value);
-}
-
-extern "C"
-llvm_ConstantInt* llvm_ConstantInt_fromStr(llvm_IntegerType* Ty, llvm_StringRef _Str, uint8_t radix)
-{
-    llvm::StringRef Str(_Str.data, _Str.length);
-    return ::llvm::ConstantInt::get(Ty, Str, radix);
-}
-
-extern "C"
-llvm_ConstantInt* llvm_ConstantInt_getSigned(llvm_IntegerType* Ty, uint64_t Value, int isSigned)
-{
-    return ::llvm::ConstantInt::get(Ty, Value, (isSigned == 1 ? true : false));
-}
-
-extern "C"
-unsigned int llvm_ConstantInt_getBitWidth(llvm_ConstantInt const* self)
-{
-    return self->getBitWidth();
-}
-
-extern "C"
-llvm_Constant* llvm_ConstantInt_getFalse(llvm_Type* Ty)
-{
-    return ::llvm::ConstantInt::getFalse(Ty);
-}
-
-extern "C"
-llvm_ConstantInt* llvm_ConstantInt_getFalseWithContext(llvm_LLVMContext* Context)
-{
-    return ::llvm::ConstantInt::getFalse(*Context);
-}
-
-extern "C"
-int64_t llvm_ConstantInt_getSExtValue(llvm_ConstantInt const* self)
-{
-    return self->getSExtValue();
-}
-
-extern "C"
-llvm_Constant* llvm_ConstantInt_getTrue(llvm_Type* Ty)
-{
-    return ::llvm::ConstantInt::getTrue(Ty);
-}
-
-extern "C"
-llvm_ConstantInt* llvm_ConstantInt_getTrueWithContext(llvm_LLVMContext* Context)
-{
-    return ::llvm::ConstantInt::getTrue(*Context);
-}
-
-extern "C"
-llvm_IntegerType* llvm_ConstantInt_getType(llvm_ConstantInt const* self)
-{
-    return self->getType();
-}
-
-extern "C"
-uint64_t llvm_ConstantInt_getZExtValue(llvm_ConstantInt const* self)
-{
-    return self->getZExtValue();
-}
-
-extern "C"
-int llvm_ConstantInt_isMaxValue(llvm_ConstantInt const* self, int isSigned)
-{
-    return (self->isMaxValue((isSigned == 1 ? true : false)) ? 1 : 0);
-}
-
-extern "C"
-int llvm_ConstantInt_isMinValue(llvm_ConstantInt const* self, int isSigned)
-{
-    return (self->isMinValue((isSigned == 1 ? true : false)) ? 1 : 0);
-}
-
-extern "C"
-int llvm_ConstantInt_isMinusOne(llvm_ConstantInt const* self)
-{
-    return (self->isMinusOne() ? 1 : 0);
-}
-
-extern "C"
-int llvm_ConstantInt_isNegative(llvm_ConstantInt const* self)
-{
-    return (self->isNegative() ? 1 : 0);
-}
-
-extern "C"
-int llvm_ConstantInt_isOne(llvm_ConstantInt const* self)
-{
-    return (self->isOne() ? 1 : 0);
-}
-
-extern "C"
-int llvm_ConstantInt_isValueValidForType(llvm_Type* Ty, uint64_t Val)
-{
-    return (::llvm::ConstantInt::isValueValidForType(Ty, Val) ? 1 : 0);
-}
-
-extern "C"
-int llvm_ConstantInt_isSignedValueValidForType(llvm_Type* Ty, int64_t Val)
-{
-    return (::llvm::ConstantInt::isValueValidForType(Ty, Val) ? 1 : 0);
-}
-
-extern "C"
-int llvm_ConstantInt_isZero(llvm_ConstantInt const* self)
-{
-    return (self->isZero() ? 1 : 0);
-}
-
-extern "C"
-int llvm_ConstantInt_uge(llvm_ConstantInt const* self, uint64_t Num)
-{
-    return (self->uge(Num) ? 1 : 0);
-}
-
-extern "C"
-int llvm_ConstantPointerNull_classof(llvm_Value const* Val)
-{
-    return (::llvm::ConstantPointerNull::classof(Val) ? 1 : 0);
-}
-
-extern "C"
-void llvm_ConstantPointerNull_destroyConstant(llvm_ConstantPointerNull* self)
-{
-    self->destroyConstant();
-}
-
-extern "C"
-llvm_ConstantPointerNull* llvm_ConstantPointerNull_get(llvm_PointerType* Ty)
-{
-    return ::llvm::ConstantPointerNull::get(Ty);
-}
-
-extern "C"
-llvm_PointerType* llvm_ConstantPointerNull_getType(llvm_ConstantPointerNull const* self)
-{
-    return self->getType();
+    return (self->isVarArg() ? 1 : 0);
 }
 
 extern "C"
@@ -1425,15 +1504,15 @@ int llvm_Function_needsUnwindTableEntry(llvm_Function const* self)
 }
 
 extern "C"
-int llvm_Function_onlyReadsMemoryParam(llvm_Function const* self, unsigned int n)
-{
-    return (self->onlyReadsMemory(n) ? 1 : 0);
-}
-
-extern "C"
 int llvm_Function_onlyReadsMemory(llvm_Function const* self)
 {
     return (self->onlyReadsMemory() ? 1 : 0);
+}
+
+extern "C"
+int llvm_Function_onlyReadsMemoryParam(llvm_Function const* self, unsigned int n)
+{
+    return (self->onlyReadsMemory(n) ? 1 : 0);
 }
 
 extern "C"
@@ -1506,85 +1585,6 @@ extern "C"
 void llvm_Function_setOnlyReadsMemoryParam(llvm_Function* self, unsigned int n)
 {
     self->setOnlyReadsMemory(n);
-}
-
-extern "C"
-void llvm_FunctionPassManager_add(llvm_FunctionPassManager* self, llvm_FunctionPass* Pass)
-{
-    self->add(Pass);
-}
-
-extern "C"
-int llvm_FunctionPassManager_doFinalization(llvm_FunctionPassManager* self)
-{
-    return (self->doFinalization() ? 1 : 0);
-}
-
-extern "C"
-int llvm_FunctionPassManager_doInitialization(llvm_FunctionPassManager* self)
-{
-    return (self->doInitialization() ? 1 : 0);
-}
-
-extern "C"
-llvm_FunctionPassManager* llvm_FunctionPassManager_new(llvm_Module* Module)
-{
-    return new(std::nothrow) ::llvm::FunctionPassManager(Module);
-}
-
-extern "C"
-void llvm_FunctionPassManager_run(llvm_FunctionPassManager* self, llvm_Function* Function)
-{
-    self->run(*Function);
-}
-
-extern "C"
-int llvm_FunctionType_classof(llvm_Type const* ty)
-{
-    return (::llvm::FunctionType::classof(ty) ? 1 : 0);
-}
-
-extern "C"
-llvm_FunctionType* llvm_FunctionType_get(llvm_Type* Result, llvm_ArrayRef_ptr_llvm_Type _Params, int isVarArg)
-{
-    llvm::ArrayRef<::llvm::Type*> Params(_Params.data, _Params.size);
-    return ::llvm::FunctionType::get(Result, Params, (isVarArg == 1 ? true : false));
-}
-
-extern "C"
-unsigned int llvm_FunctionType_getNumParams(llvm_FunctionType const* self)
-{
-    return self->getNumParams();
-}
-
-extern "C"
-llvm_Type* llvm_FunctionType_getParamType(llvm_FunctionType const* self, unsigned int idx)
-{
-    return self->getParamType(idx);
-}
-
-extern "C"
-llvm_Type* llvm_FunctionType_getReturnType(llvm_FunctionType const* self)
-{
-    return self->getReturnType();
-}
-
-extern "C"
-int llvm_FunctionType_isValidArgumentType(llvm_Type* ty)
-{
-    return (::llvm::FunctionType::isValidArgumentType(ty) ? 1 : 0);
-}
-
-extern "C"
-int llvm_FunctionType_isValidReturnType(llvm_Type* ty)
-{
-    return (::llvm::FunctionType::isValidReturnType(ty) ? 1 : 0);
-}
-
-extern "C"
-int llvm_FunctionType_isVarArg(llvm_FunctionType const* self)
-{
-    return (self->isVarArg() ? 1 : 0);
 }
 
 extern "C"
@@ -1907,7 +1907,271 @@ void llvm_GlobalVariable_setInitializer(llvm_GlobalVariable* self, llvm_Constant
 }
 
 extern "C"
-llvm_Value* llvm_IRBuilder_CreateAShrByValue(llvm_IRBuilder* self, llvm_Value* LHS, uint64_t RHS, std_string* _Name)
+void llvm_IRBuilderBase_ClearInsertionPoint(llvm_IRBuilderBase* self)
+{
+    self->ClearInsertionPoint();
+}
+
+extern "C"
+llvm_Value* llvm_IRBuilderBase_CreateGlobalString(llvm_IRBuilderBase* self, llvm_StringRef _Str, std_string* _Name)
+{
+    llvm::StringRef Str(_Str.data, _Str.length);
+    std::string Name = "";
+    if (_Name != NULL){
+        std::string __Name_value((*_Name).data, (*_Name).length);
+        Name = __Name_value;
+    }
+    return self->CreateGlobalString(Str, Name);
+}
+
+extern "C"
+llvm_CallInst* llvm_IRBuilderBase_CreateLifetimeEnd(llvm_IRBuilderBase* self, llvm_Value* Ptr, llvm_ConstantInt** _Size)
+{
+    ::llvm::ConstantInt* Size = NULL;
+    if (_Size != NULL){
+        Size = *_Size;
+    }
+    return self->CreateLifetimeEnd(Ptr, Size);
+}
+
+extern "C"
+llvm_CallInst* llvm_IRBuilderBase_CreateLifetimeStart(llvm_IRBuilderBase* self, llvm_Value* Ptr, llvm_ConstantInt** _Size)
+{
+    ::llvm::ConstantInt* Size = NULL;
+    if (_Size != NULL){
+        Size = *_Size;
+    }
+    return self->CreateLifetimeStart(Ptr, Size);
+}
+
+extern "C"
+llvm_CallInst* llvm_IRBuilderBase_CreateMemCpy(llvm_IRBuilderBase* self, llvm_Value* Dst, llvm_Value* Src, llvm_Value* Size, unsigned int Align, int* _isVolatile)
+{
+    bool isVolatile = false;
+    if (_isVolatile != NULL){
+        isVolatile = ((*_isVolatile) == 1 ? true : false);
+    }
+    return self->CreateMemCpy(Dst, Src, Size, Align, isVolatile);
+}
+
+extern "C"
+llvm_CallInst* llvm_IRBuilderBase_CreateMemMove(llvm_IRBuilderBase* self, llvm_Value* Dst, llvm_Value* Src, llvm_Value* Size, unsigned int Align, int* _isVolatile)
+{
+    bool isVolatile = false;
+    if (_isVolatile != NULL){
+        isVolatile = ((*_isVolatile) == 1 ? true : false);
+    }
+    return self->CreateMemMove(Dst, Src, Size, Align, isVolatile);
+}
+
+extern "C"
+llvm_CallInst* llvm_IRBuilderBase_CreateMemSet(llvm_IRBuilderBase* self, llvm_Value* Ptr, llvm_Value* Value, llvm_Value* Size, unsigned int Align, int* _isVolatile)
+{
+    bool isVolatile = false;
+    if (_isVolatile != NULL){
+        isVolatile = ((*_isVolatile) == 1 ? true : false);
+    }
+    return self->CreateMemSet(Ptr, Value, Size, Align, isVolatile);
+}
+
+extern "C"
+llvm_BasicBlock* llvm_IRBuilderBase_GetInsertBlock(llvm_IRBuilderBase const* self)
+{
+    return self->GetInsertBlock();
+}
+
+extern "C"
+void llvm_IRBuilderBase_SetCurrentDebugLocation(llvm_IRBuilderBase* self, llvm_DebugLoc const* Loc)
+{
+    self->SetCurrentDebugLocation(*Loc);
+}
+
+extern "C"
+void llvm_IRBuilderBase_SetDefaultFPMathTag(llvm_IRBuilderBase* self, llvm_MDNode* FPMathTag)
+{
+    self->SetDefaultFPMathTag(FPMathTag);
+}
+
+extern "C"
+void llvm_IRBuilderBase_SetInsertPoint(llvm_IRBuilderBase* self, llvm_BasicBlock* BB)
+{
+    self->SetInsertPoint(BB);
+}
+
+extern "C"
+void llvm_IRBuilderBase_SetInsertPointAtInst(llvm_IRBuilderBase* self, llvm_Instruction* Inst)
+{
+    self->SetInsertPoint(Inst);
+}
+
+extern "C"
+void llvm_IRBuilderBase_SetInstDebugLocation(llvm_IRBuilderBase const* self, llvm_Instruction* Inst)
+{
+    self->SetInstDebugLocation(Inst);
+}
+
+extern "C"
+llvm_LLVMContext* llvm_IRBuilderBase_getContext(llvm_IRBuilderBase const* self)
+{
+    return &self->getContext();
+}
+
+extern "C"
+llvm_Type* llvm_IRBuilderBase_getCurrentFunctionReturnType(llvm_IRBuilderBase const* self)
+{
+    return self->getCurrentFunctionReturnType();
+}
+
+extern "C"
+llvm_MDNode* llvm_IRBuilderBase_getDefaultFPMathTag(llvm_IRBuilderBase const* self)
+{
+    return self->getDefaultFPMathTag();
+}
+
+extern "C"
+llvm_Type* llvm_IRBuilderBase_getDoubleTy(llvm_IRBuilderBase* self)
+{
+    return self->getDoubleTy();
+}
+
+extern "C"
+llvm_ConstantInt* llvm_IRBuilderBase_getFalse(llvm_IRBuilderBase* self)
+{
+    return self->getFalse();
+}
+
+extern "C"
+llvm_Type* llvm_IRBuilderBase_getFloatTy(llvm_IRBuilderBase* self)
+{
+    return self->getFloatTy();
+}
+
+extern "C"
+llvm_Type* llvm_IRBuilderBase_getHalfTy(llvm_IRBuilderBase* self)
+{
+    return self->getHalfTy();
+}
+
+extern "C"
+llvm_ConstantInt* llvm_IRBuilderBase_getInt(llvm_IRBuilderBase* self, llvm_APInt _Value)
+{
+    llvm::ArrayRef<uint64_t> __Value_data(_Value.data.data, _Value.data.size);
+    llvm::APInt Value(_Value.numbits, __Value_data);
+    return self->getInt(Value);
+}
+
+extern "C"
+llvm_ConstantInt* llvm_IRBuilderBase_getInt1(llvm_IRBuilderBase* self, int Value)
+{
+    return self->getInt1((Value == 1 ? true : false));
+}
+
+extern "C"
+llvm_ConstantInt* llvm_IRBuilderBase_getInt16(llvm_IRBuilderBase* self, uint16_t Value)
+{
+    return self->getInt16(Value);
+}
+
+extern "C"
+llvm_IntegerType* llvm_IRBuilderBase_getInt16Ty(llvm_IRBuilderBase* self)
+{
+    return self->getInt16Ty();
+}
+
+extern "C"
+llvm_IntegerType* llvm_IRBuilderBase_getInt1Ty(llvm_IRBuilderBase* self)
+{
+    return self->getInt1Ty();
+}
+
+extern "C"
+llvm_ConstantInt* llvm_IRBuilderBase_getInt32(llvm_IRBuilderBase* self, uint32_t Value)
+{
+    return self->getInt32(Value);
+}
+
+extern "C"
+llvm_IntegerType* llvm_IRBuilderBase_getInt32Ty(llvm_IRBuilderBase* self)
+{
+    return self->getInt32Ty();
+}
+
+extern "C"
+llvm_ConstantInt* llvm_IRBuilderBase_getInt64(llvm_IRBuilderBase* self, uint64_t Value)
+{
+    return self->getInt64(Value);
+}
+
+extern "C"
+llvm_IntegerType* llvm_IRBuilderBase_getInt64Ty(llvm_IRBuilderBase* self)
+{
+    return self->getInt64Ty();
+}
+
+extern "C"
+llvm_ConstantInt* llvm_IRBuilderBase_getInt8(llvm_IRBuilderBase* self, uint8_t Value)
+{
+    return self->getInt8(Value);
+}
+
+extern "C"
+llvm_PointerType* llvm_IRBuilderBase_getInt8PtrTy(llvm_IRBuilderBase* self, unsigned int* _AddrSpace)
+{
+    unsigned int AddrSpace = 0;
+    if (_AddrSpace != NULL){
+        AddrSpace = *_AddrSpace;
+    }
+    return self->getInt8PtrTy(AddrSpace);
+}
+
+extern "C"
+llvm_IntegerType* llvm_IRBuilderBase_getInt8Ty(llvm_IRBuilderBase* self)
+{
+    return self->getInt8Ty();
+}
+
+extern "C"
+llvm_ConstantInt* llvm_IRBuilderBase_getIntN(llvm_IRBuilderBase* self, unsigned int NumBits, uint64_t Value)
+{
+    return self->getIntN(NumBits, Value);
+}
+
+extern "C"
+llvm_IntegerType* llvm_IRBuilderBase_getIntNTy(llvm_IRBuilderBase* self, unsigned int NumBits)
+{
+    return self->getIntNTy(NumBits);
+}
+
+extern "C"
+llvm_IntegerType* llvm_IRBuilderBase_getIntPtrTy(llvm_IRBuilderBase* self, llvm_DataLayout const* DL, unsigned int* _AddrSpace)
+{
+    unsigned int AddrSpace = 0;
+    if (_AddrSpace != NULL){
+        AddrSpace = *_AddrSpace;
+    }
+    return self->getIntPtrTy(DL, AddrSpace);
+}
+
+extern "C"
+llvm_ConstantInt* llvm_IRBuilderBase_getTrue(llvm_IRBuilderBase* self)
+{
+    return self->getTrue();
+}
+
+extern "C"
+llvm_Type* llvm_IRBuilderBase_getVoidTy(llvm_IRBuilderBase* self)
+{
+    return self->getVoidTy();
+}
+
+extern "C"
+llvm_IRBuilderBase* llvm_IRBuilderBase_new(llvm_LLVMContext* Context)
+{
+    return new(std::nothrow) ::llvm::IRBuilderBase(*Context);
+}
+
+extern "C"
+llvm_Value* llvm_IRBuilder_CreateAShr(llvm_IRBuilder* self, llvm_Value* LHS, llvm_Value* RHS, std_string* _Name)
 {
     std::string Name = "";
     if (_Name != NULL){
@@ -1918,7 +2182,7 @@ llvm_Value* llvm_IRBuilder_CreateAShrByValue(llvm_IRBuilder* self, llvm_Value* L
 }
 
 extern "C"
-llvm_Value* llvm_IRBuilder_CreateAShr(llvm_IRBuilder* self, llvm_Value* LHS, llvm_Value* RHS, std_string* _Name)
+llvm_Value* llvm_IRBuilder_CreateAShrByValue(llvm_IRBuilder* self, llvm_Value* LHS, uint64_t RHS, std_string* _Name)
 {
     std::string Name = "";
     if (_Name != NULL){
@@ -1951,17 +2215,6 @@ llvm_Value* llvm_IRBuilder_CreateAddrSpaceCast(llvm_IRBuilder* self, llvm_Value*
 }
 
 extern "C"
-llvm_LoadInst* llvm_IRBuilder_CreateAlignedLoadVolatile(llvm_IRBuilder* self, llvm_Value* Ptr, unsigned int Align, int isVolatile, std_string* _Name)
-{
-    std::string Name = "";
-    if (_Name != NULL){
-        std::string __Name_value((*_Name).data, (*_Name).length);
-        Name = __Name_value;
-    }
-    return self->CreateAlignedLoad(Ptr, Align, (isVolatile == 1 ? true : false), Name);
-}
-
-extern "C"
 llvm_LoadInst* llvm_IRBuilder_CreateAlignedLoad(llvm_IRBuilder* self, llvm_Value* Ptr, unsigned int Align, std_string* _Name)
 {
     std::string Name = "";
@@ -1970,6 +2223,17 @@ llvm_LoadInst* llvm_IRBuilder_CreateAlignedLoad(llvm_IRBuilder* self, llvm_Value
         Name = __Name_value;
     }
     return self->CreateAlignedLoad(Ptr, Align, Name);
+}
+
+extern "C"
+llvm_LoadInst* llvm_IRBuilder_CreateAlignedLoadVolatile(llvm_IRBuilder* self, llvm_Value* Ptr, unsigned int Align, int isVolatile, std_string* _Name)
+{
+    std::string Name = "";
+    if (_Name != NULL){
+        std::string __Name_value((*_Name).data, (*_Name).length);
+        Name = __Name_value;
+    }
+    return self->CreateAlignedLoad(Ptr, Align, (isVolatile == 1 ? true : false), Name);
 }
 
 extern "C"
@@ -1998,7 +2262,7 @@ llvm_AllocaInst* llvm_IRBuilder_CreateAlloca(llvm_IRBuilder* self, llvm_Type* Ty
 }
 
 extern "C"
-llvm_Value* llvm_IRBuilder_CreateAndByValue(llvm_IRBuilder* self, llvm_Value* LHS, uint64_t RHS, std_string* _Name)
+llvm_Value* llvm_IRBuilder_CreateAnd(llvm_IRBuilder* self, llvm_Value* LHS, llvm_Value* RHS, std_string* _Name)
 {
     std::string Name = "";
     if (_Name != NULL){
@@ -2009,7 +2273,7 @@ llvm_Value* llvm_IRBuilder_CreateAndByValue(llvm_IRBuilder* self, llvm_Value* LH
 }
 
 extern "C"
-llvm_Value* llvm_IRBuilder_CreateAnd(llvm_IRBuilder* self, llvm_Value* LHS, llvm_Value* RHS, std_string* _Name)
+llvm_Value* llvm_IRBuilder_CreateAndByValue(llvm_IRBuilder* self, llvm_Value* LHS, uint64_t RHS, std_string* _Name)
 {
     std::string Name = "";
     if (_Name != NULL){
@@ -2709,17 +2973,6 @@ llvm_LandingPadInst* llvm_IRBuilder_CreateLandingPad(llvm_IRBuilder* self, llvm_
 }
 
 extern "C"
-llvm_LoadInst* llvm_IRBuilder_CreateLoadVolatile(llvm_IRBuilder* self, llvm_Value* Ptr, int isVolatile, std_string* _Name)
-{
-    std::string Name = "";
-    if (_Name != NULL){
-        std::string __Name_value((*_Name).data, (*_Name).length);
-        Name = __Name_value;
-    }
-    return self->CreateLoad(Ptr, (isVolatile == 1 ? true : false), Name);
-}
-
-extern "C"
 llvm_LoadInst* llvm_IRBuilder_CreateLoad(llvm_IRBuilder* self, llvm_Value* Ptr, std_string* _Name)
 {
     std::string Name = "";
@@ -2728,6 +2981,17 @@ llvm_LoadInst* llvm_IRBuilder_CreateLoad(llvm_IRBuilder* self, llvm_Value* Ptr, 
         Name = __Name_value;
     }
     return self->CreateLoad(Ptr, Name);
+}
+
+extern "C"
+llvm_LoadInst* llvm_IRBuilder_CreateLoadVolatile(llvm_IRBuilder* self, llvm_Value* Ptr, int isVolatile, std_string* _Name)
+{
+    std::string Name = "";
+    if (_Name != NULL){
+        std::string __Name_value((*_Name).data, (*_Name).length);
+        Name = __Name_value;
+    }
+    return self->CreateLoad(Ptr, (isVolatile == 1 ? true : false), Name);
 }
 
 extern "C"
@@ -2852,7 +3116,7 @@ llvm_Value* llvm_IRBuilder_CreateNot(llvm_IRBuilder* self, llvm_Value* Value, st
 }
 
 extern "C"
-llvm_Value* llvm_IRBuilder_CreateOrByValue(llvm_IRBuilder* self, llvm_Value* LHS, uint64_t RHS, std_string* _Name)
+llvm_Value* llvm_IRBuilder_CreateOr(llvm_IRBuilder* self, llvm_Value* LHS, llvm_Value* RHS, std_string* _Name)
 {
     std::string Name = "";
     if (_Name != NULL){
@@ -2863,7 +3127,7 @@ llvm_Value* llvm_IRBuilder_CreateOrByValue(llvm_IRBuilder* self, llvm_Value* LHS
 }
 
 extern "C"
-llvm_Value* llvm_IRBuilder_CreateOr(llvm_IRBuilder* self, llvm_Value* LHS, llvm_Value* RHS, std_string* _Name)
+llvm_Value* llvm_IRBuilder_CreateOrByValue(llvm_IRBuilder* self, llvm_Value* LHS, uint64_t RHS, std_string* _Name)
 {
     std::string Name = "";
     if (_Name != NULL){
@@ -3024,7 +3288,7 @@ llvm_Value* llvm_IRBuilder_CreateSelect(llvm_IRBuilder* self, llvm_Value* C, llv
 }
 
 extern "C"
-llvm_Value* llvm_IRBuilder_CreateShlByValue(llvm_IRBuilder* self, llvm_Value* LHS, uint64_t RHS, std_string* _Name)
+llvm_Value* llvm_IRBuilder_CreateShl(llvm_IRBuilder* self, llvm_Value* LHS, llvm_Value* RHS, std_string* _Name)
 {
     std::string Name = "";
     if (_Name != NULL){
@@ -3035,7 +3299,7 @@ llvm_Value* llvm_IRBuilder_CreateShlByValue(llvm_IRBuilder* self, llvm_Value* LH
 }
 
 extern "C"
-llvm_Value* llvm_IRBuilder_CreateShl(llvm_IRBuilder* self, llvm_Value* LHS, llvm_Value* RHS, std_string* _Name)
+llvm_Value* llvm_IRBuilder_CreateShlByValue(llvm_IRBuilder* self, llvm_Value* LHS, uint64_t RHS, std_string* _Name)
 {
     std::string Name = "";
     if (_Name != NULL){
@@ -3261,270 +3525,6 @@ llvm_IRBuilder* llvm_IRBuilder_new_in_block(llvm_BasicBlock* BB)
 }
 
 extern "C"
-void llvm_IRBuilderBase_ClearInsertionPoint(llvm_IRBuilderBase* self)
-{
-    self->ClearInsertionPoint();
-}
-
-extern "C"
-llvm_Value* llvm_IRBuilderBase_CreateGlobalString(llvm_IRBuilderBase* self, llvm_StringRef _Str, std_string* _Name)
-{
-    llvm::StringRef Str(_Str.data, _Str.length);
-    std::string Name = "";
-    if (_Name != NULL){
-        std::string __Name_value((*_Name).data, (*_Name).length);
-        Name = __Name_value;
-    }
-    return self->CreateGlobalString(Str, Name);
-}
-
-extern "C"
-llvm_CallInst* llvm_IRBuilderBase_CreateLifetimeEnd(llvm_IRBuilderBase* self, llvm_Value* Ptr, llvm_ConstantInt** _Size)
-{
-    ::llvm::ConstantInt* Size = NULL;
-    if (_Size != NULL){
-        Size = *_Size;
-    }
-    return self->CreateLifetimeEnd(Ptr, Size);
-}
-
-extern "C"
-llvm_CallInst* llvm_IRBuilderBase_CreateLifetimeStart(llvm_IRBuilderBase* self, llvm_Value* Ptr, llvm_ConstantInt** _Size)
-{
-    ::llvm::ConstantInt* Size = NULL;
-    if (_Size != NULL){
-        Size = *_Size;
-    }
-    return self->CreateLifetimeStart(Ptr, Size);
-}
-
-extern "C"
-llvm_CallInst* llvm_IRBuilderBase_CreateMemCpy(llvm_IRBuilderBase* self, llvm_Value* Dst, llvm_Value* Src, llvm_Value* Size, unsigned int Align, int* _isVolatile)
-{
-    bool isVolatile = false;
-    if (_isVolatile != NULL){
-        isVolatile = ((*_isVolatile) == 1 ? true : false);
-    }
-    return self->CreateMemCpy(Dst, Src, Size, Align, isVolatile);
-}
-
-extern "C"
-llvm_CallInst* llvm_IRBuilderBase_CreateMemMove(llvm_IRBuilderBase* self, llvm_Value* Dst, llvm_Value* Src, llvm_Value* Size, unsigned int Align, int* _isVolatile)
-{
-    bool isVolatile = false;
-    if (_isVolatile != NULL){
-        isVolatile = ((*_isVolatile) == 1 ? true : false);
-    }
-    return self->CreateMemMove(Dst, Src, Size, Align, isVolatile);
-}
-
-extern "C"
-llvm_CallInst* llvm_IRBuilderBase_CreateMemSet(llvm_IRBuilderBase* self, llvm_Value* Ptr, llvm_Value* Value, llvm_Value* Size, unsigned int Align, int* _isVolatile)
-{
-    bool isVolatile = false;
-    if (_isVolatile != NULL){
-        isVolatile = ((*_isVolatile) == 1 ? true : false);
-    }
-    return self->CreateMemSet(Ptr, Value, Size, Align, isVolatile);
-}
-
-extern "C"
-llvm_BasicBlock* llvm_IRBuilderBase_GetInsertBlock(llvm_IRBuilderBase const* self)
-{
-    return self->GetInsertBlock();
-}
-
-extern "C"
-void llvm_IRBuilderBase_SetCurrentDebugLocation(llvm_IRBuilderBase* self, llvm_DebugLoc const* Loc)
-{
-    self->SetCurrentDebugLocation(*Loc);
-}
-
-extern "C"
-void llvm_IRBuilderBase_SetDefaultFPMathTag(llvm_IRBuilderBase* self, llvm_MDNode* FPMathTag)
-{
-    self->SetDefaultFPMathTag(FPMathTag);
-}
-
-extern "C"
-void llvm_IRBuilderBase_SetInsertPointAtInst(llvm_IRBuilderBase* self, llvm_Instruction* Inst)
-{
-    self->SetInsertPoint(Inst);
-}
-
-extern "C"
-void llvm_IRBuilderBase_SetInsertPoint(llvm_IRBuilderBase* self, llvm_BasicBlock* BB)
-{
-    self->SetInsertPoint(BB);
-}
-
-extern "C"
-void llvm_IRBuilderBase_SetInstDebugLocation(llvm_IRBuilderBase const* self, llvm_Instruction* Inst)
-{
-    self->SetInstDebugLocation(Inst);
-}
-
-extern "C"
-llvm_LLVMContext* llvm_IRBuilderBase_getContext(llvm_IRBuilderBase const* self)
-{
-    return &self->getContext();
-}
-
-extern "C"
-llvm_Type* llvm_IRBuilderBase_getCurrentFunctionReturnType(llvm_IRBuilderBase const* self)
-{
-    return self->getCurrentFunctionReturnType();
-}
-
-extern "C"
-llvm_MDNode* llvm_IRBuilderBase_getDefaultFPMathTag(llvm_IRBuilderBase const* self)
-{
-    return self->getDefaultFPMathTag();
-}
-
-extern "C"
-llvm_Type* llvm_IRBuilderBase_getDoubleTy(llvm_IRBuilderBase* self)
-{
-    return self->getDoubleTy();
-}
-
-extern "C"
-llvm_ConstantInt* llvm_IRBuilderBase_getFalse(llvm_IRBuilderBase* self)
-{
-    return self->getFalse();
-}
-
-extern "C"
-llvm_Type* llvm_IRBuilderBase_getFloatTy(llvm_IRBuilderBase* self)
-{
-    return self->getFloatTy();
-}
-
-extern "C"
-llvm_Type* llvm_IRBuilderBase_getHalfTy(llvm_IRBuilderBase* self)
-{
-    return self->getHalfTy();
-}
-
-extern "C"
-llvm_ConstantInt* llvm_IRBuilderBase_getInt(llvm_IRBuilderBase* self, llvm_APInt _Value)
-{
-    llvm::ArrayRef<uint64_t> __Value_data(_Value.data.data, _Value.data.size);
-    llvm::APInt Value(_Value.numbits, __Value_data);
-    return self->getInt(Value);
-}
-
-extern "C"
-llvm_ConstantInt* llvm_IRBuilderBase_getInt1(llvm_IRBuilderBase* self, int Value)
-{
-    return self->getInt1((Value == 1 ? true : false));
-}
-
-extern "C"
-llvm_ConstantInt* llvm_IRBuilderBase_getInt16(llvm_IRBuilderBase* self, uint16_t Value)
-{
-    return self->getInt16(Value);
-}
-
-extern "C"
-llvm_IntegerType* llvm_IRBuilderBase_getInt16Ty(llvm_IRBuilderBase* self)
-{
-    return self->getInt16Ty();
-}
-
-extern "C"
-llvm_IntegerType* llvm_IRBuilderBase_getInt1Ty(llvm_IRBuilderBase* self)
-{
-    return self->getInt1Ty();
-}
-
-extern "C"
-llvm_ConstantInt* llvm_IRBuilderBase_getInt32(llvm_IRBuilderBase* self, uint32_t Value)
-{
-    return self->getInt32(Value);
-}
-
-extern "C"
-llvm_IntegerType* llvm_IRBuilderBase_getInt32Ty(llvm_IRBuilderBase* self)
-{
-    return self->getInt32Ty();
-}
-
-extern "C"
-llvm_ConstantInt* llvm_IRBuilderBase_getInt64(llvm_IRBuilderBase* self, uint64_t Value)
-{
-    return self->getInt64(Value);
-}
-
-extern "C"
-llvm_IntegerType* llvm_IRBuilderBase_getInt64Ty(llvm_IRBuilderBase* self)
-{
-    return self->getInt64Ty();
-}
-
-extern "C"
-llvm_ConstantInt* llvm_IRBuilderBase_getInt8(llvm_IRBuilderBase* self, uint8_t Value)
-{
-    return self->getInt8(Value);
-}
-
-extern "C"
-llvm_PointerType* llvm_IRBuilderBase_getInt8PtrTy(llvm_IRBuilderBase* self, unsigned int* _AddrSpace)
-{
-    unsigned int AddrSpace = 0;
-    if (_AddrSpace != NULL){
-        AddrSpace = *_AddrSpace;
-    }
-    return self->getInt8PtrTy(AddrSpace);
-}
-
-extern "C"
-llvm_IntegerType* llvm_IRBuilderBase_getInt8Ty(llvm_IRBuilderBase* self)
-{
-    return self->getInt8Ty();
-}
-
-extern "C"
-llvm_ConstantInt* llvm_IRBuilderBase_getIntN(llvm_IRBuilderBase* self, unsigned int NumBits, uint64_t Value)
-{
-    return self->getIntN(NumBits, Value);
-}
-
-extern "C"
-llvm_IntegerType* llvm_IRBuilderBase_getIntNTy(llvm_IRBuilderBase* self, unsigned int NumBits)
-{
-    return self->getIntNTy(NumBits);
-}
-
-extern "C"
-llvm_IntegerType* llvm_IRBuilderBase_getIntPtrTy(llvm_IRBuilderBase* self, llvm_DataLayout const* DL, unsigned int* _AddrSpace)
-{
-    unsigned int AddrSpace = 0;
-    if (_AddrSpace != NULL){
-        AddrSpace = *_AddrSpace;
-    }
-    return self->getIntPtrTy(DL, AddrSpace);
-}
-
-extern "C"
-llvm_ConstantInt* llvm_IRBuilderBase_getTrue(llvm_IRBuilderBase* self)
-{
-    return self->getTrue();
-}
-
-extern "C"
-llvm_Type* llvm_IRBuilderBase_getVoidTy(llvm_IRBuilderBase* self)
-{
-    return self->getVoidTy();
-}
-
-extern "C"
-llvm_IRBuilderBase* llvm_IRBuilderBase_new(llvm_LLVMContext* Context)
-{
-    return new(std::nothrow) ::llvm::IRBuilderBase(*Context);
-}
-
-extern "C"
 llvm_Instruction* llvm_Instruction_clone(llvm_Instruction const* self)
 {
     return self->clone();
@@ -3543,16 +3543,16 @@ void llvm_Instruction_delete(llvm_Instruction* self)
 }
 
 extern "C"
+void llvm_Instruction_dropUnknownMetadata(llvm_Instruction* self)
+{
+    self->dropUnknownMetadata();
+}
+
+extern "C"
 void llvm_Instruction_dropUnknownMetadataFromIDS(llvm_Instruction* self, llvm_ArrayRef_uint _KnownIDs)
 {
     llvm::ArrayRef<unsigned int> KnownIDs(_KnownIDs.data, _KnownIDs.size);
     self->dropUnknownMetadata(KnownIDs);
-}
-
-extern "C"
-void llvm_Instruction_dropUnknownMetadata(llvm_Instruction* self)
-{
-    self->dropUnknownMetadata();
 }
 
 extern "C"
@@ -3574,16 +3574,16 @@ llvm_DebugLoc const* llvm_Instruction_getDebugLoc(llvm_Instruction const* self)
 }
 
 extern "C"
+llvm_MDNode* llvm_Instruction_getMetadata(llvm_Instruction const* self, unsigned int KindID)
+{
+    return self->getMetadata(KindID);
+}
+
+extern "C"
 llvm_MDNode* llvm_Instruction_getMetadataStr(llvm_Instruction const* self, llvm_StringRef _Kind)
 {
     llvm::StringRef Kind(_Kind.data, _Kind.length);
     return self->getMetadata(Kind);
-}
-
-extern "C"
-llvm_MDNode* llvm_Instruction_getMetadata(llvm_Instruction const* self, unsigned int KindID)
-{
-    return self->getMetadata(KindID);
 }
 
 extern "C"
@@ -3593,13 +3593,13 @@ unsigned int llvm_Instruction_getOpcode(llvm_Instruction const* self)
 }
 
 extern "C"
-llvm_BasicBlock* llvm_Instruction_getParentMut(llvm_Instruction* self)
+llvm_BasicBlock const* llvm_Instruction_getParent(llvm_Instruction const* self)
 {
     return self->getParent();
 }
 
 extern "C"
-llvm_BasicBlock const* llvm_Instruction_getParent(llvm_Instruction const* self)
+llvm_BasicBlock* llvm_Instruction_getParentMut(llvm_Instruction* self)
 {
     return self->getParent();
 }
@@ -4049,6 +4049,24 @@ unsigned int llvm_Operator_getOpcode(llvm_Operator const* self)
 }
 
 extern "C"
+void llvm_PassManager_add(llvm_PassManager* self, llvm_Pass* Pass)
+{
+    self->add(Pass);
+}
+
+extern "C"
+llvm_PassManager* llvm_PassManager_new()
+{
+    return new(std::nothrow) ::llvm::PassManager();
+}
+
+extern "C"
+void llvm_PassManager_run(llvm_PassManager* self, llvm_Module* Module)
+{
+    self->run(*Module);
+}
+
+extern "C"
 void llvm_Pass_delete(llvm_Pass* self)
 {
     delete self;
@@ -4076,24 +4094,6 @@ extern "C"
 llvm_PassKind llvm_Pass_getPassKind(llvm_Pass const* self)
 {
     return self->getPassKind();
-}
-
-extern "C"
-void llvm_PassManager_add(llvm_PassManager* self, llvm_Pass* Pass)
-{
-    self->add(Pass);
-}
-
-extern "C"
-llvm_PassManager* llvm_PassManager_new()
-{
-    return new(std::nothrow) ::llvm::PassManager();
-}
-
-extern "C"
-void llvm_PassManager_run(llvm_PassManager* self, llvm_Module* Module)
-{
-    self->run(*Module);
 }
 
 extern "C"
@@ -4224,17 +4224,17 @@ int llvm_StructType_isValidElementType(llvm_Type* ty)
 }
 
 extern "C"
-void llvm_StructType_setBodyPacked(llvm_StructType* self, llvm_ArrayRef_ptr_llvm_Type _Elements, int isPacked)
-{
-    llvm::ArrayRef<::llvm::Type*> Elements(_Elements.data, _Elements.size);
-    self->setBody(Elements, (isPacked == 1 ? true : false));
-}
-
-extern "C"
 void llvm_StructType_setBody(llvm_StructType* self, llvm_ArrayRef_ptr_llvm_Type _Elements)
 {
     llvm::ArrayRef<::llvm::Type*> Elements(_Elements.data, _Elements.size);
     self->setBody(Elements);
+}
+
+extern "C"
+void llvm_StructType_setBodyPacked(llvm_StructType* self, llvm_ArrayRef_ptr_llvm_Type _Elements, int isPacked)
+{
+    llvm::ArrayRef<::llvm::Type*> Elements(_Elements.data, _Elements.size);
+    self->setBody(Elements, (isPacked == 1 ? true : false));
 }
 
 extern "C"
@@ -4746,6 +4746,43 @@ void llvm_User_setOperand(llvm_User* self, unsigned int idx, llvm_Value* Val)
 }
 
 extern "C"
+llvm_ValueSymbolTable* llvm_ValueSymbolTable_delete()
+{
+    return new(std::nothrow) ::llvm::ValueSymbolTable();
+}
+
+extern "C"
+void llvm_ValueSymbolTable_dump(llvm_ValueSymbolTable const* self)
+{
+    self->dump();
+}
+
+extern "C"
+int llvm_ValueSymbolTable_empty(llvm_ValueSymbolTable const* self)
+{
+    return (self->empty() ? 1 : 0);
+}
+
+extern "C"
+llvm_Value* llvm_ValueSymbolTable_lookup(llvm_ValueSymbolTable const* self, llvm_StringRef _Name)
+{
+    llvm::StringRef Name(_Name.data, _Name.length);
+    return self->lookup(Name);
+}
+
+extern "C"
+llvm_ValueSymbolTable* llvm_ValueSymbolTable_new()
+{
+    return new(std::nothrow) ::llvm::ValueSymbolTable();
+}
+
+extern "C"
+unsigned int llvm_ValueSymbolTable_size(llvm_ValueSymbolTable const* self)
+{
+    return self->size();
+}
+
+extern "C"
 void llvm_Value_delete(llvm_Value* self)
 {
     delete self;
@@ -4843,43 +4880,6 @@ extern "C"
 void llvm_Value_takeName(llvm_Value* self, llvm_Value* Value)
 {
     self->takeName(Value);
-}
-
-extern "C"
-llvm_ValueSymbolTable* llvm_ValueSymbolTable_delete()
-{
-    return new(std::nothrow) ::llvm::ValueSymbolTable();
-}
-
-extern "C"
-void llvm_ValueSymbolTable_dump(llvm_ValueSymbolTable const* self)
-{
-    self->dump();
-}
-
-extern "C"
-int llvm_ValueSymbolTable_empty(llvm_ValueSymbolTable const* self)
-{
-    return (self->empty() ? 1 : 0);
-}
-
-extern "C"
-llvm_Value* llvm_ValueSymbolTable_lookup(llvm_ValueSymbolTable const* self, llvm_StringRef _Name)
-{
-    llvm::StringRef Name(_Name.data, _Name.length);
-    return self->lookup(Name);
-}
-
-extern "C"
-llvm_ValueSymbolTable* llvm_ValueSymbolTable_new()
-{
-    return new(std::nothrow) ::llvm::ValueSymbolTable();
-}
-
-extern "C"
-unsigned int llvm_ValueSymbolTable_size(llvm_ValueSymbolTable const* self)
-{
-    return self->size();
 }
 
 extern "C"
