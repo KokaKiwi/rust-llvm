@@ -1125,11 +1125,11 @@ pub mod llvm {
         }
 
         pub fn new(Ty: *mut super::super::llvm_Type, Name: Option<&str>, F: Option<*mut super::super::llvm_Function>) -> *mut super::super::llvm_Argument {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string_const {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string_const {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             let F = F.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_Argument_new(Ty, Name, F)
@@ -1196,11 +1196,11 @@ pub mod llvm {
 
     pub mod BasicBlock {
         pub fn Create(Context: *mut super::super::llvm_LLVMContext, Name: Option<&str>, Parent: Option<*mut super::super::llvm_Function>, InsertBefore: Option<*mut super::super::llvm_BasicBlock>) -> *mut super::super::llvm_BasicBlock {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             let Parent = Parent.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             let InsertBefore = InsertBefore.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
@@ -1371,8 +1371,8 @@ pub mod llvm {
         }
 
         pub fn removePredecessor(inst: *mut super::super::llvm_BasicBlock, Pred: *mut super::super::llvm_BasicBlock, DontDeleteUselessPHIs: Option<bool>) {
-            let opt_hack_541398 = DontDeleteUselessPHIs.map(|value| if value { 1 } else { 0 });
-            let DontDeleteUselessPHIs = opt_hack_541398.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let opt_hack_c46a45 = DontDeleteUselessPHIs.map(|value| if value { 1 } else { 0 });
+            let DontDeleteUselessPHIs = opt_hack_c46a45.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_BasicBlock_removePredecessor(inst, Pred, DontDeleteUselessPHIs)
             }
@@ -1913,11 +1913,11 @@ pub mod llvm {
 
     pub mod Function {
         pub fn Create(Ty: *mut super::super::llvm_FunctionType, Linkage: super::super::llvm_GlobalValue_LinkageTypes, Name: Option<&str>, Module: Option<*mut super::super::llvm_Module>) -> *mut super::super::llvm_Function {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             let Module = Module.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_Function_Create(Ty, Linkage, Name, Module)
@@ -1929,11 +1929,11 @@ pub mod llvm {
                 data: unsafe { ::std::mem::transmute(Kind.as_ptr()) },
                 length: Kind.len() as super::super::libc::size_t,
             };
-            let opt_hack_763514 = Val.map(|value| super::super::llvm_StringRef {
+            let opt_hack_5988c2 = Val.map(|value| super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Val = opt_hack_763514.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Val = opt_hack_5988c2.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_Function_addFnAttr(inst, Kind, Val)
             }
@@ -2681,11 +2681,11 @@ pub mod llvm {
 
     pub mod IRBuilder {
         pub fn CreateAShr(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateAShr(inst, LHS, RHS, Name)
             }
@@ -2693,33 +2693,33 @@ pub mod llvm {
 
         pub fn CreateAShrByValue(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: u64, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let RHS = RHS as super::super::libc::uint64_t;
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateAShrByValue(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateAdd(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateAdd(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateAddrSpaceCast(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateAddrSpaceCast(inst, Value, DestTy, Name)
             }
@@ -2727,11 +2727,11 @@ pub mod llvm {
 
         pub fn CreateAlignedLoad(inst: *mut super::super::llvm_IRBuilder, Ptr: *mut super::super::llvm_Value, Align: usize, Name: Option<&str>) -> *mut super::super::llvm_LoadInst {
             let Align = Align as super::super::libc::c_uint;
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateAlignedLoad(inst, Ptr, Align, Name)
             }
@@ -2740,11 +2740,11 @@ pub mod llvm {
         pub fn CreateAlignedLoadVolatile(inst: *mut super::super::llvm_IRBuilder, Ptr: *mut super::super::llvm_Value, Align: usize, isVolatile: bool, Name: Option<&str>) -> *mut super::super::llvm_LoadInst {
             let Align = Align as super::super::libc::c_uint;
             let isVolatile = if isVolatile { 1 } else { 0 };
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateAlignedLoadVolatile(inst, Ptr, Align, isVolatile, Name)
             }
@@ -2752,8 +2752,8 @@ pub mod llvm {
 
         pub fn CreateAlignedStore(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, Ptr: *mut super::super::llvm_Value, Align: usize, isVolatile: Option<bool>) -> *mut super::super::llvm_StoreInst {
             let Align = Align as super::super::libc::c_uint;
-            let opt_hack_872884 = isVolatile.map(|value| if value { 1 } else { 0 });
-            let isVolatile = opt_hack_872884.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let opt_hack_f620fb = isVolatile.map(|value| if value { 1 } else { 0 });
+            let isVolatile = opt_hack_f620fb.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateAlignedStore(inst, Value, Ptr, Align, isVolatile)
             }
@@ -2761,22 +2761,22 @@ pub mod llvm {
 
         pub fn CreateAlloca(inst: *mut super::super::llvm_IRBuilder, Ty: *mut super::super::llvm_Type, ArraySize: Option<*mut super::super::llvm_Value>, Name: Option<&str>) -> *mut super::super::llvm_AllocaInst {
             let ArraySize = ArraySize.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateAlloca(inst, Ty, ArraySize, Name)
             }
         }
 
         pub fn CreateAnd(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateAnd(inst, LHS, RHS, Name)
             }
@@ -2784,33 +2784,33 @@ pub mod llvm {
 
         pub fn CreateAndByValue(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: u64, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let RHS = RHS as super::super::libc::uint64_t;
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateAndByValue(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateBinOp(inst: *mut super::super::llvm_IRBuilder, Opcode: super::super::llvm_Instruction_BinaryOps, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateBinOp(inst, Opcode, LHS, RHS, Name)
             }
         }
 
         pub fn CreateBitCast(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateBitCast(inst, Value, DestTy, Name)
             }
@@ -2827,22 +2827,22 @@ pub mod llvm {
                 data: Args.as_ptr(),
                 size: Args.len() as super::super::libc::size_t,
             };
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateCall(inst, Callee, Args, Name)
             }
         }
 
         pub fn CreateCast(inst: *mut super::super::llvm_IRBuilder, Opcode: super::super::llvm_Instruction_CastOps, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateCast(inst, Opcode, Value, DestTy, Name)
             }
@@ -2855,33 +2855,33 @@ pub mod llvm {
         }
 
         pub fn CreateExactSDiv(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateExactSDiv(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateExactUDiv(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateExactUDiv(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateExtractElement(inst: *mut super::super::llvm_IRBuilder, Vec: *mut super::super::llvm_Value, Idx: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateExtractElement(inst, Vec, Idx, Name)
             }
@@ -2903,297 +2903,297 @@ pub mod llvm {
                 data: Indexes.as_ptr(),
                 size: Indexes.len() as super::super::libc::size_t,
             };
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateExtractValue(inst, Agg, Indexes, Name)
             }
         }
 
         pub fn CreateFAdd(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFAdd(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateFCmp(inst: *mut super::super::llvm_IRBuilder, Pred: super::super::llvm_CmpInst_Predicate, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFCmp(inst, Pred, LHS, RHS, Name)
             }
         }
 
         pub fn CreateFCmpOEQ(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFCmpOEQ(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateFCmpOGE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFCmpOGE(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateFCmpOGT(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFCmpOGT(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateFCmpOLE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFCmpOLE(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateFCmpOLT(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFCmpOLT(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateFCmpONE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFCmpONE(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateFCmpORD(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFCmpORD(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateFCmpUEQ(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFCmpUEQ(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateFCmpUGE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFCmpUGE(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateFCmpUGT(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFCmpUGT(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateFCmpULE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFCmpULE(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateFCmpULT(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFCmpULT(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateFCmpUNE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFCmpUNE(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateFCmpUNO(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFCmpUNO(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateFDiv(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFDiv(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateFMul(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFMul(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateFNeg(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFNeg(inst, Value, Name)
             }
         }
 
         pub fn CreateFPCast(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFPCast(inst, Value, DestTy, Name)
             }
         }
 
         pub fn CreateFPExt(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFPExt(inst, Value, DestTy, Name)
             }
         }
 
         pub fn CreateFPToSI(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFPToSI(inst, Value, DestTy, Name)
             }
         }
 
         pub fn CreateFPToUI(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFPToUI(inst, Value, DestTy, Name)
             }
         }
 
         pub fn CreateFPTrunc(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFPTrunc(inst, Value, DestTy, Name)
             }
         }
 
         pub fn CreateFRem(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFRem(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateFSub(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFSub(inst, LHS, RHS, Name)
             }
@@ -3201,11 +3201,11 @@ pub mod llvm {
 
         pub fn CreateFence(inst: *mut super::super::llvm_IRBuilder, Ordering: super::super::llvm_AtomicOrdering, SynchScope: Option<super::super::llvm_SynchronizationScope>, Name: Option<&str>) -> *mut super::super::llvm_FenceInst {
             let SynchScope = SynchScope.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateFence(inst, Ordering, SynchScope, Name)
             }
@@ -3216,11 +3216,11 @@ pub mod llvm {
                 data: Indexes.as_ptr(),
                 size: Indexes.len() as super::super::libc::size_t,
             };
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateGEP(inst, Ptr, Indexes, Name)
             }
@@ -3231,132 +3231,132 @@ pub mod llvm {
                 data: unsafe { ::std::mem::transmute(Str.as_ptr()) },
                 length: Str.len() as super::super::libc::size_t,
             };
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateGlobalStringPtr(inst, Str, Name)
             }
         }
 
         pub fn CreateICmp(inst: *mut super::super::llvm_IRBuilder, Pred: super::super::llvm_CmpInst_Predicate, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateICmp(inst, Pred, LHS, RHS, Name)
             }
         }
 
         pub fn CreateICmpEQ(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateICmpEQ(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateICmpNE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateICmpNE(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateICmpSGE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateICmpSGE(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateICmpSGT(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateICmpSGT(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateICmpSLE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateICmpSLE(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateICmpSLT(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateICmpSLT(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateICmpUGE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateICmpUGE(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateICmpUGT(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateICmpUGT(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateICmpULE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateICmpULE(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateICmpULT(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateICmpULT(inst, LHS, RHS, Name)
             }
@@ -3367,30 +3367,30 @@ pub mod llvm {
                 data: Indexes.as_ptr(),
                 size: Indexes.len() as super::super::libc::size_t,
             };
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateInBoundsGEP(inst, Ptr, Indexes, Name)
             }
         }
 
         pub fn CreateIndirectBr(inst: *mut super::super::llvm_IRBuilder, Addr: *mut super::super::llvm_Value, NumCases: Option<usize>) -> *mut super::super::llvm_IndirectBrInst {
-            let opt_hack_775166 = NumCases.map(|value| value as super::super::libc::c_uint);
-            let NumCases = opt_hack_775166.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let opt_hack_f5156c = NumCases.map(|value| value as super::super::libc::c_uint);
+            let NumCases = opt_hack_f5156c.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateIndirectBr(inst, Addr, NumCases)
             }
         }
 
         pub fn CreateInsertElement(inst: *mut super::super::llvm_IRBuilder, Vec: *mut super::super::llvm_Value, NewElt: *mut super::super::llvm_Value, Idx: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateInsertElement(inst, Vec, NewElt, Idx, Name)
             }
@@ -3401,11 +3401,11 @@ pub mod llvm {
                 data: Indexes.as_ptr(),
                 size: Indexes.len() as super::super::libc::size_t,
             };
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateInsertValue(inst, Agg, Value, Indexes, Name)
             }
@@ -3413,22 +3413,22 @@ pub mod llvm {
 
         pub fn CreateIntCast(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, isSigned: bool, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let isSigned = if isSigned { 1 } else { 0 };
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateIntCast(inst, Value, DestTy, isSigned, Name)
             }
         }
 
         pub fn CreateIntToPtr(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateIntToPtr(inst, Value, DestTy, Name)
             }
@@ -3439,44 +3439,44 @@ pub mod llvm {
                 data: Args.as_ptr(),
                 size: Args.len() as super::super::libc::size_t,
             };
-            let opt_hack_467406 = Name.map(|value| super::super::std_string_const {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string_const {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateInvoke(inst, Callee, NormalDest, UnwindDest, Args, Name)
             }
         }
 
         pub fn CreateIsNotNull(inst: *mut super::super::llvm_IRBuilder, Arg: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateIsNotNull(inst, Arg, Name)
             }
         }
 
         pub fn CreateIsNull(inst: *mut super::super::llvm_IRBuilder, Arg: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateIsNull(inst, Arg, Name)
             }
         }
 
         pub fn CreateLShr(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateLShr(inst, LHS, RHS, Name)
             }
@@ -3484,11 +3484,11 @@ pub mod llvm {
 
         pub fn CreateLShrByValue(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: u64, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let RHS = RHS as super::super::libc::uint64_t;
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateLShrByValue(inst, LHS, RHS, Name)
             }
@@ -3496,22 +3496,22 @@ pub mod llvm {
 
         pub fn CreateLandingPad(inst: *mut super::super::llvm_IRBuilder, Ty: *mut super::super::llvm_Type, PersFn: *mut super::super::llvm_Value, NumClauses: usize, Name: Option<&str>) -> *mut super::super::llvm_LandingPadInst {
             let NumClauses = NumClauses as super::super::libc::c_uint;
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateLandingPad(inst, Ty, PersFn, NumClauses, Name)
             }
         }
 
         pub fn CreateLoad(inst: *mut super::super::llvm_IRBuilder, Ptr: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_LoadInst {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateLoad(inst, Ptr, Name)
             }
@@ -3519,143 +3519,143 @@ pub mod llvm {
 
         pub fn CreateLoadVolatile(inst: *mut super::super::llvm_IRBuilder, Ptr: *mut super::super::llvm_Value, isVolatile: bool, Name: Option<&str>) -> *mut super::super::llvm_LoadInst {
             let isVolatile = if isVolatile { 1 } else { 0 };
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateLoadVolatile(inst, Ptr, isVolatile, Name)
             }
         }
 
         pub fn CreateMul(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateMul(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateNSWAdd(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateNSWAdd(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateNSWMul(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateNSWMul(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateNSWNeg(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateNSWNeg(inst, Value, Name)
             }
         }
 
         pub fn CreateNSWSub(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateNSWSub(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateNUWAdd(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateNUWAdd(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateNUWMul(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateNUWMul(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateNUWNeg(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateNUWNeg(inst, Value, Name)
             }
         }
 
         pub fn CreateNUWSub(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateNUWSub(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateNeg(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateNeg(inst, Value, Name)
             }
         }
 
         pub fn CreateNot(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateNot(inst, Value, Name)
             }
         }
 
         pub fn CreateOr(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateOr(inst, LHS, RHS, Name)
             }
@@ -3663,11 +3663,11 @@ pub mod llvm {
 
         pub fn CreateOrByValue(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: u64, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let RHS = RHS as super::super::libc::uint64_t;
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateOrByValue(inst, LHS, RHS, Name)
             }
@@ -3675,55 +3675,55 @@ pub mod llvm {
 
         pub fn CreatePHI(inst: *mut super::super::llvm_IRBuilder, Ty: *mut super::super::llvm_Type, NumReservedValues: usize, Name: Option<&str>) -> *mut super::super::llvm_PHINode {
             let NumReservedValues = NumReservedValues as super::super::libc::c_uint;
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreatePHI(inst, Ty, NumReservedValues, Name)
             }
         }
 
         pub fn CreatePointerBitCastOrAddrSpaceCast(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreatePointerBitCastOrAddrSpaceCast(inst, Value, DestTy, Name)
             }
         }
 
         pub fn CreatePointerCast(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreatePointerCast(inst, Value, DestTy, Name)
             }
         }
 
         pub fn CreatePtrDiff(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreatePtrDiff(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreatePtrToInt(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreatePtrToInt(inst, Value, DestTy, Name)
             }
@@ -3748,88 +3748,88 @@ pub mod llvm {
         }
 
         pub fn CreateSDiv(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateSDiv(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateSExt(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateSExt(inst, Value, DestTy, Name)
             }
         }
 
         pub fn CreateSExtOrBitCast(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateSExtOrBitCast(inst, Value, DestTy, Name)
             }
         }
 
         pub fn CreateSExtOrTrunc(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateSExtOrTrunc(inst, Value, DestTy, Name)
             }
         }
 
         pub fn CreateSIToFP(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateSIToFP(inst, Value, DestTy, Name)
             }
         }
 
         pub fn CreateSRem(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateSRem(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateSelect(inst: *mut super::super::llvm_IRBuilder, C: *mut super::super::llvm_Value, TrueValue: *mut super::super::llvm_Value, FalseValue: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateSelect(inst, C, TrueValue, FalseValue, Name)
             }
         }
 
         pub fn CreateShl(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateShl(inst, LHS, RHS, Name)
             }
@@ -3837,30 +3837,30 @@ pub mod llvm {
 
         pub fn CreateShlByValue(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: u64, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let RHS = RHS as super::super::libc::uint64_t;
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateShlByValue(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateShuffleVector(inst: *mut super::super::llvm_IRBuilder, V1: *mut super::super::llvm_Value, P2: *mut super::super::llvm_Value, Mask: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateShuffleVector(inst, V1, P2, Mask, Name)
             }
         }
 
         pub fn CreateStore(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, Ptr: *mut super::super::llvm_Value, isVolatile: Option<bool>) -> *mut super::super::llvm_StoreInst {
-            let opt_hack_872884 = isVolatile.map(|value| if value { 1 } else { 0 });
-            let isVolatile = opt_hack_872884.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let opt_hack_f620fb = isVolatile.map(|value| if value { 1 } else { 0 });
+            let isVolatile = opt_hack_f620fb.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateStore(inst, Value, Ptr, isVolatile)
             }
@@ -3868,85 +3868,85 @@ pub mod llvm {
 
         pub fn CreateStructGEP(inst: *mut super::super::llvm_IRBuilder, Ptr: *mut super::super::llvm_Value, Index: usize, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let Index = Index as super::super::libc::c_uint;
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateStructGEP(inst, Ptr, Index, Name)
             }
         }
 
         pub fn CreateSub(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateSub(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateSwitch(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, Dest: *mut super::super::llvm_BasicBlock, NumCases: Option<usize>) -> *mut super::super::llvm_SwitchInst {
-            let opt_hack_775166 = NumCases.map(|value| value as super::super::libc::c_uint);
-            let NumCases = opt_hack_775166.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let opt_hack_f5156c = NumCases.map(|value| value as super::super::libc::c_uint);
+            let NumCases = opt_hack_f5156c.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateSwitch(inst, Value, Dest, NumCases)
             }
         }
 
         pub fn CreateTrunc(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateTrunc(inst, Value, DestTy, Name)
             }
         }
 
         pub fn CreateTruncOrBitCast(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateTruncOrBitCast(inst, Value, DestTy, Name)
             }
         }
 
         pub fn CreateUDiv(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateUDiv(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateUIToFP(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateUIToFP(inst, Value, DestTy, Name)
             }
         }
 
         pub fn CreateURem(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateURem(inst, LHS, RHS, Name)
             }
@@ -3959,11 +3959,11 @@ pub mod llvm {
         }
 
         pub fn CreateVAArg(inst: *mut super::super::llvm_IRBuilder, List: *mut super::super::llvm_Value, Ty: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_VAArgInst {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateVAArg(inst, List, Ty, Name)
             }
@@ -3971,22 +3971,22 @@ pub mod llvm {
 
         pub fn CreateVectorSplat(inst: *mut super::super::llvm_IRBuilder, NumElements: usize, Value: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let NumElements = NumElements as super::super::libc::c_uint;
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateVectorSplat(inst, NumElements, Value, Name)
             }
         }
 
         pub fn CreateXor(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateXor(inst, LHS, RHS, Name)
             }
@@ -3994,44 +3994,44 @@ pub mod llvm {
 
         pub fn CreateXorByValue(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: u64, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let RHS = RHS as super::super::libc::uint64_t;
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateXorByValue(inst, LHS, RHS, Name)
             }
         }
 
         pub fn CreateZExt(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateZExt(inst, Value, DestTy, Name)
             }
         }
 
         pub fn CreateZExtOrBitCast(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateZExtOrBitCast(inst, Value, DestTy, Name)
             }
         }
 
         pub fn CreateZExtOrTrunc(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateZExtOrTrunc(inst, Value, DestTy, Name)
             }
@@ -4074,11 +4074,11 @@ pub mod llvm {
                 data: unsafe { ::std::mem::transmute(Str.as_ptr()) },
                 length: Str.len() as super::super::libc::size_t,
             };
-            let opt_hack_467406 = Name.map(|value| super::super::std_string {
+            let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
                 length: value.len() as super::super::libc::size_t,
             });
-            let Name = opt_hack_467406.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let Name = opt_hack_49ee30.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_CreateGlobalString(inst, Str, Name)
             }
@@ -4100,8 +4100,8 @@ pub mod llvm {
 
         pub fn CreateMemCpy(inst: *mut super::super::llvm_IRBuilderBase, Dst: *mut super::super::llvm_Value, Src: *mut super::super::llvm_Value, Size: *mut super::super::llvm_Value, Align: usize, isVolatile: Option<bool>) -> *mut super::super::llvm_CallInst {
             let Align = Align as super::super::libc::c_uint;
-            let opt_hack_872884 = isVolatile.map(|value| if value { 1 } else { 0 });
-            let isVolatile = opt_hack_872884.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let opt_hack_f620fb = isVolatile.map(|value| if value { 1 } else { 0 });
+            let isVolatile = opt_hack_f620fb.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_CreateMemCpy(inst, Dst, Src, Size, Align, isVolatile)
             }
@@ -4109,8 +4109,8 @@ pub mod llvm {
 
         pub fn CreateMemMove(inst: *mut super::super::llvm_IRBuilderBase, Dst: *mut super::super::llvm_Value, Src: *mut super::super::llvm_Value, Size: *mut super::super::llvm_Value, Align: usize, isVolatile: Option<bool>) -> *mut super::super::llvm_CallInst {
             let Align = Align as super::super::libc::c_uint;
-            let opt_hack_872884 = isVolatile.map(|value| if value { 1 } else { 0 });
-            let isVolatile = opt_hack_872884.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let opt_hack_f620fb = isVolatile.map(|value| if value { 1 } else { 0 });
+            let isVolatile = opt_hack_f620fb.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_CreateMemMove(inst, Dst, Src, Size, Align, isVolatile)
             }
@@ -4118,8 +4118,8 @@ pub mod llvm {
 
         pub fn CreateMemSet(inst: *mut super::super::llvm_IRBuilderBase, Ptr: *mut super::super::llvm_Value, Value: *mut super::super::llvm_Value, Size: *mut super::super::llvm_Value, Align: usize, isVolatile: Option<bool>) -> *mut super::super::llvm_CallInst {
             let Align = Align as super::super::libc::c_uint;
-            let opt_hack_872884 = isVolatile.map(|value| if value { 1 } else { 0 });
-            let isVolatile = opt_hack_872884.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let opt_hack_f620fb = isVolatile.map(|value| if value { 1 } else { 0 });
+            let isVolatile = opt_hack_f620fb.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_CreateMemSet(inst, Ptr, Value, Size, Align, isVolatile)
             }
@@ -4276,8 +4276,8 @@ pub mod llvm {
         }
 
         pub fn getInt8PtrTy(inst: *mut super::super::llvm_IRBuilderBase, AddrSpace: Option<usize>) -> *mut super::super::llvm_PointerType {
-            let opt_hack_647634 = AddrSpace.map(|value| value as super::super::libc::c_uint);
-            let AddrSpace = opt_hack_647634.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let opt_hack_ac2532 = AddrSpace.map(|value| value as super::super::libc::c_uint);
+            let AddrSpace = opt_hack_ac2532.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_getInt8PtrTy(inst, AddrSpace)
             }
@@ -4305,8 +4305,8 @@ pub mod llvm {
         }
 
         pub fn getIntPtrTy(inst: *mut super::super::llvm_IRBuilderBase, DL: *const super::super::llvm_DataLayout, AddrSpace: Option<usize>) -> *mut super::super::llvm_IntegerType {
-            let opt_hack_647634 = AddrSpace.map(|value| value as super::super::libc::c_uint);
-            let AddrSpace = opt_hack_647634.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+            let opt_hack_ac2532 = AddrSpace.map(|value| value as super::super::libc::c_uint);
+            let AddrSpace = opt_hack_ac2532.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_getIntPtrTy(inst, DL, AddrSpace)
             }
@@ -6092,16 +6092,16 @@ pub mod llvm {
     }
 
     pub fn createAlwaysInlinerPass(InsertLifetime: Option<bool>) -> *mut super::llvm_Pass {
-        let opt_hack_367948 = InsertLifetime.map(|value| if value { 1 } else { 0 });
-        let InsertLifetime = opt_hack_367948.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+        let opt_hack_32050c = InsertLifetime.map(|value| if value { 1 } else { 0 });
+        let InsertLifetime = opt_hack_32050c.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
         unsafe {
             super::raw::llvm_createAlwaysInlinerPass(InsertLifetime)
         }
     }
 
     pub fn createArgumentPromotionPass(maxElements: Option<usize>) -> *mut super::llvm_Pass {
-        let opt_hack_398720 = maxElements.map(|value| value as super::libc::c_uint);
-        let maxElements = opt_hack_398720.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+        let opt_hack_03242d = maxElements.map(|value| value as super::libc::c_uint);
+        let maxElements = opt_hack_03242d.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
         unsafe {
             super::raw::llvm_createArgumentPromotionPass(maxElements)
         }
@@ -6248,8 +6248,8 @@ pub mod llvm {
     }
 
     pub fn createGVNPass(NoLoads: Option<bool>) -> *mut super::llvm_FunctionPass {
-        let opt_hack_834650 = NoLoads.map(|value| if value { 1 } else { 0 });
-        let NoLoads = opt_hack_834650.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+        let opt_hack_b50d49 = NoLoads.map(|value| if value { 1 } else { 0 });
+        let NoLoads = opt_hack_b50d49.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
         unsafe {
             super::raw::llvm_createGVNPass(NoLoads)
         }
@@ -6370,8 +6370,8 @@ pub mod llvm {
     }
 
     pub fn createLoopRotatePass(MaxHeaderSize: Option<isize>) -> *mut super::llvm_Pass {
-        let opt_hack_534157 = MaxHeaderSize.map(|value| value as super::libc::c_int);
-        let MaxHeaderSize = opt_hack_534157.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+        let opt_hack_74d578 = MaxHeaderSize.map(|value| value as super::libc::c_int);
+        let MaxHeaderSize = opt_hack_74d578.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
         unsafe {
             super::raw::llvm_createLoopRotatePass(MaxHeaderSize)
         }
@@ -6396,8 +6396,8 @@ pub mod llvm {
     }
 
     pub fn createLoopUnswitchPass(OptimizeForSize: Option<bool>) -> *mut super::llvm_Pass {
-        let opt_hack_790824 = OptimizeForSize.map(|value| if value { 1 } else { 0 });
-        let OptimizeForSize = opt_hack_790824.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+        let opt_hack_bd0a33 = OptimizeForSize.map(|value| if value { 1 } else { 0 });
+        let OptimizeForSize = opt_hack_bd0a33.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
         unsafe {
             super::raw::llvm_createLoopUnswitchPass(OptimizeForSize)
         }
@@ -6434,8 +6434,8 @@ pub mod llvm {
     }
 
     pub fn createMemorySanitizerPass(TrackOrigins: Option<isize>) -> *mut super::llvm_FunctionPass {
-        let opt_hack_649743 = TrackOrigins.map(|value| value as super::libc::c_int);
-        let TrackOrigins = opt_hack_649743.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+        let opt_hack_e88e9b = TrackOrigins.map(|value| value as super::libc::c_int);
+        let TrackOrigins = opt_hack_e88e9b.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
         unsafe {
             super::raw::llvm_createMemorySanitizerPass(TrackOrigins)
         }
@@ -6520,8 +6520,8 @@ pub mod llvm {
     }
 
     pub fn createSROAPass(RequiresDomTree: Option<bool>) -> *mut super::llvm_FunctionPass {
-        let opt_hack_610466 = RequiresDomTree.map(|value| if value { 1 } else { 0 });
-        let RequiresDomTree = opt_hack_610466.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+        let opt_hack_421e63 = RequiresDomTree.map(|value| if value { 1 } else { 0 });
+        let RequiresDomTree = opt_hack_421e63.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
         unsafe {
             super::raw::llvm_createSROAPass(RequiresDomTree)
         }
@@ -6594,8 +6594,8 @@ pub mod llvm {
     }
 
     pub fn createStripSymbolsPass(OnlyDebugInfo: Option<bool>) -> *mut super::llvm_ModulePass {
-        let opt_hack_192717 = OnlyDebugInfo.map(|value| if value { 1 } else { 0 });
-        let OnlyDebugInfo = opt_hack_192717.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
+        let opt_hack_e100af = OnlyDebugInfo.map(|value| if value { 1 } else { 0 });
+        let OnlyDebugInfo = opt_hack_e100af.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
         unsafe {
             super::raw::llvm_createStripSymbolsPass(OnlyDebugInfo)
         }
