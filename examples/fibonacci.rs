@@ -24,11 +24,7 @@ fn main() {
     let module = llvm::Module::new("fibonacci", ctx);
 
     // Make fib function type
-    let fib_fn_arg_tys = objects![
-        llvm::Type::getInt32Ty(ctx),
-    ];
-
-    let fib_fn_ty = llvm::FunctionType::get(cast!(llvm::Type::getInt32Ty(ctx)), &fib_fn_arg_tys, false);
+    let fib_fn_ty = llvm::FunctionType::get(cast!(llvm::Type::getInt32Ty(ctx)), &objects![llvm::Type::getInt32Ty(ctx)], false);
 
     // Make function
     let fib_fn = llvm::Function::Create(fib_fn_ty, 0, Some("fib"), Some(module));
