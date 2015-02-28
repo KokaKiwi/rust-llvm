@@ -547,6 +547,12 @@ typedef struct {} llvm_VectorType;
 #endif /* __cplusplus */
 
 #ifdef __cplusplus
+typedef ::llvm::iplist<::llvm::Argument> llvm_iplist_llvm_Argument;
+#else
+typedef struct {} llvm_iplist_llvm_Argument;
+#endif /* __cplusplus */
+
+#ifdef __cplusplus
 typedef ::llvm::AtomicOrdering llvm_AtomicOrdering;
 #else
 typedef enum {
@@ -830,16 +836,6 @@ typedef enum {
 #endif /* __cplusplus */
 
 typedef struct {
-    uint64_t const* data;
-    size_t size;
-} llvm_ArrayRef_uint64;
-
-typedef struct {
-    unsigned int const* data;
-    size_t size;
-} llvm_ArrayRef_uint;
-
-typedef struct {
     llvm_Constant* const* data;
     size_t size;
 } llvm_ArrayRef_ptr_llvm_Constant;
@@ -853,6 +849,16 @@ typedef struct {
     llvm_Value* const* data;
     size_t size;
 } llvm_ArrayRef_ptr_llvm_Value;
+
+typedef struct {
+    uint64_t const* data;
+    size_t size;
+} llvm_ArrayRef_uint64;
+
+typedef struct {
+    unsigned int const* data;
+    size_t size;
+} llvm_ArrayRef_uint;
 
 typedef struct {
     unsigned int numbits;
@@ -1149,6 +1155,30 @@ int llvm_verifyFunction(llvm_Function const* Function);
 
 extern "C"
 int llvm_verifyModule(llvm_Module const* Module);
+
+extern "C"
+unsigned int llvm_Argument_getArgNo(llvm_Argument const* self);
+
+extern "C"
+llvm_Function const* llvm_Argument_getParent(llvm_Argument const* self);
+
+extern "C"
+llvm_Function* llvm_Argument_getParentMut(llvm_Argument* self);
+
+extern "C"
+llvm_Argument* llvm_Argument_new(llvm_Type* Ty, std_string_const* Name, llvm_Function** F);
+
+extern "C"
+llvm_Argument const* llvm_Argument_next(llvm_Argument const* self);
+
+extern "C"
+llvm_Argument* llvm_Argument_nextMut(llvm_Argument* self);
+
+extern "C"
+llvm_Argument const* llvm_Argument_prev(llvm_Argument const* self);
+
+extern "C"
+llvm_Argument* llvm_Argument_prevMut(llvm_Argument* self);
 
 extern "C"
 int llvm_ArrayType_classof(llvm_Type const* ty);
@@ -1538,6 +1568,12 @@ extern "C"
 void llvm_Function_eraseFromParent(llvm_Function* self);
 
 extern "C"
+llvm_iplist_llvm_Argument const* llvm_Function_getArgumentList(llvm_Function const* self);
+
+extern "C"
+llvm_iplist_llvm_Argument* llvm_Function_getArgumentListMut(llvm_Function* self);
+
+extern "C"
 llvm_CallingConv_ID llvm_Function_getCallingConv(llvm_Function const* self);
 
 extern "C"
@@ -1545,6 +1581,18 @@ llvm_LLVMContext* llvm_Function_getContext(llvm_Function const* self);
 
 extern "C"
 uint64_t llvm_Function_getDereferenceableBytes(llvm_Function const* self, unsigned int idx);
+
+extern "C"
+llvm_BasicBlock const* llvm_Function_getEntryBlock(llvm_Function const* self);
+
+extern "C"
+llvm_BasicBlock* llvm_Function_getEntryBlockMut(llvm_Function* self);
+
+extern "C"
+llvm_Argument const* llvm_Function_getFirstArg(llvm_Function const* self);
+
+extern "C"
+llvm_Argument* llvm_Function_getFirstArgMut(llvm_Function* self);
 
 extern "C"
 llvm_FunctionType* llvm_Function_getFunctionType(llvm_Function const* self);
@@ -1557,6 +1605,12 @@ unsigned int llvm_Function_getParamAlignment(llvm_Function const* self, unsigned
 
 extern "C"
 llvm_Type* llvm_Function_getReturnType(llvm_Function const* self);
+
+extern "C"
+llvm_ValueSymbolTable const* llvm_Function_getValueSymbolTable(llvm_Function const* self);
+
+extern "C"
+llvm_ValueSymbolTable* llvm_Function_getValueSymbolTableMut(llvm_Function* self);
 
 extern "C"
 int llvm_Function_hasFnAttr(llvm_Function const* self, llvm_StringRef Kind);
@@ -2525,6 +2579,27 @@ extern "C"
 unsigned int llvm_Operator_getOpcode(llvm_Operator const* self);
 
 extern "C"
+void llvm_PHINode_addIncoming(llvm_PHINode* self, llvm_Value* V, llvm_BasicBlock* BB);
+
+extern "C"
+void llvm_PHINode_delete(llvm_PHINode* self);
+
+extern "C"
+llvm_BasicBlock* llvm_PHINode_getIncomingBlock(llvm_PHINode const* self, unsigned int i);
+
+extern "C"
+llvm_Value* llvm_PHINode_getIncomingValue(llvm_PHINode const* self, unsigned int i);
+
+extern "C"
+unsigned int llvm_PHINode_getNumIncomingValues(llvm_PHINode const* self);
+
+extern "C"
+void llvm_PHINode_setIncomingBlock(llvm_PHINode* self, unsigned int i, llvm_BasicBlock* BB);
+
+extern "C"
+void llvm_PHINode_setIncomingValue(llvm_PHINode* self, unsigned int i, llvm_Value* V);
+
+extern "C"
 void llvm_PassManager_add(llvm_PassManager* self, llvm_Pass* Pass);
 
 extern "C"
@@ -2616,6 +2691,27 @@ void llvm_StructType_setBodyPacked(llvm_StructType* self, llvm_ArrayRef_ptr_llvm
 
 extern "C"
 void llvm_StructType_setName(llvm_StructType* self, llvm_StringRef Name);
+
+extern "C"
+void llvm_SwitchInst_addCase(llvm_SwitchInst* self, llvm_ConstantInt* OnVal, llvm_BasicBlock* Dest);
+
+extern "C"
+void llvm_SwitchInst_delete(llvm_SwitchInst* self);
+
+extern "C"
+llvm_Value* llvm_SwitchInst_getCondition(llvm_SwitchInst const* self);
+
+extern "C"
+llvm_BasicBlock* llvm_SwitchInst_getDefaultDest(llvm_SwitchInst const* self);
+
+extern "C"
+unsigned int llvm_SwitchInst_getNumCases(llvm_SwitchInst const* self);
+
+extern "C"
+void llvm_SwitchInst_setCondition(llvm_SwitchInst* self, llvm_Value* V);
+
+extern "C"
+void llvm_SwitchInst_setDefaultDest(llvm_SwitchInst* self, llvm_BasicBlock* DefaultCase);
 
 extern "C"
 void llvm_Type_dump(llvm_Type const* self);
@@ -2867,7 +2963,7 @@ extern "C"
 void llvm_User_setOperand(llvm_User* self, unsigned int idx, llvm_Value* Val);
 
 extern "C"
-llvm_ValueSymbolTable* llvm_ValueSymbolTable_delete();
+void llvm_ValueSymbolTable_delete(llvm_ValueSymbolTable* self);
 
 extern "C"
 void llvm_ValueSymbolTable_dump(llvm_ValueSymbolTable const* self);
@@ -2961,5 +3057,32 @@ llvm_VectorType* llvm_VectorType_getTruncatedElementVectorType(llvm_VectorType* 
 
 extern "C"
 int llvm_VectorType_isValidElementType(llvm_Type* ty);
+
+extern "C"
+void llvm_iplist_llvm_Argument_clear(llvm_iplist_llvm_Argument* self);
+
+extern "C"
+void llvm_iplist_llvm_Argument_delete(llvm_iplist_llvm_Argument* self);
+
+extern "C"
+llvm_Argument const* llvm_iplist_llvm_Argument_first(llvm_iplist_llvm_Argument const* self);
+
+extern "C"
+llvm_Argument* llvm_iplist_llvm_Argument_firstMut(llvm_iplist_llvm_Argument* self);
+
+extern "C"
+llvm_Argument const* llvm_iplist_llvm_Argument_last(llvm_iplist_llvm_Argument const* self);
+
+extern "C"
+llvm_Argument* llvm_iplist_llvm_Argument_lastMut(llvm_iplist_llvm_Argument* self);
+
+extern "C"
+size_t llvm_iplist_llvm_Argument_max_size(llvm_iplist_llvm_Argument const* self);
+
+extern "C"
+llvm_iplist_llvm_Argument* llvm_iplist_llvm_Argument_new();
+
+extern "C"
+size_t llvm_iplist_llvm_Argument_size(llvm_iplist_llvm_Argument const* self);
 
 #endif /* FFI_H_ */

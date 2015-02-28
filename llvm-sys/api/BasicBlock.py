@@ -53,15 +53,3 @@ class BasicBlock:
     isLandingPad = Method(Bool, const=True)
     getLandingPadInst = Method(ptr(LandingPadInst, const=True), const=True)
     getLandingPadInstMut = Method(ptr(LandingPadInst)).with_real_name('getLandingPadInst')
-
-@ValueSymbolTable.body
-class ValueSymbolTable:
-    new = Constructor()
-    delete = Constructor()
-
-    lookup = Method(ptr(Value), (StringRef, 'Name'), const=True)
-
-    empty = Method(Bool, const=True)
-    size = Method(UnsignedInt, const=True)
-
-    dump = Method(const=True)

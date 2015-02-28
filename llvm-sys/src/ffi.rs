@@ -177,6 +177,8 @@ pub struct llvm_Value;
 pub struct llvm_ValueSymbolTable;
 #[repr(C)]
 pub struct llvm_VectorType;
+#[repr(C)]
+pub struct llvm_iplist_llvm_Argument;
 pub type llvm_AtomicOrdering = libc::c_int;
 pub type llvm_Instruction_BinaryOps = libc::c_int;
 pub type llvm_Instruction_CastOps = libc::c_int;
@@ -193,18 +195,6 @@ pub type llvm_Type_TypeID = libc::c_int;
 pub type llvm_Value_ValueTy = libc::c_int;
 
 #[repr(C)]
-pub struct llvm_ArrayRef_uint64 {
-    pub data: *const libc::uint64_t,
-    pub size: libc::size_t,
-}
-
-#[repr(C)]
-pub struct llvm_ArrayRef_uint {
-    pub data: *const libc::c_uint,
-    pub size: libc::size_t,
-}
-
-#[repr(C)]
 pub struct llvm_ArrayRef_ptr_llvm_Constant {
     pub data: *const *mut llvm_Constant,
     pub size: libc::size_t,
@@ -219,6 +209,18 @@ pub struct llvm_ArrayRef_ptr_llvm_Type {
 #[repr(C)]
 pub struct llvm_ArrayRef_ptr_llvm_Value {
     pub data: *const *mut llvm_Value,
+    pub size: libc::size_t,
+}
+
+#[repr(C)]
+pub struct llvm_ArrayRef_uint64 {
+    pub data: *const libc::uint64_t,
+    pub size: libc::size_t,
+}
+
+#[repr(C)]
+pub struct llvm_ArrayRef_uint {
+    pub data: *const libc::c_uint,
     pub size: libc::size_t,
 }
 
@@ -450,6 +452,14 @@ pub mod raw {
         pub fn llvm_getGlobalContext() -> *mut super::llvm_LLVMContext;
         pub fn llvm_verifyFunction(Function: *const super::llvm_Function) -> super::libc::c_int;
         pub fn llvm_verifyModule(Module: *const super::llvm_Module) -> super::libc::c_int;
+        pub fn llvm_Argument_getArgNo(inst: *const super::llvm_Argument) -> super::libc::c_uint;
+        pub fn llvm_Argument_getParent(inst: *const super::llvm_Argument) -> *const super::llvm_Function;
+        pub fn llvm_Argument_getParentMut(inst: *mut super::llvm_Argument) -> *mut super::llvm_Function;
+        pub fn llvm_Argument_new(Ty: *mut super::llvm_Type, Name: *const super::std_string_const, F: *const *mut super::llvm_Function) -> *mut super::llvm_Argument;
+        pub fn llvm_Argument_next(inst: *const super::llvm_Argument) -> *const super::llvm_Argument;
+        pub fn llvm_Argument_nextMut(inst: *mut super::llvm_Argument) -> *mut super::llvm_Argument;
+        pub fn llvm_Argument_prev(inst: *const super::llvm_Argument) -> *const super::llvm_Argument;
+        pub fn llvm_Argument_prevMut(inst: *mut super::llvm_Argument) -> *mut super::llvm_Argument;
         pub fn llvm_ArrayType_classof(ty: *const super::llvm_Type) -> super::libc::c_int;
         pub fn llvm_ArrayType_get(ElementType: *mut super::llvm_Type, NumElements: super::libc::uint64_t) -> *mut super::llvm_ArrayType;
         pub fn llvm_ArrayType_getNumElements(inst: *const super::llvm_ArrayType) -> super::libc::uint64_t;
@@ -579,13 +589,21 @@ pub mod raw {
         pub fn llvm_Function_doesNotReturn(inst: *const super::llvm_Function) -> super::libc::c_int;
         pub fn llvm_Function_doesNotThrow(inst: *const super::llvm_Function) -> super::libc::c_int;
         pub fn llvm_Function_eraseFromParent(inst: *mut super::llvm_Function);
+        pub fn llvm_Function_getArgumentList(inst: *const super::llvm_Function) -> *const super::llvm_iplist_llvm_Argument;
+        pub fn llvm_Function_getArgumentListMut(inst: *mut super::llvm_Function) -> *mut super::llvm_iplist_llvm_Argument;
         pub fn llvm_Function_getCallingConv(inst: *const super::llvm_Function) -> super::llvm_CallingConv_ID;
         pub fn llvm_Function_getContext(inst: *const super::llvm_Function) -> *mut super::llvm_LLVMContext;
         pub fn llvm_Function_getDereferenceableBytes(inst: *const super::llvm_Function, idx: super::libc::c_uint) -> super::libc::uint64_t;
+        pub fn llvm_Function_getEntryBlock(inst: *const super::llvm_Function) -> *const super::llvm_BasicBlock;
+        pub fn llvm_Function_getEntryBlockMut(inst: *mut super::llvm_Function) -> *mut super::llvm_BasicBlock;
+        pub fn llvm_Function_getFirstArg(inst: *const super::llvm_Function) -> *const super::llvm_Argument;
+        pub fn llvm_Function_getFirstArgMut(inst: *mut super::llvm_Function) -> *mut super::llvm_Argument;
         pub fn llvm_Function_getFunctionType(inst: *const super::llvm_Function) -> *mut super::llvm_FunctionType;
         pub fn llvm_Function_getIntrinsicID(inst: *const super::llvm_Function) -> super::libc::c_uint;
         pub fn llvm_Function_getParamAlignment(inst: *const super::llvm_Function, idx: super::libc::c_uint) -> super::libc::c_uint;
         pub fn llvm_Function_getReturnType(inst: *const super::llvm_Function) -> *mut super::llvm_Type;
+        pub fn llvm_Function_getValueSymbolTable(inst: *const super::llvm_Function) -> *const super::llvm_ValueSymbolTable;
+        pub fn llvm_Function_getValueSymbolTableMut(inst: *mut super::llvm_Function) -> *mut super::llvm_ValueSymbolTable;
         pub fn llvm_Function_hasFnAttr(inst: *const super::llvm_Function, Kind: super::llvm_StringRef) -> super::libc::c_int;
         pub fn llvm_Function_hasGC(inst: *const super::llvm_Function) -> super::libc::c_int;
         pub fn llvm_Function_hasStructRetAttr(inst: *const super::llvm_Function) -> super::libc::c_int;
@@ -908,6 +926,13 @@ pub mod raw {
         pub fn llvm_Module_setModuleInlineAsm(inst: *mut super::llvm_Module, Asm: super::llvm_StringRef);
         pub fn llvm_Module_setTargetTriple(inst: *mut super::llvm_Module, Triple: super::llvm_StringRef);
         pub fn llvm_Operator_getOpcode(inst: *const super::llvm_Operator) -> super::libc::c_uint;
+        pub fn llvm_PHINode_addIncoming(inst: *mut super::llvm_PHINode, V: *mut super::llvm_Value, BB: *mut super::llvm_BasicBlock);
+        pub fn llvm_PHINode_delete(inst: *mut super::llvm_PHINode);
+        pub fn llvm_PHINode_getIncomingBlock(inst: *const super::llvm_PHINode, i: super::libc::c_uint) -> *mut super::llvm_BasicBlock;
+        pub fn llvm_PHINode_getIncomingValue(inst: *const super::llvm_PHINode, i: super::libc::c_uint) -> *mut super::llvm_Value;
+        pub fn llvm_PHINode_getNumIncomingValues(inst: *const super::llvm_PHINode) -> super::libc::c_uint;
+        pub fn llvm_PHINode_setIncomingBlock(inst: *mut super::llvm_PHINode, i: super::libc::c_uint, BB: *mut super::llvm_BasicBlock);
+        pub fn llvm_PHINode_setIncomingValue(inst: *mut super::llvm_PHINode, i: super::libc::c_uint, V: *mut super::llvm_Value);
         pub fn llvm_PassManager_add(inst: *mut super::llvm_PassManager, Pass: *mut super::llvm_Pass);
         pub fn llvm_PassManager_new() -> *mut super::llvm_PassManager;
         pub fn llvm_PassManager_run(inst: *mut super::llvm_PassManager, Module: *mut super::llvm_Module);
@@ -939,6 +964,13 @@ pub mod raw {
         pub fn llvm_StructType_setBody(inst: *mut super::llvm_StructType, Elements: super::llvm_ArrayRef_ptr_llvm_Type);
         pub fn llvm_StructType_setBodyPacked(inst: *mut super::llvm_StructType, Elements: super::llvm_ArrayRef_ptr_llvm_Type, isPacked: super::libc::c_int);
         pub fn llvm_StructType_setName(inst: *mut super::llvm_StructType, Name: super::llvm_StringRef);
+        pub fn llvm_SwitchInst_addCase(inst: *mut super::llvm_SwitchInst, OnVal: *mut super::llvm_ConstantInt, Dest: *mut super::llvm_BasicBlock);
+        pub fn llvm_SwitchInst_delete(inst: *mut super::llvm_SwitchInst);
+        pub fn llvm_SwitchInst_getCondition(inst: *const super::llvm_SwitchInst) -> *mut super::llvm_Value;
+        pub fn llvm_SwitchInst_getDefaultDest(inst: *const super::llvm_SwitchInst) -> *mut super::llvm_BasicBlock;
+        pub fn llvm_SwitchInst_getNumCases(inst: *const super::llvm_SwitchInst) -> super::libc::c_uint;
+        pub fn llvm_SwitchInst_setCondition(inst: *mut super::llvm_SwitchInst, V: *mut super::llvm_Value);
+        pub fn llvm_SwitchInst_setDefaultDest(inst: *mut super::llvm_SwitchInst, DefaultCase: *mut super::llvm_BasicBlock);
         pub fn llvm_Type_dump(inst: *const super::llvm_Type);
         pub fn llvm_Type_getContainedType(inst: *const super::llvm_Type, idx: super::libc::c_uint) -> *mut super::llvm_Type;
         pub fn llvm_Type_getContext(inst: *const super::llvm_Type) -> *mut super::llvm_LLVMContext;
@@ -1022,7 +1054,7 @@ pub mod raw {
         pub fn llvm_User_getOperand(inst: *const super::llvm_User, idx: super::libc::c_uint) -> *mut super::llvm_Value;
         pub fn llvm_User_replaceUsesOfWith(inst: *mut super::llvm_User, From: *mut super::llvm_Value, To: *mut super::llvm_Value);
         pub fn llvm_User_setOperand(inst: *mut super::llvm_User, idx: super::libc::c_uint, Val: *mut super::llvm_Value);
-        pub fn llvm_ValueSymbolTable_delete() -> *mut super::llvm_ValueSymbolTable;
+        pub fn llvm_ValueSymbolTable_delete(inst: *mut super::llvm_ValueSymbolTable);
         pub fn llvm_ValueSymbolTable_dump(inst: *const super::llvm_ValueSymbolTable);
         pub fn llvm_ValueSymbolTable_empty(inst: *const super::llvm_ValueSymbolTable) -> super::libc::c_int;
         pub fn llvm_ValueSymbolTable_lookup(inst: *const super::llvm_ValueSymbolTable, Name: super::llvm_StringRef) -> *mut super::llvm_Value;
@@ -1054,6 +1086,15 @@ pub mod raw {
         pub fn llvm_VectorType_getNumElements(inst: *const super::llvm_VectorType) -> super::libc::c_uint;
         pub fn llvm_VectorType_getTruncatedElementVectorType(ty: *mut super::llvm_VectorType) -> *mut super::llvm_VectorType;
         pub fn llvm_VectorType_isValidElementType(ty: *mut super::llvm_Type) -> super::libc::c_int;
+        pub fn llvm_iplist_llvm_Argument_clear(inst: *mut super::llvm_iplist_llvm_Argument);
+        pub fn llvm_iplist_llvm_Argument_delete(inst: *mut super::llvm_iplist_llvm_Argument);
+        pub fn llvm_iplist_llvm_Argument_first(inst: *const super::llvm_iplist_llvm_Argument) -> *const super::llvm_Argument;
+        pub fn llvm_iplist_llvm_Argument_firstMut(inst: *mut super::llvm_iplist_llvm_Argument) -> *mut super::llvm_Argument;
+        pub fn llvm_iplist_llvm_Argument_last(inst: *const super::llvm_iplist_llvm_Argument) -> *const super::llvm_Argument;
+        pub fn llvm_iplist_llvm_Argument_lastMut(inst: *mut super::llvm_iplist_llvm_Argument) -> *mut super::llvm_Argument;
+        pub fn llvm_iplist_llvm_Argument_max_size(inst: *const super::llvm_iplist_llvm_Argument) -> super::libc::size_t;
+        pub fn llvm_iplist_llvm_Argument_new() -> *mut super::llvm_iplist_llvm_Argument;
+        pub fn llvm_iplist_llvm_Argument_size(inst: *const super::llvm_iplist_llvm_Argument) -> super::libc::size_t;
     }
 }
 
@@ -1065,6 +1106,64 @@ pub mod llvm {
     }
 
     pub mod Argument {
+        pub fn getArgNo(inst: *const super::super::llvm_Argument) -> usize {
+            unsafe {
+                super::super::raw::llvm_Argument_getArgNo(inst) as usize
+            }
+        }
+
+        pub fn getParent(inst: *const super::super::llvm_Argument) -> *const super::super::llvm_Function {
+            unsafe {
+                super::super::raw::llvm_Argument_getParent(inst)
+            }
+        }
+
+        pub fn getParentMut(inst: *mut super::super::llvm_Argument) -> *mut super::super::llvm_Function {
+            unsafe {
+                super::super::raw::llvm_Argument_getParentMut(inst)
+            }
+        }
+
+        pub fn new(Ty: *mut super::super::llvm_Type, Name: Option<&str>, F: Option<*mut super::super::llvm_Function>) -> *mut super::super::llvm_Argument {
+            let Name = match Name.map(|value| super::super::std_string_const {
+                    data: unsafe { ::std::mem::transmute(value.as_ptr()) },
+                    length: value.len() as super::super::libc::size_t,
+                }) {
+                None => ::std::ptr::null(),
+                Some(ref value) => value as *const _,
+            };
+            let F = match F.map(|value| value) {
+                None => ::std::ptr::null(),
+                Some(ref value) => value as *const _,
+            };
+            unsafe {
+                super::super::raw::llvm_Argument_new(Ty, Name, F)
+            }
+        }
+
+        pub fn next(inst: *const super::super::llvm_Argument) -> *const super::super::llvm_Argument {
+            unsafe {
+                super::super::raw::llvm_Argument_next(inst)
+            }
+        }
+
+        pub fn nextMut(inst: *mut super::super::llvm_Argument) -> *mut super::super::llvm_Argument {
+            unsafe {
+                super::super::raw::llvm_Argument_nextMut(inst)
+            }
+        }
+
+        pub fn prev(inst: *const super::super::llvm_Argument) -> *const super::super::llvm_Argument {
+            unsafe {
+                super::super::raw::llvm_Argument_prev(inst)
+            }
+        }
+
+        pub fn prevMut(inst: *mut super::super::llvm_Argument) -> *mut super::super::llvm_Argument {
+            unsafe {
+                super::super::raw::llvm_Argument_prevMut(inst)
+            }
+        }
     }
 
     pub mod ArrayType {
@@ -1943,6 +2042,18 @@ pub mod llvm {
             }
         }
 
+        pub fn getArgumentList(inst: *const super::super::llvm_Function) -> *const super::super::llvm_iplist_llvm_Argument {
+            unsafe {
+                super::super::raw::llvm_Function_getArgumentList(inst)
+            }
+        }
+
+        pub fn getArgumentListMut(inst: *mut super::super::llvm_Function) -> *mut super::super::llvm_iplist_llvm_Argument {
+            unsafe {
+                super::super::raw::llvm_Function_getArgumentListMut(inst)
+            }
+        }
+
         pub fn getCallingConv(inst: *const super::super::llvm_Function) -> super::super::llvm_CallingConv_ID {
             unsafe {
                 super::super::raw::llvm_Function_getCallingConv(inst)
@@ -1959,6 +2070,30 @@ pub mod llvm {
             let idx = idx as super::super::libc::c_uint;
             unsafe {
                 super::super::raw::llvm_Function_getDereferenceableBytes(inst, idx) as u64
+            }
+        }
+
+        pub fn getEntryBlock(inst: *const super::super::llvm_Function) -> *const super::super::llvm_BasicBlock {
+            unsafe {
+                super::super::raw::llvm_Function_getEntryBlock(inst)
+            }
+        }
+
+        pub fn getEntryBlockMut(inst: *mut super::super::llvm_Function) -> *mut super::super::llvm_BasicBlock {
+            unsafe {
+                super::super::raw::llvm_Function_getEntryBlockMut(inst)
+            }
+        }
+
+        pub fn getFirstArg(inst: *const super::super::llvm_Function) -> *const super::super::llvm_Argument {
+            unsafe {
+                super::super::raw::llvm_Function_getFirstArg(inst)
+            }
+        }
+
+        pub fn getFirstArgMut(inst: *mut super::super::llvm_Function) -> *mut super::super::llvm_Argument {
+            unsafe {
+                super::super::raw::llvm_Function_getFirstArgMut(inst)
             }
         }
 
@@ -1984,6 +2119,18 @@ pub mod llvm {
         pub fn getReturnType(inst: *const super::super::llvm_Function) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_Function_getReturnType(inst)
+            }
+        }
+
+        pub fn getValueSymbolTable(inst: *const super::super::llvm_Function) -> *const super::super::llvm_ValueSymbolTable {
+            unsafe {
+                super::super::raw::llvm_Function_getValueSymbolTable(inst)
+            }
+        }
+
+        pub fn getValueSymbolTableMut(inst: *mut super::super::llvm_Function) -> *mut super::super::llvm_ValueSymbolTable {
+            unsafe {
+                super::super::raw::llvm_Function_getValueSymbolTableMut(inst)
             }
         }
 
@@ -5069,6 +5216,51 @@ pub mod llvm {
     }
 
     pub mod PHINode {
+        pub fn addIncoming(inst: *mut super::super::llvm_PHINode, V: *mut super::super::llvm_Value, BB: *mut super::super::llvm_BasicBlock) {
+            unsafe {
+                super::super::raw::llvm_PHINode_addIncoming(inst, V, BB)
+            }
+        }
+
+        pub fn delete(inst: *mut super::super::llvm_PHINode) {
+            unsafe {
+                super::super::raw::llvm_PHINode_delete(inst)
+            }
+        }
+
+        pub fn getIncomingBlock(inst: *const super::super::llvm_PHINode, i: usize) -> *mut super::super::llvm_BasicBlock {
+            let i = i as super::super::libc::c_uint;
+            unsafe {
+                super::super::raw::llvm_PHINode_getIncomingBlock(inst, i)
+            }
+        }
+
+        pub fn getIncomingValue(inst: *const super::super::llvm_PHINode, i: usize) -> *mut super::super::llvm_Value {
+            let i = i as super::super::libc::c_uint;
+            unsafe {
+                super::super::raw::llvm_PHINode_getIncomingValue(inst, i)
+            }
+        }
+
+        pub fn getNumIncomingValues(inst: *const super::super::llvm_PHINode) -> usize {
+            unsafe {
+                super::super::raw::llvm_PHINode_getNumIncomingValues(inst) as usize
+            }
+        }
+
+        pub fn setIncomingBlock(inst: *mut super::super::llvm_PHINode, i: usize, BB: *mut super::super::llvm_BasicBlock) {
+            let i = i as super::super::libc::c_uint;
+            unsafe {
+                super::super::raw::llvm_PHINode_setIncomingBlock(inst, i, BB)
+            }
+        }
+
+        pub fn setIncomingValue(inst: *mut super::super::llvm_PHINode, i: usize, V: *mut super::super::llvm_Value) {
+            let i = i as super::super::libc::c_uint;
+            unsafe {
+                super::super::raw::llvm_PHINode_setIncomingValue(inst, i, V)
+            }
+        }
     }
 
     pub mod Pass {
@@ -5318,6 +5510,47 @@ pub mod llvm {
     }
 
     pub mod SwitchInst {
+        pub fn addCase(inst: *mut super::super::llvm_SwitchInst, OnVal: *mut super::super::llvm_ConstantInt, Dest: *mut super::super::llvm_BasicBlock) {
+            unsafe {
+                super::super::raw::llvm_SwitchInst_addCase(inst, OnVal, Dest)
+            }
+        }
+
+        pub fn delete(inst: *mut super::super::llvm_SwitchInst) {
+            unsafe {
+                super::super::raw::llvm_SwitchInst_delete(inst)
+            }
+        }
+
+        pub fn getCondition(inst: *const super::super::llvm_SwitchInst) -> *mut super::super::llvm_Value {
+            unsafe {
+                super::super::raw::llvm_SwitchInst_getCondition(inst)
+            }
+        }
+
+        pub fn getDefaultDest(inst: *const super::super::llvm_SwitchInst) -> *mut super::super::llvm_BasicBlock {
+            unsafe {
+                super::super::raw::llvm_SwitchInst_getDefaultDest(inst)
+            }
+        }
+
+        pub fn getNumCases(inst: *const super::super::llvm_SwitchInst) -> usize {
+            unsafe {
+                super::super::raw::llvm_SwitchInst_getNumCases(inst) as usize
+            }
+        }
+
+        pub fn setCondition(inst: *mut super::super::llvm_SwitchInst, V: *mut super::super::llvm_Value) {
+            unsafe {
+                super::super::raw::llvm_SwitchInst_setCondition(inst, V)
+            }
+        }
+
+        pub fn setDefaultDest(inst: *mut super::super::llvm_SwitchInst, DefaultCase: *mut super::super::llvm_BasicBlock) {
+            unsafe {
+                super::super::raw::llvm_SwitchInst_setDefaultDest(inst, DefaultCase)
+            }
+        }
     }
 
     pub mod TerminatorInst {
@@ -5952,9 +6185,9 @@ pub mod llvm {
     }
 
     pub mod ValueSymbolTable {
-        pub fn delete() -> *mut super::super::llvm_ValueSymbolTable {
+        pub fn delete(inst: *mut super::super::llvm_ValueSymbolTable) {
             unsafe {
-                super::super::raw::llvm_ValueSymbolTable_delete()
+                super::super::raw::llvm_ValueSymbolTable_delete(inst)
             }
         }
 
@@ -6052,6 +6285,62 @@ pub mod llvm {
         pub fn isValidElementType(ty: *mut super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_VectorType_isValidElementType(ty) != 0
+            }
+        }
+    }
+
+    pub mod iplist_llvm_Argument {
+        pub fn clear(inst: *mut super::super::llvm_iplist_llvm_Argument) {
+            unsafe {
+                super::super::raw::llvm_iplist_llvm_Argument_clear(inst)
+            }
+        }
+
+        pub fn delete(inst: *mut super::super::llvm_iplist_llvm_Argument) {
+            unsafe {
+                super::super::raw::llvm_iplist_llvm_Argument_delete(inst)
+            }
+        }
+
+        pub fn first(inst: *const super::super::llvm_iplist_llvm_Argument) -> *const super::super::llvm_Argument {
+            unsafe {
+                super::super::raw::llvm_iplist_llvm_Argument_first(inst)
+            }
+        }
+
+        pub fn firstMut(inst: *mut super::super::llvm_iplist_llvm_Argument) -> *mut super::super::llvm_Argument {
+            unsafe {
+                super::super::raw::llvm_iplist_llvm_Argument_firstMut(inst)
+            }
+        }
+
+        pub fn last(inst: *const super::super::llvm_iplist_llvm_Argument) -> *const super::super::llvm_Argument {
+            unsafe {
+                super::super::raw::llvm_iplist_llvm_Argument_last(inst)
+            }
+        }
+
+        pub fn lastMut(inst: *mut super::super::llvm_iplist_llvm_Argument) -> *mut super::super::llvm_Argument {
+            unsafe {
+                super::super::raw::llvm_iplist_llvm_Argument_lastMut(inst)
+            }
+        }
+
+        pub fn max_size(inst: *const super::super::llvm_iplist_llvm_Argument) -> usize {
+            unsafe {
+                super::super::raw::llvm_iplist_llvm_Argument_max_size(inst) as usize
+            }
+        }
+
+        pub fn new() -> *mut super::super::llvm_iplist_llvm_Argument {
+            unsafe {
+                super::super::raw::llvm_iplist_llvm_Argument_new()
+            }
+        }
+
+        pub fn size(inst: *const super::super::llvm_iplist_llvm_Argument) -> usize {
+            unsafe {
+                super::super::raw::llvm_iplist_llvm_Argument_size(inst) as usize
             }
         }
     }

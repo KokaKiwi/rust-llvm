@@ -1,5 +1,6 @@
 from .prelude import *
 from .ADT.StringRef import StringRef
+from .iplist import iplist
 
 @llvm.body
 class llvm_body:
@@ -9,7 +10,7 @@ class llvm_body:
 class Function:
     delete = Destructor()
 
-    # We panic if this method return null, as it's like a constructor.
+    # TODO: We should panic if this method return null, as it's like a constructor.
     Create = StaticMethod(ptr(Function), (ptr(FunctionType), 'Ty'), (GlobalValue['LinkageTypes'], 'Linkage'), (OptionString(), 'Name'), (OptionPointer(Module), 'Module'))
 
     classof = StaticMethod(Bool, (ptr(Value, const=True), 'Val'))
@@ -74,3 +75,15 @@ class Function:
     deleteBody = Method()
     removeFromParent = Method()
     eraseFromParent = Method()
+
+    getArgumentList = Method(ref(iplist(Argument), const=True), const=True)
+    getArgumentListMut = Method(ref(iplist(Argument))).with_real_name('getArgumentList')
+
+    getFirstArg = Method(ptr(Argument, const=True), const=True).with_real_name('arg_begin')
+    getFirstArgMut = Method(ptr(Argument)).with_real_name('arg_begin')
+
+    getEntryBlock = Method(ref(BasicBlock, const=True), const=True)
+    getEntryBlockMut = Method(ref(BasicBlock)).with_real_name('getEntryBlock')
+
+    getValueSymbolTable = Method(ref(ValueSymbolTable, const=True), const=True)
+    getValueSymbolTableMut = Method(ref(ValueSymbolTable)).with_real_name('getValueSymbolTable')

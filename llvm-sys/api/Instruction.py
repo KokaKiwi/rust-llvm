@@ -82,3 +82,31 @@ class Instruction:
     setMetadataStr = Method(Void, (StringRef, 'Kind'), (ptr(MDNode), 'Node')).with_real_name('setMetadata')
 
     isUsedOutsideOfBlock = Method(Bool, (ptr(BasicBlock, const=True), 'BB'), const=True)
+
+@SwitchInst.body
+class SwitchInst:
+    delete = Destructor()
+
+    getCondition = Method(ptr(Value), const=True)
+    setCondition = Method(Void, (ptr(Value), 'V'))
+
+    getDefaultDest = Method(ptr(BasicBlock), const=True)
+    setDefaultDest = Method(Void, (ptr(BasicBlock), 'DefaultCase'))
+
+    getNumCases = Method(UnsignedInt, const=True)
+
+    addCase = Method(Void, (ptr(ConstantInt), 'OnVal'), (ptr(BasicBlock), 'Dest'))
+
+@PHINode.body
+class PHINode:
+    delete = Destructor()
+
+    getNumIncomingValues = Method(UnsignedInt, const=True)
+
+    getIncomingValue = Method(ptr(Value), (UnsignedInt, 'i'), const=True)
+    setIncomingValue = Method(Void, (UnsignedInt, 'i'), (ptr(Value), 'V'))
+
+    getIncomingBlock = Method(ptr(BasicBlock), (UnsignedInt, 'i'), const=True)
+    setIncomingBlock = Method(Void, (UnsignedInt, 'i'), (ptr(BasicBlock), 'BB'))
+
+    addIncoming = Method(Void, (ptr(Value), 'V'), (ptr(BasicBlock), 'BB'))
