@@ -1,4 +1,3 @@
-#![feature(env)]
 extern crate "llvm-config" as llvm_config;
 extern crate gxx;
 

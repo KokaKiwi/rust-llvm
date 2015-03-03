@@ -1,5 +1,5 @@
 #![unstable]
-#![feature(fs, old_path, process, env)]
+#![feature(fs, old_path, process)]
 use std::default::Default;
 use std::env;
 use std::process::Command;
