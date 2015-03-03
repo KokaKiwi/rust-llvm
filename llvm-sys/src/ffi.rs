@@ -1106,24 +1106,28 @@ pub mod llvm {
     }
 
     pub mod Argument {
+        #[inline(always)]
         pub fn getArgNo(inst: *const super::super::llvm_Argument) -> usize {
             unsafe {
                 super::super::raw::llvm_Argument_getArgNo(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn getParent(inst: *const super::super::llvm_Argument) -> *const super::super::llvm_Function {
             unsafe {
                 super::super::raw::llvm_Argument_getParent(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getParentMut(inst: *mut super::super::llvm_Argument) -> *mut super::super::llvm_Function {
             unsafe {
                 super::super::raw::llvm_Argument_getParentMut(inst)
             }
         }
 
+        #[inline(always)]
         pub fn new(Ty: *mut super::super::llvm_Type, Name: Option<&str>, F: Option<*mut super::super::llvm_Function>) -> *mut super::super::llvm_Argument {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string_const {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -1136,24 +1140,28 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn next(inst: *const super::super::llvm_Argument) -> *const super::super::llvm_Argument {
             unsafe {
                 super::super::raw::llvm_Argument_next(inst)
             }
         }
 
+        #[inline(always)]
         pub fn nextMut(inst: *mut super::super::llvm_Argument) -> *mut super::super::llvm_Argument {
             unsafe {
                 super::super::raw::llvm_Argument_nextMut(inst)
             }
         }
 
+        #[inline(always)]
         pub fn prev(inst: *const super::super::llvm_Argument) -> *const super::super::llvm_Argument {
             unsafe {
                 super::super::raw::llvm_Argument_prev(inst)
             }
         }
 
+        #[inline(always)]
         pub fn prevMut(inst: *mut super::super::llvm_Argument) -> *mut super::super::llvm_Argument {
             unsafe {
                 super::super::raw::llvm_Argument_prevMut(inst)
@@ -1162,12 +1170,14 @@ pub mod llvm {
     }
 
     pub mod ArrayType {
+        #[inline(always)]
         pub fn classof(ty: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_ArrayType_classof(ty) != 0
             }
         }
 
+        #[inline(always)]
         pub fn get(ElementType: *mut super::super::llvm_Type, NumElements: u64) -> *mut super::super::llvm_ArrayType {
             let NumElements = NumElements as super::super::libc::uint64_t;
             unsafe {
@@ -1175,12 +1185,14 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getNumElements(inst: *const super::super::llvm_ArrayType) -> u64 {
             unsafe {
                 super::super::raw::llvm_ArrayType_getNumElements(inst) as u64
             }
         }
 
+        #[inline(always)]
         pub fn isValidElementType(ty: *mut super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_ArrayType_isValidElementType(ty) != 0
@@ -1195,6 +1207,7 @@ pub mod llvm {
     }
 
     pub mod BasicBlock {
+        #[inline(always)]
         pub fn Create(Context: *mut super::super::llvm_LLVMContext, Name: Option<&str>, Parent: Option<*mut super::super::llvm_Function>, InsertBefore: Option<*mut super::super::llvm_BasicBlock>) -> *mut super::super::llvm_BasicBlock {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -1208,168 +1221,196 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn classof(Val: *const super::super::llvm_Value) -> bool {
             unsafe {
                 super::super::raw::llvm_BasicBlock_classof(Val) != 0
             }
         }
 
+        #[inline(always)]
         pub fn delete(inst: *mut super::super::llvm_BasicBlock) {
             unsafe {
                 super::super::raw::llvm_BasicBlock_delete(inst)
             }
         }
 
+        #[inline(always)]
         pub fn dropAllReferences(inst: *mut super::super::llvm_BasicBlock) {
             unsafe {
                 super::super::raw::llvm_BasicBlock_dropAllReferences(inst)
             }
         }
 
+        #[inline(always)]
         pub fn eraseFromParent(inst: *mut super::super::llvm_BasicBlock) {
             unsafe {
                 super::super::raw::llvm_BasicBlock_eraseFromParent(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getDataLayout(inst: *const super::super::llvm_BasicBlock) -> *const super::super::llvm_DataLayout {
             unsafe {
                 super::super::raw::llvm_BasicBlock_getDataLayout(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getFirstNonPHI(inst: *const super::super::llvm_BasicBlock) -> *const super::super::llvm_Instruction {
             unsafe {
                 super::super::raw::llvm_BasicBlock_getFirstNonPHI(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getFirstNonPHIMut(inst: *mut super::super::llvm_BasicBlock) -> *mut super::super::llvm_Instruction {
             unsafe {
                 super::super::raw::llvm_BasicBlock_getFirstNonPHIMut(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getFirstNonPHIOrDbg(inst: *const super::super::llvm_BasicBlock) -> *const super::super::llvm_Instruction {
             unsafe {
                 super::super::raw::llvm_BasicBlock_getFirstNonPHIOrDbg(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getFirstNonPHIOrDbgMut(inst: *mut super::super::llvm_BasicBlock) -> *mut super::super::llvm_Instruction {
             unsafe {
                 super::super::raw::llvm_BasicBlock_getFirstNonPHIOrDbgMut(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getFirstNonPHIOrDbgOrLifetime(inst: *const super::super::llvm_BasicBlock) -> *const super::super::llvm_Instruction {
             unsafe {
                 super::super::raw::llvm_BasicBlock_getFirstNonPHIOrDbgOrLifetime(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getFirstNonPHIOrDbgOrLifetimeMut(inst: *mut super::super::llvm_BasicBlock) -> *mut super::super::llvm_Instruction {
             unsafe {
                 super::super::raw::llvm_BasicBlock_getFirstNonPHIOrDbgOrLifetimeMut(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getLandingPadInst(inst: *const super::super::llvm_BasicBlock) -> *const super::super::llvm_LandingPadInst {
             unsafe {
                 super::super::raw::llvm_BasicBlock_getLandingPadInst(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getLandingPadInstMut(inst: *mut super::super::llvm_BasicBlock) -> *mut super::super::llvm_LandingPadInst {
             unsafe {
                 super::super::raw::llvm_BasicBlock_getLandingPadInstMut(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getParent(inst: *const super::super::llvm_BasicBlock) -> *const super::super::llvm_Function {
             unsafe {
                 super::super::raw::llvm_BasicBlock_getParent(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getParentMut(inst: *mut super::super::llvm_BasicBlock) -> *mut super::super::llvm_Function {
             unsafe {
                 super::super::raw::llvm_BasicBlock_getParentMut(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getSinglePredecessor(inst: *const super::super::llvm_BasicBlock) -> *const super::super::llvm_BasicBlock {
             unsafe {
                 super::super::raw::llvm_BasicBlock_getSinglePredecessor(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getSinglePredecessorMut(inst: *mut super::super::llvm_BasicBlock) -> *mut super::super::llvm_BasicBlock {
             unsafe {
                 super::super::raw::llvm_BasicBlock_getSinglePredecessorMut(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getTerminator(inst: *const super::super::llvm_BasicBlock) -> *const super::super::llvm_TerminatorInst {
             unsafe {
                 super::super::raw::llvm_BasicBlock_getTerminator(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getTerminatorMut(inst: *mut super::super::llvm_BasicBlock) -> *mut super::super::llvm_TerminatorInst {
             unsafe {
                 super::super::raw::llvm_BasicBlock_getTerminatorMut(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getUniquePredecessor(inst: *const super::super::llvm_BasicBlock) -> *const super::super::llvm_BasicBlock {
             unsafe {
                 super::super::raw::llvm_BasicBlock_getUniquePredecessor(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getUniquePredecessorMut(inst: *mut super::super::llvm_BasicBlock) -> *mut super::super::llvm_BasicBlock {
             unsafe {
                 super::super::raw::llvm_BasicBlock_getUniquePredecessorMut(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getValueSymbolTable(inst: *mut super::super::llvm_BasicBlock) -> *mut super::super::llvm_ValueSymbolTable {
             unsafe {
                 super::super::raw::llvm_BasicBlock_getValueSymbolTable(inst)
             }
         }
 
+        #[inline(always)]
         pub fn hasAddressTaken(inst: *const super::super::llvm_BasicBlock) -> bool {
             unsafe {
                 super::super::raw::llvm_BasicBlock_hasAddressTaken(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isLandingPad(inst: *const super::super::llvm_BasicBlock) -> bool {
             unsafe {
                 super::super::raw::llvm_BasicBlock_isLandingPad(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn moveAfter(inst: *mut super::super::llvm_BasicBlock, MovePos: *mut super::super::llvm_BasicBlock) {
             unsafe {
                 super::super::raw::llvm_BasicBlock_moveAfter(inst, MovePos)
             }
         }
 
+        #[inline(always)]
         pub fn moveBefore(inst: *mut super::super::llvm_BasicBlock, MovePos: *mut super::super::llvm_BasicBlock) {
             unsafe {
                 super::super::raw::llvm_BasicBlock_moveBefore(inst, MovePos)
             }
         }
 
+        #[inline(always)]
         pub fn removeFromParent(inst: *mut super::super::llvm_BasicBlock) {
             unsafe {
                 super::super::raw::llvm_BasicBlock_removeFromParent(inst)
             }
         }
 
+        #[inline(always)]
         pub fn removePredecessor(inst: *mut super::super::llvm_BasicBlock, Pred: *mut super::super::llvm_BasicBlock, DontDeleteUselessPHIs: Option<bool>) {
             let opt_hack_c46a45 = DontDeleteUselessPHIs.map(|value| if value { 1 } else { 0 });
             let DontDeleteUselessPHIs = opt_hack_c46a45.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
@@ -1378,6 +1419,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn replaceSuccessorsPhiUsesWith(inst: *mut super::super::llvm_BasicBlock, New: *mut super::super::llvm_BasicBlock) {
             unsafe {
                 super::super::raw::llvm_BasicBlock_replaceSuccessorsPhiUsesWith(inst, New)
@@ -1395,18 +1437,21 @@ pub mod llvm {
     }
 
     pub mod BlockAddress {
+        #[inline(always)]
         pub fn destroyConstant(inst: *mut super::super::llvm_BlockAddress) {
             unsafe {
                 super::super::raw::llvm_BlockAddress_destroyConstant(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getBasicBlock(inst: *const super::super::llvm_BlockAddress) -> *mut super::super::llvm_BasicBlock {
             unsafe {
                 super::super::raw::llvm_BlockAddress_getBasicBlock(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getFunction(inst: *const super::super::llvm_BlockAddress) -> *mut super::super::llvm_Function {
             unsafe {
                 super::super::raw::llvm_BlockAddress_getFunction(inst)
@@ -1433,12 +1478,14 @@ pub mod llvm {
     }
 
     pub mod CompositeType {
+        #[inline(always)]
         pub fn classof(ty: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_CompositeType_classof(ty) != 0
             }
         }
 
+        #[inline(always)]
         pub fn getTypeAtIndex(inst: *mut super::super::llvm_CompositeType, idx: usize) -> *mut super::super::llvm_Type {
             let idx = idx as super::super::libc::c_uint;
             unsafe {
@@ -1446,6 +1493,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn indexValid(inst: *const super::super::llvm_CompositeType, idx: usize) -> bool {
             let idx = idx as super::super::libc::c_uint;
             unsafe {
@@ -1455,24 +1503,28 @@ pub mod llvm {
     }
 
     pub mod Constant {
+        #[inline(always)]
         pub fn canTrap(inst: *const super::super::llvm_Constant) -> bool {
             unsafe {
                 super::super::raw::llvm_Constant_canTrap(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn classof(V: *const super::super::llvm_Value) -> bool {
             unsafe {
                 super::super::raw::llvm_Constant_classof(V) != 0
             }
         }
 
+        #[inline(always)]
         pub fn destroyConstant(inst: *mut super::super::llvm_Constant) {
             unsafe {
                 super::super::raw::llvm_Constant_destroyConstant(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getAggregateElement(inst: *const super::super::llvm_Constant, Elt: usize) -> *mut super::super::llvm_Constant {
             let Elt = Elt as super::super::libc::c_uint;
             unsafe {
@@ -1480,18 +1532,21 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getAggregateElementConstant(inst: *const super::super::llvm_Constant, Elt: *mut super::super::llvm_Constant) -> *mut super::super::llvm_Constant {
             unsafe {
                 super::super::raw::llvm_Constant_getAggregateElementConstant(inst, Elt)
             }
         }
 
+        #[inline(always)]
         pub fn getAllOnesValue(Ty: *mut super::super::llvm_Type) -> *mut super::super::llvm_Constant {
             unsafe {
                 super::super::raw::llvm_Constant_getAllOnesValue(Ty)
             }
         }
 
+        #[inline(always)]
         pub fn getIntegerValue(Ty: *mut super::super::llvm_Type, Value: (&[u64], usize)) -> *mut super::super::llvm_Constant {
             let Value = super::super::llvm_APInt {
                 data: super::super::llvm_ArrayRef_uint64 {
@@ -1505,84 +1560,98 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getNullValue(Ty: *mut super::super::llvm_Type) -> *mut super::super::llvm_Constant {
             unsafe {
                 super::super::raw::llvm_Constant_getNullValue(Ty)
             }
         }
 
+        #[inline(always)]
         pub fn getSplatValue(inst: *const super::super::llvm_Constant) -> *mut super::super::llvm_Constant {
             unsafe {
                 super::super::raw::llvm_Constant_getSplatValue(inst)
             }
         }
 
+        #[inline(always)]
         pub fn isAllOnesValue(inst: *const super::super::llvm_Constant) -> bool {
             unsafe {
                 super::super::raw::llvm_Constant_isAllOnesValue(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isConstantUsed(inst: *const super::super::llvm_Constant) -> bool {
             unsafe {
                 super::super::raw::llvm_Constant_isConstantUsed(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isDLLImportDependent(inst: *const super::super::llvm_Constant) -> bool {
             unsafe {
                 super::super::raw::llvm_Constant_isDLLImportDependent(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isMinSignedValue(inst: *const super::super::llvm_Constant) -> bool {
             unsafe {
                 super::super::raw::llvm_Constant_isMinSignedValue(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isNegativeZeroValue(inst: *const super::super::llvm_Constant) -> bool {
             unsafe {
                 super::super::raw::llvm_Constant_isNegativeZeroValue(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isNullValue(inst: *const super::super::llvm_Constant) -> bool {
             unsafe {
                 super::super::raw::llvm_Constant_isNullValue(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isThreadDependent(inst: *const super::super::llvm_Constant) -> bool {
             unsafe {
                 super::super::raw::llvm_Constant_isThreadDependent(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isZeroValue(inst: *const super::super::llvm_Constant) -> bool {
             unsafe {
                 super::super::raw::llvm_Constant_isZeroValue(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn removeDeadConstantUsers(inst: *const super::super::llvm_Constant) {
             unsafe {
                 super::super::raw::llvm_Constant_removeDeadConstantUsers(inst)
             }
         }
 
+        #[inline(always)]
         pub fn replaceUsesOfWithOnConstant(inst: *mut super::super::llvm_Constant, arg_1: *mut super::super::llvm_Value, arg_2: *mut super::super::llvm_Value, arg_3: *mut super::super::llvm_Use) {
             unsafe {
                 super::super::raw::llvm_Constant_replaceUsesOfWithOnConstant(inst, arg_1, arg_2, arg_3)
             }
         }
 
+        #[inline(always)]
         pub fn stripPointerCasts(inst: *const super::super::llvm_Constant) -> *const super::super::llvm_Constant {
             unsafe {
                 super::super::raw::llvm_Constant_stripPointerCasts(inst)
             }
         }
 
+        #[inline(always)]
         pub fn stripPointerCastsMut(inst: *mut super::super::llvm_Constant) -> *mut super::super::llvm_Constant {
             unsafe {
                 super::super::raw::llvm_Constant_stripPointerCastsMut(inst)
@@ -1594,12 +1663,14 @@ pub mod llvm {
     }
 
     pub mod ConstantArray {
+        #[inline(always)]
         pub fn classof(V: *const super::super::llvm_Value) -> bool {
             unsafe {
                 super::super::raw::llvm_ConstantArray_classof(V) != 0
             }
         }
 
+        #[inline(always)]
         pub fn get(Ty: *mut super::super::llvm_ArrayType, Values: &[*mut super::super::llvm_Constant]) -> *mut super::super::llvm_Constant {
             let Values = super::super::llvm_ArrayRef_ptr_llvm_Constant {
                 data: Values.as_ptr(),
@@ -1610,6 +1681,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getType(inst: *const super::super::llvm_ConstantArray) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_ConstantArray_getType(inst)
@@ -1630,12 +1702,14 @@ pub mod llvm {
     }
 
     pub mod ConstantFP {
+        #[inline(always)]
         pub fn classof(V: *const super::super::llvm_Value) -> bool {
             unsafe {
                 super::super::raw::llvm_ConstantFP_classof(V) != 0
             }
         }
 
+        #[inline(always)]
         pub fn fromStr(Ty: *mut super::super::llvm_Type, Val: &str) -> *mut super::super::llvm_Constant {
             let Val = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(Val.as_ptr()) },
@@ -1646,6 +1720,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn get(Ty: *mut super::super::llvm_Type, Val: f64) -> *mut super::super::llvm_Constant {
             let Val = Val as super::super::libc::c_double;
             unsafe {
@@ -1653,24 +1728,28 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getInfinity(Ty: *mut super::super::llvm_Type) -> *mut super::super::llvm_Constant {
             unsafe {
                 super::super::raw::llvm_ConstantFP_getInfinity(Ty)
             }
         }
 
+        #[inline(always)]
         pub fn getNegativeZero(Ty: *mut super::super::llvm_Type) -> *mut super::super::llvm_Constant {
             unsafe {
                 super::super::raw::llvm_ConstantFP_getNegativeZero(Ty)
             }
         }
 
+        #[inline(always)]
         pub fn getZeroValueForNegation(Ty: *mut super::super::llvm_Type) -> *mut super::super::llvm_Constant {
             unsafe {
                 super::super::raw::llvm_ConstantFP_getZeroValueForNegation(Ty)
             }
         }
 
+        #[inline(always)]
         pub fn isExactlyValueFloat(inst: *const super::super::llvm_ConstantFP, Val: f64) -> bool {
             let Val = Val as super::super::libc::c_double;
             unsafe {
@@ -1678,18 +1757,21 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn isNaN(inst: *const super::super::llvm_ConstantFP) -> bool {
             unsafe {
                 super::super::raw::llvm_ConstantFP_isNaN(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isNegative(inst: *const super::super::llvm_ConstantFP) -> bool {
             unsafe {
                 super::super::raw::llvm_ConstantFP_isNegative(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isZero(inst: *const super::super::llvm_ConstantFP) -> bool {
             unsafe {
                 super::super::raw::llvm_ConstantFP_isZero(inst) != 0
@@ -1698,12 +1780,14 @@ pub mod llvm {
     }
 
     pub mod ConstantInt {
+        #[inline(always)]
         pub fn classof(Val: *const super::super::llvm_Value) -> bool {
             unsafe {
                 super::super::raw::llvm_ConstantInt_classof(Val) != 0
             }
         }
 
+        #[inline(always)]
         pub fn equalsInt(inst: *const super::super::llvm_ConstantInt, Val: u64) -> bool {
             let Val = Val as super::super::libc::uint64_t;
             unsafe {
@@ -1711,6 +1795,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn fromAPInt(Context: *mut super::super::llvm_LLVMContext, Val: (&[u64], usize)) -> *mut super::super::llvm_ConstantInt {
             let Val = super::super::llvm_APInt {
                 data: super::super::llvm_ArrayRef_uint64 {
@@ -1724,6 +1809,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn fromStr(Ty: *mut super::super::llvm_IntegerType, Str: &str, radix: u8) -> *mut super::super::llvm_ConstantInt {
             let Str = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(Str.as_ptr()) },
@@ -1735,6 +1821,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn get(Ty: *mut super::super::llvm_IntegerType, Value: u64) -> *mut super::super::llvm_ConstantInt {
             let Value = Value as super::super::libc::uint64_t;
             unsafe {
@@ -1742,30 +1829,35 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getBitWidth(inst: *const super::super::llvm_ConstantInt) -> usize {
             unsafe {
                 super::super::raw::llvm_ConstantInt_getBitWidth(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn getFalse(Ty: *mut super::super::llvm_Type) -> *mut super::super::llvm_Constant {
             unsafe {
                 super::super::raw::llvm_ConstantInt_getFalse(Ty)
             }
         }
 
+        #[inline(always)]
         pub fn getFalseWithContext(Context: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_ConstantInt {
             unsafe {
                 super::super::raw::llvm_ConstantInt_getFalseWithContext(Context)
             }
         }
 
+        #[inline(always)]
         pub fn getSExtValue(inst: *const super::super::llvm_ConstantInt) -> i64 {
             unsafe {
                 super::super::raw::llvm_ConstantInt_getSExtValue(inst) as i64
             }
         }
 
+        #[inline(always)]
         pub fn getSigned(Ty: *mut super::super::llvm_IntegerType, Value: u64, isSigned: bool) -> *mut super::super::llvm_ConstantInt {
             let Value = Value as super::super::libc::uint64_t;
             let isSigned = if isSigned { 1 } else { 0 };
@@ -1774,30 +1866,35 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getTrue(Ty: *mut super::super::llvm_Type) -> *mut super::super::llvm_Constant {
             unsafe {
                 super::super::raw::llvm_ConstantInt_getTrue(Ty)
             }
         }
 
+        #[inline(always)]
         pub fn getTrueWithContext(Context: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_ConstantInt {
             unsafe {
                 super::super::raw::llvm_ConstantInt_getTrueWithContext(Context)
             }
         }
 
+        #[inline(always)]
         pub fn getType(inst: *const super::super::llvm_ConstantInt) -> *mut super::super::llvm_IntegerType {
             unsafe {
                 super::super::raw::llvm_ConstantInt_getType(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getZExtValue(inst: *const super::super::llvm_ConstantInt) -> u64 {
             unsafe {
                 super::super::raw::llvm_ConstantInt_getZExtValue(inst) as u64
             }
         }
 
+        #[inline(always)]
         pub fn isMaxValue(inst: *const super::super::llvm_ConstantInt, isSigned: bool) -> bool {
             let isSigned = if isSigned { 1 } else { 0 };
             unsafe {
@@ -1805,6 +1902,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn isMinValue(inst: *const super::super::llvm_ConstantInt, isSigned: bool) -> bool {
             let isSigned = if isSigned { 1 } else { 0 };
             unsafe {
@@ -1812,24 +1910,28 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn isMinusOne(inst: *const super::super::llvm_ConstantInt) -> bool {
             unsafe {
                 super::super::raw::llvm_ConstantInt_isMinusOne(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isNegative(inst: *const super::super::llvm_ConstantInt) -> bool {
             unsafe {
                 super::super::raw::llvm_ConstantInt_isNegative(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isOne(inst: *const super::super::llvm_ConstantInt) -> bool {
             unsafe {
                 super::super::raw::llvm_ConstantInt_isOne(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isSignedValueValidForType(Ty: *mut super::super::llvm_Type, Val: i64) -> bool {
             let Val = Val as super::super::libc::int64_t;
             unsafe {
@@ -1837,6 +1939,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn isValueValidForType(Ty: *mut super::super::llvm_Type, Val: u64) -> bool {
             let Val = Val as super::super::libc::uint64_t;
             unsafe {
@@ -1844,12 +1947,14 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn isZero(inst: *const super::super::llvm_ConstantInt) -> bool {
             unsafe {
                 super::super::raw::llvm_ConstantInt_isZero(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn uge(inst: *const super::super::llvm_ConstantInt, Num: u64) -> bool {
             let Num = Num as super::super::libc::uint64_t;
             unsafe {
@@ -1859,24 +1964,28 @@ pub mod llvm {
     }
 
     pub mod ConstantPointerNull {
+        #[inline(always)]
         pub fn classof(Val: *const super::super::llvm_Value) -> bool {
             unsafe {
                 super::super::raw::llvm_ConstantPointerNull_classof(Val) != 0
             }
         }
 
+        #[inline(always)]
         pub fn destroyConstant(inst: *mut super::super::llvm_ConstantPointerNull) {
             unsafe {
                 super::super::raw::llvm_ConstantPointerNull_destroyConstant(inst)
             }
         }
 
+        #[inline(always)]
         pub fn get(Ty: *mut super::super::llvm_PointerType) -> *mut super::super::llvm_ConstantPointerNull {
             unsafe {
                 super::super::raw::llvm_ConstantPointerNull_get(Ty)
             }
         }
 
+        #[inline(always)]
         pub fn getType(inst: *const super::super::llvm_ConstantPointerNull) -> *mut super::super::llvm_PointerType {
             unsafe {
                 super::super::raw::llvm_ConstantPointerNull_getType(inst)
@@ -1912,6 +2021,7 @@ pub mod llvm {
     }
 
     pub mod Function {
+        #[inline(always)]
         pub fn Create(Ty: *mut super::super::llvm_FunctionType, Linkage: super::super::llvm_GlobalValue_LinkageTypes, Name: Option<&str>, Module: Option<*mut super::super::llvm_Module>) -> *mut super::super::llvm_Function {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -1924,6 +2034,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn addFnAttr(inst: *mut super::super::llvm_Function, Kind: &str, Val: Option<&str>) {
             let Kind = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(Kind.as_ptr()) },
@@ -1939,48 +2050,56 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn cannotDuplicate(inst: *const super::super::llvm_Function) -> bool {
             unsafe {
                 super::super::raw::llvm_Function_cannotDuplicate(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn classof(Val: *const super::super::llvm_Value) -> bool {
             unsafe {
                 super::super::raw::llvm_Function_classof(Val) != 0
             }
         }
 
+        #[inline(always)]
         pub fn clearGC(inst: *mut super::super::llvm_Function) {
             unsafe {
                 super::super::raw::llvm_Function_clearGC(inst)
             }
         }
 
+        #[inline(always)]
         pub fn copyAttributesFrom(inst: *mut super::super::llvm_Function, Src: *mut super::super::llvm_GlobalValue) {
             unsafe {
                 super::super::raw::llvm_Function_copyAttributesFrom(inst, Src)
             }
         }
 
+        #[inline(always)]
         pub fn delete(inst: *mut super::super::llvm_Function) {
             unsafe {
                 super::super::raw::llvm_Function_delete(inst)
             }
         }
 
+        #[inline(always)]
         pub fn deleteBody(inst: *mut super::super::llvm_Function) {
             unsafe {
                 super::super::raw::llvm_Function_deleteBody(inst)
             }
         }
 
+        #[inline(always)]
         pub fn doesNotAccessMemory(inst: *const super::super::llvm_Function) -> bool {
             unsafe {
                 super::super::raw::llvm_Function_doesNotAccessMemory(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn doesNotAccessMemoryParam(inst: *const super::super::llvm_Function, n: usize) -> bool {
             let n = n as super::super::libc::c_uint;
             unsafe {
@@ -1988,6 +2107,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn doesNotAlias(inst: *const super::super::llvm_Function, n: usize) -> bool {
             let n = n as super::super::libc::c_uint;
             unsafe {
@@ -1995,6 +2115,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn doesNotCapture(inst: *const super::super::llvm_Function, n: usize) -> bool {
             let n = n as super::super::libc::c_uint;
             unsafe {
@@ -2002,48 +2123,56 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn doesNotReturn(inst: *const super::super::llvm_Function) -> bool {
             unsafe {
                 super::super::raw::llvm_Function_doesNotReturn(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn doesNotThrow(inst: *const super::super::llvm_Function) -> bool {
             unsafe {
                 super::super::raw::llvm_Function_doesNotThrow(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn eraseFromParent(inst: *mut super::super::llvm_Function) {
             unsafe {
                 super::super::raw::llvm_Function_eraseFromParent(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getArgumentList(inst: *const super::super::llvm_Function) -> *const super::super::llvm_iplist_llvm_Argument {
             unsafe {
                 super::super::raw::llvm_Function_getArgumentList(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getArgumentListMut(inst: *mut super::super::llvm_Function) -> *mut super::super::llvm_iplist_llvm_Argument {
             unsafe {
                 super::super::raw::llvm_Function_getArgumentListMut(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getCallingConv(inst: *const super::super::llvm_Function) -> super::super::llvm_CallingConv_ID {
             unsafe {
                 super::super::raw::llvm_Function_getCallingConv(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getContext(inst: *const super::super::llvm_Function) -> *mut super::super::llvm_LLVMContext {
             unsafe {
                 super::super::raw::llvm_Function_getContext(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getDereferenceableBytes(inst: *const super::super::llvm_Function, idx: usize) -> u64 {
             let idx = idx as super::super::libc::c_uint;
             unsafe {
@@ -2051,42 +2180,49 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getEntryBlock(inst: *const super::super::llvm_Function) -> *const super::super::llvm_BasicBlock {
             unsafe {
                 super::super::raw::llvm_Function_getEntryBlock(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getEntryBlockMut(inst: *mut super::super::llvm_Function) -> *mut super::super::llvm_BasicBlock {
             unsafe {
                 super::super::raw::llvm_Function_getEntryBlockMut(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getFirstArg(inst: *const super::super::llvm_Function) -> *const super::super::llvm_Argument {
             unsafe {
                 super::super::raw::llvm_Function_getFirstArg(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getFirstArgMut(inst: *mut super::super::llvm_Function) -> *mut super::super::llvm_Argument {
             unsafe {
                 super::super::raw::llvm_Function_getFirstArgMut(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getFunctionType(inst: *const super::super::llvm_Function) -> *mut super::super::llvm_FunctionType {
             unsafe {
                 super::super::raw::llvm_Function_getFunctionType(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getIntrinsicID(inst: *const super::super::llvm_Function) -> usize {
             unsafe {
                 super::super::raw::llvm_Function_getIntrinsicID(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn getParamAlignment(inst: *const super::super::llvm_Function, idx: usize) -> usize {
             let idx = idx as super::super::libc::c_uint;
             unsafe {
@@ -2094,24 +2230,28 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getReturnType(inst: *const super::super::llvm_Function) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_Function_getReturnType(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getValueSymbolTable(inst: *const super::super::llvm_Function) -> *const super::super::llvm_ValueSymbolTable {
             unsafe {
                 super::super::raw::llvm_Function_getValueSymbolTable(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getValueSymbolTableMut(inst: *mut super::super::llvm_Function) -> *mut super::super::llvm_ValueSymbolTable {
             unsafe {
                 super::super::raw::llvm_Function_getValueSymbolTableMut(inst)
             }
         }
 
+        #[inline(always)]
         pub fn hasFnAttr(inst: *const super::super::llvm_Function, Kind: &str) -> bool {
             let Kind = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(Kind.as_ptr()) },
@@ -2122,48 +2262,56 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn hasGC(inst: *const super::super::llvm_Function) -> bool {
             unsafe {
                 super::super::raw::llvm_Function_hasGC(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasStructRetAttr(inst: *const super::super::llvm_Function) -> bool {
             unsafe {
                 super::super::raw::llvm_Function_hasStructRetAttr(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasUWTable(inst: *const super::super::llvm_Function) -> bool {
             unsafe {
                 super::super::raw::llvm_Function_hasUWTable(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isIntrinsic(inst: *const super::super::llvm_Function) -> bool {
             unsafe {
                 super::super::raw::llvm_Function_isIntrinsic(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isVarArg(inst: *const super::super::llvm_Function) -> bool {
             unsafe {
                 super::super::raw::llvm_Function_isVarArg(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn needsUnwindTableEntry(inst: *const super::super::llvm_Function) -> bool {
             unsafe {
                 super::super::raw::llvm_Function_needsUnwindTableEntry(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn onlyReadsMemory(inst: *const super::super::llvm_Function) -> bool {
             unsafe {
                 super::super::raw::llvm_Function_onlyReadsMemory(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn onlyReadsMemoryParam(inst: *const super::super::llvm_Function, n: usize) -> bool {
             let n = n as super::super::libc::c_uint;
             unsafe {
@@ -2171,30 +2319,35 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn removeFromParent(inst: *mut super::super::llvm_Function) {
             unsafe {
                 super::super::raw::llvm_Function_removeFromParent(inst)
             }
         }
 
+        #[inline(always)]
         pub fn setCallingConv(inst: *mut super::super::llvm_Function, CC: super::super::llvm_CallingConv_ID) {
             unsafe {
                 super::super::raw::llvm_Function_setCallingConv(inst, CC)
             }
         }
 
+        #[inline(always)]
         pub fn setCannotDuplicate(inst: *mut super::super::llvm_Function) {
             unsafe {
                 super::super::raw::llvm_Function_setCannotDuplicate(inst)
             }
         }
 
+        #[inline(always)]
         pub fn setDoesNotAccessMemory(inst: *mut super::super::llvm_Function) {
             unsafe {
                 super::super::raw::llvm_Function_setDoesNotAccessMemory(inst)
             }
         }
 
+        #[inline(always)]
         pub fn setDoesNotAccessMemoryParam(inst: *mut super::super::llvm_Function, n: usize) {
             let n = n as super::super::libc::c_uint;
             unsafe {
@@ -2202,6 +2355,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn setDoesNotAlias(inst: *mut super::super::llvm_Function, n: usize) {
             let n = n as super::super::libc::c_uint;
             unsafe {
@@ -2209,6 +2363,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn setDoesNotCapture(inst: *mut super::super::llvm_Function, n: usize) {
             let n = n as super::super::libc::c_uint;
             unsafe {
@@ -2216,30 +2371,35 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn setDoesNotReturn(inst: *mut super::super::llvm_Function) {
             unsafe {
                 super::super::raw::llvm_Function_setDoesNotReturn(inst)
             }
         }
 
+        #[inline(always)]
         pub fn setDoesNotThrow(inst: *mut super::super::llvm_Function) {
             unsafe {
                 super::super::raw::llvm_Function_setDoesNotThrow(inst)
             }
         }
 
+        #[inline(always)]
         pub fn setHasUWTable(inst: *mut super::super::llvm_Function) {
             unsafe {
                 super::super::raw::llvm_Function_setHasUWTable(inst)
             }
         }
 
+        #[inline(always)]
         pub fn setOnlyReadsMemory(inst: *mut super::super::llvm_Function) {
             unsafe {
                 super::super::raw::llvm_Function_setOnlyReadsMemory(inst)
             }
         }
 
+        #[inline(always)]
         pub fn setOnlyReadsMemoryParam(inst: *mut super::super::llvm_Function, n: usize) {
             let n = n as super::super::libc::c_uint;
             unsafe {
@@ -2252,30 +2412,35 @@ pub mod llvm {
     }
 
     pub mod FunctionPassManager {
+        #[inline(always)]
         pub fn add(inst: *mut super::super::llvm_FunctionPassManager, Pass: *mut super::super::llvm_FunctionPass) {
             unsafe {
                 super::super::raw::llvm_FunctionPassManager_add(inst, Pass)
             }
         }
 
+        #[inline(always)]
         pub fn doFinalization(inst: *mut super::super::llvm_FunctionPassManager) -> bool {
             unsafe {
                 super::super::raw::llvm_FunctionPassManager_doFinalization(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn doInitialization(inst: *mut super::super::llvm_FunctionPassManager) -> bool {
             unsafe {
                 super::super::raw::llvm_FunctionPassManager_doInitialization(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn new(Module: *mut super::super::llvm_Module) -> *mut super::super::llvm_FunctionPassManager {
             unsafe {
                 super::super::raw::llvm_FunctionPassManager_new(Module)
             }
         }
 
+        #[inline(always)]
         pub fn run(inst: *mut super::super::llvm_FunctionPassManager, Function: *mut super::super::llvm_Function) {
             unsafe {
                 super::super::raw::llvm_FunctionPassManager_run(inst, Function)
@@ -2284,12 +2449,14 @@ pub mod llvm {
     }
 
     pub mod FunctionType {
+        #[inline(always)]
         pub fn classof(ty: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_FunctionType_classof(ty) != 0
             }
         }
 
+        #[inline(always)]
         pub fn get(Result: *mut super::super::llvm_Type, Params: &[*mut super::super::llvm_Type], isVarArg: bool) -> *mut super::super::llvm_FunctionType {
             let Params = super::super::llvm_ArrayRef_ptr_llvm_Type {
                 data: Params.as_ptr(),
@@ -2301,12 +2468,14 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getNumParams(inst: *const super::super::llvm_FunctionType) -> usize {
             unsafe {
                 super::super::raw::llvm_FunctionType_getNumParams(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn getParamType(inst: *const super::super::llvm_FunctionType, idx: usize) -> *mut super::super::llvm_Type {
             let idx = idx as super::super::libc::c_uint;
             unsafe {
@@ -2314,24 +2483,28 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getReturnType(inst: *const super::super::llvm_FunctionType) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_FunctionType_getReturnType(inst)
             }
         }
 
+        #[inline(always)]
         pub fn isValidArgumentType(ty: *mut super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_FunctionType_isValidArgumentType(ty) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isValidReturnType(ty: *mut super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_FunctionType_isValidReturnType(ty) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isVarArg(inst: *const super::super::llvm_FunctionType) -> bool {
             unsafe {
                 super::super::raw::llvm_FunctionType_isVarArg(inst) != 0
@@ -2346,6 +2519,7 @@ pub mod llvm {
     }
 
     pub mod GlobalObject {
+        #[inline(always)]
         pub fn setSection(inst: *mut super::super::llvm_GlobalObject, S: &str) {
             let S = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(S.as_ptr()) },
@@ -2358,210 +2532,245 @@ pub mod llvm {
     }
 
     pub mod GlobalValue {
+        #[inline(always)]
         pub fn copyAttributesFrom(inst: *mut super::super::llvm_GlobalValue, Src: *mut super::super::llvm_GlobalValue) {
             unsafe {
                 super::super::raw::llvm_GlobalValue_copyAttributesFrom(inst, Src)
             }
         }
 
+        #[inline(always)]
         pub fn delete(inst: *mut super::super::llvm_GlobalValue) {
             unsafe {
                 super::super::raw::llvm_GlobalValue_delete(inst)
             }
         }
 
+        #[inline(always)]
         pub fn destroyConstant(inst: *mut super::super::llvm_GlobalValue) {
             unsafe {
                 super::super::raw::llvm_GlobalValue_destroyConstant(inst)
             }
         }
 
+        #[inline(always)]
         pub fn eraseFromParent(inst: *mut super::super::llvm_GlobalValue) {
             unsafe {
                 super::super::raw::llvm_GlobalValue_eraseFromParent(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getAlignment(inst: *const super::super::llvm_GlobalValue) -> usize {
             unsafe {
                 super::super::raw::llvm_GlobalValue_getAlignment(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn getDataLayout(inst: *const super::super::llvm_GlobalValue) -> *const super::super::llvm_DataLayout {
             unsafe {
                 super::super::raw::llvm_GlobalValue_getDataLayout(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getParent(inst: *const super::super::llvm_GlobalValue) -> *const super::super::llvm_Module {
             unsafe {
                 super::super::raw::llvm_GlobalValue_getParent(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getParentMut(inst: *mut super::super::llvm_GlobalValue) -> *mut super::super::llvm_Module {
             unsafe {
                 super::super::raw::llvm_GlobalValue_getParentMut(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getType(inst: *const super::super::llvm_GlobalValue) -> *mut super::super::llvm_PointerType {
             unsafe {
                 super::super::raw::llvm_GlobalValue_getType(inst)
             }
         }
 
+        #[inline(always)]
         pub fn hasAppendingLinkage(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_hasAppendingLinkage(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasAvailableExternallyLinkage(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_hasAvailableExternallyLinkage(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasCommonLinkage(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_hasCommonLinkage(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasDLLExportStorageClass(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_hasDLLExportStorageClass(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasDLLImportStorageClass(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_hasDLLImportStorageClass(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasDefaultVisibility(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_hasDefaultVisibility(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasExternalLinkage(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_hasExternalLinkage(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasExternalWeakLinkage(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_hasExternalWeakLinkage(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasHiddenVisibility(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_hasHiddenVisibility(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasInternalLinkage(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_hasInternalLinkage(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasLinkOnceLinkage(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_hasLinkOnceLinkage(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasLocalLinkage(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_hasLocalLinkage(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasPrivateLinkage(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_hasPrivateLinkage(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasProtectedVisibility(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_hasProtectedVisibility(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasSection(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_hasSection(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasUnnamedAddr(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_hasUnnamedAddr(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasWeakAnyLinkage(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_hasWeakAnyLinkage(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasWeakLinkage(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_hasWeakLinkage(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasWeakODRLinkage(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_hasWeakODRLinkage(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isDeclaration(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_isDeclaration(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isDiscardableIfUnused(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_isDiscardableIfUnused(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isThreadLocal(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_isThreadLocal(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isWeakForLinker(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_isWeakForLinker(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn mayBeOverridden(inst: *const super::super::llvm_GlobalValue) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalValue_mayBeOverridden(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn removeFromParent(inst: *mut super::super::llvm_GlobalValue) {
             unsafe {
                 super::super::raw::llvm_GlobalValue_removeFromParent(inst)
             }
         }
 
+        #[inline(always)]
         pub fn setThreadLocal(inst: *mut super::super::llvm_GlobalValue, Val: bool) {
             let Val = if Val { 1 } else { 0 };
             unsafe {
@@ -2569,6 +2778,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn setUnnamedAddr(inst: *mut super::super::llvm_GlobalValue, Val: bool) {
             let Val = if Val { 1 } else { 0 };
             unsafe {
@@ -2578,66 +2788,77 @@ pub mod llvm {
     }
 
     pub mod GlobalVariable {
+        #[inline(always)]
         pub fn copyAttributesFrom(inst: *mut super::super::llvm_GlobalVariable, Src: *mut super::super::llvm_GlobalValue) {
             unsafe {
                 super::super::raw::llvm_GlobalVariable_copyAttributesFrom(inst, Src)
             }
         }
 
+        #[inline(always)]
         pub fn delete(inst: *mut super::super::llvm_GlobalVariable) {
             unsafe {
                 super::super::raw::llvm_GlobalVariable_delete(inst)
             }
         }
 
+        #[inline(always)]
         pub fn eraseFromParent(inst: *mut super::super::llvm_GlobalVariable) {
             unsafe {
                 super::super::raw::llvm_GlobalVariable_eraseFromParent(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getInitializer(inst: *const super::super::llvm_GlobalVariable) -> *const super::super::llvm_Constant {
             unsafe {
                 super::super::raw::llvm_GlobalVariable_getInitializer(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getInitializerMut(inst: *mut super::super::llvm_GlobalVariable) -> *mut super::super::llvm_Constant {
             unsafe {
                 super::super::raw::llvm_GlobalVariable_getInitializerMut(inst)
             }
         }
 
+        #[inline(always)]
         pub fn hasDefinitiveInitializer(inst: *const super::super::llvm_GlobalVariable) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalVariable_hasDefinitiveInitializer(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasInitializer(inst: *const super::super::llvm_GlobalVariable) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalVariable_hasInitializer(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasUniqueInitializer(inst: *const super::super::llvm_GlobalVariable) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalVariable_hasUniqueInitializer(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isConstant(inst: *const super::super::llvm_GlobalVariable) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalVariable_isConstant(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isExternallyInitialized(inst: *const super::super::llvm_GlobalVariable) -> bool {
             unsafe {
                 super::super::raw::llvm_GlobalVariable_isExternallyInitialized(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn new(Ty: *mut super::super::llvm_Type, isConstant: bool, Linkage: super::super::llvm_GlobalValue_LinkageTypes) -> *mut super::super::llvm_GlobalVariable {
             let isConstant = if isConstant { 1 } else { 0 };
             unsafe {
@@ -2645,6 +2866,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn newWithModule(Module: *mut super::super::llvm_Module, Ty: *mut super::super::llvm_Type, isConstant: bool, Linkage: super::super::llvm_GlobalValue_LinkageTypes, Initializer: *mut super::super::llvm_Constant) -> *mut super::super::llvm_GlobalVariable {
             let isConstant = if isConstant { 1 } else { 0 };
             unsafe {
@@ -2652,12 +2874,14 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn removeFromParent(inst: *mut super::super::llvm_GlobalVariable) {
             unsafe {
                 super::super::raw::llvm_GlobalVariable_removeFromParent(inst)
             }
         }
 
+        #[inline(always)]
         pub fn setConstant(inst: *mut super::super::llvm_GlobalVariable, Val: bool) {
             let Val = if Val { 1 } else { 0 };
             unsafe {
@@ -2665,6 +2889,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn setExternallyInitialized(inst: *mut super::super::llvm_GlobalVariable, Val: bool) {
             let Val = if Val { 1 } else { 0 };
             unsafe {
@@ -2672,6 +2897,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn setInitializer(inst: *mut super::super::llvm_GlobalVariable, InitVal: *mut super::super::llvm_Constant) {
             unsafe {
                 super::super::raw::llvm_GlobalVariable_setInitializer(inst, InitVal)
@@ -2680,6 +2906,7 @@ pub mod llvm {
     }
 
     pub mod IRBuilder {
+        #[inline(always)]
         pub fn CreateAShr(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -2691,6 +2918,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateAShrByValue(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: u64, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let RHS = RHS as super::super::libc::uint64_t;
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
@@ -2703,6 +2931,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateAdd(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -2714,6 +2943,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateAddrSpaceCast(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -2725,6 +2955,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateAlignedLoad(inst: *mut super::super::llvm_IRBuilder, Ptr: *mut super::super::llvm_Value, Align: usize, Name: Option<&str>) -> *mut super::super::llvm_LoadInst {
             let Align = Align as super::super::libc::c_uint;
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
@@ -2737,6 +2968,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateAlignedLoadVolatile(inst: *mut super::super::llvm_IRBuilder, Ptr: *mut super::super::llvm_Value, Align: usize, isVolatile: bool, Name: Option<&str>) -> *mut super::super::llvm_LoadInst {
             let Align = Align as super::super::libc::c_uint;
             let isVolatile = if isVolatile { 1 } else { 0 };
@@ -2750,6 +2982,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateAlignedStore(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, Ptr: *mut super::super::llvm_Value, Align: usize, isVolatile: Option<bool>) -> *mut super::super::llvm_StoreInst {
             let Align = Align as super::super::libc::c_uint;
             let opt_hack_f620fb = isVolatile.map(|value| if value { 1 } else { 0 });
@@ -2759,6 +2992,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateAlloca(inst: *mut super::super::llvm_IRBuilder, Ty: *mut super::super::llvm_Type, ArraySize: Option<*mut super::super::llvm_Value>, Name: Option<&str>) -> *mut super::super::llvm_AllocaInst {
             let ArraySize = ArraySize.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
@@ -2771,6 +3005,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateAnd(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -2782,6 +3017,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateAndByValue(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: u64, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let RHS = RHS as super::super::libc::uint64_t;
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
@@ -2794,6 +3030,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateBinOp(inst: *mut super::super::llvm_IRBuilder, Opcode: super::super::llvm_Instruction_BinaryOps, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -2805,6 +3042,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateBitCast(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -2816,12 +3054,14 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateBr(inst: *mut super::super::llvm_IRBuilder, Dest: *mut super::super::llvm_BasicBlock) -> *mut super::super::llvm_BranchInst {
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateBr(inst, Dest)
             }
         }
 
+        #[inline(always)]
         pub fn CreateCall(inst: *mut super::super::llvm_IRBuilder, Callee: *mut super::super::llvm_Value, Args: &[*mut super::super::llvm_Value], Name: Option<&str>) -> *mut super::super::llvm_CallInst {
             let Args = super::super::llvm_ArrayRef_ptr_llvm_Value {
                 data: Args.as_ptr(),
@@ -2837,6 +3077,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateCast(inst: *mut super::super::llvm_IRBuilder, Opcode: super::super::llvm_Instruction_CastOps, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -2848,12 +3089,14 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateCondBr(inst: *mut super::super::llvm_IRBuilder, Cond: *mut super::super::llvm_Value, TrueBlock: *mut super::super::llvm_BasicBlock, FalseBlock: *mut super::super::llvm_BasicBlock) -> *mut super::super::llvm_BranchInst {
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateCondBr(inst, Cond, TrueBlock, FalseBlock)
             }
         }
 
+        #[inline(always)]
         pub fn CreateExactSDiv(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -2865,6 +3108,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateExactUDiv(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -2876,6 +3120,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateExtractElement(inst: *mut super::super::llvm_IRBuilder, Vec: *mut super::super::llvm_Value, Idx: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -2887,6 +3132,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateExtractInteger(inst: *mut super::super::llvm_IRBuilder, DL: *const super::super::llvm_DataLayout, From: *mut super::super::llvm_Value, ExtractedTy: *mut super::super::llvm_IntegerType, Offset: u64, Name: &str) -> *mut super::super::llvm_Value {
             let Offset = Offset as super::super::libc::uint64_t;
             let Name = super::super::std_string {
@@ -2898,6 +3144,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateExtractValue(inst: *mut super::super::llvm_IRBuilder, Agg: *mut super::super::llvm_Value, Indexes: &[super::super::libc::c_uint], Name: Option<&str>) -> *mut super::super::llvm_Value {
             let Indexes = super::super::llvm_ArrayRef_uint {
                 data: Indexes.as_ptr(),
@@ -2913,6 +3160,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFAdd(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -2924,6 +3172,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFCmp(inst: *mut super::super::llvm_IRBuilder, Pred: super::super::llvm_CmpInst_Predicate, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -2935,6 +3184,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFCmpOEQ(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -2946,6 +3196,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFCmpOGE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -2957,6 +3208,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFCmpOGT(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -2968,6 +3220,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFCmpOLE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -2979,6 +3232,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFCmpOLT(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -2990,6 +3244,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFCmpONE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3001,6 +3256,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFCmpORD(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3012,6 +3268,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFCmpUEQ(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3023,6 +3280,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFCmpUGE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3034,6 +3292,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFCmpUGT(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3045,6 +3304,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFCmpULE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3056,6 +3316,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFCmpULT(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3067,6 +3328,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFCmpUNE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3078,6 +3340,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFCmpUNO(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3089,6 +3352,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFDiv(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3100,6 +3364,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFMul(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3111,6 +3376,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFNeg(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3122,6 +3388,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFPCast(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3133,6 +3400,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFPExt(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3144,6 +3412,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFPToSI(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3155,6 +3424,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFPToUI(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3166,6 +3436,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFPTrunc(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3177,6 +3448,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFRem(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3188,6 +3460,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFSub(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3199,6 +3472,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateFence(inst: *mut super::super::llvm_IRBuilder, Ordering: super::super::llvm_AtomicOrdering, SynchScope: Option<super::super::llvm_SynchronizationScope>, Name: Option<&str>) -> *mut super::super::llvm_FenceInst {
             let SynchScope = SynchScope.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
@@ -3211,6 +3485,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateGEP(inst: *mut super::super::llvm_IRBuilder, Ptr: *mut super::super::llvm_Value, Indexes: &[*mut super::super::llvm_Value], Name: Option<&str>) -> *mut super::super::llvm_Value {
             let Indexes = super::super::llvm_ArrayRef_ptr_llvm_Value {
                 data: Indexes.as_ptr(),
@@ -3226,6 +3501,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateGlobalStringPtr(inst: *mut super::super::llvm_IRBuilder, Str: &str, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let Str = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(Str.as_ptr()) },
@@ -3241,6 +3517,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateICmp(inst: *mut super::super::llvm_IRBuilder, Pred: super::super::llvm_CmpInst_Predicate, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3252,6 +3529,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateICmpEQ(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3263,6 +3541,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateICmpNE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3274,6 +3553,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateICmpSGE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3285,6 +3565,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateICmpSGT(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3296,6 +3577,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateICmpSLE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3307,6 +3589,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateICmpSLT(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3318,6 +3601,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateICmpUGE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3329,6 +3613,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateICmpUGT(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3340,6 +3625,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateICmpULE(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3351,6 +3637,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateICmpULT(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3362,6 +3649,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateInBoundsGEP(inst: *mut super::super::llvm_IRBuilder, Ptr: *mut super::super::llvm_Value, Indexes: &[*mut super::super::llvm_Value], Name: Option<&str>) -> *mut super::super::llvm_Value {
             let Indexes = super::super::llvm_ArrayRef_ptr_llvm_Value {
                 data: Indexes.as_ptr(),
@@ -3377,6 +3665,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateIndirectBr(inst: *mut super::super::llvm_IRBuilder, Addr: *mut super::super::llvm_Value, NumCases: Option<usize>) -> *mut super::super::llvm_IndirectBrInst {
             let opt_hack_f5156c = NumCases.map(|value| value as super::super::libc::c_uint);
             let NumCases = opt_hack_f5156c.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
@@ -3385,6 +3674,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateInsertElement(inst: *mut super::super::llvm_IRBuilder, Vec: *mut super::super::llvm_Value, NewElt: *mut super::super::llvm_Value, Idx: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3396,6 +3686,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateInsertValue(inst: *mut super::super::llvm_IRBuilder, Agg: *mut super::super::llvm_Value, Value: *mut super::super::llvm_Value, Indexes: &[super::super::libc::c_uint], Name: Option<&str>) -> *mut super::super::llvm_Value {
             let Indexes = super::super::llvm_ArrayRef_uint {
                 data: Indexes.as_ptr(),
@@ -3411,6 +3702,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateIntCast(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, isSigned: bool, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let isSigned = if isSigned { 1 } else { 0 };
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
@@ -3423,6 +3715,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateIntToPtr(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3434,6 +3727,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateInvoke(inst: *mut super::super::llvm_IRBuilder, Callee: *mut super::super::llvm_Value, NormalDest: *mut super::super::llvm_BasicBlock, UnwindDest: *mut super::super::llvm_BasicBlock, Args: &[*mut super::super::llvm_Value], Name: Option<&str>) -> *mut super::super::llvm_InvokeInst {
             let Args = super::super::llvm_ArrayRef_ptr_llvm_Value {
                 data: Args.as_ptr(),
@@ -3449,6 +3743,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateIsNotNull(inst: *mut super::super::llvm_IRBuilder, Arg: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3460,6 +3755,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateIsNull(inst: *mut super::super::llvm_IRBuilder, Arg: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3471,6 +3767,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateLShr(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3482,6 +3779,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateLShrByValue(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: u64, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let RHS = RHS as super::super::libc::uint64_t;
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
@@ -3494,6 +3792,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateLandingPad(inst: *mut super::super::llvm_IRBuilder, Ty: *mut super::super::llvm_Type, PersFn: *mut super::super::llvm_Value, NumClauses: usize, Name: Option<&str>) -> *mut super::super::llvm_LandingPadInst {
             let NumClauses = NumClauses as super::super::libc::c_uint;
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
@@ -3506,6 +3805,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateLoad(inst: *mut super::super::llvm_IRBuilder, Ptr: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_LoadInst {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3517,6 +3817,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateLoadVolatile(inst: *mut super::super::llvm_IRBuilder, Ptr: *mut super::super::llvm_Value, isVolatile: bool, Name: Option<&str>) -> *mut super::super::llvm_LoadInst {
             let isVolatile = if isVolatile { 1 } else { 0 };
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
@@ -3529,6 +3830,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateMul(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3540,6 +3842,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateNSWAdd(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3551,6 +3854,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateNSWMul(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3562,6 +3866,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateNSWNeg(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3573,6 +3878,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateNSWSub(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3584,6 +3890,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateNUWAdd(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3595,6 +3902,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateNUWMul(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3606,6 +3914,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateNUWNeg(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3617,6 +3926,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateNUWSub(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3628,6 +3938,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateNeg(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3639,6 +3950,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateNot(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3650,6 +3962,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateOr(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3661,6 +3974,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateOrByValue(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: u64, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let RHS = RHS as super::super::libc::uint64_t;
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
@@ -3673,6 +3987,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreatePHI(inst: *mut super::super::llvm_IRBuilder, Ty: *mut super::super::llvm_Type, NumReservedValues: usize, Name: Option<&str>) -> *mut super::super::llvm_PHINode {
             let NumReservedValues = NumReservedValues as super::super::libc::c_uint;
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
@@ -3685,6 +4000,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreatePointerBitCastOrAddrSpaceCast(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3696,6 +4012,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreatePointerCast(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3707,6 +4024,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreatePtrDiff(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3718,6 +4036,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreatePtrToInt(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3729,24 +4048,28 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateResume(inst: *mut super::super::llvm_IRBuilder, Exn: *mut super::super::llvm_Value) -> *mut super::super::llvm_ResumeInst {
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateResume(inst, Exn)
             }
         }
 
+        #[inline(always)]
         pub fn CreateRet(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value) -> *mut super::super::llvm_ReturnInst {
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateRet(inst, Value)
             }
         }
 
+        #[inline(always)]
         pub fn CreateRetVoid(inst: *mut super::super::llvm_IRBuilder) -> *mut super::super::llvm_ReturnInst {
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateRetVoid(inst)
             }
         }
 
+        #[inline(always)]
         pub fn CreateSDiv(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3758,6 +4081,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateSExt(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3769,6 +4093,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateSExtOrBitCast(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3780,6 +4105,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateSExtOrTrunc(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3791,6 +4117,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateSIToFP(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3802,6 +4129,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateSRem(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3813,6 +4141,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateSelect(inst: *mut super::super::llvm_IRBuilder, C: *mut super::super::llvm_Value, TrueValue: *mut super::super::llvm_Value, FalseValue: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3824,6 +4153,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateShl(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3835,6 +4165,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateShlByValue(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: u64, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let RHS = RHS as super::super::libc::uint64_t;
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
@@ -3847,6 +4178,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateShuffleVector(inst: *mut super::super::llvm_IRBuilder, V1: *mut super::super::llvm_Value, P2: *mut super::super::llvm_Value, Mask: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3858,6 +4190,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateStore(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, Ptr: *mut super::super::llvm_Value, isVolatile: Option<bool>) -> *mut super::super::llvm_StoreInst {
             let opt_hack_f620fb = isVolatile.map(|value| if value { 1 } else { 0 });
             let isVolatile = opt_hack_f620fb.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
@@ -3866,6 +4199,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateStructGEP(inst: *mut super::super::llvm_IRBuilder, Ptr: *mut super::super::llvm_Value, Index: usize, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let Index = Index as super::super::libc::c_uint;
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
@@ -3878,6 +4212,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateSub(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3889,6 +4224,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateSwitch(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, Dest: *mut super::super::llvm_BasicBlock, NumCases: Option<usize>) -> *mut super::super::llvm_SwitchInst {
             let opt_hack_f5156c = NumCases.map(|value| value as super::super::libc::c_uint);
             let NumCases = opt_hack_f5156c.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
@@ -3897,6 +4233,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateTrunc(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3908,6 +4245,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateTruncOrBitCast(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3919,6 +4257,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateUDiv(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3930,6 +4269,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateUIToFP(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3941,6 +4281,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateURem(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3952,12 +4293,14 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateUnreachable(inst: *mut super::super::llvm_IRBuilder) -> *mut super::super::llvm_UnreachableInst {
             unsafe {
                 super::super::raw::llvm_IRBuilder_CreateUnreachable(inst)
             }
         }
 
+        #[inline(always)]
         pub fn CreateVAArg(inst: *mut super::super::llvm_IRBuilder, List: *mut super::super::llvm_Value, Ty: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_VAArgInst {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3969,6 +4312,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateVectorSplat(inst: *mut super::super::llvm_IRBuilder, NumElements: usize, Value: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let NumElements = NumElements as super::super::libc::c_uint;
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
@@ -3981,6 +4325,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateXor(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: *mut super::super::llvm_Value, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -3992,6 +4337,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateXorByValue(inst: *mut super::super::llvm_IRBuilder, LHS: *mut super::super::llvm_Value, RHS: u64, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let RHS = RHS as super::super::libc::uint64_t;
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
@@ -4004,6 +4350,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateZExt(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -4015,6 +4362,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateZExtOrBitCast(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -4026,6 +4374,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateZExtOrTrunc(inst: *mut super::super::llvm_IRBuilder, Value: *mut super::super::llvm_Value, DestTy: *mut super::super::llvm_Type, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let opt_hack_49ee30 = Name.map(|value| super::super::std_string {
                 data: unsafe { ::std::mem::transmute(value.as_ptr()) },
@@ -4037,24 +4386,28 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn delete(inst: *mut super::super::llvm_IRBuilder) {
             unsafe {
                 super::super::raw::llvm_IRBuilder_delete(inst)
             }
         }
 
+        #[inline(always)]
         pub fn isNamePreserving(inst: *const super::super::llvm_IRBuilder) -> bool {
             unsafe {
                 super::super::raw::llvm_IRBuilder_isNamePreserving(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn new(Context: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_IRBuilder {
             unsafe {
                 super::super::raw::llvm_IRBuilder_new(Context)
             }
         }
 
+        #[inline(always)]
         pub fn new_in_block(BB: *mut super::super::llvm_BasicBlock) -> *mut super::super::llvm_IRBuilder {
             unsafe {
                 super::super::raw::llvm_IRBuilder_new_in_block(BB)
@@ -4063,12 +4416,14 @@ pub mod llvm {
     }
 
     pub mod IRBuilderBase {
+        #[inline(always)]
         pub fn ClearInsertionPoint(inst: *mut super::super::llvm_IRBuilderBase) {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_ClearInsertionPoint(inst)
             }
         }
 
+        #[inline(always)]
         pub fn CreateGlobalString(inst: *mut super::super::llvm_IRBuilderBase, Str: &str, Name: Option<&str>) -> *mut super::super::llvm_Value {
             let Str = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(Str.as_ptr()) },
@@ -4084,6 +4439,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateLifetimeEnd(inst: *mut super::super::llvm_IRBuilderBase, Ptr: *mut super::super::llvm_Value, Size: Option<*mut super::super::llvm_ConstantInt>) -> *mut super::super::llvm_CallInst {
             let Size = Size.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
@@ -4091,6 +4447,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateLifetimeStart(inst: *mut super::super::llvm_IRBuilderBase, Ptr: *mut super::super::llvm_Value, Size: Option<*mut super::super::llvm_ConstantInt>) -> *mut super::super::llvm_CallInst {
             let Size = Size.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
             unsafe {
@@ -4098,6 +4455,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateMemCpy(inst: *mut super::super::llvm_IRBuilderBase, Dst: *mut super::super::llvm_Value, Src: *mut super::super::llvm_Value, Size: *mut super::super::llvm_Value, Align: usize, isVolatile: Option<bool>) -> *mut super::super::llvm_CallInst {
             let Align = Align as super::super::libc::c_uint;
             let opt_hack_f620fb = isVolatile.map(|value| if value { 1 } else { 0 });
@@ -4107,6 +4465,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateMemMove(inst: *mut super::super::llvm_IRBuilderBase, Dst: *mut super::super::llvm_Value, Src: *mut super::super::llvm_Value, Size: *mut super::super::llvm_Value, Align: usize, isVolatile: Option<bool>) -> *mut super::super::llvm_CallInst {
             let Align = Align as super::super::libc::c_uint;
             let opt_hack_f620fb = isVolatile.map(|value| if value { 1 } else { 0 });
@@ -4116,6 +4475,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn CreateMemSet(inst: *mut super::super::llvm_IRBuilderBase, Ptr: *mut super::super::llvm_Value, Value: *mut super::super::llvm_Value, Size: *mut super::super::llvm_Value, Align: usize, isVolatile: Option<bool>) -> *mut super::super::llvm_CallInst {
             let Align = Align as super::super::libc::c_uint;
             let opt_hack_f620fb = isVolatile.map(|value| if value { 1 } else { 0 });
@@ -4125,84 +4485,98 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn GetInsertBlock(inst: *const super::super::llvm_IRBuilderBase) -> *mut super::super::llvm_BasicBlock {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_GetInsertBlock(inst)
             }
         }
 
+        #[inline(always)]
         pub fn SetCurrentDebugLocation(inst: *mut super::super::llvm_IRBuilderBase, Loc: *const super::super::llvm_DebugLoc) {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_SetCurrentDebugLocation(inst, Loc)
             }
         }
 
+        #[inline(always)]
         pub fn SetDefaultFPMathTag(inst: *mut super::super::llvm_IRBuilderBase, FPMathTag: *mut super::super::llvm_MDNode) {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_SetDefaultFPMathTag(inst, FPMathTag)
             }
         }
 
+        #[inline(always)]
         pub fn SetInsertPoint(inst: *mut super::super::llvm_IRBuilderBase, BB: *mut super::super::llvm_BasicBlock) {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_SetInsertPoint(inst, BB)
             }
         }
 
+        #[inline(always)]
         pub fn SetInsertPointAtInst(inst: *mut super::super::llvm_IRBuilderBase, Inst: *mut super::super::llvm_Instruction) {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_SetInsertPointAtInst(inst, Inst)
             }
         }
 
+        #[inline(always)]
         pub fn SetInstDebugLocation(inst: *const super::super::llvm_IRBuilderBase, Inst: *mut super::super::llvm_Instruction) {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_SetInstDebugLocation(inst, Inst)
             }
         }
 
+        #[inline(always)]
         pub fn getContext(inst: *const super::super::llvm_IRBuilderBase) -> *mut super::super::llvm_LLVMContext {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_getContext(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getCurrentFunctionReturnType(inst: *const super::super::llvm_IRBuilderBase) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_getCurrentFunctionReturnType(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getDefaultFPMathTag(inst: *const super::super::llvm_IRBuilderBase) -> *mut super::super::llvm_MDNode {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_getDefaultFPMathTag(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getDoubleTy(inst: *mut super::super::llvm_IRBuilderBase) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_getDoubleTy(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getFalse(inst: *mut super::super::llvm_IRBuilderBase) -> *mut super::super::llvm_ConstantInt {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_getFalse(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getFloatTy(inst: *mut super::super::llvm_IRBuilderBase) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_getFloatTy(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getHalfTy(inst: *mut super::super::llvm_IRBuilderBase) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_getHalfTy(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getInt(inst: *mut super::super::llvm_IRBuilderBase, Value: (&[u64], usize)) -> *mut super::super::llvm_ConstantInt {
             let Value = super::super::llvm_APInt {
                 data: super::super::llvm_ArrayRef_uint64 {
@@ -4216,6 +4590,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getInt1(inst: *mut super::super::llvm_IRBuilderBase, Value: bool) -> *mut super::super::llvm_ConstantInt {
             let Value = if Value { 1 } else { 0 };
             unsafe {
@@ -4223,6 +4598,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getInt16(inst: *mut super::super::llvm_IRBuilderBase, Value: u16) -> *mut super::super::llvm_ConstantInt {
             let Value = Value as super::super::libc::uint16_t;
             unsafe {
@@ -4230,18 +4606,21 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getInt16Ty(inst: *mut super::super::llvm_IRBuilderBase) -> *mut super::super::llvm_IntegerType {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_getInt16Ty(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getInt1Ty(inst: *mut super::super::llvm_IRBuilderBase) -> *mut super::super::llvm_IntegerType {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_getInt1Ty(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getInt32(inst: *mut super::super::llvm_IRBuilderBase, Value: u32) -> *mut super::super::llvm_ConstantInt {
             let Value = Value as super::super::libc::uint32_t;
             unsafe {
@@ -4249,12 +4628,14 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getInt32Ty(inst: *mut super::super::llvm_IRBuilderBase) -> *mut super::super::llvm_IntegerType {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_getInt32Ty(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getInt64(inst: *mut super::super::llvm_IRBuilderBase, Value: u64) -> *mut super::super::llvm_ConstantInt {
             let Value = Value as super::super::libc::uint64_t;
             unsafe {
@@ -4262,12 +4643,14 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getInt64Ty(inst: *mut super::super::llvm_IRBuilderBase) -> *mut super::super::llvm_IntegerType {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_getInt64Ty(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getInt8(inst: *mut super::super::llvm_IRBuilderBase, Value: u8) -> *mut super::super::llvm_ConstantInt {
             let Value = Value as super::super::libc::uint8_t;
             unsafe {
@@ -4275,6 +4658,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getInt8PtrTy(inst: *mut super::super::llvm_IRBuilderBase, AddrSpace: Option<usize>) -> *mut super::super::llvm_PointerType {
             let opt_hack_ac2532 = AddrSpace.map(|value| value as super::super::libc::c_uint);
             let AddrSpace = opt_hack_ac2532.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
@@ -4283,12 +4667,14 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getInt8Ty(inst: *mut super::super::llvm_IRBuilderBase) -> *mut super::super::llvm_IntegerType {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_getInt8Ty(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getIntN(inst: *mut super::super::llvm_IRBuilderBase, NumBits: usize, Value: u64) -> *mut super::super::llvm_ConstantInt {
             let NumBits = NumBits as super::super::libc::c_uint;
             let Value = Value as super::super::libc::uint64_t;
@@ -4297,6 +4683,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getIntNTy(inst: *mut super::super::llvm_IRBuilderBase, NumBits: usize) -> *mut super::super::llvm_IntegerType {
             let NumBits = NumBits as super::super::libc::c_uint;
             unsafe {
@@ -4304,6 +4691,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getIntPtrTy(inst: *mut super::super::llvm_IRBuilderBase, DL: *const super::super::llvm_DataLayout, AddrSpace: Option<usize>) -> *mut super::super::llvm_IntegerType {
             let opt_hack_ac2532 = AddrSpace.map(|value| value as super::super::libc::c_uint);
             let AddrSpace = opt_hack_ac2532.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
@@ -4312,18 +4700,21 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getTrue(inst: *mut super::super::llvm_IRBuilderBase) -> *mut super::super::llvm_ConstantInt {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_getTrue(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getVoidTy(inst: *mut super::super::llvm_IRBuilderBase) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_getVoidTy(inst)
             }
         }
 
+        #[inline(always)]
         pub fn new(Context: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_IRBuilderBase {
             unsafe {
                 super::super::raw::llvm_IRBuilderBase_new(Context)
@@ -4344,30 +4735,35 @@ pub mod llvm {
     }
 
     pub mod Instruction {
+        #[inline(always)]
         pub fn clone(inst: *const super::super::llvm_Instruction) -> *mut super::super::llvm_Instruction {
             unsafe {
                 super::super::raw::llvm_Instruction_clone(inst)
             }
         }
 
+        #[inline(always)]
         pub fn copyFastMathFlags(inst: *mut super::super::llvm_Instruction, Inst: *const super::super::llvm_Instruction) {
             unsafe {
                 super::super::raw::llvm_Instruction_copyFastMathFlags(inst, Inst)
             }
         }
 
+        #[inline(always)]
         pub fn delete(inst: *mut super::super::llvm_Instruction) {
             unsafe {
                 super::super::raw::llvm_Instruction_delete(inst)
             }
         }
 
+        #[inline(always)]
         pub fn dropUnknownMetadata(inst: *mut super::super::llvm_Instruction) {
             unsafe {
                 super::super::raw::llvm_Instruction_dropUnknownMetadata(inst)
             }
         }
 
+        #[inline(always)]
         pub fn dropUnknownMetadataFromIDS(inst: *mut super::super::llvm_Instruction, KnownIDs: &[super::super::libc::c_uint]) {
             let KnownIDs = super::super::llvm_ArrayRef_uint {
                 data: KnownIDs.as_ptr(),
@@ -4378,24 +4774,28 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn eraseFromParent(inst: *mut super::super::llvm_Instruction) {
             unsafe {
                 super::super::raw::llvm_Instruction_eraseFromParent(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getDataLayout(inst: *const super::super::llvm_Instruction) -> *const super::super::llvm_DataLayout {
             unsafe {
                 super::super::raw::llvm_Instruction_getDataLayout(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getDebugLoc(inst: *const super::super::llvm_Instruction) -> *const super::super::llvm_DebugLoc {
             unsafe {
                 super::super::raw::llvm_Instruction_getDebugLoc(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getMetadata(inst: *const super::super::llvm_Instruction, KindID: usize) -> *mut super::super::llvm_MDNode {
             let KindID = KindID as super::super::libc::c_uint;
             unsafe {
@@ -4403,6 +4803,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getMetadataStr(inst: *const super::super::llvm_Instruction, Kind: &str) -> *mut super::super::llvm_MDNode {
             let Kind = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(Kind.as_ptr()) },
@@ -4413,138 +4814,161 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getOpcode(inst: *const super::super::llvm_Instruction) -> usize {
             unsafe {
                 super::super::raw::llvm_Instruction_getOpcode(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn getParent(inst: *const super::super::llvm_Instruction) -> *const super::super::llvm_BasicBlock {
             unsafe {
                 super::super::raw::llvm_Instruction_getParent(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getParentMut(inst: *mut super::super::llvm_Instruction) -> *mut super::super::llvm_BasicBlock {
             unsafe {
                 super::super::raw::llvm_Instruction_getParentMut(inst)
             }
         }
 
+        #[inline(always)]
         pub fn hasAllowReciprocal(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_hasAllowReciprocal(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasMetadata(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_hasMetadata(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasMetadataOtherThanDebugLoc(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_hasMetadataOtherThanDebugLoc(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasNoInfs(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_hasNoInfs(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasNoNaNs(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_hasNoNaNs(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasNoSignedZeros(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_hasNoSignedZeros(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasUnsafeAlgebra(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_hasUnsafeAlgebra(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn insertAfter(inst: *mut super::super::llvm_Instruction, InsertPos: *mut super::super::llvm_Instruction) {
             unsafe {
                 super::super::raw::llvm_Instruction_insertAfter(inst, InsertPos)
             }
         }
 
+        #[inline(always)]
         pub fn insertBefore(inst: *mut super::super::llvm_Instruction, InsertPos: *mut super::super::llvm_Instruction) {
             unsafe {
                 super::super::raw::llvm_Instruction_insertBefore(inst, InsertPos)
             }
         }
 
+        #[inline(always)]
         pub fn isArithmeticShift(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_isArithmeticShift(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isAssociative(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_isAssociative(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isBinaryOp(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_isBinaryOp(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isCast(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_isCast(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isCommutative(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_isCommutative(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isIdempotent(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_isIdempotent(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isIdenticalTo(inst: *const super::super::llvm_Instruction, Inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_isIdenticalTo(inst, Inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isIdenticalToWhenDefined(inst: *const super::super::llvm_Instruction, Inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_isIdenticalToWhenDefined(inst, Inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isLogicalShift(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_isLogicalShift(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isNilpotent(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_isNilpotent(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isSameOperationAs(inst: *const super::super::llvm_Instruction, Inst: *const super::super::llvm_Instruction, flags: usize) -> bool {
             let flags = flags as super::super::libc::c_uint;
             unsafe {
@@ -4552,78 +4976,91 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn isShift(inst: *mut super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_isShift(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isTerminator(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_isTerminator(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isUsedOutsideOfBlock(inst: *const super::super::llvm_Instruction, BB: *const super::super::llvm_BasicBlock) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_isUsedOutsideOfBlock(inst, BB) != 0
             }
         }
 
+        #[inline(always)]
         pub fn mayHaveSideEffects(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_mayHaveSideEffects(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn mayReadFromMemory(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_mayReadFromMemory(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn mayReadOrWriteMemory(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_mayReadOrWriteMemory(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn mayReturn(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_mayReturn(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn mayThrow(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_mayThrow(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn mayWriteToMemory(inst: *const super::super::llvm_Instruction) -> bool {
             unsafe {
                 super::super::raw::llvm_Instruction_mayWriteToMemory(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn moveBefore(inst: *mut super::super::llvm_Instruction, MovePos: *mut super::super::llvm_Instruction) {
             unsafe {
                 super::super::raw::llvm_Instruction_moveBefore(inst, MovePos)
             }
         }
 
+        #[inline(always)]
         pub fn removeFromParent(inst: *mut super::super::llvm_Instruction) {
             unsafe {
                 super::super::raw::llvm_Instruction_removeFromParent(inst)
             }
         }
 
+        #[inline(always)]
         pub fn setDebugLoc(inst: *mut super::super::llvm_Instruction, Loc: *const super::super::llvm_DebugLoc) {
             unsafe {
                 super::super::raw::llvm_Instruction_setDebugLoc(inst, Loc)
             }
         }
 
+        #[inline(always)]
         pub fn setHasAllowReciprocal(inst: *mut super::super::llvm_Instruction, Val: bool) {
             let Val = if Val { 1 } else { 0 };
             unsafe {
@@ -4631,6 +5068,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn setHasNoInfs(inst: *mut super::super::llvm_Instruction, Val: bool) {
             let Val = if Val { 1 } else { 0 };
             unsafe {
@@ -4638,6 +5076,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn setHasNoNaNs(inst: *mut super::super::llvm_Instruction, Val: bool) {
             let Val = if Val { 1 } else { 0 };
             unsafe {
@@ -4645,6 +5084,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn setHasNoSignedZeros(inst: *mut super::super::llvm_Instruction, Val: bool) {
             let Val = if Val { 1 } else { 0 };
             unsafe {
@@ -4652,6 +5092,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn setHasUnsafeAlgebra(inst: *mut super::super::llvm_Instruction, Val: bool) {
             let Val = if Val { 1 } else { 0 };
             unsafe {
@@ -4659,6 +5100,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn setMetadata(inst: *mut super::super::llvm_Instruction, KindID: usize, Node: *mut super::super::llvm_MDNode) {
             let KindID = KindID as super::super::libc::c_uint;
             unsafe {
@@ -4666,6 +5108,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn setMetadataStr(inst: *mut super::super::llvm_Instruction, Kind: &str, Node: *mut super::super::llvm_MDNode) {
             let Kind = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(Kind.as_ptr()) },
@@ -4676,12 +5119,14 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn user_back(inst: *const super::super::llvm_Instruction) -> *const super::super::llvm_Instruction {
             unsafe {
                 super::super::raw::llvm_Instruction_user_back(inst)
             }
         }
 
+        #[inline(always)]
         pub fn user_back_mut(inst: *mut super::super::llvm_Instruction) -> *mut super::super::llvm_Instruction {
             unsafe {
                 super::super::raw::llvm_Instruction_user_back_mut(inst)
@@ -4690,12 +5135,14 @@ pub mod llvm {
     }
 
     pub mod IntegerType {
+        #[inline(always)]
         pub fn classof(ty: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_IntegerType_classof(ty) != 0
             }
         }
 
+        #[inline(always)]
         pub fn get(ctx: *mut super::super::llvm_LLVMContext, NumBits: usize) -> *mut super::super::llvm_IntegerType {
             let NumBits = NumBits as super::super::libc::c_uint;
             unsafe {
@@ -4703,24 +5150,28 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getBitMask(inst: *const super::super::llvm_IntegerType) -> u64 {
             unsafe {
                 super::super::raw::llvm_IntegerType_getBitMask(inst) as u64
             }
         }
 
+        #[inline(always)]
         pub fn getBitWidth(inst: *const super::super::llvm_IntegerType) -> usize {
             unsafe {
                 super::super::raw::llvm_IntegerType_getBitWidth(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn getSignBit(inst: *const super::super::llvm_IntegerType) -> u64 {
             unsafe {
                 super::super::raw::llvm_IntegerType_getSignBit(inst) as u64
             }
         }
 
+        #[inline(always)]
         pub fn isPowerOf2ByteWidth(inst: *const super::super::llvm_IntegerType) -> bool {
             unsafe {
                 super::super::raw::llvm_IntegerType_isPowerOf2ByteWidth(inst) != 0
@@ -4732,12 +5183,14 @@ pub mod llvm {
     }
 
     pub mod LLVMContext {
+        #[inline(always)]
         pub fn delete() -> *mut super::super::llvm_LLVMContext {
             unsafe {
                 super::super::raw::llvm_LLVMContext_delete()
             }
         }
 
+        #[inline(always)]
         pub fn new() -> *mut super::super::llvm_LLVMContext {
             unsafe {
                 super::super::raw::llvm_LLVMContext_new()
@@ -4761,6 +5214,7 @@ pub mod llvm {
     }
 
     pub mod Module {
+        #[inline(always)]
         pub fn appendModuleInlineAsm(inst: *mut super::super::llvm_Module, Asm: &str) {
             let Asm = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(Asm.as_ptr()) },
@@ -4771,36 +5225,42 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn delete(inst: *mut super::super::llvm_Module) {
             unsafe {
                 super::super::raw::llvm_Module_delete(inst)
             }
         }
 
+        #[inline(always)]
         pub fn dump(inst: *const super::super::llvm_Module) {
             unsafe {
                 super::super::raw::llvm_Module_dump(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getContext(inst: *const super::super::llvm_Module) -> *mut super::super::llvm_LLVMContext {
             unsafe {
                 super::super::raw::llvm_Module_getContext(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getDataLayout(inst: *const super::super::llvm_Module) -> *const super::super::llvm_DataLayout {
             unsafe {
                 super::super::raw::llvm_Module_getDataLayout(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getDataLayoutStr(inst: *const super::super::llvm_Module) -> super::super::std_string_const {
             unsafe {
                 super::super::raw::llvm_Module_getDataLayoutStr(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getFunction(inst: *const super::super::llvm_Module, Name: &str) -> *mut super::super::llvm_Function {
             let Name = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(Name.as_ptr()) },
@@ -4811,6 +5271,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getMDKindID(inst: *const super::super::llvm_Module, Name: &str) -> usize {
             let Name = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(Name.as_ptr()) },
@@ -4821,18 +5282,21 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getModuleIdentifier(inst: *const super::super::llvm_Module) -> super::super::std_string_const {
             unsafe {
                 super::super::raw::llvm_Module_getModuleIdentifier(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getModuleInlineAsm(inst: *const super::super::llvm_Module) -> super::super::std_string_const {
             unsafe {
                 super::super::raw::llvm_Module_getModuleInlineAsm(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getNamedValue(inst: *const super::super::llvm_Module, Name: &str) -> *mut super::super::llvm_GlobalValue {
             let Name = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(Name.as_ptr()) },
@@ -4843,6 +5307,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getOrInsertFunction(inst: *mut super::super::llvm_Module, Name: &str, ty: *mut super::super::llvm_FunctionType) -> *mut super::super::llvm_Constant {
             let Name = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(Name.as_ptr()) },
@@ -4853,12 +5318,14 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getTargetTriple(inst: *const super::super::llvm_Module) -> super::super::std_string_const {
             unsafe {
                 super::super::raw::llvm_Module_getTargetTriple(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getTypeByName(inst: *const super::super::llvm_Module, Name: &str) -> *mut super::super::llvm_StructType {
             let Name = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(Name.as_ptr()) },
@@ -4869,6 +5336,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn new(ModuleID: &str, Context: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_Module {
             let ModuleID = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(ModuleID.as_ptr()) },
@@ -4879,12 +5347,14 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn setDataLayout(inst: *mut super::super::llvm_Module, Other: *const super::super::llvm_DataLayout) {
             unsafe {
                 super::super::raw::llvm_Module_setDataLayout(inst, Other)
             }
         }
 
+        #[inline(always)]
         pub fn setDataLayoutStr(inst: *mut super::super::llvm_Module, Desc: &str) {
             let Desc = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(Desc.as_ptr()) },
@@ -4895,6 +5365,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn setModuleIdentifier(inst: *mut super::super::llvm_Module, ID: &str) {
             let ID = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(ID.as_ptr()) },
@@ -4905,6 +5376,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn setModuleInlineAsm(inst: *mut super::super::llvm_Module, Asm: &str) {
             let Asm = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(Asm.as_ptr()) },
@@ -4915,6 +5387,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn setTargetTriple(inst: *mut super::super::llvm_Module, Triple: &str) {
             let Triple = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(Triple.as_ptr()) },
@@ -4930,6 +5403,7 @@ pub mod llvm {
     }
 
     pub mod Operator {
+        #[inline(always)]
         pub fn getOpcode(inst: *const super::super::llvm_Operator) -> usize {
             unsafe {
                 super::super::raw::llvm_Operator_getOpcode(inst) as usize
@@ -4938,18 +5412,21 @@ pub mod llvm {
     }
 
     pub mod PHINode {
+        #[inline(always)]
         pub fn addIncoming(inst: *mut super::super::llvm_PHINode, V: *mut super::super::llvm_Value, BB: *mut super::super::llvm_BasicBlock) {
             unsafe {
                 super::super::raw::llvm_PHINode_addIncoming(inst, V, BB)
             }
         }
 
+        #[inline(always)]
         pub fn delete(inst: *mut super::super::llvm_PHINode) {
             unsafe {
                 super::super::raw::llvm_PHINode_delete(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getIncomingBlock(inst: *const super::super::llvm_PHINode, i: usize) -> *mut super::super::llvm_BasicBlock {
             let i = i as super::super::libc::c_uint;
             unsafe {
@@ -4957,6 +5434,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getIncomingValue(inst: *const super::super::llvm_PHINode, i: usize) -> *mut super::super::llvm_Value {
             let i = i as super::super::libc::c_uint;
             unsafe {
@@ -4964,12 +5442,14 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getNumIncomingValues(inst: *const super::super::llvm_PHINode) -> usize {
             unsafe {
                 super::super::raw::llvm_PHINode_getNumIncomingValues(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn setIncomingBlock(inst: *mut super::super::llvm_PHINode, i: usize, BB: *mut super::super::llvm_BasicBlock) {
             let i = i as super::super::libc::c_uint;
             unsafe {
@@ -4977,6 +5457,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn setIncomingValue(inst: *mut super::super::llvm_PHINode, i: usize, V: *mut super::super::llvm_Value) {
             let i = i as super::super::libc::c_uint;
             unsafe {
@@ -4986,30 +5467,35 @@ pub mod llvm {
     }
 
     pub mod Pass {
+        #[inline(always)]
         pub fn delete(inst: *mut super::super::llvm_Pass) {
             unsafe {
                 super::super::raw::llvm_Pass_delete(inst)
             }
         }
 
+        #[inline(always)]
         pub fn doFinalization(inst: *mut super::super::llvm_Pass, Module: *mut super::super::llvm_Module) -> bool {
             unsafe {
                 super::super::raw::llvm_Pass_doFinalization(inst, Module) != 0
             }
         }
 
+        #[inline(always)]
         pub fn doInitialization(inst: *mut super::super::llvm_Pass, Module: *mut super::super::llvm_Module) -> bool {
             unsafe {
                 super::super::raw::llvm_Pass_doInitialization(inst, Module) != 0
             }
         }
 
+        #[inline(always)]
         pub fn dump(inst: *const super::super::llvm_Pass) {
             unsafe {
                 super::super::raw::llvm_Pass_dump(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getPassKind(inst: *const super::super::llvm_Pass) -> super::super::llvm_PassKind {
             unsafe {
                 super::super::raw::llvm_Pass_getPassKind(inst)
@@ -5018,18 +5504,21 @@ pub mod llvm {
     }
 
     pub mod PassManager {
+        #[inline(always)]
         pub fn add(inst: *mut super::super::llvm_PassManager, Pass: *mut super::super::llvm_Pass) {
             unsafe {
                 super::super::raw::llvm_PassManager_add(inst, Pass)
             }
         }
 
+        #[inline(always)]
         pub fn new() -> *mut super::super::llvm_PassManager {
             unsafe {
                 super::super::raw::llvm_PassManager_new()
             }
         }
 
+        #[inline(always)]
         pub fn run(inst: *mut super::super::llvm_PassManager, Module: *mut super::super::llvm_Module) {
             unsafe {
                 super::super::raw::llvm_PassManager_run(inst, Module)
@@ -5038,12 +5527,14 @@ pub mod llvm {
     }
 
     pub mod PointerType {
+        #[inline(always)]
         pub fn classof(ty: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_PointerType_classof(ty) != 0
             }
         }
 
+        #[inline(always)]
         pub fn get(ElementType: *mut super::super::llvm_Type, AddressSpace: usize) -> *mut super::super::llvm_PointerType {
             let AddressSpace = AddressSpace as super::super::libc::c_uint;
             unsafe {
@@ -5051,18 +5542,21 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getAddressSpace(inst: *const super::super::llvm_PointerType) -> usize {
             unsafe {
                 super::super::raw::llvm_PointerType_getAddressSpace(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn getUnqual(ElementType: *mut super::super::llvm_Type) -> *mut super::super::llvm_PointerType {
             unsafe {
                 super::super::raw::llvm_PointerType_getUnqual(ElementType)
             }
         }
 
+        #[inline(always)]
         pub fn isValidElementType(ty: *mut super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_PointerType_isValidElementType(ty) != 0
@@ -5083,12 +5577,14 @@ pub mod llvm {
     }
 
     pub mod SequentialType {
+        #[inline(always)]
         pub fn classof(ty: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_SequentialType_classof(ty) != 0
             }
         }
 
+        #[inline(always)]
         pub fn getElementType(inst: *const super::super::llvm_SequentialType) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_SequentialType_getElementType(inst)
@@ -5103,12 +5599,14 @@ pub mod llvm {
     }
 
     pub mod StructType {
+        #[inline(always)]
         pub fn classof(ty: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_StructType_classof(ty) != 0
             }
         }
 
+        #[inline(always)]
         pub fn create(ctx: *mut super::super::llvm_LLVMContext, Elements: &[*mut super::super::llvm_Type], Name: &str) -> *mut super::super::llvm_StructType {
             let Elements = super::super::llvm_ArrayRef_ptr_llvm_Type {
                 data: Elements.as_ptr(),
@@ -5123,6 +5621,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn createPacked(ctx: *mut super::super::llvm_LLVMContext, Elements: &[*mut super::super::llvm_Type], Name: &str, isPacked: bool) -> *mut super::super::llvm_StructType {
             let Elements = super::super::llvm_ArrayRef_ptr_llvm_Type {
                 data: Elements.as_ptr(),
@@ -5138,6 +5637,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getElementType(inst: *const super::super::llvm_StructType, idx: usize) -> *mut super::super::llvm_Type {
             let idx = idx as super::super::libc::c_uint;
             unsafe {
@@ -5145,60 +5645,70 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getName(inst: *const super::super::llvm_StructType) -> super::super::llvm_StringRef {
             unsafe {
                 super::super::raw::llvm_StructType_getName(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getNumElements(inst: *const super::super::llvm_StructType) -> usize {
             unsafe {
                 super::super::raw::llvm_StructType_getNumElements(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn hasName(inst: *const super::super::llvm_StructType) -> bool {
             unsafe {
                 super::super::raw::llvm_StructType_hasName(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isLayoutIdentical(inst: *const super::super::llvm_StructType, Other: *mut super::super::llvm_StructType) -> bool {
             unsafe {
                 super::super::raw::llvm_StructType_isLayoutIdentical(inst, Other) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isLiteral(inst: *const super::super::llvm_StructType) -> bool {
             unsafe {
                 super::super::raw::llvm_StructType_isLiteral(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isOpaque(inst: *const super::super::llvm_StructType) -> bool {
             unsafe {
                 super::super::raw::llvm_StructType_isOpaque(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isPacked(inst: *const super::super::llvm_StructType) -> bool {
             unsafe {
                 super::super::raw::llvm_StructType_isPacked(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isSized(inst: *const super::super::llvm_StructType) -> bool {
             unsafe {
                 super::super::raw::llvm_StructType_isSized(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isValidElementType(ty: *mut super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_StructType_isValidElementType(ty) != 0
             }
         }
 
+        #[inline(always)]
         pub fn setBody(inst: *mut super::super::llvm_StructType, Elements: &[*mut super::super::llvm_Type]) {
             let Elements = super::super::llvm_ArrayRef_ptr_llvm_Type {
                 data: Elements.as_ptr(),
@@ -5209,6 +5719,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn setBodyPacked(inst: *mut super::super::llvm_StructType, Elements: &[*mut super::super::llvm_Type], isPacked: bool) {
             let Elements = super::super::llvm_ArrayRef_ptr_llvm_Type {
                 data: Elements.as_ptr(),
@@ -5220,6 +5731,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn setName(inst: *mut super::super::llvm_StructType, Name: &str) {
             let Name = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(Name.as_ptr()) },
@@ -5232,42 +5744,49 @@ pub mod llvm {
     }
 
     pub mod SwitchInst {
+        #[inline(always)]
         pub fn addCase(inst: *mut super::super::llvm_SwitchInst, OnVal: *mut super::super::llvm_ConstantInt, Dest: *mut super::super::llvm_BasicBlock) {
             unsafe {
                 super::super::raw::llvm_SwitchInst_addCase(inst, OnVal, Dest)
             }
         }
 
+        #[inline(always)]
         pub fn delete(inst: *mut super::super::llvm_SwitchInst) {
             unsafe {
                 super::super::raw::llvm_SwitchInst_delete(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getCondition(inst: *const super::super::llvm_SwitchInst) -> *mut super::super::llvm_Value {
             unsafe {
                 super::super::raw::llvm_SwitchInst_getCondition(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getDefaultDest(inst: *const super::super::llvm_SwitchInst) -> *mut super::super::llvm_BasicBlock {
             unsafe {
                 super::super::raw::llvm_SwitchInst_getDefaultDest(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getNumCases(inst: *const super::super::llvm_SwitchInst) -> usize {
             unsafe {
                 super::super::raw::llvm_SwitchInst_getNumCases(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn setCondition(inst: *mut super::super::llvm_SwitchInst, V: *mut super::super::llvm_Value) {
             unsafe {
                 super::super::raw::llvm_SwitchInst_setCondition(inst, V)
             }
         }
 
+        #[inline(always)]
         pub fn setDefaultDest(inst: *mut super::super::llvm_SwitchInst, DefaultCase: *mut super::super::llvm_BasicBlock) {
             unsafe {
                 super::super::raw::llvm_SwitchInst_setDefaultDest(inst, DefaultCase)
@@ -5279,12 +5798,14 @@ pub mod llvm {
     }
 
     pub mod Type {
+        #[inline(always)]
         pub fn dump(inst: *const super::super::llvm_Type) {
             unsafe {
                 super::super::raw::llvm_Type_dump(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getContainedType(inst: *const super::super::llvm_Type, idx: usize) -> *mut super::super::llvm_Type {
             let idx = idx as super::super::libc::c_uint;
             unsafe {
@@ -5292,54 +5813,63 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getContext(inst: *const super::super::llvm_Type) -> *mut super::super::llvm_LLVMContext {
             unsafe {
                 super::super::raw::llvm_Type_getContext(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getDoublePtrTy(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_PointerType {
             unsafe {
                 super::super::raw::llvm_Type_getDoublePtrTy(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getDoubleTy(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_Type_getDoubleTy(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getFP128PtrTy(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_PointerType {
             unsafe {
                 super::super::raw::llvm_Type_getFP128PtrTy(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getFP128Ty(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_Type_getFP128Ty(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getFloatPtrTy(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_PointerType {
             unsafe {
                 super::super::raw::llvm_Type_getFloatPtrTy(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getFloatTy(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_Type_getFloatTy(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getFunctionNumParams(inst: *const super::super::llvm_Type) -> usize {
             unsafe {
                 super::super::raw::llvm_Type_getFunctionNumParams(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn getFunctionParamType(inst: *const super::super::llvm_Type, idx: usize) -> *mut super::super::llvm_Type {
             let idx = idx as super::super::libc::c_uint;
             unsafe {
@@ -5347,78 +5877,91 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getHalfPtrTy(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_PointerType {
             unsafe {
                 super::super::raw::llvm_Type_getHalfPtrTy(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getHalfTy(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_Type_getHalfTy(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getInt16PtrTy(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_PointerType {
             unsafe {
                 super::super::raw::llvm_Type_getInt16PtrTy(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getInt16Ty(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_IntegerType {
             unsafe {
                 super::super::raw::llvm_Type_getInt16Ty(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getInt1PtrTy(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_PointerType {
             unsafe {
                 super::super::raw::llvm_Type_getInt1PtrTy(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getInt1Ty(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_IntegerType {
             unsafe {
                 super::super::raw::llvm_Type_getInt1Ty(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getInt32PtrTy(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_PointerType {
             unsafe {
                 super::super::raw::llvm_Type_getInt32PtrTy(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getInt32Ty(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_IntegerType {
             unsafe {
                 super::super::raw::llvm_Type_getInt32Ty(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getInt64PtrTy(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_PointerType {
             unsafe {
                 super::super::raw::llvm_Type_getInt64PtrTy(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getInt64Ty(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_IntegerType {
             unsafe {
                 super::super::raw::llvm_Type_getInt64Ty(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getInt8PtrTy(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_PointerType {
             unsafe {
                 super::super::raw::llvm_Type_getInt8PtrTy(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getInt8Ty(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_IntegerType {
             unsafe {
                 super::super::raw::llvm_Type_getInt8Ty(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getIntNPtrTy(ctx: *mut super::super::llvm_LLVMContext, size: usize) -> *mut super::super::llvm_PointerType {
             let size = size as super::super::libc::c_uint;
             unsafe {
@@ -5426,6 +5969,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getIntNTy(ctx: *mut super::super::llvm_LLVMContext, size: usize) -> *mut super::super::llvm_IntegerType {
             let size = size as super::super::libc::c_uint;
             unsafe {
@@ -5433,48 +5977,56 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getLabelTy(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_Type_getLabelTy(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getMetadataTy(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_Type_getMetadataTy(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getNumContainedTypes(inst: *const super::super::llvm_Type) -> usize {
             unsafe {
                 super::super::raw::llvm_Type_getNumContainedTypes(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn getPPC_FP128PtrTy(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_PointerType {
             unsafe {
                 super::super::raw::llvm_Type_getPPC_FP128PtrTy(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getPPC_FP128Ty(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_Type_getPPC_FP128Ty(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getPointerAddressSpace(inst: *const super::super::llvm_Type) -> usize {
             unsafe {
                 super::super::raw::llvm_Type_getPointerAddressSpace(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn getPointerElementType(inst: *const super::super::llvm_Type) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_Type_getPointerElementType(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getPointerTo(inst: *mut super::super::llvm_Type, idx: usize) -> *mut super::super::llvm_PointerType {
             let idx = idx as super::super::libc::c_uint;
             unsafe {
@@ -5482,12 +6034,14 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getSequentialElementType(inst: *const super::super::llvm_Type) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_Type_getSequentialElementType(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getStructElementType(inst: *const super::super::llvm_Type, idx: usize) -> *mut super::super::llvm_Type {
             let idx = idx as super::super::libc::c_uint;
             unsafe {
@@ -5495,204 +6049,238 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getStructName(inst: *const super::super::llvm_Type) -> super::super::llvm_StringRef {
             unsafe {
                 super::super::raw::llvm_Type_getStructName(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getStructNumElements(inst: *const super::super::llvm_Type) -> usize {
             unsafe {
                 super::super::raw::llvm_Type_getStructNumElements(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn getTypeID(inst: *const super::super::llvm_Type) -> super::super::llvm_Type_TypeID {
             unsafe {
                 super::super::raw::llvm_Type_getTypeID(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getVoidTy(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_Type_getVoidTy(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getX86_FP80PtrTy(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_PointerType {
             unsafe {
                 super::super::raw::llvm_Type_getX86_FP80PtrTy(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getX86_FP80Ty(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_Type_getX86_FP80Ty(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getX86_MMXPtrTy(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_PointerType {
             unsafe {
                 super::super::raw::llvm_Type_getX86_MMXPtrTy(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn getX86_MMXTy(ctx: *mut super::super::llvm_LLVMContext) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_Type_getX86_MMXTy(ctx)
             }
         }
 
+        #[inline(always)]
         pub fn isAggregateType(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isAggregateType(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isArrayTy(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isArrayTy(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isDoubleTy(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isDoubleTy(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isEmptyTy(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isEmptyTy(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isFP128Ty(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isFP128Ty(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isFPOrFPVectorTy(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isFPOrFPVectorTy(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isFirstClassType(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isFirstClassType(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isFloatTy(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isFloatTy(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isFloatingPointTy(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isFloatingPointTy(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isFunctionTy(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isFunctionTy(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isFunctionVarArg(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isFunctionVarArg(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isHalfTy(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isHalfTy(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isIntOrIntVectorTy(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isIntOrIntVectorTy(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isIntegerTy(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isIntegerTy(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isLabelTy(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isLabelTy(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isMetadataTy(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isMetadataTy(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isPPC_FP128Ty(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isPPC_FP128Ty(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isPointerTy(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isPointerTy(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isPtrOrPtrVectorTy(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isPtrOrPtrVectorTy(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isSingleValueType(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isSingleValueType(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isSized(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isSized(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isStructTy(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isStructTy(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isVectorTy(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isVectorTy(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isVoidTy(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isVoidTy(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isX86_FP80Ty(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isX86_FP80Ty(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isX86_MMXTy(inst: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_Type_isX86_MMXTy(inst) != 0
@@ -5710,42 +6298,49 @@ pub mod llvm {
     }
 
     pub mod Use {
+        #[inline(always)]
         pub fn get(inst: *const super::super::llvm_Use) -> *mut super::super::llvm_Value {
             unsafe {
                 super::super::raw::llvm_Use_get(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getNext(inst: *const super::super::llvm_Use) -> *mut super::super::llvm_Use {
             unsafe {
                 super::super::raw::llvm_Use_getNext(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getOperandNo(inst: *const super::super::llvm_Use) -> usize {
             unsafe {
                 super::super::raw::llvm_Use_getOperandNo(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn getUser(inst: *const super::super::llvm_Use) -> *mut super::super::llvm_User {
             unsafe {
                 super::super::raw::llvm_Use_getUser(inst)
             }
         }
 
+        #[inline(always)]
         pub fn initTags(Start: *mut super::super::llvm_Use, Stop: *mut super::super::llvm_Use) -> *mut super::super::llvm_Use {
             unsafe {
                 super::super::raw::llvm_Use_initTags(Start, Stop)
             }
         }
 
+        #[inline(always)]
         pub fn set(inst: *mut super::super::llvm_Use, Val: *mut super::super::llvm_Value) {
             unsafe {
                 super::super::raw::llvm_Use_set(inst, Val)
             }
         }
 
+        #[inline(always)]
         pub fn swap(inst: *mut super::super::llvm_Use, RHS: *mut super::super::llvm_Use) {
             unsafe {
                 super::super::raw::llvm_Use_swap(inst, RHS)
@@ -5754,30 +6349,35 @@ pub mod llvm {
     }
 
     pub mod User {
+        #[inline(always)]
         pub fn classof(V: *mut super::super::llvm_Value) -> bool {
             unsafe {
                 super::super::raw::llvm_User_classof(V) != 0
             }
         }
 
+        #[inline(always)]
         pub fn delete(inst: *mut super::super::llvm_User) {
             unsafe {
                 super::super::raw::llvm_User_delete(inst)
             }
         }
 
+        #[inline(always)]
         pub fn dropAllReferences(inst: *mut super::super::llvm_User) {
             unsafe {
                 super::super::raw::llvm_User_dropAllReferences(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getNumOperands(inst: *const super::super::llvm_User) -> usize {
             unsafe {
                 super::super::raw::llvm_User_getNumOperands(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn getOperand(inst: *const super::super::llvm_User, idx: usize) -> *mut super::super::llvm_Value {
             let idx = idx as super::super::libc::c_uint;
             unsafe {
@@ -5785,12 +6385,14 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn replaceUsesOfWith(inst: *mut super::super::llvm_User, From: *mut super::super::llvm_Value, To: *mut super::super::llvm_Value) {
             unsafe {
                 super::super::raw::llvm_User_replaceUsesOfWith(inst, From, To)
             }
         }
 
+        #[inline(always)]
         pub fn setOperand(inst: *mut super::super::llvm_User, idx: usize, Val: *mut super::super::llvm_Value) {
             let idx = idx as super::super::libc::c_uint;
             unsafe {
@@ -5803,48 +6405,56 @@ pub mod llvm {
     }
 
     pub mod Value {
+        #[inline(always)]
         pub fn delete(inst: *mut super::super::llvm_Value) {
             unsafe {
                 super::super::raw::llvm_Value_delete(inst)
             }
         }
 
+        #[inline(always)]
         pub fn dump(inst: *const super::super::llvm_Value) {
             unsafe {
                 super::super::raw::llvm_Value_dump(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getContext(inst: *const super::super::llvm_Value) -> *mut super::super::llvm_LLVMContext {
             unsafe {
                 super::super::raw::llvm_Value_getContext(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getName(inst: *const super::super::llvm_Value) -> super::super::llvm_StringRef {
             unsafe {
                 super::super::raw::llvm_Value_getName(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getNumUses(inst: *const super::super::llvm_Value) -> usize {
             unsafe {
                 super::super::raw::llvm_Value_getNumUses(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn getType(inst: *const super::super::llvm_Value) -> *mut super::super::llvm_Type {
             unsafe {
                 super::super::raw::llvm_Value_getType(inst)
             }
         }
 
+        #[inline(always)]
         pub fn getValueID(inst: *const super::super::llvm_Value) -> usize {
             unsafe {
                 super::super::raw::llvm_Value_getValueID(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn hasNUses(inst: *const super::super::llvm_Value, N: usize) -> bool {
             let N = N as super::super::libc::c_uint;
             unsafe {
@@ -5852,6 +6462,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn hasNUsesOrMore(inst: *const super::super::llvm_Value, N: usize) -> bool {
             let N = N as super::super::libc::c_uint;
             unsafe {
@@ -5859,36 +6470,42 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn hasName(inst: *const super::super::llvm_Value) -> bool {
             unsafe {
                 super::super::raw::llvm_Value_hasName(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn hasOneUse(inst: *const super::super::llvm_Value) -> bool {
             unsafe {
                 super::super::raw::llvm_Value_hasOneUse(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn isUsedInBasicBlock(inst: *const super::super::llvm_Value, BB: *const super::super::llvm_BasicBlock) -> bool {
             unsafe {
                 super::super::raw::llvm_Value_isUsedInBasicBlock(inst, BB) != 0
             }
         }
 
+        #[inline(always)]
         pub fn mutateType(inst: *mut super::super::llvm_Value, ty: *mut super::super::llvm_Type) {
             unsafe {
                 super::super::raw::llvm_Value_mutateType(inst, ty)
             }
         }
 
+        #[inline(always)]
         pub fn replaceAllUsesWith(inst: *mut super::super::llvm_Value, Value: *mut super::super::llvm_Value) {
             unsafe {
                 super::super::raw::llvm_Value_replaceAllUsesWith(inst, Value)
             }
         }
 
+        #[inline(always)]
         pub fn setName(inst: *mut super::super::llvm_Value, Name: &str) {
             let Name = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(Name.as_ptr()) },
@@ -5899,6 +6516,7 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn takeName(inst: *mut super::super::llvm_Value, Value: *mut super::super::llvm_Value) {
             unsafe {
                 super::super::raw::llvm_Value_takeName(inst, Value)
@@ -5907,24 +6525,28 @@ pub mod llvm {
     }
 
     pub mod ValueSymbolTable {
+        #[inline(always)]
         pub fn delete(inst: *mut super::super::llvm_ValueSymbolTable) {
             unsafe {
                 super::super::raw::llvm_ValueSymbolTable_delete(inst)
             }
         }
 
+        #[inline(always)]
         pub fn dump(inst: *const super::super::llvm_ValueSymbolTable) {
             unsafe {
                 super::super::raw::llvm_ValueSymbolTable_dump(inst)
             }
         }
 
+        #[inline(always)]
         pub fn empty(inst: *const super::super::llvm_ValueSymbolTable) -> bool {
             unsafe {
                 super::super::raw::llvm_ValueSymbolTable_empty(inst) != 0
             }
         }
 
+        #[inline(always)]
         pub fn lookup(inst: *const super::super::llvm_ValueSymbolTable, Name: &str) -> *mut super::super::llvm_Value {
             let Name = super::super::llvm_StringRef {
                 data: unsafe { ::std::mem::transmute(Name.as_ptr()) },
@@ -5935,12 +6557,14 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn new() -> *mut super::super::llvm_ValueSymbolTable {
             unsafe {
                 super::super::raw::llvm_ValueSymbolTable_new()
             }
         }
 
+        #[inline(always)]
         pub fn size(inst: *const super::super::llvm_ValueSymbolTable) -> usize {
             unsafe {
                 super::super::raw::llvm_ValueSymbolTable_size(inst) as usize
@@ -5949,12 +6573,14 @@ pub mod llvm {
     }
 
     pub mod VectorType {
+        #[inline(always)]
         pub fn classof(ty: *const super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_VectorType_classof(ty) != 0
             }
         }
 
+        #[inline(always)]
         pub fn get(ty: *mut super::super::llvm_Type, NumElements: usize) -> *mut super::super::llvm_VectorType {
             let NumElements = NumElements as super::super::libc::c_uint;
             unsafe {
@@ -5962,48 +6588,56 @@ pub mod llvm {
             }
         }
 
+        #[inline(always)]
         pub fn getBitWidth(inst: *const super::super::llvm_VectorType) -> usize {
             unsafe {
                 super::super::raw::llvm_VectorType_getBitWidth(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn getDoubleElementsVectorType(ty: *mut super::super::llvm_VectorType) -> *mut super::super::llvm_VectorType {
             unsafe {
                 super::super::raw::llvm_VectorType_getDoubleElementsVectorType(ty)
             }
         }
 
+        #[inline(always)]
         pub fn getExtendedElementVectorType(ty: *mut super::super::llvm_VectorType) -> *mut super::super::llvm_VectorType {
             unsafe {
                 super::super::raw::llvm_VectorType_getExtendedElementVectorType(ty)
             }
         }
 
+        #[inline(always)]
         pub fn getHalfElementsVectorType(ty: *mut super::super::llvm_VectorType) -> *mut super::super::llvm_VectorType {
             unsafe {
                 super::super::raw::llvm_VectorType_getHalfElementsVectorType(ty)
             }
         }
 
+        #[inline(always)]
         pub fn getInteger(ty: *mut super::super::llvm_VectorType) -> *mut super::super::llvm_VectorType {
             unsafe {
                 super::super::raw::llvm_VectorType_getInteger(ty)
             }
         }
 
+        #[inline(always)]
         pub fn getNumElements(inst: *const super::super::llvm_VectorType) -> usize {
             unsafe {
                 super::super::raw::llvm_VectorType_getNumElements(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn getTruncatedElementVectorType(ty: *mut super::super::llvm_VectorType) -> *mut super::super::llvm_VectorType {
             unsafe {
                 super::super::raw::llvm_VectorType_getTruncatedElementVectorType(ty)
             }
         }
 
+        #[inline(always)]
         pub fn isValidElementType(ty: *mut super::super::llvm_Type) -> bool {
             unsafe {
                 super::super::raw::llvm_VectorType_isValidElementType(ty) != 0
@@ -6012,54 +6646,63 @@ pub mod llvm {
     }
 
     pub mod iplist_llvm_Argument {
+        #[inline(always)]
         pub fn clear(inst: *mut super::super::llvm_iplist_llvm_Argument) {
             unsafe {
                 super::super::raw::llvm_iplist_llvm_Argument_clear(inst)
             }
         }
 
+        #[inline(always)]
         pub fn delete(inst: *mut super::super::llvm_iplist_llvm_Argument) {
             unsafe {
                 super::super::raw::llvm_iplist_llvm_Argument_delete(inst)
             }
         }
 
+        #[inline(always)]
         pub fn first(inst: *const super::super::llvm_iplist_llvm_Argument) -> *const super::super::llvm_Argument {
             unsafe {
                 super::super::raw::llvm_iplist_llvm_Argument_first(inst)
             }
         }
 
+        #[inline(always)]
         pub fn firstMut(inst: *mut super::super::llvm_iplist_llvm_Argument) -> *mut super::super::llvm_Argument {
             unsafe {
                 super::super::raw::llvm_iplist_llvm_Argument_firstMut(inst)
             }
         }
 
+        #[inline(always)]
         pub fn last(inst: *const super::super::llvm_iplist_llvm_Argument) -> *const super::super::llvm_Argument {
             unsafe {
                 super::super::raw::llvm_iplist_llvm_Argument_last(inst)
             }
         }
 
+        #[inline(always)]
         pub fn lastMut(inst: *mut super::super::llvm_iplist_llvm_Argument) -> *mut super::super::llvm_Argument {
             unsafe {
                 super::super::raw::llvm_iplist_llvm_Argument_lastMut(inst)
             }
         }
 
+        #[inline(always)]
         pub fn max_size(inst: *const super::super::llvm_iplist_llvm_Argument) -> usize {
             unsafe {
                 super::super::raw::llvm_iplist_llvm_Argument_max_size(inst) as usize
             }
         }
 
+        #[inline(always)]
         pub fn new() -> *mut super::super::llvm_iplist_llvm_Argument {
             unsafe {
                 super::super::raw::llvm_iplist_llvm_Argument_new()
             }
         }
 
+        #[inline(always)]
         pub fn size(inst: *const super::super::llvm_iplist_llvm_Argument) -> usize {
             unsafe {
                 super::super::raw::llvm_iplist_llvm_Argument_size(inst) as usize
@@ -6067,30 +6710,35 @@ pub mod llvm {
         }
     }
 
+    #[inline(always)]
     pub fn createAddDiscriminatorsPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createAddDiscriminatorsPass()
         }
     }
 
+    #[inline(always)]
     pub fn createAddressSanitizerFunctionPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createAddressSanitizerFunctionPass()
         }
     }
 
+    #[inline(always)]
     pub fn createAddressSanitizerModulePass() -> *mut super::llvm_ModulePass {
         unsafe {
             super::raw::llvm_createAddressSanitizerModulePass()
         }
     }
 
+    #[inline(always)]
     pub fn createAggressiveDCEPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createAggressiveDCEPass()
         }
     }
 
+    #[inline(always)]
     pub fn createAlwaysInlinerPass(InsertLifetime: Option<bool>) -> *mut super::llvm_Pass {
         let opt_hack_32050c = InsertLifetime.map(|value| if value { 1 } else { 0 });
         let InsertLifetime = opt_hack_32050c.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
@@ -6099,6 +6747,7 @@ pub mod llvm {
         }
     }
 
+    #[inline(always)]
     pub fn createArgumentPromotionPass(maxElements: Option<usize>) -> *mut super::llvm_Pass {
         let opt_hack_03242d = maxElements.map(|value| value as super::libc::c_uint);
         let maxElements = opt_hack_03242d.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
@@ -6107,132 +6756,154 @@ pub mod llvm {
         }
     }
 
+    #[inline(always)]
     pub fn createBarrierNoopPass() -> *mut super::llvm_ModulePass {
         unsafe {
             super::raw::llvm_createBarrierNoopPass()
         }
     }
 
+    #[inline(always)]
     pub fn createBlockExtractorPass() -> *mut super::llvm_ModulePass {
         unsafe {
             super::raw::llvm_createBlockExtractorPass()
         }
     }
 
+    #[inline(always)]
     pub fn createBoundsCheckingPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createBoundsCheckingPass()
         }
     }
 
+    #[inline(always)]
     pub fn createBreakCriticalEdgesPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createBreakCriticalEdgesPass()
         }
     }
 
+    #[inline(always)]
     pub fn createCFGSimplificationPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createCFGSimplificationPass()
         }
     }
 
+    #[inline(always)]
     pub fn createConstantHoistingPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createConstantHoistingPass()
         }
     }
 
+    #[inline(always)]
     pub fn createConstantMergePass() -> *mut super::llvm_ModulePass {
         unsafe {
             super::raw::llvm_createConstantMergePass()
         }
     }
 
+    #[inline(always)]
     pub fn createConstantPropagationPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createConstantPropagationPass()
         }
     }
 
+    #[inline(always)]
     pub fn createCorrelatedValuePropagationPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createCorrelatedValuePropagationPass()
         }
     }
 
+    #[inline(always)]
     pub fn createDataFlowSanitizerPass() -> *mut super::llvm_ModulePass {
         unsafe {
             super::raw::llvm_createDataFlowSanitizerPass()
         }
     }
 
+    #[inline(always)]
     pub fn createDeadArgEliminationPass() -> *mut super::llvm_ModulePass {
         unsafe {
             super::raw::llvm_createDeadArgEliminationPass()
         }
     }
 
+    #[inline(always)]
     pub fn createDeadArgHackingPass() -> *mut super::llvm_ModulePass {
         unsafe {
             super::raw::llvm_createDeadArgHackingPass()
         }
     }
 
+    #[inline(always)]
     pub fn createDeadCodeEliminationPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createDeadCodeEliminationPass()
         }
     }
 
+    #[inline(always)]
     pub fn createDeadInstEliminationPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createDeadInstEliminationPass()
         }
     }
 
+    #[inline(always)]
     pub fn createDeadStoreEliminationPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createDeadStoreEliminationPass()
         }
     }
 
+    #[inline(always)]
     pub fn createDebugIRPass() -> *mut super::llvm_ModulePass {
         unsafe {
             super::raw::llvm_createDebugIRPass()
         }
     }
 
+    #[inline(always)]
     pub fn createDemoteRegisterToMemoryPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createDemoteRegisterToMemoryPass()
         }
     }
 
+    #[inline(always)]
     pub fn createEarlyCSEPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createEarlyCSEPass()
         }
     }
 
+    #[inline(always)]
     pub fn createFlattenCFGPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createFlattenCFGPass()
         }
     }
 
+    #[inline(always)]
     pub fn createFunctionAttrsPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createFunctionAttrsPass()
         }
     }
 
+    #[inline(always)]
     pub fn createFunctionInliningPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createFunctionInliningPass()
         }
     }
 
+    #[inline(always)]
     pub fn createFunctionInliningPassWithOptLevel(OptLevel: usize, SizeOptLevel: usize) -> *mut super::llvm_Pass {
         let OptLevel = OptLevel as super::libc::c_uint;
         let SizeOptLevel = SizeOptLevel as super::libc::c_uint;
@@ -6241,12 +6912,14 @@ pub mod llvm {
         }
     }
 
+    #[inline(always)]
     pub fn createGCOVProfilerPass() -> *mut super::llvm_ModulePass {
         unsafe {
             super::raw::llvm_createGCOVProfilerPass()
         }
     }
 
+    #[inline(always)]
     pub fn createGVNPass(NoLoads: Option<bool>) -> *mut super::llvm_FunctionPass {
         let opt_hack_b50d49 = NoLoads.map(|value| if value { 1 } else { 0 });
         let NoLoads = opt_hack_b50d49.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
@@ -6255,120 +6928,140 @@ pub mod llvm {
         }
     }
 
+    #[inline(always)]
     pub fn createGlobalDCEPass() -> *mut super::llvm_ModulePass {
         unsafe {
             super::raw::llvm_createGlobalDCEPass()
         }
     }
 
+    #[inline(always)]
     pub fn createGlobalMergePass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createGlobalMergePass()
         }
     }
 
+    #[inline(always)]
     pub fn createGlobalOptimizerPass() -> *mut super::llvm_ModulePass {
         unsafe {
             super::raw::llvm_createGlobalOptimizerPass()
         }
     }
 
+    #[inline(always)]
     pub fn createIPConstantPropagationPass() -> *mut super::llvm_ModulePass {
         unsafe {
             super::raw::llvm_createIPConstantPropagationPass()
         }
     }
 
+    #[inline(always)]
     pub fn createIPSCCPPass() -> *mut super::llvm_ModulePass {
         unsafe {
             super::raw::llvm_createIPSCCPPass()
         }
     }
 
+    #[inline(always)]
     pub fn createIndVarSimplifyPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createIndVarSimplifyPass()
         }
     }
 
+    #[inline(always)]
     pub fn createInstructionCombiningPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createInstructionCombiningPass()
         }
     }
 
+    #[inline(always)]
     pub fn createInstructionNamerPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createInstructionNamerPass()
         }
     }
 
+    #[inline(always)]
     pub fn createInstructionSimplifierPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createInstructionSimplifierPass()
         }
     }
 
+    #[inline(always)]
     pub fn createInternalizePass() -> *mut super::llvm_ModulePass {
         unsafe {
             super::raw::llvm_createInternalizePass()
         }
     }
 
+    #[inline(always)]
     pub fn createJumpThreadingPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createJumpThreadingPass()
         }
     }
 
+    #[inline(always)]
     pub fn createLCSSAPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createLCSSAPass()
         }
     }
 
+    #[inline(always)]
     pub fn createLICMPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createLICMPass()
         }
     }
 
+    #[inline(always)]
     pub fn createLoadCombinePass() -> *mut super::llvm_BasicBlockPass {
         unsafe {
             super::raw::llvm_createLoadCombinePass()
         }
     }
 
+    #[inline(always)]
     pub fn createLoopDeletionPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createLoopDeletionPass()
         }
     }
 
+    #[inline(always)]
     pub fn createLoopExtractorPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createLoopExtractorPass()
         }
     }
 
+    #[inline(always)]
     pub fn createLoopIdiomPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createLoopIdiomPass()
         }
     }
 
+    #[inline(always)]
     pub fn createLoopInstSimplifyPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createLoopInstSimplifyPass()
         }
     }
 
+    #[inline(always)]
     pub fn createLoopRerollPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createLoopRerollPass()
         }
     }
 
+    #[inline(always)]
     pub fn createLoopRotatePass(MaxHeaderSize: Option<isize>) -> *mut super::llvm_Pass {
         let opt_hack_74d578 = MaxHeaderSize.map(|value| value as super::libc::c_int);
         let MaxHeaderSize = opt_hack_74d578.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
@@ -6377,24 +7070,28 @@ pub mod llvm {
         }
     }
 
+    #[inline(always)]
     pub fn createLoopSimplifyPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createLoopSimplifyPass()
         }
     }
 
+    #[inline(always)]
     pub fn createLoopStrengthReducePass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createLoopStrengthReducePass()
         }
     }
 
+    #[inline(always)]
     pub fn createLoopUnrollPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createLoopUnrollPass()
         }
     }
 
+    #[inline(always)]
     pub fn createLoopUnswitchPass(OptimizeForSize: Option<bool>) -> *mut super::llvm_Pass {
         let opt_hack_bd0a33 = OptimizeForSize.map(|value| if value { 1 } else { 0 });
         let OptimizeForSize = opt_hack_bd0a33.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
@@ -6403,36 +7100,42 @@ pub mod llvm {
         }
     }
 
+    #[inline(always)]
     pub fn createLowerAtomicPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createLowerAtomicPass()
         }
     }
 
+    #[inline(always)]
     pub fn createLowerExpectIntrinsicPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createLowerExpectIntrinsicPass()
         }
     }
 
+    #[inline(always)]
     pub fn createLowerInvokePass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createLowerInvokePass()
         }
     }
 
+    #[inline(always)]
     pub fn createLowerSwitchPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createLowerSwitchPass()
         }
     }
 
+    #[inline(always)]
     pub fn createMemCpyOptPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createMemCpyOptPass()
         }
     }
 
+    #[inline(always)]
     pub fn createMemorySanitizerPass(TrackOrigins: Option<isize>) -> *mut super::llvm_FunctionPass {
         let opt_hack_e88e9b = TrackOrigins.map(|value| value as super::libc::c_int);
         let TrackOrigins = opt_hack_e88e9b.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
@@ -6441,84 +7144,98 @@ pub mod llvm {
         }
     }
 
+    #[inline(always)]
     pub fn createMergeFunctionsPass() -> *mut super::llvm_ModulePass {
         unsafe {
             super::raw::llvm_createMergeFunctionsPass()
         }
     }
 
+    #[inline(always)]
     pub fn createMergedLoadStoreMotionPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createMergedLoadStoreMotionPass()
         }
     }
 
+    #[inline(always)]
     pub fn createMetaRenamerPass() -> *mut super::llvm_ModulePass {
         unsafe {
             super::raw::llvm_createMetaRenamerPass()
         }
     }
 
+    #[inline(always)]
     pub fn createObjCARCAPElimPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createObjCARCAPElimPass()
         }
     }
 
+    #[inline(always)]
     pub fn createObjCARCContractPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createObjCARCContractPass()
         }
     }
 
+    #[inline(always)]
     pub fn createObjCARCExpandPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createObjCARCExpandPass()
         }
     }
 
+    #[inline(always)]
     pub fn createObjCARCOptPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createObjCARCOptPass()
         }
     }
 
+    #[inline(always)]
     pub fn createPartialInliningPass() -> *mut super::llvm_ModulePass {
         unsafe {
             super::raw::llvm_createPartialInliningPass()
         }
     }
 
+    #[inline(always)]
     pub fn createPartiallyInlineLibCallsPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createPartiallyInlineLibCallsPass()
         }
     }
 
+    #[inline(always)]
     pub fn createPromoteMemoryToRegisterPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createPromoteMemoryToRegisterPass()
         }
     }
 
+    #[inline(always)]
     pub fn createPruneEHPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createPruneEHPass()
         }
     }
 
+    #[inline(always)]
     pub fn createReassociatePass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createReassociatePass()
         }
     }
 
+    #[inline(always)]
     pub fn createSCCPPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createSCCPPass()
         }
     }
 
+    #[inline(always)]
     pub fn createSROAPass(RequiresDomTree: Option<bool>) -> *mut super::llvm_FunctionPass {
         let opt_hack_421e63 = RequiresDomTree.map(|value| if value { 1 } else { 0 });
         let RequiresDomTree = opt_hack_421e63.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
@@ -6527,72 +7244,84 @@ pub mod llvm {
         }
     }
 
+    #[inline(always)]
     pub fn createSampleProfileLoaderPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createSampleProfileLoaderPass()
         }
     }
 
+    #[inline(always)]
     pub fn createScalarReplAggregatesPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createScalarReplAggregatesPass()
         }
     }
 
+    #[inline(always)]
     pub fn createScalarizerPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createScalarizerPass()
         }
     }
 
+    #[inline(always)]
     pub fn createSeparateConstOffsetFromGEPPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createSeparateConstOffsetFromGEPPass()
         }
     }
 
+    #[inline(always)]
     pub fn createSimpleLoopUnrollPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createSimpleLoopUnrollPass()
         }
     }
 
+    #[inline(always)]
     pub fn createSingleLoopExtractorPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createSingleLoopExtractorPass()
         }
     }
 
+    #[inline(always)]
     pub fn createSinkingPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createSinkingPass()
         }
     }
 
+    #[inline(always)]
     pub fn createStripDeadDebugInfoPass() -> *mut super::llvm_ModulePass {
         unsafe {
             super::raw::llvm_createStripDeadDebugInfoPass()
         }
     }
 
+    #[inline(always)]
     pub fn createStripDeadPrototypesPass() -> *mut super::llvm_ModulePass {
         unsafe {
             super::raw::llvm_createStripDeadPrototypesPass()
         }
     }
 
+    #[inline(always)]
     pub fn createStripDebugDeclarePass() -> *mut super::llvm_ModulePass {
         unsafe {
             super::raw::llvm_createStripDebugDeclarePass()
         }
     }
 
+    #[inline(always)]
     pub fn createStripNonDebugSymbolsPass() -> *mut super::llvm_ModulePass {
         unsafe {
             super::raw::llvm_createStripNonDebugSymbolsPass()
         }
     }
 
+    #[inline(always)]
     pub fn createStripSymbolsPass(OnlyDebugInfo: Option<bool>) -> *mut super::llvm_ModulePass {
         let opt_hack_e100af = OnlyDebugInfo.map(|value| if value { 1 } else { 0 });
         let OnlyDebugInfo = opt_hack_e100af.as_ref().map(|value| value as *const _).unwrap_or(::std::ptr::null());
@@ -6601,36 +7330,42 @@ pub mod llvm {
         }
     }
 
+    #[inline(always)]
     pub fn createStructurizeCFGPass() -> *mut super::llvm_Pass {
         unsafe {
             super::raw::llvm_createStructurizeCFGPass()
         }
     }
 
+    #[inline(always)]
     pub fn createTailCallEliminationPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createTailCallEliminationPass()
         }
     }
 
+    #[inline(always)]
     pub fn createThreadSanitizerPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createThreadSanitizerPass()
         }
     }
 
+    #[inline(always)]
     pub fn getGlobalContext() -> *mut super::llvm_LLVMContext {
         unsafe {
             super::raw::llvm_getGlobalContext()
         }
     }
 
+    #[inline(always)]
     pub fn verifyFunction(Function: *const super::llvm_Function) -> bool {
         unsafe {
             super::raw::llvm_verifyFunction(Function) != 0
         }
     }
 
+    #[inline(always)]
     pub fn verifyModule(Module: *const super::llvm_Module) -> bool {
         unsafe {
             super::raw::llvm_verifyModule(Module) != 0
