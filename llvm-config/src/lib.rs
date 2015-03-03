@@ -1,4 +1,4 @@
-#![feature(env, process, old_path)]
+#![feature(process, old_path)]
 use std::env;
 use std::process::Command;
 use std::process::ExitStatus;
