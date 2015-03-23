@@ -1,5 +1,5 @@
-#![feature(process, old_path)]
 use std::env;
+use std::path::PathBuf;
 use std::process::Command;
 use std::process::ExitStatus;
 
@@ -30,7 +30,7 @@ pub fn libs() -> Vec<String> {
     libs
 }
 
-pub fn link_dirs() -> Vec<Path> {
+pub fn link_dirs() -> Vec<PathBuf> {
     let flags_str = llvm_config(&["--ldflags"]);
     let flags = split(&flags_str);
 
@@ -41,7 +41,7 @@ pub fn link_dirs() -> Vec<Path> {
         }
 
         let dirname = &flag[2..];
-        link_dirs.push(Path::new(dirname));
+        link_dirs.push(PathBuf::new(dirname));
     }
 
     link_dirs

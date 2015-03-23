@@ -1,14 +1,15 @@
 #![unstable]
-#![feature(fs, old_path, process)]
+#![feature(std_misc)]
 use std::default::Default;
 use std::env;
+use std::path::{AsPath, PathBuf};
 use std::process::Command;
 use std::process::ExitStatus;
 // XXX_ How to set permissions the portable way
 // use std::os::unix::prelude::PermissionsExt;
 
 pub struct Config {
-    pub include_dirs: Vec<Path>,
+    pub include_dirs: Vec<PathBuf>,
     pub definitions: Vec<(String, Option<String>)>,
     pub flags: Vec<String>,
 }
@@ -29,8 +30,8 @@ pub fn compile_library(name: &str, config: &Config, sources: &[&str]) {
     let opt_level = env::var("OPT_LEVEL").unwrap();
     let gxx = env::var("CXX").unwrap_or("g++".to_string());
     let ar = env::var("AR").unwrap_or("ar".to_string());
-    let root_dir = Path::new(env::var("CARGO_MANIFEST_DIR").unwrap());
-    let out_dir = Path::new(env::var("OUT_DIR").unwrap());
+    let root_dir = PathBuf::new(env::var("CARGO_MANIFEST_DIR").unwrap());
+    let out_dir = PathBuf::new(env::var("OUT_DIR").unwrap());
 
     let mut cmd = Command::new(&gxx);
 
@@ -55,7 +56,7 @@ pub fn compile_library(name: &str, config: &Config, sources: &[&str]) {
     for source in sources.iter() {
 
         let object = out_dir.join(*source).with_extension("o");
-        ::std::fs::create_dir_all(&object.dir_path()).unwrap();
+        ::std::fs::create_dir_all(&object.as_path().parent().unwrap()).unwrap();
 
         run(cmd.arg(&root_dir.join(*source)).arg("-o").arg(&object));
 
