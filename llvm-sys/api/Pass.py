@@ -30,7 +30,8 @@ class llvm_body:
     createThreadSanitizerPass = CreatePassFunction(FunctionPass)
     createDataFlowSanitizerPass = CreatePassFunction(ModulePass)
     createBoundsCheckingPass = CreatePassFunction(FunctionPass)
-    createDebugIRPass = CreatePassFunction(ModulePass)
+    # Removed in LLVM 3.6
+    # createDebugIRPass = CreatePassFunction(ModulePass)
     createStripSymbolsPass = CreatePassFunction(ModulePass, (Option(Bool, 'false'), 'OnlyDebugInfo'))
     createStripNonDebugSymbolsPass = CreatePassFunction(ModulePass)
     createStripDebugDeclarePass = CreatePassFunction(ModulePass)

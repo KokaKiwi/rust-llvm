@@ -944,9 +944,6 @@ extern "C"
 llvm_FunctionPass* llvm_createDeadStoreEliminationPass();
 
 extern "C"
-llvm_ModulePass* llvm_createDebugIRPass();
-
-extern "C"
 llvm_FunctionPass* llvm_createDemoteRegisterToMemoryPass();
 
 extern "C"

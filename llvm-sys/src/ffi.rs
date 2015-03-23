@@ -252,12 +252,13 @@ pub mod raw {
     #[link(name = "LLVMLTO")]
     #[link(name = "LLVMObjCARCOpts")]
     #[link(name = "LLVMLinker")]
-    #[link(name = "LLVMipo")]
-    #[link(name = "LLVMVectorize")]
     #[link(name = "LLVMBitWriter")]
     #[link(name = "LLVMIRReader")]
     #[link(name = "LLVMAsmParser")]
     #[link(name = "LLVMR600CodeGen")]
+    #[link(name = "LLVMipo")]
+    #[link(name = "LLVMVectorize")]
+    #[link(name = "LLVMR600AsmParser")]
     #[link(name = "LLVMR600Desc")]
     #[link(name = "LLVMR600Info")]
     #[link(name = "LLVMR600AsmPrinter")]
@@ -267,8 +268,8 @@ pub mod raw {
     #[link(name = "LLVMSystemZDesc")]
     #[link(name = "LLVMSystemZInfo")]
     #[link(name = "LLVMSystemZAsmPrinter")]
+    #[link(name = "LLVMHexagonDisassembler")]
     #[link(name = "LLVMHexagonCodeGen")]
-    #[link(name = "LLVMHexagonAsmPrinter")]
     #[link(name = "LLVMHexagonDesc")]
     #[link(name = "LLVMHexagonInfo")]
     #[link(name = "LLVMNVPTXCodeGen")]
@@ -326,35 +327,34 @@ pub mod raw {
     #[link(name = "LLVMSelectionDAG")]
     #[link(name = "LLVMAsmPrinter")]
     #[link(name = "LLVMX86Desc")]
+    #[link(name = "LLVMMCDisassembler")]
     #[link(name = "LLVMX86Info")]
     #[link(name = "LLVMX86AsmPrinter")]
     #[link(name = "LLVMX86Utils")]
-    #[link(name = "LLVMJIT")]
+    #[link(name = "LLVMMCJIT")]
     #[link(name = "LLVMLineEditor")]
-    #[link(name = "LLVMMCAnalysis")]
-    #[link(name = "LLVMMCDisassembler")]
     #[link(name = "LLVMInstrumentation")]
     #[link(name = "LLVMInterpreter")]
+    #[link(name = "LLVMExecutionEngine")]
+    #[link(name = "LLVMRuntimeDyld")]
     #[link(name = "LLVMCodeGen")]
     #[link(name = "LLVMScalarOpts")]
+    #[link(name = "LLVMProfileData")]
+    #[link(name = "LLVMObject")]
+    #[link(name = "LLVMMCParser")]
+    #[link(name = "LLVMBitReader")]
     #[link(name = "LLVMInstCombine")]
     #[link(name = "LLVMTransformUtils")]
     #[link(name = "LLVMipa")]
     #[link(name = "LLVMAnalysis")]
-    #[link(name = "LLVMProfileData")]
-    #[link(name = "LLVMMCJIT")]
     #[link(name = "LLVMTarget")]
-    #[link(name = "LLVMRuntimeDyld")]
-    #[link(name = "LLVMObject")]
-    #[link(name = "LLVMMCParser")]
-    #[link(name = "LLVMBitReader")]
-    #[link(name = "LLVMExecutionEngine")]
     #[link(name = "LLVMMC")]
     #[link(name = "LLVMCore")]
     #[link(name = "LLVMSupport")]
     #[link(name = "z")]
     #[link(name = "pthread")]
     #[link(name = "ffi")]
+    #[link(name = "edit")]
     #[link(name = "curses")]
     #[link(name = "dl")]
     #[link(name = "m")]
@@ -381,7 +381,6 @@ pub mod raw {
         pub fn llvm_createDeadCodeEliminationPass() -> *mut super::llvm_FunctionPass;
         pub fn llvm_createDeadInstEliminationPass() -> *mut super::llvm_Pass;
         pub fn llvm_createDeadStoreEliminationPass() -> *mut super::llvm_FunctionPass;
-        pub fn llvm_createDebugIRPass() -> *mut super::llvm_ModulePass;
         pub fn llvm_createDemoteRegisterToMemoryPass() -> *mut super::llvm_FunctionPass;
         pub fn llvm_createEarlyCSEPass() -> *mut super::llvm_FunctionPass;
         pub fn llvm_createFlattenCFGPass() -> *mut super::llvm_FunctionPass;
@@ -6858,13 +6857,6 @@ pub mod llvm {
     pub fn createDeadStoreEliminationPass() -> *mut super::llvm_FunctionPass {
         unsafe {
             super::raw::llvm_createDeadStoreEliminationPass()
-        }
-    }
-
-    #[inline(always)]
-    pub fn createDebugIRPass() -> *mut super::llvm_ModulePass {
-        unsafe {
-            super::raw::llvm_createDebugIRPass()
         }
     }
 

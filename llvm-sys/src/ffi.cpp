@@ -155,12 +155,6 @@ llvm_FunctionPass* llvm_createDeadStoreEliminationPass()
 }
 
 extern "C"
-llvm_ModulePass* llvm_createDebugIRPass()
-{
-    return ::llvm::createDebugIRPass();
-}
-
-extern "C"
 llvm_FunctionPass* llvm_createDemoteRegisterToMemoryPass()
 {
     return ::llvm::createDemoteRegisterToMemoryPass();
