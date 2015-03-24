@@ -2,11 +2,13 @@ from bindgen.ast import *
 from .defs import *
 from .ADT.StringRef import StringRef
 
+
 @BasicBlock.body
 class BasicBlock:
     delete = Destructor()
 
-    Create = StaticMethod(sptr(BasicBlock), (ref(LLVMContext), 'Context'), (OptionString(), 'Name'), (OptionPointer(Function), 'Parent'), (OptionPointer(BasicBlock), 'InsertBefore'))
+    Create = StaticMethod(sptr(BasicBlock), (ref(LLVMContext), 'Context'), (OptionString(
+    ), 'Name'), (OptionPointer(Function), 'Parent'), (OptionPointer(BasicBlock), 'InsertBefore'))
 
     classof = StaticMethod(Bool, (ptr(Value, const=True), 'Val'))
 
@@ -16,16 +18,21 @@ class BasicBlock:
     getParentMut = Method(ptr(Function)).with_real_name('getParent')
 
     getTerminator = Method(ptr(TerminatorInst, const=True), const=True)
-    getTerminatorMut = Method(ptr(TerminatorInst)).with_real_name('getTerminator')
+    getTerminatorMut = Method(
+        ptr(TerminatorInst)).with_real_name('getTerminator')
 
     getFirstNonPHI = Method(ptr(Instruction, const=True), const=True)
-    getFirstNonPHIMut = Method(ptr(Instruction)).with_real_name('getFirstNonPHI')
+    getFirstNonPHIMut = Method(
+        ptr(Instruction)).with_real_name('getFirstNonPHI')
 
     getFirstNonPHIOrDbg = Method(ptr(Instruction, const=True), const=True)
-    getFirstNonPHIOrDbgMut = Method(ptr(Instruction)).with_real_name('getFirstNonPHIOrDbg')
+    getFirstNonPHIOrDbgMut = Method(
+        ptr(Instruction)).with_real_name('getFirstNonPHIOrDbg')
 
-    getFirstNonPHIOrDbgOrLifetime = Method(ptr(Instruction, const=True), const=True)
-    getFirstNonPHIOrDbgOrLifetimeMut = Method(ptr(Instruction)).with_real_name('getFirstNonPHIOrDbgOrLifetime')
+    getFirstNonPHIOrDbgOrLifetime = Method(
+        ptr(Instruction, const=True), const=True)
+    getFirstNonPHIOrDbgOrLifetimeMut = Method(
+        ptr(Instruction)).with_real_name('getFirstNonPHIOrDbgOrLifetime')
 
     removeFromParent = Method()
     eraseFromParent = Method()
@@ -34,15 +41,18 @@ class BasicBlock:
     moveAfter = Method(Void, (ptr(BasicBlock), 'MovePos'))
 
     getSinglePredecessor = Method(ptr(BasicBlock, const=True), const=True)
-    getSinglePredecessorMut = Method(ptr(BasicBlock)).with_real_name('getSinglePredecessor')
+    getSinglePredecessorMut = Method(
+        ptr(BasicBlock)).with_real_name('getSinglePredecessor')
 
     getUniquePredecessor = Method(ptr(BasicBlock, const=True), const=True)
-    getUniquePredecessorMut = Method(ptr(BasicBlock)).with_real_name('getUniquePredecessor')
+    getUniquePredecessorMut = Method(
+        ptr(BasicBlock)).with_real_name('getUniquePredecessor')
 
     getValueSymbolTable = Method(ptr(ValueSymbolTable))
 
     dropAllReferences = Method()
-    removePredecessor = Method(Void, (ptr(BasicBlock), 'Pred'), (Option(Bool, 'false'), 'DontDeleteUselessPHIs'))
+    removePredecessor = Method(
+        Void, (ptr(BasicBlock), 'Pred'), (Option(Bool, 'false'), 'DontDeleteUselessPHIs'))
 
     # splitBasicBlock
 
@@ -52,4 +62,5 @@ class BasicBlock:
 
     isLandingPad = Method(Bool, const=True)
     getLandingPadInst = Method(ptr(LandingPadInst, const=True), const=True)
-    getLandingPadInstMut = Method(ptr(LandingPadInst)).with_real_name('getLandingPadInst')
+    getLandingPadInstMut = Method(
+        ptr(LandingPadInst)).with_real_name('getLandingPadInst')

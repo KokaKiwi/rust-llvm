@@ -1,6 +1,7 @@
 from .prelude import *
 from .ADT.StringRef import StringRef
 
+
 @ValueSymbolTable.body
 class ValueSymbolTable:
     new = Constructor()

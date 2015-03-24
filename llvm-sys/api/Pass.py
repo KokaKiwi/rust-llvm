@@ -2,6 +2,7 @@ from .prelude import *
 
 AnalysisID = ptr(Void, const=True)
 
+
 @Pass.body
 class Pass:
     delete = Destructor()
@@ -15,24 +16,28 @@ class Pass:
 
     dump = Method(const=True)
 
+
 def CreatePassFunction(ty, *args, **kwargs):
     func = ast.Function(ptr(ty, owned=True), *args, **kwargs)
 
     return func
+
 
 @llvm.body
 class llvm_body:
     createGCOVProfilerPass = CreatePassFunction(ModulePass)
     createAddressSanitizerFunctionPass = CreatePassFunction(FunctionPass)
     createAddressSanitizerModulePass = CreatePassFunction(ModulePass)
-    createMemorySanitizerPass = CreatePassFunction(FunctionPass, (Option(Int, '0'), 'TrackOrigins'))
+    createMemorySanitizerPass = CreatePassFunction(
+        FunctionPass, (Option(Int, '0'), 'TrackOrigins'))
 
     createThreadSanitizerPass = CreatePassFunction(FunctionPass)
     createDataFlowSanitizerPass = CreatePassFunction(ModulePass)
     createBoundsCheckingPass = CreatePassFunction(FunctionPass)
     # Removed in LLVM 3.6
     # createDebugIRPass = CreatePassFunction(ModulePass)
-    createStripSymbolsPass = CreatePassFunction(ModulePass, (Option(Bool, 'false'), 'OnlyDebugInfo'))
+    createStripSymbolsPass = CreatePassFunction(
+        ModulePass, (Option(Bool, 'false'), 'OnlyDebugInfo'))
     createStripNonDebugSymbolsPass = CreatePassFunction(ModulePass)
     createStripDebugDeclarePass = CreatePassFunction(ModulePass)
     createStripDeadDebugInfoPass = CreatePassFunction(ModulePass)
@@ -41,13 +46,16 @@ class llvm_body:
     createGlobalDCEPass = CreatePassFunction(ModulePass)
     # createGVExtractionPass = CreatePassFunction(ModulePass)
     createFunctionInliningPass = CreatePassFunction(Pass)
-    createFunctionInliningPassWithOptLevel = CreatePassFunction(Pass, (UnsignedInt, 'OptLevel'), (UnsignedInt, 'SizeOptLevel')).with_real_name('createFunctionInliningPass')
-    createAlwaysInlinerPass = CreatePassFunction(Pass, (Option(Bool, 'false'), 'InsertLifetime'))
+    createFunctionInliningPassWithOptLevel = CreatePassFunction(
+        Pass, (UnsignedInt, 'OptLevel'), (UnsignedInt, 'SizeOptLevel')).with_real_name('createFunctionInliningPass')
+    createAlwaysInlinerPass = CreatePassFunction(
+        Pass, (Option(Bool, 'false'), 'InsertLifetime'))
     createPruneEHPass = CreatePassFunction(Pass)
     createInternalizePass = CreatePassFunction(ModulePass)
     createDeadArgEliminationPass = CreatePassFunction(ModulePass)
     createDeadArgHackingPass = CreatePassFunction(ModulePass)
-    createArgumentPromotionPass = CreatePassFunction(Pass, (Option(UnsignedInt, '3'), 'maxElements'))
+    createArgumentPromotionPass = CreatePassFunction(
+        Pass, (Option(UnsignedInt, '3'), 'maxElements'))
     createIPConstantPropagationPass = CreatePassFunction(ModulePass)
     createIPSCCPPass = CreatePassFunction(ModulePass)
     createLoopExtractorPass = CreatePassFunction(Pass)
@@ -69,21 +77,27 @@ class llvm_body:
     createDeadCodeEliminationPass = CreatePassFunction(FunctionPass)
     createDeadStoreEliminationPass = CreatePassFunction(FunctionPass)
     createAggressiveDCEPass = CreatePassFunction(FunctionPass)
-    createSROAPass = CreatePassFunction(FunctionPass, (Option(Bool, 'true'), 'RequiresDomTree'))
-    # FunctionPass        *createScalarReplAggregatesPass (signed Threshold=-1, bool UseDomTree=true, signed StructMemberThreshold=-1, signed ArrayElementThreshold=-1, signed ScalarLoadThreshold=-1)
+    createSROAPass = CreatePassFunction(
+        FunctionPass, (Option(Bool, 'true'), 'RequiresDomTree'))
+    # FunctionPass        *createScalarReplAggregatesPass (signed
+    # Threshold=-1, bool UseDomTree=true, signed StructMemberThreshold=-1,
+    # signed ArrayElementThreshold=-1, signed ScalarLoadThreshold=-1)
     createScalarReplAggregatesPass = CreatePassFunction(FunctionPass)
     createIndVarSimplifyPass = CreatePassFunction(Pass)
     createInstructionCombiningPass = CreatePassFunction(FunctionPass)
     createLICMPass = CreatePassFunction(Pass)
     createLoopStrengthReducePass = CreatePassFunction(Pass)
     createGlobalMergePass = CreatePassFunction(Pass)
-    createLoopUnswitchPass = CreatePassFunction(Pass, (Option(Bool, 'false'), 'OptimizeForSize'))
+    createLoopUnswitchPass = CreatePassFunction(
+        Pass, (Option(Bool, 'false'), 'OptimizeForSize'))
     createLoopInstSimplifyPass = CreatePassFunction(Pass)
-    # Pass                *createLoopUnrollPass (int Threshold=-1, int Count=-1, int AllowPartial=-1, int Runtime=-1)
+    # Pass                *createLoopUnrollPass (int Threshold=-1, int
+    # Count=-1, int AllowPartial=-1, int Runtime=-1)
     createLoopUnrollPass = CreatePassFunction(Pass)
     createSimpleLoopUnrollPass = CreatePassFunction(Pass)
     createLoopRerollPass = CreatePassFunction(Pass)
-    createLoopRotatePass = CreatePassFunction(Pass, (Option(Int, '-1'), 'MaxHeaderSize'))
+    createLoopRotatePass = CreatePassFunction(
+        Pass, (Option(Int, '-1'), 'MaxHeaderSize'))
     createLoopIdiomPass = CreatePassFunction(Pass)
     createPromoteMemoryToRegisterPass = CreatePassFunction(FunctionPass)
     createDemoteRegisterToMemoryPass = CreatePassFunction(FunctionPass)
@@ -100,7 +114,8 @@ class llvm_body:
     createLCSSAPass = CreatePassFunction(Pass)
     createEarlyCSEPass = CreatePassFunction(FunctionPass)
     createMergedLoadStoreMotionPass = CreatePassFunction(FunctionPass)
-    createGVNPass = CreatePassFunction(FunctionPass, (Option(Bool, 'false'), 'NoLoads'))
+    createGVNPass = CreatePassFunction(
+        FunctionPass, (Option(Bool, 'false'), 'NoLoads'))
     createMemCpyOptPass = CreatePassFunction(FunctionPass)
     createLoopDeletionPass = CreatePassFunction(Pass)
     createConstantHoistingPass = CreatePassFunction(FunctionPass)

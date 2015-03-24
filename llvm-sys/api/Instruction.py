@@ -5,6 +5,7 @@ from .defs import *
 from .ADT.ArrayRef import ArrayRef
 from .ADT.StringRef import StringRef
 
+
 @Instruction.body
 class Instruction:
     delete = Destructor()
@@ -35,7 +36,8 @@ class Instruction:
     hasMetadataOtherThanDebugLoc = Method(Bool, const=True)
 
     dropUnknownMetadata = Method(Void)
-    dropUnknownMetadataFromIDS = Method(Void, (ArrayRef(UnsignedInt), 'KnownIDs')).with_real_name('dropUnknownMetadata')
+    dropUnknownMetadataFromIDS = Method(
+        Void, (ArrayRef(UnsignedInt), 'KnownIDs')).with_real_name('dropUnknownMetadata')
 
     setDebugLoc = Method(Void, (ref(DebugLoc, const=True), 'Loc'))
     getDebugLoc = Method(ref(DebugLoc, const=True), const=True)
@@ -67,21 +69,28 @@ class Instruction:
 
     clone = Method(ptr(Instruction), const=True)
 
-    isIdenticalTo = Method(Bool, (ptr(Instruction, const=True), 'Inst'), const=True)
-    isIdenticalToWhenDefined = Method(Bool, (ptr(Instruction, const=True), 'Inst'), const=True)
+    isIdenticalTo = Method(
+        Bool, (ptr(Instruction, const=True), 'Inst'), const=True)
+    isIdenticalToWhenDefined = Method(
+        Bool, (ptr(Instruction, const=True), 'Inst'), const=True)
 
-    isSameOperationAs = Method(Bool, (ptr(Instruction, const=True), 'Inst'), (UnsignedInt, 'flags'), const=True)
+    isSameOperationAs = Method(
+        Bool, (ptr(Instruction, const=True), 'Inst'), (UnsignedInt, 'flags'), const=True)
 
     getParent = Method(ptr(BasicBlock, const=True), const=True)
     getParentMut = Method(ptr(BasicBlock)).with_real_name('getParent')
 
     getMetadata = Method(ptr(MDNode), (UnsignedInt, 'KindID'), const=True)
-    getMetadataStr = Method(ptr(MDNode), (StringRef, 'Kind'), const=True).with_real_name('getMetadata')
+    getMetadataStr = Method(
+        ptr(MDNode), (StringRef, 'Kind'), const=True).with_real_name('getMetadata')
 
     setMetadata = Method(Void, (UnsignedInt, 'KindID'), (ptr(MDNode), 'Node'))
-    setMetadataStr = Method(Void, (StringRef, 'Kind'), (ptr(MDNode), 'Node')).with_real_name('setMetadata')
+    setMetadataStr = Method(
+        Void, (StringRef, 'Kind'), (ptr(MDNode), 'Node')).with_real_name('setMetadata')
 
-    isUsedOutsideOfBlock = Method(Bool, (ptr(BasicBlock, const=True), 'BB'), const=True)
+    isUsedOutsideOfBlock = Method(
+        Bool, (ptr(BasicBlock, const=True), 'BB'), const=True)
+
 
 @SwitchInst.body
 class SwitchInst:
@@ -95,7 +104,9 @@ class SwitchInst:
 
     getNumCases = Method(UnsignedInt, const=True)
 
-    addCase = Method(Void, (ptr(ConstantInt), 'OnVal'), (ptr(BasicBlock), 'Dest'))
+    addCase = Method(
+        Void, (ptr(ConstantInt), 'OnVal'), (ptr(BasicBlock), 'Dest'))
+
 
 @PHINode.body
 class PHINode:
@@ -107,6 +118,7 @@ class PHINode:
     setIncomingValue = Method(Void, (UnsignedInt, 'i'), (ptr(Value), 'V'))
 
     getIncomingBlock = Method(ptr(BasicBlock), (UnsignedInt, 'i'), const=True)
-    setIncomingBlock = Method(Void, (UnsignedInt, 'i'), (ptr(BasicBlock), 'BB'))
+    setIncomingBlock = Method(
+        Void, (UnsignedInt, 'i'), (ptr(BasicBlock), 'BB'))
 
     addIncoming = Method(Void, (ptr(Value), 'V'), (ptr(BasicBlock), 'BB'))

@@ -1,5 +1,6 @@
 from .prelude import *
 
+
 @FunctionPassManager.body
 class FunctionPassManager:
     new = Constructor((ptr(Module), 'Module'))
@@ -9,6 +10,7 @@ class FunctionPassManager:
 
     doInitialization = Method(Bool)
     doFinalization = Method(Bool)
+
 
 @PassManager.body
 class PassManager:

@@ -2,10 +2,12 @@ from bindgen.ast import *
 from .ns import llvm, CallingConv
 from .defs import *
 
+
 def add_item(parent):
     def wrapper(item):
         parent[item.name] = item
     return wrapper
+
 
 @add_item(GlobalValue)
 @Enum
@@ -21,6 +23,7 @@ class LinkageTypes(EnumType):
     PrivateLinkage = None
     ExternalWeakLinkage = None
     CommonLinkage = None
+
 
 @add_item(CallingConv)
 @Enum
@@ -50,8 +53,10 @@ class ID(EnumType):
     X86_64_SysV = 78
     X86_64_Win64 = 79
 
+
 @Instruction.body
 class Instruction:
+
     @Enum
     class TermOps(EnumType):
         Ret = 1
@@ -126,6 +131,7 @@ class Instruction:
         InsertValue = 58
         LandingPad = 59
 
+
 @add_item(CmpInst)
 @Enum
 class Predicate(EnumType):
@@ -162,6 +168,7 @@ class Predicate(EnumType):
     LAST_ICMP_PREDICATE = 'ICMP_SLE'
     BAD_ICMP_PREDICATE = 42
 
+
 @add_item(Value)
 @Enum
 class ValueTy(EnumType):
@@ -188,6 +195,7 @@ class ValueTy(EnumType):
     ConstantFirstVal = 'FunctionVal'
     ConstantLastVal = 'ConstantPointerNullVal'
 
+
 @add_item(Type)
 @Enum
 class TypeID(EnumType):
@@ -208,8 +216,10 @@ class TypeID(EnumType):
     PointerTyID = None
     VectorTyID = None
 
+
 @llvm.body
 class llvm:
+
     @Enum
     class AtomicOrdering(EnumType):
         NotAtomic = 0

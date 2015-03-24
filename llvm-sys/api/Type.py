@@ -2,6 +2,7 @@ from .prelude import *
 from .ADT.ArrayRef import ArrayRef
 from .ADT.StringRef import StringRef
 
+
 @Type.body
 class Type:
     getContext = Method(ref(LLVMContext), const=True)
@@ -62,7 +63,8 @@ class Type:
     def integer_factory():
         return StaticMethod(ptr(IntegerType), (ref(LLVMContext), 'ctx'))
 
-    getIntNTy = StaticMethod(ptr(IntegerType), (ref(LLVMContext), 'ctx'), (UnsignedInt, 'size'))
+    getIntNTy = StaticMethod(
+        ptr(IntegerType), (ref(LLVMContext), 'ctx'), (UnsignedInt, 'size'))
     getInt1Ty = integer_factory()
     getInt8Ty = integer_factory()
     getInt16Ty = integer_factory()
@@ -72,7 +74,8 @@ class Type:
     def pointer_factory():
         return StaticMethod(ptr(PointerType), (ref(LLVMContext), 'ctx'))
 
-    getIntNPtrTy = StaticMethod(ptr(PointerType), (ref(LLVMContext), 'ctx'), (UnsignedInt, 'size'))
+    getIntNPtrTy = StaticMethod(
+        ptr(PointerType), (ref(LLVMContext), 'ctx'), (UnsignedInt, 'size'))
     getHalfPtrTy = pointer_factory()
     getFloatPtrTy = pointer_factory()
     getDoublePtrTy = pointer_factory()
@@ -96,8 +99,10 @@ class Type:
     getPointerAddressSpace = Method(UnsignedInt, const=True)
     getPointerTo = Method(ptr(PointerType), (UnsignedInt, 'idx'))
 
+
 def classof_method():
     return StaticMethod(Bool, (ptr(Type, const=True), 'ty'))
+
 
 @IntegerType.body
 class IntegerType:
@@ -108,8 +113,10 @@ class IntegerType:
 
     isPowerOf2ByteWidth = Method(Bool, const=True)
 
-    get = StaticMethod(ptr(IntegerType), (ref(LLVMContext), 'ctx'), (UnsignedInt, 'NumBits'))
+    get = StaticMethod(
+        ptr(IntegerType), (ref(LLVMContext), 'ctx'), (UnsignedInt, 'NumBits'))
     classof = classof_method()
+
 
 @FunctionType.body
 class FunctionType:
@@ -119,12 +126,14 @@ class FunctionType:
     getParamType = Method(ptr(Type), (UnsignedInt, 'idx'), const=True)
     getNumParams = Method(UnsignedInt, const=True)
 
-    get = StaticMethod(ptr(FunctionType), (ptr(Type), 'Result'), (ArrayRef(ptr(Type)), 'Params'), (Bool, 'isVarArg'))
+    get = StaticMethod(ptr(FunctionType), (ptr(Type), 'Result'),
+                       (ArrayRef(ptr(Type)), 'Params'), (Bool, 'isVarArg'))
 
     isValidReturnType = StaticMethod(Bool, (ptr(Type), 'ty'))
     isValidArgumentType = StaticMethod(Bool, (ptr(Type), 'ty'))
 
     classof = classof_method()
+
 
 @CompositeType.body
 class CompositeType:
@@ -132,6 +141,7 @@ class CompositeType:
     indexValid = Method(Bool, (UnsignedInt, 'idx'), const=True)
 
     classof = classof_method()
+
 
 @StructType.body
 class StructType:
@@ -145,19 +155,23 @@ class StructType:
     setName = Method(Void, (StringRef, 'Name'))
 
     setBody = Method(Void, (ArrayRef(ptr(Type)), 'Elements'))
-    setBodyPacked = Method(Void, (ArrayRef(ptr(Type)), 'Elements'), (Bool, 'isPacked')).with_real_name('setBody')
+    setBodyPacked = Method(Void, (ArrayRef(
+        ptr(Type)), 'Elements'), (Bool, 'isPacked')).with_real_name('setBody')
 
     isLayoutIdentical = Method(Bool, (ptr(StructType), 'Other'), const=True)
 
     getNumElements = Method(UnsignedInt, const=True)
     getElementType = Method(ptr(Type), (UnsignedInt, 'idx'), const=True)
 
-    create = StaticMethod(ptr(StructType), (ref(LLVMContext), 'ctx'), (ArrayRef(ptr(Type)), 'Elements'), (StringRef, 'Name'))
-    createPacked = StaticMethod(ptr(StructType), (ref(LLVMContext), 'ctx'), (ArrayRef(ptr(Type)), 'Elements'), (StringRef, 'Name'), (Bool, 'isPacked')).with_real_name('create')
+    create = StaticMethod(ptr(StructType), (ref(LLVMContext), 'ctx'), (ArrayRef(
+        ptr(Type)), 'Elements'), (StringRef, 'Name'))
+    createPacked = StaticMethod(ptr(StructType), (ref(LLVMContext), 'ctx'), (ArrayRef(
+        ptr(Type)), 'Elements'), (StringRef, 'Name'), (Bool, 'isPacked')).with_real_name('create')
 
     isValidElementType = StaticMethod(Bool, (ptr(Type), 'ty'))
 
     classof = classof_method()
+
 
 @SequentialType.body
 class SequentialType:
@@ -165,38 +179,48 @@ class SequentialType:
 
     classof = classof_method()
 
+
 @VectorType.body
 class VectorType:
     getNumElements = Method(UnsignedInt, const=True)
     getBitWidth = Method(UnsignedInt, const=True)
 
-    get = StaticMethod(ptr(VectorType), (ptr(Type), 'ty'), (UnsignedInt, 'NumElements'))
+    get = StaticMethod(
+        ptr(VectorType), (ptr(Type), 'ty'), (UnsignedInt, 'NumElements'))
     getInteger = StaticMethod(ptr(VectorType), (ptr(VectorType), 'ty'))
-    getExtendedElementVectorType = StaticMethod(ptr(VectorType), (ptr(VectorType), 'ty'))
-    getTruncatedElementVectorType = StaticMethod(ptr(VectorType), (ptr(VectorType), 'ty'))
-    getHalfElementsVectorType = StaticMethod(ptr(VectorType), (ptr(VectorType), 'ty'))
-    getDoubleElementsVectorType = StaticMethod(ptr(VectorType), (ptr(VectorType), 'ty'))
+    getExtendedElementVectorType = StaticMethod(
+        ptr(VectorType), (ptr(VectorType), 'ty'))
+    getTruncatedElementVectorType = StaticMethod(
+        ptr(VectorType), (ptr(VectorType), 'ty'))
+    getHalfElementsVectorType = StaticMethod(
+        ptr(VectorType), (ptr(VectorType), 'ty'))
+    getDoubleElementsVectorType = StaticMethod(
+        ptr(VectorType), (ptr(VectorType), 'ty'))
 
     isValidElementType = StaticMethod(Bool, (ptr(Type), 'ty'))
 
     classof = classof_method()
 
+
 @PointerType.body
 class PointerType:
     getAddressSpace = Method(UnsignedInt, const=True)
 
-    get = StaticMethod(ptr(PointerType), (ptr(Type), 'ElementType'), (UnsignedInt, 'AddressSpace'))
+    get = StaticMethod(
+        ptr(PointerType), (ptr(Type), 'ElementType'), (UnsignedInt, 'AddressSpace'))
     getUnqual = StaticMethod(ptr(PointerType), (ptr(Type), 'ElementType'))
 
     isValidElementType = StaticMethod(Bool, (ptr(Type), 'ty'))
 
     classof = classof_method()
 
+
 @ArrayType.body
 class ArrayType:
     getNumElements = Method(UnsignedInt64, const=True)
 
-    get = StaticMethod(ptr(ArrayType), (ptr(Type), 'ElementType'), (UnsignedInt64, 'NumElements'))
+    get = StaticMethod(
+        ptr(ArrayType), (ptr(Type), 'ElementType'), (UnsignedInt64, 'NumElements'))
 
     isValidElementType = StaticMethod(Bool, (ptr(Type), 'ty'))
 

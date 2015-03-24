@@ -9,6 +9,7 @@ CallingConv = llvm.Namespace('CallingConv')
 LLVM_CONFIG = 'llvm-config'
 STATIC_LINK = False
 
+
 def llvm_config(*args):
     import subprocess
 
@@ -17,6 +18,7 @@ def llvm_config(*args):
     output = str(out, 'utf-8')
 
     return output.strip()
+
 
 def rust_linknames():
     version = llvm_config('--version')

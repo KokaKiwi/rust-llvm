@@ -1,6 +1,7 @@
 from .prelude import *
 from .ADT.StringRef import StringRef
 
+
 @Value.body
 class Value:
     delete = Destructor()
@@ -26,4 +27,5 @@ class Value:
 
     mutateType = Method(Void, (ptr(Type), 'ty'))
 
-    isUsedInBasicBlock = Method(Bool, (ptr(BasicBlock, const=True), 'BB'), const=True)
+    isUsedInBasicBlock = Method(
+        Bool, (ptr(BasicBlock, const=True), 'BB'), const=True)

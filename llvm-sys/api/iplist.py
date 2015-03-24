@@ -41,10 +41,12 @@ class iplist(Class):
             new = Constructor()
             delete = Destructor()
 
-            first = Method(ref(self.subtype, const=True), const=True).with_real_name('front')
+            first = Method(
+                ref(self.subtype, const=True), const=True).with_real_name('front')
             firstMut = Method(ref(self.subtype)).with_real_name('front')
 
-            last = Method(ref(self.subtype, const=True), const=True).with_real_name('back')
+            last = Method(
+                ref(self.subtype, const=True), const=True).with_real_name('back')
             lastMut = Method(ref(self.subtype)).with_real_name('back')
 
             max_size = Method(SizeTy, const=True)

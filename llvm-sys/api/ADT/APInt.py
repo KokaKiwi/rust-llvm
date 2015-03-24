@@ -10,6 +10,7 @@ from bindgen.gen.registry import register
 from .ArrayRef import ArrayRef
 from ..ns import llvm
 
+
 @llvm.body
 class llvm:
     _includes_ = {
@@ -18,13 +19,17 @@ class llvm:
 
 BigVal = ArrayRef(UnsignedInt64)
 
+
 class APIntTypeVisitorGenerator(VisitorGenerator):
+
     def visit(self, ty):
         self.visitor.visit(BigVal)
 
         return super().visit(ty)
 
+
 class APIntCTypeGenerator(CTypeGenerator):
+
     def generate_def(self, writer):
         data_tygen = self.typegen(BigVal)
 
@@ -57,12 +62,14 @@ class APIntCTypeGenerator(CTypeGenerator):
             data = '__%s_data' % (dest)
             convert(writer, data, writer.gen.member(expr, 'data'))
 
-            writer.writeln('%s %s(%s, %s);' % (self.cpp_name, dest, numbits, data))
+            writer.writeln('%s %s(%s, %s);' %
+                           (self.cpp_name, dest, numbits, data))
 
         if out:
             raise NotImplementedError('APIntCTypeGenerator.convert (out)')
         else:
             return TypeConvert('complex', convert_in)
+
 
 class APIntRustFFITypeGenerator(RustFFITypeGenerator):
 
@@ -109,6 +116,7 @@ class APIntRustFFITypeGenerator(RustFFITypeGenerator):
     @property
     def flat_name(self):
         return self.ffi_name()
+
 
 @register(TYPE_VISIT_ENTRY, None, APIntTypeVisitorGenerator)
 @register(C_TYPE_ENTRY, CBindingGenerator.LANG, APIntCTypeGenerator)

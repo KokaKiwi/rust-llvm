@@ -5,8 +5,10 @@ from .ADT.APInt import APInt
 from .ADT.ArrayRef import ArrayRef
 from .ADT.StringRef import StringRef
 
+
 @Constant.body
 class Constant:
+
     def test_value():
         return Method(Bool, const=True)
 
@@ -21,22 +23,28 @@ class Constant:
     isDLLImportDependent = test_value()
     isConstantUsed = test_value()
 
-    getAggregateElement = Method(ptr(Constant), (UnsignedInt, 'Elt'), const=True)
-    getAggregateElementConstant = Method(ptr(Constant), (ptr(Constant), 'Elt'), const=True).with_real_name('getAggregateElement')
+    getAggregateElement = Method(
+        ptr(Constant), (UnsignedInt, 'Elt'), const=True)
+    getAggregateElementConstant = Method(ptr(Constant), (ptr(
+        Constant), 'Elt'), const=True).with_real_name('getAggregateElement')
     getSplatValue = Method(ptr(Constant), const=True)
 
     destroyConstant = Method()
-    replaceUsesOfWithOnConstant = Method(Void, ptr(Value), ptr(Value), ptr(Use))
+    replaceUsesOfWithOnConstant = Method(
+        Void, ptr(Value), ptr(Value), ptr(Use))
     removeDeadConstantUsers = Method(const=True)
 
     stripPointerCasts = Method(ptr(Constant, const=True), const=True)
-    stripPointerCastsMut = Method(ptr(Constant)).with_real_name('stripPointerCasts')
+    stripPointerCastsMut = Method(
+        ptr(Constant)).with_real_name('stripPointerCasts')
 
     classof = StaticMethod(Bool, (ptr(Value, const=True), 'V'))
 
     getNullValue = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'))
     getAllOnesValue = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'))
-    getIntegerValue = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'), (APInt, 'Value'))
+    getIntegerValue = StaticMethod(
+        ptr(Constant), (ptr(Type), 'Ty'), (APInt, 'Value'))
+
 
 @BlockAddress.body
 class BlockAddress:
@@ -45,13 +53,16 @@ class BlockAddress:
     getBasicBlock = Method(ptr(BasicBlock), const=True)
     getFunction = Method(ptr(Function), const=True)
 
+
 @ConstantArray.body
 class ConstantArray:
     getType = Method(ptr(Type), const=True)
 
-    get = StaticMethod(ptr(Constant), (ptr(ArrayType), 'Ty'), (ArrayRef(ptr(Constant)), 'Values'))
+    get = StaticMethod(
+        ptr(Constant), (ptr(ArrayType), 'Ty'), (ArrayRef(ptr(Constant)), 'Values'))
 
     classof = StaticMethod(Bool, (ptr(Value, const=True), 'V'))
+
 
 @ConstantFP.body
 class ConstantFP:
@@ -59,34 +70,45 @@ class ConstantFP:
     isNegative = Method(Bool, const=True)
     isNaN = Method(Bool, const=True)
 
-    isExactlyValueFloat = Method(Bool, (Double, 'Val'), const=True).with_real_name('isExactlyValue')
+    isExactlyValueFloat = Method(
+        Bool, (Double, 'Val'), const=True).with_real_name('isExactlyValue')
 
     getZeroValueForNegation = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'))
 
     get = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'), (Double, 'Val'))
-    fromStr = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'), (StringRef, 'Val')).with_real_name('get')
+    fromStr = StaticMethod(
+        ptr(Constant), (ptr(Type), 'Ty'), (StringRef, 'Val')).with_real_name('get')
 
     getNegativeZero = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'))
     getInfinity = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'))
 
     classof = StaticMethod(Bool, (ptr(Value, const=True), 'V'))
 
+
 @ConstantInt.body
 class ConstantInt:
     getTrue = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'))
     getFalse = StaticMethod(ptr(Constant), (ptr(Type), 'Ty'))
 
-    getTrueWithContext = StaticMethod(ptr(ConstantInt), (ref(LLVMContext), 'Context')).with_real_name('getTrue')
-    getFalseWithContext = StaticMethod(ptr(ConstantInt), (ref(LLVMContext), 'Context')).with_real_name('getFalse')
+    getTrueWithContext = StaticMethod(
+        ptr(ConstantInt), (ref(LLVMContext), 'Context')).with_real_name('getTrue')
+    getFalseWithContext = StaticMethod(
+        ptr(ConstantInt), (ref(LLVMContext), 'Context')).with_real_name('getFalse')
 
-    get = StaticMethod(ptr(ConstantInt), (ptr(IntegerType), 'Ty'), (UnsignedInt64, 'Value'))
-    getSigned = StaticMethod(ptr(ConstantInt), (ptr(IntegerType), 'Ty'), (UnsignedInt64, 'Value'), (Bool, 'isSigned')).with_real_name('get')
+    get = StaticMethod(
+        ptr(ConstantInt), (ptr(IntegerType), 'Ty'), (UnsignedInt64, 'Value'))
+    getSigned = StaticMethod(ptr(ConstantInt), (ptr(
+        IntegerType), 'Ty'), (UnsignedInt64, 'Value'), (Bool, 'isSigned')).with_real_name('get')
 
-    fromAPInt = StaticMethod(ptr(ConstantInt), (ref(LLVMContext), 'Context'), (APInt, 'Val')).with_real_name('get')
-    fromStr = StaticMethod(ptr(ConstantInt), (ptr(IntegerType), 'Ty'), (StringRef, 'Str'), (UnsignedInt8, 'radix')).with_real_name('get')
+    fromAPInt = StaticMethod(ptr(ConstantInt), (ref(
+        LLVMContext), 'Context'), (APInt, 'Val')).with_real_name('get')
+    fromStr = StaticMethod(ptr(ConstantInt), (ptr(
+        IntegerType), 'Ty'), (StringRef, 'Str'), (UnsignedInt8, 'radix')).with_real_name('get')
 
-    isValueValidForType = StaticMethod(Bool, (ptr(Type), 'Ty'), (UnsignedInt64, 'Val'))
-    isSignedValueValidForType = StaticMethod(Bool, (ptr(Type), 'Ty'), (Int64, 'Val')).with_real_name('isValueValidForType')
+    isValueValidForType = StaticMethod(
+        Bool, (ptr(Type), 'Ty'), (UnsignedInt64, 'Val'))
+    isSignedValueValidForType = StaticMethod(
+        Bool, (ptr(Type), 'Ty'), (Int64, 'Val')).with_real_name('isValueValidForType')
 
     classof = StaticMethod(Bool, (ptr(Value, const=True), 'Val'))
 
@@ -112,6 +134,7 @@ class ConstantInt:
 
     uge = Method(Bool, (UnsignedInt64, 'Num'), const=True)
 
+
 @ConstantPointerNull.body
 class ConstantPointerNull:
     destroyConstant = Method()
@@ -121,6 +144,7 @@ class ConstantPointerNull:
     get = StaticMethod(ptr(ConstantPointerNull), (ptr(PointerType), 'Ty'))
 
     classof = StaticMethod(Bool, (ptr(Value, const=True), 'Val'))
+
 
 @GlobalValue.body
 class GlobalValue:
@@ -175,16 +199,20 @@ class GlobalValue:
 
     getDataLayout = Method(ptr(DataLayout, const=True), const=True)
 
+
 @GlobalObject.body
 class GlobalObject:
     setSection = Method(Void, (StringRef, 'S'))
+
 
 @GlobalVariable.body
 class GlobalVariable:
     delete = Destructor()
 
-    new = Constructor((ptr(Type), 'Ty'), (Bool, 'isConstant'), (GlobalValue['LinkageTypes'], 'Linkage'), null=None)
-    newWithModule = Constructor((ref(Module), 'Module'), (ptr(Type), 'Ty'), (Bool, 'isConstant'), (GlobalValue['LinkageTypes'], 'Linkage'), (ptr(Constant), 'Initializer'), null=None)
+    new = Constructor((ptr(Type), 'Ty'), (Bool, 'isConstant'),
+                      (GlobalValue['LinkageTypes'], 'Linkage'), null=None)
+    newWithModule = Constructor((ref(Module), 'Module'), (ptr(Type), 'Ty'), (Bool, 'isConstant'), (GlobalValue[
+                                'LinkageTypes'], 'Linkage'), (ptr(Constant), 'Initializer'), null=None)
 
     hasInitializer = Method(Bool, const=True)
     hasDefinitiveInitializer = Method(Bool, const=True)

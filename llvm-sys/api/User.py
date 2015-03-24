@@ -1,5 +1,6 @@
 from .prelude import *
 
+
 @User.body
 class User:
     delete = Destructor()
@@ -12,6 +13,7 @@ class User:
     replaceUsesOfWith = Method(Void, (ptr(Value), 'From'), (ptr(Value), 'To'))
 
     classof = StaticMethod(Bool, (ptr(Value), 'V'))
+
 
 @Use.body
 class Use:
@@ -27,6 +29,7 @@ class Use:
     getOperandNo = Method(UnsignedInt, const=True)
 
     initTags = StaticMethod(ptr(Use), (ptr(Use), 'Start'), (ptr(Use), 'Stop'))
+
 
 @Operator.body
 class Operator:
