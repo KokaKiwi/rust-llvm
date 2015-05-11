@@ -9,7 +9,4 @@ documentation = "http://kokakiwi.github.io/rust-llvm/doc/llvm/"
 
 [dependencies]
 # libc = "*"
-
-[dependencies.llvm-sys]
-path = "llvm-sys"
-version = "0.0.1"
+llvm_sys = { path = "llvm-sys" }

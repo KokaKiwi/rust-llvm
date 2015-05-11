@@ -9,7 +9,7 @@ pub fn llvm_config(args: &[&str]) -> String {
     let mut cmd = Command::new(&llvm_config);
     cmd.args(args);
 
-    let (output, _, _) = run(&mut cmd);
+    let (output, _, _) = run(cmd);
     output
 }
 
@@ -41,7 +41,7 @@ pub fn link_dirs() -> Vec<PathBuf> {
         }
 
         let dirname = &flag[2..];
-        link_dirs.push(PathBuf::new(dirname));
+        link_dirs.push(PathBuf::from(dirname));
     }
 
     link_dirs
@@ -58,7 +58,7 @@ fn split(s: &str) -> Vec<&str> {
     s.split(is_sep).collect()
 }
 
-fn run(cmd: &mut Command) -> (String, String, ExitStatus) {
+fn run(mut cmd: Command) -> (String, String, ExitStatus) {
 
     let output = cmd.output().unwrap();
 

@@ -1,5 +1,4 @@
-#![unstable]
-extern crate "llvm-sys" as llvm_sys;
+extern crate llvm_sys;
 
 pub use llvm_sys::ffi as ffi;
 // pub use llvm_sys::llvm as api;

@@ -1,7 +1,6 @@
-extern crate "llvm-config" as llvm_config;
-extern crate gxx;
+extern crate gcc;
+extern crate llvm_config;
 
-use std::default::Default;
 use std::env;
 
 fn main() {
@@ -10,12 +9,17 @@ fn main() {
                             .unwrap_or(false);
 
     // Build library
-    let mut config: gxx::Config = Default::default();
+    let mut config = gcc::Config::new();
+    config
+        .cpp(true)
+        .file("src/ffi.cpp");
+
     for flag in llvm_config::cxxflags().into_iter() {
-        config.flags.push(flag);
+        config.flag(&flag);
     }
 
-    gxx::compile_library("llvm_ffi", &config, &["src/ffi.cpp"]);
+    config
+        .compile("libllvm_ffi.a");
 
     // Link flags
     let mut link_flags = Vec::new();
