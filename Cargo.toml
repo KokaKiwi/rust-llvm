@@ -6,7 +6,8 @@ authors = [
     "KokaKiwi <kokakiwi@kokakiwi.net>",
 ]
 documentation = "http://kokakiwi.github.io/rust-llvm/doc/llvm/"
+repository = "https://github.com/KokaKiwi/rust-llvm"
 
 [dependencies]
 # libc = "*"
-llvm_sys = { path = "llvm-sys" }
+llvm-sys = { path = "llvm-sys" }

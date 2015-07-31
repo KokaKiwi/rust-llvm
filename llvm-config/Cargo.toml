@@ -1,5 +1,5 @@
 [package]
 
-name = "llvm_config"
+name = "llvm-config"
 version = "0.0.1"
 authors = ["KokaKiwi <kokakiwi@kokakiwi.net>"]

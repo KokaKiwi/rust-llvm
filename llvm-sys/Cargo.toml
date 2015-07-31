@@ -1,6 +1,6 @@
 [package]
 
-name = "llvm_sys"
+name = "llvm-sys"
 version = "0.0.1"
 authors = [
     "KokaKiwi <kokakiwi@kokakiwi.net>",
@@ -9,4 +9,4 @@ build = "build.rs"
 
 [build-dependencies]
 gcc = "*"
-llvm_config = { path = "../llvm-config" }
+llvm-config = { path = "../llvm-config" }
