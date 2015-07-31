@@ -1,9 +1,9 @@
 from .prelude import *
-from bindgen.ast.visit import VisitorGenerator, TYPE_VISIT_ENTRY
-from bindgen.gen.c import CBindingGenerator
-from bindgen.gen.c.gen.ty import ClassTypeGenerator as CClassTypeGenerator
-from bindgen.gen.c.gen.ty import ENTRY as C_TYPE_ENTRY
-from bindgen.gen.registry import register
+from rust_bindgen.ast.visit import VisitorGenerator, TYPE_VISIT_ENTRY
+from rust_bindgen.gen.c import CBindingGenerator
+from rust_bindgen.gen.c.gen.ty import ClassTypeGenerator as CClassTypeGenerator
+from rust_bindgen.gen.c.gen.ty import ENTRY as C_TYPE_ENTRY
+from rust_bindgen.gen.registry import register
 
 
 class iplistTypeVisitorGenerator(VisitorGenerator):

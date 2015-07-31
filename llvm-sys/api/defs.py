@@ -1,29 +1,46 @@
-from bindgen.ast import *
+from rust_bindgen.ast import *
 from .ns import llvm
+
+# Get LLVM version
+def get_llvm_version():
+    import subprocess
+
+    out = subprocess.check_output(['llvm-config', '--version'], universal_newlines=True)
+    out = out.strip()
+
+    version = [int(part) for part in out.split('.')]
+    version = tuple(version)
+
+    return (version, out)
+
+(LLVM_VERSION, LLVM_VERSION_STR) = get_llvm_version()
 
 # Includes
 
 
 @llvm.body
 class llvm:
-    _includes_ = {
-        'llvm/Analysis/CallGraphSCCPass.h',
-        'llvm/IR/Constants.h',
-        'llvm/IR/DataLayout.h',
-        'llvm/IR/DerivedTypes.h',
-        'llvm/IR/Instruction.h',
-        'llvm/IR/Instructions.h',
-        'llvm/IR/IRBuilder.h',
-        'llvm/IR/LLVMContext.h',
-        'llvm/IR/Module.h',
-        'llvm/IR/Operator.h',
-        'llvm/IR/Type.h',
-        'llvm/IR/Value.h',
-        'llvm/IR/ValueSymbolTable.h',
-        'llvm/IR/Verifier.h',
-        'llvm/LinkAllPasses.h',
-        'llvm/PassManager.h',
-    }
+    if LLVM_VERSION >= (3, 5):
+        _includes_ = {
+            'llvm/Analysis/CallGraphSCCPass.h',
+            'llvm/IR/Constants.h',
+            'llvm/IR/DataLayout.h',
+            'llvm/IR/DerivedTypes.h',
+            'llvm/IR/Instruction.h',
+            'llvm/IR/Instructions.h',
+            'llvm/IR/IRBuilder.h',
+            'llvm/IR/LLVMContext.h',
+            'llvm/IR/Module.h',
+            'llvm/IR/Operator.h',
+            'llvm/IR/Type.h',
+            'llvm/IR/Value.h',
+            'llvm/IR/ValueSymbolTable.h',
+            'llvm/IR/Verifier.h',
+            'llvm/LinkAllPasses.h',
+            'llvm/PassManager.h',
+        }
+    else:
+        raise Exception('Unsupported LLVM version: %s' % (LLVM_VERSION_STR))
 
 # Values
 Value = llvm.Class('Value')

@@ -1,11 +1,11 @@
-from bindgen.ast import *
-from bindgen.gen.c import CBindingGenerator
-from bindgen.gen.c.gen.ty import CTypeGenerator, TypeConvert
-from bindgen.gen.c.gen.ty import ENTRY as C_TYPE_ENTRY
-from bindgen.gen.rust import RustBindingGenerator
-from bindgen.gen.rust.ffi.gen.ty import RustFFITypeGenerator
-from bindgen.gen.rust.ffi.gen.ty import ENTRY as RUST_FFI_TYPE_ENTRY
-from bindgen.gen.registry import register
+from rust_bindgen.ast import *
+from rust_bindgen.gen.c import CBindingGenerator
+from rust_bindgen.gen.c.gen.ty import CTypeGenerator, TypeConvert
+from rust_bindgen.gen.c.gen.ty import ENTRY as C_TYPE_ENTRY
+from rust_bindgen.gen.rust import RustBindingGenerator
+from rust_bindgen.gen.rust.ffi.gen.ty import RustFFITypeGenerator
+from rust_bindgen.gen.rust.ffi.gen.ty import ENTRY as RUST_FFI_TYPE_ENTRY
+from rust_bindgen.gen.registry import register
 from ..ns import llvm
 
 
@@ -30,7 +30,7 @@ class StringRefCTypeGenerator(CTypeGenerator):
 
     @property
     def data_type(self):
-        from bindgen.ast import Pointer, Char
+        from rust_bindgen.ast import Pointer, Char
         return Pointer(Char, const=True)
 
     @property
@@ -86,11 +86,11 @@ class StringRefRustFFITypeGenerator(RustFFITypeGenerator):
 
     @property
     def data_type(self):
-        from bindgen.ast import Pointer, Char
+        from rust_bindgen.ast import Pointer, Char
         return Pointer(Char, const=True)
 
     def proxy(self, root=[], out=False):
-        from bindgen.gen.rust.ffi.gen.ty import Proxy
+        from rust_bindgen.gen.rust.ffi.gen.ty import Proxy
 
         name = self.ffi_name(root) if out else '&str'
 

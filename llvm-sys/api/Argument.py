@@ -1,6 +1,6 @@
 from .prelude import *
-from bindgen.gen.c.gen.func import raw_function as c_raw_function
-from bindgen.gen.c.gen.func import MethodGenerator as CMethodGenerator
+from rust_bindgen.gen.c.gen.func import raw_function as c_raw_function
+from rust_bindgen.gen.c.gen.func import MethodGenerator as CMethodGenerator
 
 
 class PrevCMethodGenerator(CMethodGenerator):

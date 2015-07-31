@@ -1,4 +1,4 @@
-from bindgen.ast import *
+from rust_bindgen.ast import *
 from .ns import llvm
 from .defs import *
 from .ADT.APInt import APInt

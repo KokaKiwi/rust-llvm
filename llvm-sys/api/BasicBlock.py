@@ -1,4 +1,4 @@
-from bindgen.ast import *
+from rust_bindgen.ast import *
 from .defs import *
 from .ADT.StringRef import StringRef
 
