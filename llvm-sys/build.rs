@@ -50,7 +50,7 @@ fn main() {
         }
     }
 
-    let link_flags = link_flags.connect(" ");
+    let link_flags = link_flags.join(" ");
 
     println!("cargo:rustc-flags={}", link_flags);
 }
